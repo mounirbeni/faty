@@ -103,7 +103,7 @@ export default function WelcomeScreen() {
           transition={{ delay: 0.4, duration: 0.6 }}
         >
           <span className="flex items-center justify-center gap-2">
-            مرحباً فاتي
+            Hey Faty
             <Heart size={28} className="text-rose-400 shrink-0 animate-heartbeat" fill="currentColor" />
           </span>
         </motion.h1>
@@ -115,7 +115,7 @@ export default function WelcomeScreen() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.6 }}
         >
-          صنعت هذا خصيصاً لكِ
+          I made this just for you
         </motion.p>
 
         {/* Romantic subtext */}
@@ -125,7 +125,7 @@ export default function WelcomeScreen() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.6 }}
         >
-          لأنكِ تستحقين أكثر من مجرد رسالة نصية
+          Because you deserve more than just a text
         </motion.p>
 
         {/* Love letter card */}
@@ -136,14 +136,13 @@ export default function WelcomeScreen() {
           transition={{ delay: 0.9, duration: 0.6 }}
         >
           <p className="text-[14px] text-white/70 leading-relaxed mb-3">
-            أعلم أننا لم نلتقِ بعد، لكنكِ تعنين لي العالم بأسره. هذه اللعبة الصغيرة هي طريقتي لفهمك بعمق أكبر — أفكارك، أحلامك، وقلبك.
+            I know we haven&apos;t met yet, but you already mean the world to me. This little game is my way of understanding you deeper — your thoughts, your dreams, your heart.
           </p>
           <p className="text-[14px] text-white/70 leading-relaxed mb-3">
-            50 سؤالاً. 5 فصول تتدرج من المرح إلى الرومانسية. أجيبي بصدق — لا توجد إجابات خاطئة، فقط{" "}
-            <span className="text-rose-400 font-semibold">إجابات حقيقية</span>.
+            50 questions. 5 chapters that go from fun to intimate. Answer honestly — there are no wrong answers, only <span className="text-rose-400 font-semibold">real ones</span>.
           </p>
           <p className="text-xs text-white/50 italic text-end">
-            — من شخص لا يطيق الانتظار لرؤية ابتسامتك
+            — From someone who can&apos;t wait to see your smile
           </p>
         </motion.div>
 
@@ -157,18 +156,18 @@ export default function WelcomeScreen() {
           {[
             {
               icon: <RotateCcw size={12} className="text-amber-400" />,
-              label: "3 بطاقات تخطي",
-              desc: "تأجيل لوقت لاحق",
+              label: "3 Reverse Cards",
+              desc: "Skip for later",
             },
             {
               icon: <Thermometer size={12} className="text-rose-400" />,
-              label: "مقياس الحرارة",
-              desc: "شاهدي الأجواء تدفأ",
+              label: "Vibe Meter",
+              desc: "Watch it heat up",
             },
             {
               icon: <Lock size={12} className="text-red-400" />,
-              label: "كبسولة الزمن",
-              desc: "أسرار ليوم اللقاء",
+              label: "Time Capsule",
+              desc: "Secrets for later",
             },
           ].map((f) => (
             <div
@@ -193,11 +192,11 @@ export default function WelcomeScreen() {
           transition={{ delay: 1.3, duration: 0.6 }}
         >
           <span className="flex items-center justify-center gap-2">
-            <Play size={18} fill="currentColor" className="rotate-180" />
-            لنبدأ قصتنا
+            <Play size={18} fill="currentColor" />
+            Begin Our Story
             <ArrowLeft
               size={18}
-              className="transition-transform group-hover:-translate-x-1"
+              className="transition-transform group-hover:translate-x-1 rotate-180"
             />
           </span>
         </motion.button>

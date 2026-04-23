@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Heart, ArrowLeft } from "lucide-react";
+import { Heart, ArrowRight } from "lucide-react";
 import { levels, levelIntros } from "@/lib/questions";
 import IconFromName from "./IconFromName";
 
@@ -105,8 +105,8 @@ export default function LevelIntro({ level, onContinue }: LevelIntroProps) {
           transition={{ delay: 1.0, duration: 0.5 }}
         >
           <Heart size={16} fill="currentColor" />
-          أنا مستعدة
-          <ArrowLeft size={16} />
+          I&apos;m Ready
+          <ArrowRight size={16} />
         </motion.button>
 
         {/* Question count hint */}
@@ -116,7 +116,7 @@ export default function LevelIntro({ level, onContinue }: LevelIntroProps) {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.5 }}
         >
-          10 أسئلة في هذا الفصل
+          10 questions in this chapter
         </motion.p>
       </motion.div>
     </motion.div>

@@ -130,7 +130,7 @@ export default function CompletionScreen() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
         >
-          أنتِ رائعة يا فاتي
+          You are amazing, Faty
         </motion.h1>
 
         <motion.p
@@ -139,7 +139,7 @@ export default function CompletionScreen() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.6 }}
         >
-          شكراً لكِ على كل إجابة وكل كلمة
+          Thank you for every answer and every word
         </motion.p>
 
         <motion.div
@@ -149,13 +149,13 @@ export default function CompletionScreen() {
           transition={{ delay: 0.9, duration: 0.6 }}
         >
           <p className="text-[14px] text-white/60 leading-relaxed mb-3">
-            كل كلمة كتبتيها جعلت قلبي ينبض بشكل أسرع. كنت أعرف بالفعل أنكِ مميزة، ولكن الآن أعلم أنكِ <span className="text-rose-400 font-semibold">كل شيء بالنسبة لي</span>.
+            Every word you wrote made my heart beat faster. I already knew you were special, but now I know you are <span className="text-rose-400 font-semibold">everything to me</span>.
           </p>
           <p className="text-[14px] text-white/60 leading-relaxed mb-3">
-            بعض إجاباتك مغلقة في كبسولة الزمن — ولن تظهر إلا عندما أنظر في عينيكِ قريباً. وبصراحة؟ أنا لا أطيق الانتظار لذلك اليوم.
+            Some of your answers are locked in the Time Capsule — and will only be revealed when I look into your eyes soon. And honestly? I cannot wait for that day.
           </p>
           <p className="text-xs text-white/40 italic flex items-center justify-end gap-1.5 mt-2">
-            لكِ دائماً
+            Always yours
             <Heart size={10} className="text-rose-400/60" fill="currentColor" />
           </p>
         </motion.div>
@@ -169,17 +169,17 @@ export default function CompletionScreen() {
           <div className="glass-strong rounded-2xl py-3 px-2 text-center flex flex-col items-center">
             <Heart size={16} className="text-rose-400 mb-1.5" fill="currentColor" />
             <div className="text-xl font-bold text-white leading-none">{answeredCount}</div>
-            <div className="text-[10px] text-white/40 mt-1">أجبتِ</div>
+            <div className="text-[10px] text-white/40 mt-1">Answered</div>
           </div>
           <div className="glass-strong rounded-2xl py-3 px-2 text-center flex flex-col items-center">
             <RotateCcw size={16} className="text-amber-400 mb-1.5" />
             <div className="text-xl font-bold text-white leading-none">{reversedCount}</div>
-            <div className="text-[10px] text-white/40 mt-1">تخطيتِ</div>
+            <div className="text-[10px] text-white/40 mt-1">Skipped</div>
           </div>
           <div className="glass-strong rounded-2xl py-3 px-2 text-center flex flex-col items-center">
             <Lock size={16} className="text-red-400 mb-1.5" />
             <div className="text-xl font-bold text-white leading-none">{capsuleCount}</div>
-            <div className="text-[10px] text-white/40 mt-1">قُفِلت</div>
+            <div className="text-[10px] text-white/40 mt-1">Locked</div>
           </div>
         </motion.div>
 
@@ -192,15 +192,15 @@ export default function CompletionScreen() {
           <div className="flex items-center justify-center gap-2 mb-2">
             <Plane size={14} className="text-rose-400" />
             <span className="text-[10px] font-bold text-rose-400 uppercase tracking-widest">
-              العد التنازلي للقائنا
+              Meeting Countdown
             </span>
           </div>
           <p className="text-lg font-bold text-white mb-1 flex items-center justify-center gap-2">
-            نلتقي الشهر القادم
+            We meet next month
             <Plane size={16} className="text-white/60" />
           </p>
           <p className="text-[13px] text-white/40 mb-3">
-            الفصل الأول من قصتنا معاً سيبدأ قريباً...
+            The first chapter of our story together begins soon...
           </p>
           <div className="flex items-center justify-center gap-1">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -223,7 +223,7 @@ export default function CompletionScreen() {
           transition={{ delay: 1.6, duration: 0.6 }}
         >
           <RefreshCw size={16} />
-          العب مرة أخرى
+          Play Again
         </motion.button>
       </div>
     </motion.div>

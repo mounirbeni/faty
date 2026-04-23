@@ -49,7 +49,7 @@ export default function Toast({
           </p>
           <p className="text-[11px] text-rose-300/60 mt-1 flex items-center gap-1">
             <Heart size={10} fill="currentColor" />
-            حُفظت بحب
+            Saved with love
           </p>
         </div>
         <button

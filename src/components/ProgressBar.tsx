@@ -23,25 +23,25 @@ export default function VibeMeter({ total, level }: { total: number; level: numb
         <motion.div
           key={level}
           className="flex items-center gap-2"
-          initial={{ opacity: 0, x: 10 }}
+          initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3 }}
         >
           <span
             className={`
-              inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider
+              inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider
               bg-gradient-to-r ${meta.colorFrom} ${meta.colorTo} text-white shadow-lg
             `}
           >
             <IconFromName name={meta.icon} size={12} />
-            الفصل {level}
+            Chapter {level}
           </span>
           <span className="text-xs text-white/40 font-medium hidden sm:inline">
             {meta.title}
           </span>
         </motion.div>
 
-        <span className="text-xs font-semibold text-white/40 tabular-nums" dir="ltr">
+        <span className="text-xs font-semibold text-white/40 tabular-nums">
           {current + 1} / {total}
         </span>
       </div>

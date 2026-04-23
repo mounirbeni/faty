@@ -97,7 +97,7 @@ export default function GameScreen() {
     setLoveNoteTrigger((t) => t + 1);
 
     if (isTimeCapsule && !isReversed) {
-      setToastMsg("تم قفل الإجابة! سنكشف عنها عند لقائنا وجهاً لوجه.");
+      setToastMsg("Answer locked! It will only be revealed when we meet face-to-face.");
       setToastVisible(true);
     }
 
@@ -172,9 +172,9 @@ export default function GameScreen() {
             <div className="text-xs text-white/30 font-medium flex items-center gap-1.5">
               <IconFromName name={levelMeta.icon} size={13} className="text-white/40" />
               <span className="hidden sm:inline">{levelMeta.title}</span>
-              <span className="sm:hidden">الفصل {currentQuestion.level}</span>
+              <span className="sm:hidden">Lvl {currentQuestion.level}</span>
               <span className="text-white/15 mx-1">·</span>
-              <span className="text-white/20" dir="ltr">{posInLevel} / {levelEnd}</span>
+              <span className="text-white/20">{posInLevel} / {levelEnd}</span>
             </div>
             <button
               onClick={handleUseReverseCard}
@@ -183,7 +183,7 @@ export default function GameScreen() {
             >
               <RotateCcw size={14} className="text-amber-400" />
               <span>{reverseCardsLeft}</span>
-              <span className="hidden sm:inline">تخطي</span>
+              <span className="hidden sm:inline">Reverse</span>
             </button>
           </div>
         </div>
@@ -233,20 +233,20 @@ export default function GameScreen() {
                         <RotateCcw size={24} className="text-white" />
                       </motion.div>
                       <h3 className="text-lg font-bold text-white mb-2 flex items-center justify-center gap-2">
-                        استخدمتِ بطاقة تخطي!
+                        Reverse Card Played!
                         <RotateCcw size={16} className="text-amber-400" />
                       </h3>
                       <p className="text-xs text-white/50 mb-2 max-w-xs leading-relaxed">
-                        سأجيب أنا على هذا السؤال عندما نلتقي شخصياً.
+                        I&apos;ll answer this one myself when we meet in person.
                       </p>
                       <p className="text-[11px] text-white/30 italic mb-5">
-                        لا مفر — ستسمعين الإجابة وجهاً لوجه
+                        No escaping it — you&apos;ll hear my answer face-to-face
                       </p>
                       <button
                         onClick={() => undoReverse(currentQuestion.id)}
                         className="text-[11px] text-amber-400/70 active:text-amber-400 underline underline-offset-2 transition-colors cursor-pointer"
                       >
-                        تراجع — سأجيب بنفسي
+                        Undo — I&apos;ll answer it myself
                       </button>
                     </div>
                   ) : (
@@ -254,7 +254,7 @@ export default function GameScreen() {
                       <div className="flex items-center gap-2 mb-4">
                         <span
                           className={`
-                            inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider
+                            inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase
                             ${isTimeCapsule
                               ? "bg-red-500/20 text-red-300 ring-1 ring-red-500/30"
                               : "bg-white/10 text-white/60"
@@ -262,15 +262,15 @@ export default function GameScreen() {
                           `}
                         >
                           {currentQuestion.type === "text" ? <Pen size={10} /> : <MessageCircleHeart size={10} />}
-                          {currentQuestion.type === "text" ? "كتابي" : "اختياري"}
+                          {currentQuestion.type === "text" ? "Open" : "Pick One"}
                         </span>
                         {isTimeCapsule && (
-                          <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-bold bg-red-500/20 text-red-300 ring-1 ring-red-500/30">
+                          <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-bold bg-red-500/20 text-red-300 ring-1 ring-red-500/30 uppercase">
                             <Lock size={9} />
-                            كبسولة الزمن
+                            Time Capsule
                           </span>
                         )}
-                        <span className="me-auto text-[10px] text-white/25 font-mono" dir="ltr">
+                        <span className="ms-auto text-[10px] text-white/25 font-mono">
                           Q{currentQuestion.id}
                         </span>
                       </div>
@@ -318,8 +318,8 @@ export default function GameScreen() {
             disabled={isFirst}
             className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl text-sm font-semibold text-white/60 glass active:scale-95 transition-all disabled:opacity-20 disabled:pointer-events-none cursor-pointer"
           >
-            <ArrowRight size={18} />
-            السابق
+            <ArrowLeft size={18} />
+            Back
           </motion.button>
 
           <motion.button
@@ -329,25 +329,25 @@ export default function GameScreen() {
               flex-1 flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-sm font-bold text-white shadow-lg active:scale-95 transition-all cursor-pointer
               disabled:opacity-30 disabled:pointer-events-none
               ${isTimeCapsule
-                ? "bg-gradient-to-l from-red-600 to-rose-600 shadow-red-600/30"
-                : "bg-gradient-to-l from-rose-500 to-pink-500 shadow-rose-500/30"
+                ? "bg-gradient-to-r from-red-600 to-rose-600 shadow-red-600/30"
+                : "bg-gradient-to-r from-rose-500 to-pink-500 shadow-rose-500/30"
               }
             `}
           >
             {isLast ? (
               <>
                 <Heart size={16} fill="currentColor" />
-                إنهاء
+                Finish
               </>
             ) : isTimeCapsule ? (
               <>
                 <Lock size={14} />
-                قفل والتالي
+                Lock & Next
               </>
             ) : (
               <>
-                <ArrowLeft size={18} />
-                التالي
+                Next
+                <ArrowRight size={18} />
               </>
             )}
           </motion.button>
@@ -392,7 +392,7 @@ function TextInput({
         className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-2xl text-white placeholder:text-white/25 focus:outline-none focus:ring-2 focus:ring-rose-500/50 resize-none transition-all text-[15px] leading-relaxed"
       />
       {value.length > 0 && (
-        <span className="absolute bottom-3 end-3 text-[10px] text-white/20 tabular-nums" dir="ltr">
+        <span className="absolute bottom-3 end-3 text-[10px] text-white/20 tabular-nums">
           {value.length}
         </span>
       )}
