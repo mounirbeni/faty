@@ -95,6 +95,56 @@ export const levels: LevelMeta[] = [
   },
 ];
 
+// ─── Romantic love notes shown between questions ─────────────────────
+
+export const loveNotes: string[] = [
+  "Every answer makes me fall for you a little more…",
+  "I could read your words forever.",
+  "You have no idea how much this means to me.",
+  "I'm smiling so hard right now.",
+  "I can't wait to hear you say these things in person.",
+  "My heart skipped reading that.",
+  "You're the best thing that happened to my timeline.",
+  "I hope you know how special you are.",
+  "One month. Just one more month.",
+  "Keep going… it gets even better.",
+  "I already know I'm the luckiest.",
+  "Your honesty is everything to me.",
+  "I wish I could hug you through this screen.",
+  "This is exactly why I can't stop thinking about you.",
+  "You make distance feel like nothing.",
+];
+
+// ─── Level intro messages ────────────────────────────────────────────
+
+export const levelIntros: Record<number, { title: string; subtitle: string; message: string }> = {
+  1: {
+    title: "Chapter One",
+    subtitle: "First Meeting & Expectations",
+    message: "Before we meet, I want to know what's going on in that beautiful mind of yours. Let's start easy…",
+  },
+  2: {
+    title: "Chapter Two",
+    subtitle: "How You See Me",
+    message: "Now I want to see myself through your eyes. Be honest — the good and the real.",
+  },
+  3: {
+    title: "Chapter Three",
+    subtitle: "Emotional Depth",
+    message: "We're going deeper now. These questions matter to me. Take your time with each one.",
+  },
+  4: {
+    title: "Chapter Four",
+    subtitle: "Fun & Hypothetical",
+    message: "Time to have some fun together. Let your imagination run wild — I want to dream with you.",
+  },
+  5: {
+    title: "Chapter Five",
+    subtitle: "Intimate & Romantic",
+    message: "This is the part where it's just us. No walls, no filters. These answers stay locked until we meet.",
+  },
+};
+
 // ─── Helper ──────────────────────────────────────────────────────────
 
 function getLevelMeta(level: number) {

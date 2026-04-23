@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
@@ -10,6 +10,7 @@ import {
   RotateCcw,
   Pen,
   MessageCircleHeart,
+  Heart,
 } from "lucide-react";
 import {
   questions,
@@ -21,6 +22,9 @@ import {
 import VibeMeter from "./ProgressBar";
 import Toast from "./Toast";
 import IconFromName from "./IconFromName";
+import LevelIntro from "./LevelIntro";
+import HeartBurst from "./HeartBurst";
+import LoveNote from "./LoveNote";
 
 // ─── Constants ───────────────────────────────────────────────────────
 
@@ -30,10 +34,10 @@ const MAX_REVERSE_CARDS = 3;
 
 const cardVariants = {
   enter: (dir: number) => ({
-    x: dir > 0 ? 300 : -300,
+    x: dir > 0 ? 280 : -280,
     opacity: 0,
-    rotateY: dir > 0 ? 6 : -6,
-    scale: 0.95,
+    rotateY: dir > 0 ? 5 : -5,
+    scale: 0.94,
   }),
   center: {
     x: 0,
@@ -42,10 +46,10 @@ const cardVariants = {
     scale: 1,
   },
   exit: (dir: number) => ({
-    x: dir > 0 ? -300 : 300,
+    x: dir > 0 ? -280 : 280,
     opacity: 0,
-    rotateY: dir > 0 ? -6 : 6,
-    scale: 0.95,
+    rotateY: dir > 0 ? -5 : 5,
+    scale: 0.94,
   }),
 };
 
@@ -72,6 +76,10 @@ export default function GameScreen({ onComplete }: GameScreenProps) {
   const [isFlipping, setIsFlipping] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
+  const [heartBurstTrigger, setHeartBurstTrigger] = useState(0);
+  const [loveNoteTrigger, setLoveNoteTrigger] = useState(0);
+  const [showLevelIntro, setShowLevelIntro] = useState(true); // show for level 1 on mount
+  const seenLevelsRef = useRef<Set<number>>(new Set([1])); // track which level intros we've shown
 
   const currentQuestion: Question = questions[currentIndex];
   const isFirst = currentIndex === 0;
@@ -94,6 +102,10 @@ export default function GameScreen({ onComplete }: GameScreenProps) {
   const goNext = useCallback(() => {
     if (!hasAnswer) return;
 
+    // Heart burst + love note
+    setHeartBurstTrigger((t) => t + 1);
+    setLoveNoteTrigger((t) => t + 1);
+
     // Time Capsule toast on Level 5
     if (isTimeCapsule && !isReversed) {
       setToastMsg("Answer locked! It will only be revealed when we meet face-to-face.");
@@ -109,9 +121,26 @@ export default function GameScreen({ onComplete }: GameScreenProps) {
       }));
       onComplete(allAnswers);
     } else {
-      setCurrentIndex((i) => i + 1);
+      const nextIndex = currentIndex + 1;
+      const nextQuestion = questions[nextIndex];
+
+      // Check if we're entering a new level
+      if (nextQuestion.level !== currentQuestion.level) {
+        const nextLevel = nextQuestion.level;
+        if (!seenLevelsRef.current.has(nextLevel)) {
+          seenLevelsRef.current.add(nextLevel);
+          // Delay transition to let heart burst play
+          setTimeout(() => {
+            setCurrentIndex(nextIndex);
+            setShowLevelIntro(true);
+          }, 400);
+          return;
+        }
+      }
+
+      setCurrentIndex(nextIndex);
     }
-  }, [hasAnswer, isTimeCapsule, isReversed, isLast, answers, reversed, onComplete]);
+  }, [hasAnswer, isTimeCapsule, isReversed, isLast, answers, reversed, onComplete, currentIndex, currentQuestion.level]);
 
   const goPrev = useCallback(() => {
     if (isFirst) return;
@@ -139,6 +168,12 @@ export default function GameScreen({ onComplete }: GameScreenProps) {
     setReverseCardsLeft((c) => c + 1);
   }, [currentQuestion.id]);
 
+  // ─── Question position within level ──────────────────────────────
+
+  const levelStart = questions.findIndex((q) => q.level === currentQuestion.level);
+  const levelEnd = questions.filter((q) => q.level === currentQuestion.level).length;
+  const posInLevel = currentIndex - levelStart + 1;
+
   // ─── Render ──────────────────────────────────────────────────────
 
   return (
@@ -151,24 +186,33 @@ export default function GameScreen({ onComplete }: GameScreenProps) {
     >
       {/* Ambient glow based on level */}
       <div
-        className="fixed top-0 inset-x-0 h-[60vh] pointer-events-none opacity-20 blur-[120px] transition-colors duration-1000"
+        className="fixed top-0 inset-x-0 h-[60vh] pointer-events-none opacity-25 blur-[120px] transition-all duration-1000"
         style={{ background: `radial-gradient(ellipse at top, ${levelMeta.accentHex}, transparent 70%)` }}
+      />
+
+      {/* Subtle bottom glow */}
+      <div
+        className="fixed bottom-0 inset-x-0 h-[30vh] pointer-events-none opacity-10 blur-[100px] transition-all duration-1000"
+        style={{ background: `radial-gradient(ellipse at bottom, ${levelMeta.accentHex}, transparent 70%)` }}
       />
 
       <div className="relative z-10 w-full max-w-lg flex flex-col flex-1">
         {/* ── Header: Vibe Meter + Reverse Cards ── */}
-        <div className="mb-6">
+        <div className="mb-5">
           <VibeMeter
             current={currentIndex}
             total={questions.length}
             level={currentQuestion.level}
           />
 
-          {/* Reverse Card Counter */}
+          {/* Level label + Reverse Card */}
           <div className="flex items-center justify-between mt-3">
             <div className="text-xs text-white/30 font-medium flex items-center gap-1.5">
               <IconFromName name={levelMeta.icon} size={13} className="text-white/40" />
-              {levelMeta.title}
+              <span className="hidden sm:inline">{levelMeta.title}</span>
+              <span className="sm:hidden">Lvl {currentQuestion.level}</span>
+              <span className="text-white/15 mx-1">·</span>
+              <span className="text-white/20">{posInLevel}/{levelEnd}</span>
             </div>
             <button
               onClick={useReverseCard}
@@ -210,8 +254,11 @@ export default function GameScreen({ onComplete }: GameScreenProps) {
               >
                 <div
                   className={`
-                    glass-strong rounded-3xl p-6 sm:p-8 shadow-2xl
-                    ${isTimeCapsule ? "ring-1 ring-red-500/30 shadow-red-500/10" : "shadow-black/20"}
+                    rounded-3xl p-6 sm:p-8 shadow-2xl
+                    ${isTimeCapsule
+                      ? "glass-warm ring-1 ring-red-500/20 shadow-red-500/10"
+                      : "glass-strong shadow-black/20"
+                    }
                   `}
                 >
                   {isReversed ? (
@@ -229,9 +276,11 @@ export default function GameScreen({ onComplete }: GameScreenProps) {
                         Reverse Card Played!
                         <RotateCcw size={18} className="text-amber-400" />
                       </h3>
-                      <p className="text-sm text-white/50 mb-6 max-w-xs">
+                      <p className="text-sm text-white/50 mb-2 max-w-xs">
                         This one is for me to answer when we meet in person.
-                        No escaping it!
+                      </p>
+                      <p className="text-xs text-white/30 italic mb-6">
+                        No escaping it — you&apos;ll hear my answer face-to-face
                       </p>
                       <button
                         onClick={undoReverse}
@@ -339,7 +388,7 @@ export default function GameScreen({ onComplete }: GameScreenProps) {
           >
             {isLast ? (
               <>
-                <Check size={16} />
+                <Heart size={16} fill="currentColor" />
                 Finish
               </>
             ) : isTimeCapsule ? (
@@ -356,6 +405,23 @@ export default function GameScreen({ onComplete }: GameScreenProps) {
           </motion.button>
         </div>
       </div>
+
+      {/* Level Intro Overlay */}
+      <AnimatePresence>
+        {showLevelIntro && (
+          <LevelIntro
+            key={`level-intro-${currentQuestion.level}`}
+            level={currentQuestion.level}
+            onContinue={() => setShowLevelIntro(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Heart Burst Effect */}
+      <HeartBurst trigger={heartBurstTrigger} />
+
+      {/* Love Note */}
+      <LoveNote trigger={loveNoteTrigger} />
 
       {/* Time Capsule Toast */}
       <Toast

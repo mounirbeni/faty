@@ -9,19 +9,20 @@ import {
   RotateCcw,
   Thermometer,
   Lock,
+  Star,
 } from "lucide-react";
 
 interface WelcomeScreenProps {
   onStart: () => void;
 }
 
-const floatingParticles = Array.from({ length: 12 }, (_, i) => ({
+const floatingParticles = Array.from({ length: 14 }, (_, i) => ({
   id: i,
   x: Math.random() * 100,
   delay: Math.random() * 5,
   duration: 5 + Math.random() * 4,
   size: 8 + Math.random() * 14,
-  opacity: 0.15 + Math.random() * 0.25,
+  opacity: 0.12 + Math.random() * 0.2,
 }));
 
 export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
@@ -33,9 +34,10 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.6 }}
     >
-      {/* Ambient background glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-rose-600/20 via-pink-500/10 to-transparent blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-violet-600/15 to-transparent blur-[80px] pointer-events-none" />
+      {/* Ambient background glows */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-rose-600/20 via-pink-500/10 to-transparent blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] rounded-full bg-gradient-to-tl from-violet-600/15 to-transparent blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-0 w-[300px] h-[300px] rounded-full bg-gradient-to-br from-rose-500/10 to-transparent blur-[80px] pointer-events-none" />
 
       {/* Floating Hearts */}
       {floatingParticles.map((p) => (
@@ -64,16 +66,20 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center max-w-md">
-        {/* Icon */}
+        {/* Heartbeat icon with rings */}
         <motion.div
           className="relative mb-10"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 180, damping: 14, delay: 0.2 }}
+          transition={{ type: "spring", stiffness: 160, damping: 14, delay: 0.2 }}
         >
-          <div className="w-28 h-28 rounded-full bg-gradient-to-br from-rose-500 via-pink-500 to-red-500 flex items-center justify-center shadow-2xl shadow-rose-600/40 animate-float">
-            <Heart size={44} className="text-white" fill="white" />
+          <div className="w-28 h-28 rounded-full bg-gradient-to-br from-rose-500 via-pink-500 to-red-500 flex items-center justify-center shadow-2xl shadow-rose-600/40">
+            <Heart size={44} className="text-white animate-heartbeat" fill="white" />
           </div>
+          {/* Pulse rings */}
+          <div className="absolute inset-0 rounded-full border-2 border-rose-400/30 animate-pulse-ring" />
+          <div className="absolute inset-0 rounded-full border border-rose-400/20 animate-pulse-ring" style={{ animationDelay: "0.5s" }} />
+
           <motion.div
             className="absolute -top-2 -left-2"
             animate={{ rotate: [0, 20, -20, 0], scale: [1, 1.2, 1] }}
@@ -86,51 +92,71 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
             animate={{ scale: [1, 1.3, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
           >
-            <Heart size={16} className="text-pink-400" fill="currentColor" />
+            <Star size={16} className="text-amber-300" fill="currentColor" />
           </motion.div>
         </motion.div>
 
-        {/* Title */}
+        {/* Personal greeting */}
         <motion.h1
-          className="text-5xl sm:text-6xl font-extrabold mb-4 leading-tight bg-gradient-to-r from-rose-400 via-pink-400 to-red-400 text-gradient"
+          className="text-5xl sm:text-6xl font-extrabold mb-3 leading-tight bg-gradient-to-r from-rose-400 via-pink-300 to-red-400 text-gradient"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.6 }}
         >
           <span className="flex items-center justify-center gap-3">
             Hey Faty
-            <Heart size={36} className="text-rose-400 shrink-0" fill="currentColor" />
+            <Heart size={36} className="text-rose-400 shrink-0 animate-heartbeat" fill="currentColor" />
           </span>
         </motion.h1>
 
-        {/* Subtitle */}
+        {/* Love message */}
         <motion.p
-          className="text-lg sm:text-xl text-white/70 font-medium mb-3"
+          className="text-lg sm:text-xl text-white/70 font-medium mb-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.6 }}
         >
-          I made something special for us
+          I made this just for you
         </motion.p>
 
-        {/* Description */}
+        {/* Romantic subtext */}
         <motion.p
-          className="text-base text-white/45 leading-relaxed mb-10"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          className="text-sm text-rose-300/50 italic mb-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.6 }}
         >
-          50 questions. 5 levels. From icebreakers to the things that really
-          matter. Answer honestly — there are no wrong answers, only{" "}
-          <span className="text-rose-400 font-semibold">real ones</span>.
+          Because you deserve more than just a text
         </motion.p>
+
+        {/* Love letter card */}
+        <motion.div
+          className="w-full glass-warm rounded-3xl p-6 mb-8 text-start"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9, duration: 0.6 }}
+        >
+          <p className="text-[15px] text-white/60 leading-relaxed mb-3">
+            I know we haven&apos;t met yet, but you already mean the world to
+            me. This little game is my way of understanding you deeper —
+            your thoughts, your dreams, your heart.
+          </p>
+          <p className="text-[15px] text-white/60 leading-relaxed mb-3">
+            50 questions. 5 levels that go from fun to intimate.
+            Answer honestly — there are no wrong answers, only{" "}
+            <span className="text-rose-400 font-semibold">real ones</span>.
+          </p>
+          <p className="text-sm text-white/40 italic">
+            — From someone who can&apos;t wait to finally see your smile
+          </p>
+        </motion.div>
 
         {/* Feature pills */}
         <motion.div
-          className="flex flex-wrap justify-center gap-2 mb-10"
+          className="flex flex-wrap justify-center gap-2 mb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.0, duration: 0.6 }}
+          transition={{ delay: 1.1, duration: 0.6 }}
         >
           {[
             {
@@ -168,13 +194,13 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
           className="group relative px-10 py-4 bg-gradient-to-r from-rose-500 to-red-500 text-white font-bold text-lg rounded-2xl shadow-2xl shadow-rose-600/30 hover:shadow-rose-500/50 transition-shadow duration-300 cursor-pointer"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
+          transition={{ delay: 1.3, duration: 0.6 }}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
         >
           <span className="flex items-center gap-2">
             <Play size={20} fill="currentColor" />
-            Start the Journey
+            Begin Our Story
             <ArrowLeft
               size={18}
               className="transition-transform group-hover:-translate-x-1"
@@ -189,12 +215,12 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 0.6 }}
         >
+          5 chapters
+          <span className="text-white/15">·</span>
           50 questions
           <span className="text-white/15">·</span>
-          ~15 minutes
-          <span className="text-white/15">·</span>
           <Heart size={10} className="text-rose-400/50" fill="currentColor" />
-          lots of love
+          all my love
         </motion.p>
       </div>
     </motion.div>

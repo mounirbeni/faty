@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Lock, X } from "lucide-react";
+import { Lock, X, Heart } from "lucide-react";
 
 interface ToastProps {
   message: string;
-  icon?: "lock" | "reverse";
   visible: boolean;
   onDismiss: () => void;
   durationMs?: number;
@@ -13,7 +12,6 @@ interface ToastProps {
 
 export default function Toast({
   message,
-  icon = "lock",
   visible,
   onDismiss,
   durationMs = 4000,
@@ -37,17 +35,23 @@ export default function Toast({
       <div
         className={`
           pointer-events-auto max-w-sm w-full px-5 py-4 rounded-2xl
-          glass-strong shadow-2xl shadow-rose-500/20
+          glass-warm shadow-2xl shadow-rose-500/20
           flex items-center gap-3
           ${exiting ? "animate-toast-out" : "animate-toast-in"}
         `}
       >
-        <div className="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center">
+        <div className="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center animate-bounce-in">
           <Lock size={18} className="text-white" />
         </div>
-        <p className="flex-1 text-sm font-medium text-white/90 leading-snug">
-          {message}
-        </p>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium text-white/90 leading-snug">
+            {message}
+          </p>
+          <p className="text-[11px] text-rose-300/50 mt-0.5 flex items-center gap-1">
+            <Heart size={9} fill="currentColor" />
+            Saved with love
+          </p>
+        </div>
         <button
           onClick={() => {
             setExiting(true);
