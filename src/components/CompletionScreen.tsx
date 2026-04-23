@@ -196,7 +196,7 @@ export default function CompletionScreen() {
             </span>
           </div>
           <p className="text-lg font-bold text-white mb-1 flex items-center justify-center gap-2">
-            We meet next month
+            We meet on May 11
             <Plane size={16} className="text-white/60" />
           </p>
           <p className="text-[13px] text-white/40 mb-3">

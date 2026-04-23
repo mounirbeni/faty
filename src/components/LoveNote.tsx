@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { Heart } from "lucide-react";
-import { loveNotes } from "@/lib/questions";
+import { loveNotes } from "@/data/meta";
 
 interface LoveNoteProps {
   trigger: number; // increment to show a new note
@@ -30,14 +30,19 @@ export default function LoveNote({ trigger }: LoveNoteProps) {
     } while (usedRef.current.has(idx) && usedRef.current.size < loveNotes.length);
     usedRef.current.add(idx);
 
-    setNote(loveNotes[idx]);
-    setVisible(true);
+    const showTimer = setTimeout(() => {
+      setNote(loveNotes[idx]);
+      setVisible(true);
+    }, 10);
 
-    const timer = setTimeout(() => {
+    const hideTimer = setTimeout(() => {
       setVisible(false);
-    }, 3000);
+    }, 3010);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+    };
   }, [trigger]);
 
   if (!visible || !note) return null;

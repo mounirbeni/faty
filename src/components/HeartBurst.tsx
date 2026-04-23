@@ -11,6 +11,7 @@ interface Particle {
   size: number;
   rotation: number;
   delay: number;
+  duration: number;
 }
 
 interface HeartBurstProps {
@@ -35,12 +36,18 @@ export default function HeartBurst({ trigger }: HeartBurstProps) {
       size: 10 + Math.random() * 14,
       rotation: Math.random() * 360,
       delay: Math.random() * 0.15,
+      duration: 0.8 + Math.random() * 0.3,
     }));
 
-    setParticles(newParticles);
+    const showTimer = setTimeout(() => {
+      setParticles(newParticles);
+    }, 10);
 
     const timeout = setTimeout(() => setParticles([]), 1200);
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(timeout);
+    };
   }, [trigger]);
 
   return (
@@ -66,7 +73,7 @@ export default function HeartBurst({ trigger }: HeartBurstProps) {
             }}
             exit={{ opacity: 0 }}
             transition={{
-              duration: 0.8 + Math.random() * 0.3,
+              duration: p.duration,
               delay: p.delay,
               ease: "easeOut",
             }}

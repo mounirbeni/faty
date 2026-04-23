@@ -2,17 +2,17 @@
 
 import { motion } from "framer-motion";
 import { Heart, ArrowRight } from "lucide-react";
-import { levels, levelIntros } from "@/lib/questions";
+import { categoriesMeta, categoryIntros } from "@/data/meta";
 import IconFromName from "./IconFromName";
 
 interface LevelIntroProps {
-  level: number;
+  category: number;
   onContinue: () => void;
 }
 
-export default function LevelIntro({ level, onContinue }: LevelIntroProps) {
-  const meta = levels[level - 1];
-  const intro = levelIntros[level];
+export default function LevelIntro({ category, onContinue }: LevelIntroProps) {
+  const meta = categoriesMeta[category - 1];
+  const intro = categoryIntros[category];
 
   return (
     <motion.div

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { questions, type Answer } from '@/lib/questions';
+import { questionsData } from '@/data/questions';
 
 type AppPhase = 'welcome' | 'game' | 'complete';
 
@@ -15,7 +15,7 @@ interface GameState {
   setAnswer: (questionId: number, value: string) => void;
   goNext: () => void;
   goPrev: () => void;
-  useReverseCard: (questionId: number) => void;
+  playReverseCard: (questionId: number) => void;
   undoReverse: (questionId: number) => void;
   resetGame: () => void;
 }
@@ -38,13 +38,13 @@ export const useGameStore = create<GameState>((set, get) => ({
 
   goNext: () => {
     const { currentIndex, answers, reversed } = get();
-    const currentQ = questions[currentIndex];
+    const currentQ = questionsData[currentIndex];
     
     // Validate answer exists
     const hasAnswer = (answers[currentQ.id] && answers[currentQ.id].trim().length > 0) || reversed.has(currentQ.id);
     if (!hasAnswer) return;
 
-    if (currentIndex === questions.length - 1) {
+    if (currentIndex === questionsData.length - 1) {
       set({ phase: 'complete' });
     } else {
       set({ currentIndex: currentIndex + 1 });
@@ -58,7 +58,7 @@ export const useGameStore = create<GameState>((set, get) => ({
     }
   },
 
-  useReverseCard: (questionId) => {
+  playReverseCard: (questionId) => {
     const { reverseCardsLeft, reversed } = get();
     if (reverseCardsLeft > 0 && !reversed.has(questionId)) {
       const newReversed = new Set(reversed);

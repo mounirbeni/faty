@@ -12,12 +12,8 @@ import {
   MessageCircleHeart,
   Heart,
 } from "lucide-react";
-import {
-  questions,
-  levels,
-  type Question,
-  type MultipleChoiceQuestion,
-} from "@/lib/questions";
+import { questionsData as questions, type Question } from "@/data/questions";
+import { categoriesMeta } from "@/data/meta";
 import VibeMeter from "./ProgressBar";
 import Toast from "./Toast";
 import IconFromName from "./IconFromName";
@@ -49,6 +45,16 @@ const cardVariants = {
   }),
 };
 
+// ─── Theme Mapping ───────────────────────────────────────────────────
+
+const categoryStyles: Record<number, { ring: string; shadow: string; bgGradient: string; buttonGradient: string; tagColor: string }> = {
+  1: { ring: "focus:ring-sky-500/50 ring-sky-400/30", shadow: "shadow-sky-500/20", bgGradient: "bg-gradient-to-r from-sky-500/90 to-indigo-500/90", buttonGradient: "bg-gradient-to-r from-sky-400 to-indigo-400", tagColor: "bg-sky-500/20 text-sky-300 ring-1 ring-sky-500/30" },
+  2: { ring: "focus:ring-violet-500/50 ring-violet-400/30", shadow: "shadow-violet-500/20", bgGradient: "bg-gradient-to-r from-violet-500/90 to-fuchsia-500/90", buttonGradient: "bg-gradient-to-r from-violet-400 to-fuchsia-400", tagColor: "bg-violet-500/20 text-violet-300 ring-1 ring-violet-500/30" },
+  3: { ring: "focus:ring-fuchsia-500/50 ring-fuchsia-400/30", shadow: "shadow-fuchsia-500/20", bgGradient: "bg-gradient-to-r from-fuchsia-500/90 to-rose-500/90", buttonGradient: "bg-gradient-to-r from-fuchsia-400 to-rose-400", tagColor: "bg-fuchsia-500/20 text-fuchsia-300 ring-1 ring-fuchsia-500/30" },
+  4: { ring: "focus:ring-rose-500/50 ring-rose-400/30", shadow: "shadow-rose-500/20", bgGradient: "bg-gradient-to-r from-rose-500/90 to-orange-500/90", buttonGradient: "bg-gradient-to-r from-rose-400 to-orange-400", tagColor: "bg-rose-500/20 text-rose-300 ring-1 ring-rose-500/30" },
+  5: { ring: "focus:ring-red-500/50 ring-red-400/30", shadow: "shadow-red-500/20", bgGradient: "bg-gradient-to-r from-red-600/90 to-rose-600/90", buttonGradient: "bg-gradient-to-r from-red-500 to-rose-600", tagColor: "bg-red-500/20 text-red-300 ring-1 ring-red-500/30" },
+};
+
 const flipVariants = {
   initial: { rotateY: 0 },
   flipped: { rotateY: 180 },
@@ -66,7 +72,7 @@ export default function GameScreen() {
     setAnswer,
     goNext,
     goPrev,
-    useReverseCard,
+    playReverseCard,
     undoReverse,
   } = useGameStore();
 
@@ -77,7 +83,7 @@ export default function GameScreen() {
   const [heartBurstTrigger, setHeartBurstTrigger] = useState(0);
   const [loveNoteTrigger, setLoveNoteTrigger] = useState(0);
   const [showLevelIntro, setShowLevelIntro] = useState(true);
-  const seenLevelsRef = useRef<Set<number>>(new Set([1]));
+  const seenCategoriesRef = useRef<Set<number>>(new Set([1]));
 
   const currentQuestion: Question = questions[currentIndex];
   const isFirst = currentIndex === 0;
@@ -85,8 +91,9 @@ export default function GameScreen() {
   const currentAnswer = answers[currentQuestion.id] || "";
   const isReversed = reversed.has(currentQuestion.id);
   const hasAnswer = currentAnswer.trim().length > 0 || isReversed;
-  const isTimeCapsule = currentQuestion.level === 5;
-  const levelMeta = levels[currentQuestion.level - 1];
+  const isTimeCapsule = currentQuestion.category === 5;
+  const categoryMeta = categoriesMeta[currentQuestion.category - 1];
+  const theme = categoryStyles[currentQuestion.category] || categoryStyles[1];
 
   // ─── Handlers ────────────────────────────────────────────────────
 
@@ -107,10 +114,10 @@ export default function GameScreen() {
       const nextIndex = currentIndex + 1;
       const nextQuestion = questions[nextIndex];
 
-      if (nextQuestion.level !== currentQuestion.level) {
-        const nextLevel = nextQuestion.level;
-        if (!seenLevelsRef.current.has(nextLevel)) {
-          seenLevelsRef.current.add(nextLevel);
+      if (nextQuestion.category !== currentQuestion.category) {
+        const nextCategory = nextQuestion.category;
+        if (!seenCategoriesRef.current.has(nextCategory)) {
+          seenCategoriesRef.current.add(nextCategory);
           setTimeout(() => {
             goNext();
             setShowLevelIntro(true);
@@ -121,7 +128,7 @@ export default function GameScreen() {
     }
     
     goNext();
-  }, [hasAnswer, isTimeCapsule, isReversed, isLast, currentIndex, currentQuestion.level, goNext]);
+  }, [hasAnswer, isTimeCapsule, isReversed, isLast, currentIndex, currentQuestion.category, goNext]);
 
   const handlePrev = useCallback(() => {
     if (isFirst) return;
@@ -134,15 +141,15 @@ export default function GameScreen() {
 
     setIsFlipping(true);
     setTimeout(() => {
-      useReverseCard(currentQuestion.id);
+      playReverseCard(currentQuestion.id);
       setIsFlipping(false);
     }, 600);
-  }, [reverseCardsLeft, isReversed, currentQuestion.id, useReverseCard]);
+  }, [reverseCardsLeft, isReversed, currentQuestion.id, playReverseCard]);
 
   // ─── Render ──────────────────────────────────────────────────────
 
-  const levelStart = questions.findIndex((q) => q.level === currentQuestion.level);
-  const levelEnd = questions.filter((q) => q.level === currentQuestion.level).length;
+  const levelStart = questions.findIndex((q) => q.category === currentQuestion.category);
+  const levelEnd = questions.filter((q) => q.category === currentQuestion.category).length;
   const posInLevel = currentIndex - levelStart + 1;
 
   return (
@@ -156,23 +163,23 @@ export default function GameScreen() {
       {/* Ambient glow */}
       <div
         className="fixed top-0 inset-x-0 h-[60vh] pointer-events-none opacity-25 blur-[120px] transition-all duration-1000"
-        style={{ background: `radial-gradient(ellipse at top, ${levelMeta.accentHex}, transparent 70%)` }}
+        style={{ background: `radial-gradient(ellipse at top, ${categoryMeta.accentHex}, transparent 70%)` }}
       />
       <div
         className="fixed bottom-0 inset-x-0 h-[30vh] pointer-events-none opacity-10 blur-[100px] transition-all duration-1000"
-        style={{ background: `radial-gradient(ellipse at bottom, ${levelMeta.accentHex}, transparent 70%)` }}
+        style={{ background: `radial-gradient(ellipse at bottom, ${categoryMeta.accentHex}, transparent 70%)` }}
       />
 
       <div className="relative z-10 w-full max-w-lg flex flex-col h-full max-h-full">
         {/* ── Header ── */}
         <div className="mb-4 shrink-0">
-          <VibeMeter total={questions.length} level={currentQuestion.level} />
+          <VibeMeter total={questions.length} category={currentQuestion.category} />
 
           <div className="flex items-center justify-between mt-3">
             <div className="text-xs text-white/30 font-medium flex items-center gap-1.5">
-              <IconFromName name={levelMeta.icon} size={13} className="text-white/40" />
-              <span className="hidden sm:inline">{levelMeta.title}</span>
-              <span className="sm:hidden">Lvl {currentQuestion.level}</span>
+              <IconFromName name={categoryMeta.icon} size={13} className="text-white/40" />
+              <span className="hidden sm:inline">{categoryMeta.title}</span>
+              <span className="sm:hidden">Lvl {currentQuestion.category}</span>
               <span className="text-white/15 mx-1">·</span>
               <span className="text-white/20">{posInLevel} / {levelEnd}</span>
             </div>
@@ -255,17 +262,14 @@ export default function GameScreen() {
                         <span
                           className={`
                             inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase
-                            ${isTimeCapsule
-                              ? "bg-red-500/20 text-red-300 ring-1 ring-red-500/30"
-                              : "bg-white/10 text-white/60"
-                            }
+                            ${theme.tagColor}
                           `}
                         >
                           {currentQuestion.type === "text" ? <Pen size={10} /> : <MessageCircleHeart size={10} />}
                           {currentQuestion.type === "text" ? "Open" : "Pick One"}
                         </span>
                         {isTimeCapsule && (
-                          <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-bold bg-red-500/20 text-red-300 ring-1 ring-red-500/30 uppercase">
+                          <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-bold uppercase ${theme.tagColor}`}>
                             <Lock size={9} />
                             Time Capsule
                           </span>
@@ -293,13 +297,15 @@ export default function GameScreen() {
                           <TextInput
                             value={currentAnswer}
                             onChange={(v) => setAnswer(currentQuestion.id, v)}
-                            placeholder={currentQuestion.placeholder}
+                            placeholder="Type your answer here..."
+                            theme={theme}
                           />
                         ) : (
                           <MultipleChoice
-                            question={currentQuestion as MultipleChoiceQuestion}
+                            options={currentQuestion.options!}
                             selected={currentAnswer}
                             onSelect={(v) => setAnswer(currentQuestion.id, v)}
+                            theme={theme}
                           />
                         )}
                       </motion.div>
@@ -328,10 +334,7 @@ export default function GameScreen() {
             className={`
               flex-1 flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-sm font-bold text-white shadow-lg active:scale-95 transition-all cursor-pointer
               disabled:opacity-30 disabled:pointer-events-none
-              ${isTimeCapsule
-                ? "bg-gradient-to-r from-red-600 to-rose-600 shadow-red-600/30"
-                : "bg-gradient-to-r from-rose-500 to-pink-500 shadow-rose-500/30"
-              }
+              ${theme.buttonGradient} ${theme.shadow}
             `}
           >
             {isLast ? (
@@ -357,8 +360,8 @@ export default function GameScreen() {
       <AnimatePresence>
         {showLevelIntro && (
           <LevelIntro
-            key={`level-intro-${currentQuestion.level}`}
-            level={currentQuestion.level}
+            key={`level-intro-${currentQuestion.category}`}
+            category={currentQuestion.category}
             onContinue={() => setShowLevelIntro(false)}
           />
         )}
@@ -377,10 +380,12 @@ function TextInput({
   value,
   onChange,
   placeholder,
+  theme,
 }: {
   value: string;
   onChange: (v: string) => void;
   placeholder: string;
+  theme: { ring: string; shadow: string; bgGradient: string; buttonGradient: string; tagColor: string };
 }) {
   return (
     <div className="relative">
@@ -389,7 +394,7 @@ function TextInput({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         rows={4}
-        className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-2xl text-white placeholder:text-white/25 focus:outline-none focus:ring-2 focus:ring-rose-500/50 resize-none transition-all text-[15px] leading-relaxed"
+        className={`w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-2xl text-white placeholder:text-white/25 focus:outline-none focus:ring-2 resize-none transition-all text-[15px] leading-relaxed ${theme.ring}`}
       />
       {value.length > 0 && (
         <span className="absolute bottom-3 end-3 text-[10px] text-white/20 tabular-nums">
@@ -401,27 +406,29 @@ function TextInput({
 }
 
 function MultipleChoice({
-  question,
+  options,
   selected,
   onSelect,
+  theme,
 }: {
-  question: MultipleChoiceQuestion;
+  options: string[];
   selected: string;
   onSelect: (v: string) => void;
+  theme: { ring: string; shadow: string; bgGradient: string; buttonGradient: string; tagColor: string };
 }) {
   return (
     <div className="grid gap-2.5">
-      {question.options.map((option, i) => {
-        const isSelected = selected === option.id;
+      {options.map((option, i) => {
+        const isSelected = selected === option;
         return (
           <motion.button
-            key={option.id}
-            onClick={() => onSelect(option.id)}
+            key={i}
+            onClick={() => onSelect(option)}
             className={`
               relative flex items-center gap-3 w-full px-4 py-3.5 rounded-2xl text-start font-medium active:scale-95 transition-all cursor-pointer
               ${
                 isSelected
-                  ? "bg-gradient-to-r from-rose-500/90 to-pink-500/90 text-white shadow-lg shadow-rose-500/20 ring-1 ring-rose-400/30"
+                  ? `${theme.bgGradient} text-white shadow-lg ${theme.shadow} ring-1 ${theme.ring.split(' ')[1]}`
                   : "bg-white/[0.06] text-white/70 border border-white/10"
               }
             `}
@@ -429,12 +436,7 @@ function MultipleChoice({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.04 * i, duration: 0.25 }}
           >
-            <IconFromName
-              name={option.icon}
-              size={18}
-              className={isSelected ? "text-white/90" : "text-white/40"}
-            />
-            <span className="text-[14px] leading-snug">{option.label}</span>
+            <span className="text-[14px] leading-snug">{option}</span>
             {isSelected && (
               <motion.div
                 className="absolute end-4"

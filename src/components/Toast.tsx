@@ -20,12 +20,20 @@ export default function Toast({
 
   useEffect(() => {
     if (!visible) return;
-    setExiting(false);
+    
+    const showTimer = setTimeout(() => {
+      setExiting(false);
+    }, 10);
+
     const timer = setTimeout(() => {
       setExiting(true);
       setTimeout(onDismiss, 300);
     }, durationMs);
-    return () => clearTimeout(timer);
+
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(timer);
+    };
   }, [visible, durationMs, onDismiss]);
 
   if (!visible && !exiting) return null;
