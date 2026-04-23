@@ -36,7 +36,7 @@ export default function LevelIntro({ level, onContinue }: LevelIntroProps) {
 
       {/* Content */}
       <motion.div
-        className="relative z-10 flex flex-col items-center text-center max-w-sm"
+        className="relative z-10 flex flex-col items-center text-center max-w-sm w-full"
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
@@ -63,7 +63,7 @@ export default function LevelIntro({ level, onContinue }: LevelIntroProps) {
 
         {/* Chapter title */}
         <motion.p
-          className="text-sm font-bold uppercase tracking-[0.25em] text-white/40 mb-2"
+          className="text-xs font-bold uppercase tracking-widest text-white/50 mb-2"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.5 }}
@@ -83,42 +83,40 @@ export default function LevelIntro({ level, onContinue }: LevelIntroProps) {
 
         {/* Romantic message */}
         <motion.p
-          className="text-base text-white/50 leading-relaxed mb-10 italic"
+          className="text-[15px] text-white/60 leading-relaxed mb-10 italic"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.5 }}
         >
-          &ldquo;{intro.message}&rdquo;
+          &quot;{intro.message}&quot;
         </motion.p>
 
         {/* Continue button */}
         <motion.button
           onClick={onContinue}
           className={`
-            group flex items-center gap-2 px-8 py-3.5 rounded-2xl text-sm font-bold text-white
+            w-full flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[15px] font-bold text-white
             bg-gradient-to-r ${meta.colorFrom} ${meta.colorTo}
-            shadow-lg transition-shadow duration-300 cursor-pointer
+            active:scale-95 transition-transform duration-200 cursor-pointer
           `}
           style={{ boxShadow: `0 8px 30px ${meta.accentHex}30` }}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.5 }}
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.96 }}
         >
           <Heart size={16} fill="currentColor" />
-          I&apos;m ready
-          <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-1" />
+          أنا مستعدة
+          <ArrowLeft size={16} />
         </motion.button>
 
         {/* Question count hint */}
         <motion.p
-          className="mt-6 text-[11px] text-white/25"
+          className="mt-6 text-[11px] text-white/30"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.5 }}
         >
-          10 questions in this chapter
+          10 أسئلة في هذا الفصل
         </motion.p>
       </motion.div>
     </motion.div>

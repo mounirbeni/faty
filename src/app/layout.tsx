@@ -1,18 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Outfit } from "next/font/google";
+import { Cairo } from "next/font/google";
 import "./globals.css";
 import RegisterSW from "@/components/RegisterSW";
 
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
+const cairo = Cairo({
+  variable: "--font-cairo",
+  subsets: ["arabic", "latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
-  title: "For Faty — Our Little Game",
-  description:
-    "A romantic Q&A game to help us get to know each other before we finally meet.",
+  title: "لكِ فاتي — لعبتنا الصغيرة",
+  description: "لعبة أسئلة رومانسية لنتعرف على بعضنا أكثر قبل اللقاء.",
   robots: "noindex, nofollow",
   manifest: "/manifest.json",
   appleWebApp: {
@@ -31,6 +30,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -39,8 +39,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" className={`${outfit.variable} h-full antialiased`}>
-      <body className="min-h-dvh flex flex-col font-[family-name:var(--font-outfit)]">
+    <html lang="ar" dir="rtl" className={`${cairo.variable} h-[100dvh] antialiased`}>
+      <body className="h-[100dvh] w-full overflow-hidden flex flex-col font-[family-name:var(--font-cairo)] select-none touch-manipulation">
         {children}
         <RegisterSW />
       </body>

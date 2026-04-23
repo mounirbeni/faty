@@ -1,18 +1,8 @@
-// ─── Types ────────────────────────────────────────────────────────────
-
 export type QuestionType = "text" | "multiple-choice";
-
-export interface MultipleChoiceOption {
-  id: string;
-  label: string;
-  icon: string; // Lucide icon name — rendered via IconFromName
-}
 
 export interface BaseQuestion {
   id: number;
-  level: number;
-  levelTitle: string;
-  levelIcon: string; // Lucide icon name
+  level: number; // 1 to 5
   question: string;
   type: QuestionType;
 }
@@ -20,6 +10,12 @@ export interface BaseQuestion {
 export interface TextQuestion extends BaseQuestion {
   type: "text";
   placeholder: string;
+}
+
+export interface MultipleChoiceOption {
+  id: string;
+  label: string;
+  icon: string; // Lucide icon name
 }
 
 export interface MultipleChoiceQuestion extends BaseQuestion {
@@ -32,7 +28,7 @@ export type Question = TextQuestion | MultipleChoiceQuestion;
 export interface Answer {
   questionId: number;
   value: string;
-  reversed: boolean;
+  reversed: boolean; // if true, the user played a "Reverse Card" and skipped it
 }
 
 // ─── Level metadata ──────────────────────────────────────────────────
@@ -40,7 +36,7 @@ export interface Answer {
 export interface LevelMeta {
   level: number;
   title: string;
-  icon: string; // Lucide icon name
+  icon: string;
   description: string;
   colorFrom: string;
   colorTo: string;
@@ -50,45 +46,45 @@ export interface LevelMeta {
 export const levels: LevelMeta[] = [
   {
     level: 1,
-    title: "First Meeting & Expectations",
+    title: "اللقاء الأول والتوقعات",
     icon: "sparkles",
-    description: "Let's break the ice…",
+    description: "دعنا نكسر الجليد…",
     colorFrom: "from-sky-400",
     colorTo: "to-indigo-400",
     accentHex: "#38bdf8",
   },
   {
     level: 2,
-    title: "How You See Me",
+    title: "كيف تراني",
     icon: "eye",
-    description: "Through your eyes…",
+    description: "من خلال عينيك…",
     colorFrom: "from-violet-400",
     colorTo: "to-fuchsia-400",
     accentHex: "#c084fc",
   },
   {
     level: 3,
-    title: "Emotional Depth & Vulnerability",
+    title: "العمق العاطفي",
     icon: "waves",
-    description: "Going deeper…",
+    description: "نتعمق أكثر…",
     colorFrom: "from-fuchsia-400",
     colorTo: "to-rose-400",
     accentHex: "#e879f9",
   },
   {
     level: 4,
-    title: "Fun & Hypothetical",
+    title: "مرح وخيال",
     icon: "dice",
-    description: "Let's play…",
+    description: "لنتخيل معاً…",
     colorFrom: "from-rose-400",
     colorTo: "to-orange-400",
     accentHex: "#fb7185",
   },
   {
     level: 5,
-    title: "Intimate & Romantic",
+    title: "رومانسية وأسرار",
     icon: "flame",
-    description: "Just between us…",
+    description: "بيننا فقط…",
     colorFrom: "from-red-500",
     colorTo: "to-rose-600",
     accentHex: "#ef4444",
@@ -98,547 +94,536 @@ export const levels: LevelMeta[] = [
 // ─── Romantic love notes shown between questions ─────────────────────
 
 export const loveNotes: string[] = [
-  "Every answer makes me fall for you a little more…",
-  "I could read your words forever.",
-  "You have no idea how much this means to me.",
-  "I'm smiling so hard right now.",
-  "I can't wait to hear you say these things in person.",
-  "My heart skipped reading that.",
-  "You're the best thing that happened to my timeline.",
-  "I hope you know how special you are.",
-  "One month. Just one more month.",
-  "Keep going… it gets even better.",
-  "I already know I'm the luckiest.",
-  "Your honesty is everything to me.",
-  "I wish I could hug you through this screen.",
-  "This is exactly why I can't stop thinking about you.",
-  "You make distance feel like nothing.",
+  "كل إجابة تجعلني أقع في حبك أكثر…",
+  "يمكنني قراءة كلماتك للأبد.",
+  "لا تعرفين كم يعني هذا بالنسبة لي.",
+  "أنا أبتسم بشدة الآن.",
+  "لا أطيق الانتظار لسماع هذه الأشياء منك شخصياً.",
+  "قلبي تخطى نبضة وأنا أقرأ هذا.",
+  "أنتِ أجمل شيء حدث في حياتي.",
+  "أتمنى أن تعرفي كم أنتِ مميزة.",
+  "شهر واحد. شهر واحد فقط.",
+  "استمري… الأمر يزداد جمالاً.",
+  "أعرف بالفعل أنني المحظوظ هنا.",
+  "صدقك هو كل شيء بالنسبة لي.",
+  "أتمنى لو أستطيع معانقتك عبر هذه الشاشة.",
+  "هذا بالضبط سبب عدم قدرتي على التوقف عن التفكير فيكِ.",
+  "أنتِ تجعلين المسافة تبدو وكأنها لا شيء.",
 ];
 
 // ─── Level intro messages ────────────────────────────────────────────
 
 export const levelIntros: Record<number, { title: string; subtitle: string; message: string }> = {
   1: {
-    title: "Chapter One",
-    subtitle: "First Meeting & Expectations",
-    message: "Before we meet, I want to know what's going on in that beautiful mind of yours. Let's start easy…",
+    title: "الفصل الأول",
+    subtitle: "اللقاء الأول والتوقعات",
+    message: "قبل أن نلتقي، أريد أن أعرف ما يدور في هذا العقل الجميل. لنبدأ بشيء بسيط…",
   },
   2: {
-    title: "Chapter Two",
-    subtitle: "How You See Me",
-    message: "Now I want to see myself through your eyes. Be honest — the good and the real.",
+    title: "الفصل الثاني",
+    subtitle: "كيف تراني",
+    message: "الآن أريد أن أرى نفسي من خلال عينيك. كوني صادقة — أحب الحقيقة.",
   },
   3: {
-    title: "Chapter Three",
-    subtitle: "Emotional Depth",
-    message: "We're going deeper now. These questions matter to me. Take your time with each one.",
+    title: "الفصل الثالث",
+    subtitle: "العمق العاطفي",
+    message: "نتعمق أكثر الآن. هذه الأسئلة تعني لي الكثير. خذي وقتك مع كل واحدة منها.",
   },
   4: {
-    title: "Chapter Four",
-    subtitle: "Fun & Hypothetical",
-    message: "Time to have some fun together. Let your imagination run wild — I want to dream with you.",
+    title: "الفصل الرابع",
+    subtitle: "مرح وخيال",
+    message: "حان الوقت لنمرح معاً. دعي خيالك ينطلق — أريد أن أحلم معكِ.",
   },
   5: {
-    title: "Chapter Five",
-    subtitle: "Intimate & Romantic",
-    message: "This is the part where it's just us. No walls, no filters. These answers stay locked until we meet.",
+    title: "الفصل الخامس",
+    subtitle: "رومانسية وأسرار",
+    message: "هذا الجزء لنا نحن فقط. بدون جدران أو قيود. هذه الإجابات ستبقى مقفلة حتى نلتقي.",
   },
 };
 
-// ─── Helper ──────────────────────────────────────────────────────────
-
-function getLevelMeta(level: number) {
-  const meta = levels[level - 1];
-  return {
-    levelTitle: meta.title,
-    levelIcon: meta.icon,
-  };
-}
-
-// ─── 50 Questions ────────────────────────────────────────────────────
-// NOTE: These are placeholder questions in English.
-// Replace the `question`, `placeholder`, and `options.label` values
-// with your Arabic text. The app is fully RTL-ready.
+// ─── THE 50 QUESTIONS ────────────────────────────────────────────────
 
 export const questions: Question[] = [
-  // ═══════════════════════════════════════════════════════════════════
-  // LEVEL 1 — First Meeting & Expectations (Q1-Q10)
-  // ═══════════════════════════════════════════════════════════════════
+  // --- LEVEL 1 (1-10) ---
   {
     id: 1,
     level: 1,
-    ...getLevelMeta(1),
-    question: "What was your very first impression of me when we started talking?",
-    type: "text",
-    placeholder: "Tell me everything… the good, the funny, and the real",
+    type: "multiple-choice",
+    question: "كيف تتخيلين شعورك في أول 5 ثوانٍ عندما نلتقي؟",
+    options: [
+      { id: "nervous", label: "سأكون متوترة جداً!", icon: "zap" },
+      { id: "excited", label: "متحمسة وأريد القفز!", icon: "star" },
+      { id: "speechless", label: "سأفقد النطق تماماً", icon: "message-square-dashed" },
+      { id: "hug", label: "سأعانقك فوراً بدون تفكير", icon: "heart" },
+    ],
   },
   {
     id: 2,
     level: 1,
-    ...getLevelMeta(1),
-    question: "If our first meeting was a movie genre, what would it be?",
-    type: "multiple-choice",
-    options: [
-      { id: "rom-com", label: "Romantic Comedy", icon: "heart" },
-      { id: "action", label: "Action & Adventure", icon: "flame" },
-      { id: "mystery", label: "Mystery & Thriller", icon: "search" },
-      { id: "fantasy", label: "Fantasy", icon: "wand" },
-    ],
+    type: "text",
+    question: "ما هو أكثر شيء تتطلعين للقيام به معاً في لقائنا الأول؟",
+    placeholder: "مشي، قهوة، أو ربما مجرد الجلوس معاً...",
   },
   {
     id: 3,
     level: 1,
-    ...getLevelMeta(1),
-    question: "What are you most nervous about when it comes to meeting me?",
-    type: "text",
-    placeholder: "Be honest… I probably feel the same way",
+    type: "multiple-choice",
+    question: "ما هو الشيء الذي تخشين أن تفعليه بسبب التوتر في لقائنا الأول؟",
+    options: [
+      { id: "stumble", label: "التعثر أو السقوط", icon: "footprints" },
+      { id: "talk_fast", label: "التحدث بسرعة كبيرة", icon: "wind" },
+      { id: "quiet", label: "السكوت وعدم معرفة ما أقول", icon: "moon" },
+      { id: "blush", label: "الاحمرار خجلاً طوال الوقت", icon: "smile" },
+    ],
   },
   {
     id: 4,
     level: 1,
-    ...getLevelMeta(1),
-    question: "What is the first thing you want to do when you see me?",
-    type: "multiple-choice",
-    options: [
-      { id: "hug", label: "Run and hug you", icon: "users" },
-      { id: "stare", label: "Just stare at you in shock", icon: "eye" },
-      { id: "laugh", label: "Probably laugh nervously", icon: "laugh" },
-      { id: "cry", label: "Cry happy tears", icon: "droplets" },
-    ],
+    type: "text",
+    question: "إذا كان لقاؤنا الأول له 'موسيقى تصويرية'، فأي أغنية ستكون؟",
+    placeholder: "اكتبي اسم الأغنية...",
   },
   {
     id: 5,
     level: 1,
-    ...getLevelMeta(1),
-    question: "Describe the perfect first day together in one sentence.",
-    type: "text",
-    placeholder: "Paint the picture for me…",
+    type: "multiple-choice",
+    question: "كيف تفضلين أن أقوم بتحيتك؟",
+    options: [
+      { id: "formal", label: "مصافحة رسمية ومضحكة", icon: "handshake" },
+      { id: "long_hug", label: "عناق طويل", icon: "heart-handshake" },
+      { id: "smile", label: "ابتسامة دافئة وكلمات رقيقة", icon: "sun" },
+      { id: "surprise", label: "فاجئني بشيء لم أتوقعه", icon: "gift" },
+    ],
   },
   {
     id: 6,
     level: 1,
-    ...getLevelMeta(1),
-    question: "What song reminds you of us?",
     type: "text",
-    placeholder: "Drop the title — I'll listen to it tonight",
+    question: "ما هو الزي الذي تتخيلين أنني سأرتديه، أو تتمنين أن أرتديه؟",
+    placeholder: "أوصفيه لي...",
   },
   {
     id: 7,
     level: 1,
-    ...getLevelMeta(1),
-    question: "What do you imagine my voice sounds like in person?",
-    type: "text",
-    placeholder: "I'm curious about your imagination",
+    type: "multiple-choice",
+    question: "أين تفضلين أن نذهب في موعدنا الأول؟",
+    options: [
+      { id: "cafe", label: "مقهى هادئ", icon: "coffee" },
+      { id: "walk", label: "مشي على الشاطئ", icon: "waves" },
+      { id: "dinner", label: "عشاء رومانسي", icon: "utensils" },
+      { id: "activity", label: "نشاط ممتع كالملاهي", icon: "ferris-wheel" },
+    ],
   },
   {
     id: 8,
     level: 1,
-    ...getLevelMeta(1),
-    question: "How do you think our first awkward silence will go?",
-    type: "multiple-choice",
-    options: [
-      { id: "break", label: "I'll break it with a joke", icon: "laugh" },
-      { id: "stare", label: "We'll just smile at each other", icon: "smile" },
-      { id: "phone", label: "I'll check my phone nervously", icon: "smartphone" },
-      { id: "none", label: "There won't be any!", icon: "sparkles" },
-    ],
+    type: "text",
+    question: "ما هو الانطباع الأول الذي أخذته عني عندما تحدثنا لأول مرة؟",
+    placeholder: "هل كنت مزعجاً، مضحكاً، أم لطيفاً؟",
   },
   {
     id: 9,
     level: 1,
-    ...getLevelMeta(1),
-    question: "What outfit are you planning to wear for our first meeting?",
-    type: "text",
-    placeholder: "Give me a sneak peek",
+    type: "multiple-choice",
+    question: "هل تعتقدين أننا سنبقى مستيقظين لوقت متأخر نتحدث؟",
+    options: [
+      { id: "yes", label: "بالتأكيد، لن نشعر بالوقت", icon: "clock" },
+      { id: "no", label: "لا، سنكون متعبين", icon: "bed" },
+      { id: "maybe", label: "ربما إذا كان الحديث مشوقاً", icon: "help-circle" },
+    ],
   },
   {
     id: 10,
     level: 1,
-    ...getLevelMeta(1),
-    question: "On a scale of 1-10, how ready are you for next month?",
-    type: "multiple-choice",
-    options: [
-      { id: "ten", label: "10 — I was born ready", icon: "trophy" },
-      { id: "eight", label: "8 — Almost there!", icon: "target" },
-      { id: "five", label: "5 — Excited but terrified", icon: "zap" },
-      { id: "over", label: "Off the charts!", icon: "rocket" },
-    ],
+    type: "text",
+    question: "كلمة واحدة تصف شعورك الحالي بخصوص لقائنا المرتقب.",
+    placeholder: "اكتبي الكلمة هنا...",
   },
 
-  // ═══════════════════════════════════════════════════════════════════
-  // LEVEL 2 — How You See Me (Q11-Q20)
-  // ═══════════════════════════════════════════════════════════════════
+  // --- LEVEL 2 (11-20) ---
   {
     id: 11,
     level: 2,
-    ...getLevelMeta(2),
-    question: "What is a habit or trait of mine that always makes you smile?",
-    type: "text",
-    placeholder: "Even the small things count…",
+    type: "multiple-choice",
+    question: "ما هي الصفة التي جذبتك إليّ في البداية؟",
+    options: [
+      { id: "humor", label: "حسك الفكاهي", icon: "laugh" },
+      { id: "intellect", label: "طريقة تفكيرك", icon: "brain" },
+      { id: "kindness", label: "لطفك واهتمامك", icon: "heart" },
+      { id: "mystery", label: "غموضك", icon: "moon" },
+    ],
   },
   {
     id: 12,
     level: 2,
-    ...getLevelMeta(2),
-    question: "How would you describe me to your best friend?",
     type: "text",
-    placeholder: "What words would you use?",
+    question: "ما هي العادة الغريبة التي لاحظتيها فيّ وتحبينها؟",
+    placeholder: "ربما طريقة كلامي، أو شيء أكرره دائماً...",
   },
   {
     id: 13,
     level: 2,
-    ...getLevelMeta(2),
-    question: "What is my most attractive quality to you?",
     type: "multiple-choice",
+    question: "إذا كان بإمكاني أن أكون شخصية خيالية، فمن سأكون في نظرك؟",
     options: [
-      { id: "humor", label: "Your sense of humor", icon: "laugh" },
-      { id: "care", label: "How you care about me", icon: "heart" },
-      { id: "ambition", label: "Your ambition & drive", icon: "rocket" },
-      { id: "voice", label: "Your voice / the way you talk", icon: "mic" },
+      { id: "hero", label: "البطل الشجاع", icon: "shield" },
+      { id: "joker", label: "الشخصية المضحكة", icon: "smile" },
+      { id: "thinker", label: "الحكيم الهادئ", icon: "book" },
+      { id: "rebel", label: "المتمرد الرومانسي", icon: "flame" },
     ],
   },
   {
     id: 14,
     level: 2,
-    ...getLevelMeta(2),
-    question: "What is something I do that annoys you (even a little)?",
     type: "text",
-    placeholder: "I can handle it… I think",
+    question: "ما هو أكثر شيء قلته وجعلك تضحكين من قلبك؟",
+    placeholder: "تذكري موقفاً مضحكاً...",
   },
   {
     id: 15,
     level: 2,
-    ...getLevelMeta(2),
-    question: "Describe my role in your life right now in just 3 words.",
-    type: "text",
-    placeholder: "Just three words… choose wisely",
+    type: "multiple-choice",
+    question: "كيف تعرفين أنني مهتم بك حقاً؟",
+    options: [
+      { id: "time", label: "من الوقت الذي نقضيه معاً", icon: "clock" },
+      { id: "words", label: "من الكلمات التي أقولها", icon: "message-circle" },
+      { id: "actions", label: "من الأفعال والاهتمام بالتفاصيل", icon: "check-circle" },
+      { id: "intuition", label: "مجرد إحساس داخلي", icon: "sparkles" },
+    ],
   },
   {
     id: 16,
     level: 2,
-    ...getLevelMeta(2),
-    question: "What is something I said that stuck with you?",
     type: "text",
-    placeholder: "Words can stay forever…",
+    question: "متى كانت أول مرة أدركتِ فيها أننا قد نكون أكثر من مجرد أصدقاء؟",
+    placeholder: "صفي لي تلك اللحظة...",
   },
   {
     id: 17,
     level: 2,
-    ...getLevelMeta(2),
-    question: "If I was a color, what color would I be and why?",
-    type: "text",
-    placeholder: "Think about the feeling, not just the color",
+    type: "multiple-choice",
+    question: "ما هو الشيء الذي تظنين أنني لا أعرفه عنك حتى الآن؟",
+    options: [
+      { id: "habit", label: "عادة سرية غريبة", icon: "ghost" },
+      { id: "dream", label: "حلم طفولة لم أحققه", icon: "star" },
+      { id: "fear", label: "خوف سخيف", icon: "alert-triangle" },
+      { id: "talent", label: "موهبة مخفية", icon: "award" },
+    ],
   },
   {
     id: 18,
     level: 2,
-    ...getLevelMeta(2),
-    question: "What do you think is my biggest fear?",
     type: "text",
-    placeholder: "Let's see how well you know me",
+    question: "ما هي التفصيلة الصغيرة في شخصيتي التي تظنين أن لا أحد غيرك يلاحظها؟",
+    placeholder: "شيء مميز لاحظتيه أنت فقط...",
   },
   {
     id: 19,
     level: 2,
-    ...getLevelMeta(2),
-    question: "What kind of energy do I bring to your day?",
     type: "multiple-choice",
+    question: "إذا كنت سأهديك شيئاً الآن، ماذا سيكون؟",
     options: [
-      { id: "calm", label: "Calm and peaceful", icon: "bird" },
-      { id: "exciting", label: "Exciting and electric", icon: "zap" },
-      { id: "warm", label: "Warm and comforting", icon: "sun" },
-      { id: "chaotic", label: "Chaotic but I love it", icon: "tornado" },
+      { id: "flowers", label: "باقة ورد", icon: "flower" },
+      { id: "book", label: "كتاب مفضل", icon: "book-open" },
+      { id: "food", label: "أكلتك المفضلة", icon: "pizza" },
+      { id: "jewel", label: "قطعة مجوهرات ناعمة", icon: "gem" },
     ],
   },
   {
     id: 20,
     level: 2,
-    ...getLevelMeta(2),
-    question: "What is one thing you wish I knew about myself?",
     type: "text",
-    placeholder: "Something I might not see in myself…",
+    question: "إذا كان عليك وصفي لصديقتك المفضلة في جملة واحدة، ماذا ستقولين؟",
+    placeholder: "هو شخص...",
   },
 
-  // ═══════════════════════════════════════════════════════════════════
-  // LEVEL 3 — Emotional Depth & Vulnerability (Q21-Q30)
-  // ═══════════════════════════════════════════════════════════════════
+  // --- LEVEL 3 (21-30) ---
   {
     id: 21,
     level: 3,
-    ...getLevelMeta(3),
-    question: "What is something not many people know about you, that you want me to discover?",
-    type: "text",
-    placeholder: "I'm all ears… and I'll keep it safe",
+    type: "multiple-choice",
+    question: "متى تشعرين بالأمان الأكبر معي عبر الهاتف؟",
+    options: [
+      { id: "night", label: "في محادثات وقت النوم المفتوحة", icon: "moon" },
+      { id: "sad", label: "عندما أكون حزينة وتستمع لي", icon: "ear" },
+      { id: "silent", label: "عندما نصمت معاً ولا نشعر بالإحراج", icon: "mic-off" },
+      { id: "laugh", label: "عندما نضحك على أشياء تافهة", icon: "smile" },
+    ],
   },
   {
     id: 22,
     level: 3,
-    ...getLevelMeta(3),
-    question: "How do you prefer to be supported on a bad day?",
-    type: "multiple-choice",
-    options: [
-      { id: "listen", label: "Just listen to me", icon: "ear" },
-      { id: "space", label: "Give me space", icon: "moon" },
-      { id: "laugh", label: "Try to make me laugh", icon: "laugh" },
-      { id: "advice", label: "Give me advice", icon: "lightbulb" },
-    ],
+    type: "text",
+    question: "ما هو الشيء الذي كنتي تخشين إخباري به في البداية ولكنك سعيدة أنك فعلتِ؟",
+    placeholder: "كوني صريحة...",
   },
   {
     id: 23,
     level: 3,
-    ...getLevelMeta(3),
-    question: "What is a fear you've never told anyone before?",
-    type: "text",
-    placeholder: "This stays between us forever…",
+    type: "multiple-choice",
+    question: "كيف تفضلين أن أواسيكِ عندما تكونين حزينة؟",
+    options: [
+      { id: "listen", label: "مجرد الاستماع لي بإنصات", icon: "headphones" },
+      { id: "advice", label: "إعطائي نصائح وحلول", icon: "lightbulb" },
+      { id: "distract", label: "إضحاكي وتغيير الموضوع", icon: "party-popper" },
+      { id: "presence", label: "البقاء معي بصمت", icon: "user-check" },
+    ],
   },
   {
     id: 24,
     level: 3,
-    ...getLevelMeta(3),
-    question: "When was the last time you cried, and why?",
     type: "text",
-    placeholder: "No judgment here… ever",
+    question: "ما هو أكبر عائق تعتقدين أننا تغلبنا عليه في مسافتنا هذه؟",
+    placeholder: "المسافة، الشك، قلة التواصل...",
   },
   {
     id: 25,
     level: 3,
-    ...getLevelMeta(3),
-    question: "What does 'home' feel like to you?",
-    type: "text",
-    placeholder: "Is it a place, a person, or a feeling?",
+    type: "multiple-choice",
+    question: "ما هو أكثر شيء تفتقدينه عندما نكون مشغولين ولا نستطيع التحدث؟",
+    options: [
+      { id: "voice", label: "سماع صوتك", icon: "volume-2" },
+      { id: "texts", label: "رسائلك العشوائية المفاجئة", icon: "message-square" },
+      { id: "laugh", label: "ضحكنا المشترك", icon: "smile-plus" },
+      { id: "support", label: "شعوري بدعمك لي", icon: "shield-check" },
+    ],
   },
   {
     id: 26,
     level: 3,
-    ...getLevelMeta(3),
-    question: "What is your love language?",
-    type: "multiple-choice",
-    options: [
-      { id: "words", label: "Words of affirmation", icon: "mail" },
-      { id: "touch", label: "Physical touch", icon: "hand" },
-      { id: "time", label: "Quality time", icon: "clock" },
-      { id: "acts", label: "Acts of service", icon: "wrench" },
-      { id: "gifts", label: "Receiving gifts", icon: "gift" },
-    ],
+    type: "text",
+    question: "متى شعرتِ لأول مرة أنني أصبحت جزءاً أساسياً من يومك؟",
+    placeholder: "متى أدركتِ ذلك...",
   },
   {
     id: 27,
     level: 3,
-    ...getLevelMeta(3),
-    question: "What part of your past shaped who you are today?",
-    type: "text",
-    placeholder: "I want to understand your story…",
+    type: "multiple-choice",
+    question: "كيف تعبرين عادة عن غضبك أو انزعاجك مني؟",
+    options: [
+      { id: "silent", label: "بالصمت وتجاهل رسائلك", icon: "mic-off" },
+      { id: "direct", label: "أخبرك مباشرة وبوضوح", icon: "message-circle-warning" },
+      { id: "hints", label: "أعطيك تلميحات لكي تفهم وحدك", icon: "eye" },
+      { id: "sarcasm", label: "بالسخرية والردود الباردة", icon: "snowflake" },
+    ],
   },
   {
     id: 28,
     level: 3,
-    ...getLevelMeta(3),
-    question: "What is a dream you've been too afraid to say out loud?",
     type: "text",
-    placeholder: "Say it here… I believe in you",
+    question: "ما هي الذكرى المشتركة (حتى لو كانت مجرد مكالمة) التي تعودين إليها دائماً عندما تشتاقين لي؟",
+    placeholder: "اكتبي لي عن تلك الذكرى...",
   },
   {
     id: 29,
     level: 3,
-    ...getLevelMeta(3),
-    question: "What do you need most from a partner?",
-    type: "text",
-    placeholder: "Honesty is everything here",
+    type: "multiple-choice",
+    question: "هل تعتقدين أن المسافة جعلتنا أقوى أم أضعف؟",
+    options: [
+      { id: "stronger", label: "أقوى، لأننا تعلمنا التواصل العميق", icon: "anchor" },
+      { id: "weaker", label: "أحياناً أضعف بسبب قلة اللقاء", icon: "wind" },
+      { id: "both", label: "مزيج من الاثنين معاً", icon: "scale" },
+    ],
   },
   {
     id: 30,
     level: 3,
-    ...getLevelMeta(3),
-    question: "How do you act when you're falling in love?",
-    type: "multiple-choice",
-    options: [
-      { id: "quiet", label: "I get quiet and shy", icon: "eye-off" },
-      { id: "obsess", label: "I think about them 24/7", icon: "brain" },
-      { id: "give", label: "I give everything I have", icon: "heart-handshake" },
-      { id: "scared", label: "I get scared and pull back", icon: "turtle" },
-    ],
+    type: "text",
+    question: "إذا كان بإمكانك قراءة أفكاري لمدة دقيقة واحدة، في أي وقت كنتِ ستختارين فعل ذلك؟",
+    placeholder: "متى تمنيتِ معرفة ما أفكر فيه...",
   },
 
-  // ═══════════════════════════════════════════════════════════════════
-  // LEVEL 4 — Fun & Hypothetical (Q31-Q40)
-  // ═══════════════════════════════════════════════════════════════════
+  // --- LEVEL 4 (31-40) ---
   {
     id: 31,
     level: 4,
-    ...getLevelMeta(4),
-    question: "If we could teleport anywhere right now, where would you take me?",
-    type: "text",
-    placeholder: "Anywhere in the universe…",
+    type: "multiple-choice",
+    question: "لو كنا في فيلم، أي نوع من الأفلام سيكون؟",
+    options: [
+      { id: "romcom", label: "كوميديا رومانسية مضحكة", icon: "clapperboard" },
+      { id: "drama", label: "دراما عاطفية عميقة", icon: "tear" },
+      { id: "adventure", label: "مغامرة مجنونة", icon: "compass" },
+      { id: "mystery", label: "لغز غامض", icon: "search" },
+    ],
   },
   {
     id: 32,
     level: 4,
-    ...getLevelMeta(4),
-    question: "If you could steal one of my qualities, what would it be?",
     type: "text",
-    placeholder: "What would you take?",
+    question: "إذا هربنا معاً إلى أي مكان في العالم غداً، أين سنذهب؟",
+    placeholder: "جزيرة منعزلة، مدينة مزدحمة، جبال الثلج...",
   },
   {
     id: 33,
     level: 4,
-    ...getLevelMeta(4),
-    question: "If we had a couple's superpower, what would it be?",
     type: "multiple-choice",
+    question: "من سيكون الأسوأ في تجميع أثاث إيكيا معاً؟",
     options: [
-      { id: "teleport", label: "Teleport to each other instantly", icon: "zap" },
-      { id: "mind", label: "Read each other's minds", icon: "brain" },
-      { id: "time", label: "Freeze time when we're together", icon: "pause" },
-      { id: "dream", label: "Share the same dreams", icon: "cloud-moon" },
+      { id: "me", label: "أنا بالتأكيد، سأفقد صبري", icon: "frown" },
+      { id: "you", label: "أنت، ستدعي أنك تعرف وتخربه", icon: "hammer" },
+      { id: "team", label: "سنكون فريقاً ممتازاً!", icon: "star" },
+      { id: "fight", label: "سنتشاجر ونتركه كما هو", icon: "swords" },
     ],
   },
   {
     id: 34,
     level: 4,
-    ...getLevelMeta(4),
-    question: "If we were stuck on a deserted island, what 3 things would you bring?",
     type: "text",
-    placeholder: "Choose wisely… survival mode",
+    question: "ما هي الجريمة التافهة التي قد نرتكبها معاً؟",
+    placeholder: "سرقة طعام بعضنا، تهريب حلويات للسينما...",
   },
   {
     id: 35,
     level: 4,
-    ...getLevelMeta(4),
-    question: "If you could relive any moment from our conversations, which one?",
-    type: "text",
-    placeholder: "Take me back to that moment…",
+    type: "multiple-choice",
+    question: "إذا كان علينا تناول طعام واحد فقط معاً لبقية حياتنا، فماذا تختارين؟",
+    options: [
+      { id: "pizza", label: "بيتزا بكل أنواعها", icon: "pizza" },
+      { id: "sushi", label: "سوشي", icon: "fish" },
+      { id: "burger", label: "برجر وبطاطس", icon: "utensils-crossed" },
+      { id: "sweets", label: "حلويات وشوكولاتة فقط", icon: "cake" },
+    ],
   },
   {
     id: 36,
     level: 4,
-    ...getLevelMeta(4),
-    question: "What would our couple name be?",
     type: "text",
-    placeholder: "Get creative",
+    question: "إذا أصبحتُ أنا حيواناً أليفاً، أي حيوان سأكون ولماذا؟",
+    placeholder: "قطة كسولة، كلب مخلص، عصفور مزعج...",
   },
   {
     id: 37,
     level: 4,
-    ...getLevelMeta(4),
-    question: "If I wrote you a letter, what do you hope it would say?",
-    type: "text",
-    placeholder: "What words would make your heart skip?",
+    type: "multiple-choice",
+    question: "في رحلة برية طويلة، من الذي يتحكم في الراديو؟",
+    options: [
+      { id: "me", label: "أنا، ذوقي أفضل", icon: "music" },
+      { id: "you", label: "أنت، لكي لا تتذمر", icon: "radio" },
+      { id: "turns", label: "نتبادل الأدوار", icon: "refresh-cw" },
+      { id: "silence", label: "نغلق الراديو ونتحدث", icon: "mic-off" },
+    ],
   },
   {
     id: 38,
     level: 4,
-    ...getLevelMeta(4),
-    question: "What's a silly thing you'd want us to try together?",
     type: "text",
-    placeholder: "The sillier the better",
+    question: "ما هو اللقب الغريب الذي تودين مناداتي به، لكنك تخجلين؟",
+    placeholder: "كوني مبدعة...",
   },
   {
     id: 39,
     level: 4,
-    ...getLevelMeta(4),
-    question: "If our relationship had a theme song, what genre would it be?",
     type: "multiple-choice",
+    question: "إذا استيقظنا ووجدنا أنفسنا قد تبادلنا الأجساد ليوم واحد، ما أول شيء ستفعلينه بجسدي؟",
     options: [
-      { id: "rnb", label: "R&B / Soul", icon: "mic" },
-      { id: "pop", label: "Pop", icon: "music" },
-      { id: "arabic", label: "Arabic classic", icon: "compass" },
-      { id: "lo-fi", label: "Lo-fi & chill", icon: "headphones" },
+      { id: "hair", label: "أجرب تسريحات شعرك الغبية", icon: "scissors" },
+      { id: "voice", label: "أتحدث بصوتك العميق لأخيف الناس", icon: "mic" },
+      { id: "strength", label: "أرى كم أنا قوي", icon: "dumbbell" },
+      { id: "sleep", label: "أنام فقط، لأنك تنام بعمق", icon: "bed" },
     ],
   },
   {
     id: 40,
     level: 4,
-    ...getLevelMeta(4),
-    question: "If you could time-travel to any era with me, which one?",
     type: "text",
-    placeholder: "Past, present, or future?",
+    question: "إذا كنتِ ستكتبين كتاباً عنا، ما هو عنوان الكتاب؟",
+    placeholder: "عنوان يعبر عن قصتنا...",
   },
 
-  // ═══════════════════════════════════════════════════════════════════
-  // LEVEL 5 — Intimate & Romantic (Q41-Q50) — Time Capsule
-  // ═══════════════════════════════════════════════════════════════════
+  // --- LEVEL 5 (41-50) TIME CAPSULE ---
   {
     id: 41,
     level: 5,
-    ...getLevelMeta(5),
-    question: "What is the most romantic thing you've ever imagined us doing together?",
-    type: "text",
-    placeholder: "Don't hold back…",
+    type: "multiple-choice",
+    question: "ما هو أكثر شيء تتطلعين لاكتشافه في شخصيتي عند اللقاء؟",
+    options: [
+      { id: "touch", label: "لغة جسدك الحقيقية", icon: "hand" },
+      { id: "scent", label: "رائحة عطرك", icon: "wind" },
+      { id: "eyes", label: "طريقة نظرك إليّ مباشرة", icon: "eye" },
+      { id: "voice", label: "صوتك بدون مرشحات الهاتف", icon: "volume-2" },
+    ],
   },
   {
     id: 42,
     level: 5,
-    ...getLevelMeta(5),
-    question: "When did you realize your feelings for me were real?",
     type: "text",
-    placeholder: "Take me to that exact moment…",
+    question: "ما هو السؤال الذي لطالما أردتِ طرحه عليّ، لكنك كنتِ مترددة؟",
+    placeholder: "هذا هو الوقت المناسب...",
   },
   {
     id: 43,
     level: 5,
-    ...getLevelMeta(5),
-    question: "What does my love feel like to you?",
-    type: "text",
-    placeholder: "Describe it like a feeling, a color, a place…",
+    type: "multiple-choice",
+    question: "أين ترين علاقتنا بعد اللقاء الأول؟",
+    options: [
+      { id: "closer", label: "أقرب من أي وقت مضى", icon: "heart" },
+      { id: "planning", label: "نخطط للقائنا الثاني فوراً", icon: "calendar" },
+      { id: "comfortable", label: "مرتاحين تماماً وبدون توتر", icon: "smile" },
+      { id: "dreaming", label: "نبدأ بالتفكير في مستقبلنا", icon: "star" },
+    ],
   },
   {
     id: 44,
     level: 5,
-    ...getLevelMeta(5),
-    question: "What is a promise you want to make to me?",
     type: "text",
-    placeholder: "Something real… from the heart",
+    question: "ما هو الشعور الذي تمنحك إياه فكرة 'نحن'؟",
+    placeholder: "أمان، مغامرة، حب عميق...",
   },
   {
     id: 45,
     level: 5,
-    ...getLevelMeta(5),
-    question: "How do you want me to hold you the first time?",
     type: "multiple-choice",
+    question: "كيف تتخيلين صمتنا عندما نكون معاً في نفس الغرفة؟",
     options: [
-      { id: "tight", label: "Tight and never let go", icon: "users" },
-      { id: "gentle", label: "Gently, like I'm fragile", icon: "feather" },
-      { id: "spin", label: "Lift me up and spin me", icon: "rotate-cw" },
-      { id: "forehead", label: "Just hold my face and look at me", icon: "eye" },
+      { id: "comfortable", label: "صمت مريح ومليء بالسلام", icon: "cloud" },
+      { id: "tension", label: "صمت مليء بالتوتر الإيجابي والتأمل", icon: "zap" },
+      { id: "rare", label: "لن يكون هناك صمت، سنتحدث كثيراً", icon: "message-square" },
+      { id: "romantic", label: "صمت رومانسي بنظرات عميقة", icon: "heart" },
     ],
   },
   {
     id: 46,
     level: 5,
-    ...getLevelMeta(5),
-    question: "What is one thing you want to whisper to me when we meet?",
     type: "text",
-    placeholder: "Only I will hear it…",
+    question: "ما هي الجملة التي قلتها لك ولا تزال عالقة في ذهنك؟",
+    placeholder: "اكتبيها هنا...",
   },
   {
     id: 47,
     level: 5,
-    ...getLevelMeta(5),
-    question: "What scares you most about falling deeper in love?",
-    type: "text",
-    placeholder: "Vulnerability is brave…",
+    type: "multiple-choice",
+    question: "ما هو أكثر ما يخيفك بشأن التقدم في هذه العلاقة؟",
+    options: [
+      { id: "distance", label: "المسافة الجغرافية المستمرة", icon: "map" },
+      { id: "changes", label: "تغير المشاعر أو الظروف", icon: "wind" },
+      { id: "loss", label: "فقدان هذا التواصل العميق", icon: "link-2-off" },
+      { id: "nothing", label: "لا شيء، أنا واثقة بنا", icon: "shield-check" },
+    ],
   },
   {
     id: 48,
     level: 5,
-    ...getLevelMeta(5),
-    question: "If tonight was our last night of long-distance, what would you say?",
     type: "text",
-    placeholder: "Make it count…",
+    question: "اكتبي رسالة قصيرة سأقرأها وأنا جالس بجانبك لأول مرة.",
+    placeholder: "شيء تريدين أن أعرفه في تلك اللحظة بالضبط...",
   },
   {
     id: 49,
     level: 5,
-    ...getLevelMeta(5),
-    question: "Where do you see us one year from now?",
-    type: "text",
-    placeholder: "Dream big, dream together…",
+    type: "multiple-choice",
+    question: "إذا كان حبنا يمتلك لوناً، فماذا سيكون؟",
+    options: [
+      { id: "red", label: "أحمر عميق وعاطفي", icon: "flame" },
+      { id: "blue", label: "أزرق هادئ ومريح", icon: "waves" },
+      { id: "yellow", label: "أصفر مشرق ومليء بالبهجة", icon: "sun" },
+      { id: "gold", label: "ذهبي دافئ وقيم", icon: "star" },
+    ],
   },
   {
     id: 50,
     level: 5,
-    ...getLevelMeta(5),
-    question: "Write me a love note. Anything. Right now.",
     type: "text",
-    placeholder: "From your heart to mine…",
+    question: "أخيراً، هل أنتِ مستعدة لهذا الفصل الجديد معنا؟",
+    placeholder: "كلمة أخيرة قبل أن نلتقي...",
   },
 ];

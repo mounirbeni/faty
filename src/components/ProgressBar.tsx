@@ -3,18 +3,10 @@
 import { motion } from "framer-motion";
 import { levels } from "@/lib/questions";
 import IconFromName from "./IconFromName";
+import { useGameStore } from "@/store/gameStore";
 
-interface VibeMeterProps {
-  current: number; // 0-based question index
-  total: number;
-  level: number; // 1-based level number
-}
-
-/**
- * A temperature/vibe meter that shifts color as the user progresses
- * through the 5 levels — from cool blue (L1) to deep red (L5).
- */
-export default function VibeMeter({ current, total, level }: VibeMeterProps) {
+export default function VibeMeter({ total, level }: { total: number; level: number }) {
+  const current = useGameStore((state) => state.currentIndex);
   const progress = ((current + 1) / total) * 100;
   const meta = levels[level - 1];
 
@@ -31,41 +23,42 @@ export default function VibeMeter({ current, total, level }: VibeMeterProps) {
         <motion.div
           key={level}
           className="flex items-center gap-2"
-          initial={{ opacity: 0, x: -10 }}
+          initial={{ opacity: 0, x: 10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3 }}
         >
           <span
             className={`
-              inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider
+              inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider
               bg-gradient-to-r ${meta.colorFrom} ${meta.colorTo} text-white shadow-lg
             `}
           >
             <IconFromName name={meta.icon} size={12} />
-            Level {level}
+            الفصل {level}
           </span>
           <span className="text-xs text-white/40 font-medium hidden sm:inline">
             {meta.title}
           </span>
         </motion.div>
 
-        <span className="text-xs font-semibold text-white/40 tabular-nums">
-          {current + 1}/{total}
+        <span className="text-xs font-semibold text-white/40 tabular-nums" dir="ltr">
+          {current + 1} / {total}
         </span>
       </div>
 
       {/* Meter bar */}
       <div className="relative h-2 bg-white/[0.06] rounded-full overflow-hidden">
         <motion.div
-          className="absolute inset-y-0 start-0 rounded-full"
+          className="absolute inset-y-0 start-0 rounded-full origin-left"
           style={{
             background:
               level === 1
                 ? meta.accentHex
                 : `linear-gradient(to right, ${gradientStops})`,
+            width: "100%",
           }}
-          initial={{ width: 0 }}
-          animate={{ width: `${progress}%` }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: progress / 100 }}
           transition={{ type: "spring", stiffness: 80, damping: 20 }}
         >
           {/* Shimmer */}

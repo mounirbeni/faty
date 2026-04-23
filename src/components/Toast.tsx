@@ -43,13 +43,13 @@ export default function Toast({
         <div className="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center animate-bounce-in">
           <Lock size={18} className="text-white" />
         </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-white/90 leading-snug">
+        <div className="flex-1 min-w-0 text-start">
+          <p className="text-[13px] font-medium text-white/90 leading-snug">
             {message}
           </p>
-          <p className="text-[11px] text-rose-300/50 mt-0.5 flex items-center gap-1">
-            <Heart size={9} fill="currentColor" />
-            Saved with love
+          <p className="text-[11px] text-rose-300/60 mt-1 flex items-center gap-1">
+            <Heart size={10} fill="currentColor" />
+            حُفظت بحب
           </p>
         </div>
         <button
@@ -57,7 +57,7 @@ export default function Toast({
             setExiting(true);
             setTimeout(onDismiss, 300);
           }}
-          className="shrink-0 p-1 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+          className="shrink-0 p-1.5 rounded-lg active:bg-white/10 transition-colors cursor-pointer"
         >
           <X size={16} className="text-white/50" />
         </button>

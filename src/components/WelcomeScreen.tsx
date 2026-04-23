@@ -11,10 +11,7 @@ import {
   Lock,
   Star,
 } from "lucide-react";
-
-interface WelcomeScreenProps {
-  onStart: () => void;
-}
+import { useGameStore } from "@/store/gameStore";
 
 const floatingParticles = Array.from({ length: 14 }, (_, i) => ({
   id: i,
@@ -25,10 +22,12 @@ const floatingParticles = Array.from({ length: 14 }, (_, i) => ({
   opacity: 0.12 + Math.random() * 0.2,
 }));
 
-export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
+export default function WelcomeScreen() {
+  const setPhase = useGameStore((state) => state.setPhase);
+
   return (
     <motion.div
-      className="relative min-h-dvh flex flex-col items-center justify-center px-6 overflow-hidden"
+      className="absolute inset-0 flex flex-col items-center justify-center px-6 overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
@@ -48,9 +47,9 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
             left: `${p.x}%`,
             color: `rgba(244, 63, 94, ${p.opacity})`,
           }}
-          initial={{ y: "110vh", opacity: 0 }}
+          initial={{ y: "110dvh", opacity: 0 }}
           animate={{
-            y: "-10vh",
+            y: "-10dvh",
             opacity: [0, p.opacity, p.opacity, 0],
           }}
           transition={{
@@ -65,58 +64,58 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
       ))}
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center max-w-md">
+      <div className="relative z-10 flex flex-col items-center text-center max-w-md w-full">
         {/* Heartbeat icon with rings */}
         <motion.div
-          className="relative mb-10"
+          className="relative mb-8"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 160, damping: 14, delay: 0.2 }}
         >
-          <div className="w-28 h-28 rounded-full bg-gradient-to-br from-rose-500 via-pink-500 to-red-500 flex items-center justify-center shadow-2xl shadow-rose-600/40">
-            <Heart size={44} className="text-white animate-heartbeat" fill="white" />
+          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-rose-500 via-pink-500 to-red-500 flex items-center justify-center shadow-2xl shadow-rose-600/40">
+            <Heart size={40} className="text-white animate-heartbeat" fill="white" />
           </div>
           {/* Pulse rings */}
           <div className="absolute inset-0 rounded-full border-2 border-rose-400/30 animate-pulse-ring" />
           <div className="absolute inset-0 rounded-full border border-rose-400/20 animate-pulse-ring" style={{ animationDelay: "0.5s" }} />
 
           <motion.div
-            className="absolute -top-2 -left-2"
+            className="absolute -top-2 -start-2"
             animate={{ rotate: [0, 20, -20, 0], scale: [1, 1.2, 1] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
-            <Sparkles size={22} className="text-amber-400" />
+            <Sparkles size={20} className="text-amber-400" />
           </motion.div>
           <motion.div
-            className="absolute -bottom-1 -right-3"
+            className="absolute -bottom-1 -end-3"
             animate={{ scale: [1, 1.3, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
           >
-            <Star size={16} className="text-amber-300" fill="currentColor" />
+            <Star size={14} className="text-amber-300" fill="currentColor" />
           </motion.div>
         </motion.div>
 
         {/* Personal greeting */}
         <motion.h1
-          className="text-5xl sm:text-6xl font-extrabold mb-3 leading-tight bg-gradient-to-r from-rose-400 via-pink-300 to-red-400 text-gradient"
+          className="text-4xl sm:text-5xl font-extrabold mb-2 leading-tight bg-gradient-to-r from-rose-400 via-pink-300 to-red-400 text-gradient"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.6 }}
         >
-          <span className="flex items-center justify-center gap-3">
-            Hey Faty
-            <Heart size={36} className="text-rose-400 shrink-0 animate-heartbeat" fill="currentColor" />
+          <span className="flex items-center justify-center gap-2">
+            مرحباً فاتي
+            <Heart size={28} className="text-rose-400 shrink-0 animate-heartbeat" fill="currentColor" />
           </span>
         </motion.h1>
 
         {/* Love message */}
         <motion.p
-          className="text-lg sm:text-xl text-white/70 font-medium mb-2"
+          className="text-lg text-white/70 font-medium mb-1"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.6 }}
         >
-          I made this just for you
+          صنعت هذا خصيصاً لكِ
         </motion.p>
 
         {/* Romantic subtext */}
@@ -126,28 +125,25 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.6 }}
         >
-          Because you deserve more than just a text
+          لأنكِ تستحقين أكثر من مجرد رسالة نصية
         </motion.p>
 
         {/* Love letter card */}
         <motion.div
-          className="w-full glass-warm rounded-3xl p-6 mb-8 text-start"
+          className="w-full glass-warm rounded-3xl p-5 mb-6 text-start"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.6 }}
         >
-          <p className="text-[15px] text-white/60 leading-relaxed mb-3">
-            I know we haven&apos;t met yet, but you already mean the world to
-            me. This little game is my way of understanding you deeper —
-            your thoughts, your dreams, your heart.
+          <p className="text-[14px] text-white/70 leading-relaxed mb-3">
+            أعلم أننا لم نلتقِ بعد، لكنكِ تعنين لي العالم بأسره. هذه اللعبة الصغيرة هي طريقتي لفهمك بعمق أكبر — أفكارك، أحلامك، وقلبك.
           </p>
-          <p className="text-[15px] text-white/60 leading-relaxed mb-3">
-            50 questions. 5 levels that go from fun to intimate.
-            Answer honestly — there are no wrong answers, only{" "}
-            <span className="text-rose-400 font-semibold">real ones</span>.
+          <p className="text-[14px] text-white/70 leading-relaxed mb-3">
+            50 سؤالاً. 5 فصول تتدرج من المرح إلى الرومانسية. أجيبي بصدق — لا توجد إجابات خاطئة، فقط{" "}
+            <span className="text-rose-400 font-semibold">إجابات حقيقية</span>.
           </p>
-          <p className="text-sm text-white/40 italic">
-            — From someone who can&apos;t wait to finally see your smile
+          <p className="text-xs text-white/50 italic text-end">
+            — من شخص لا يطيق الانتظار لرؤية ابتسامتك
           </p>
         </motion.div>
 
@@ -160,68 +156,51 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
         >
           {[
             {
-              icon: <RotateCcw size={13} className="text-amber-400" />,
-              label: "3 Reverse Cards",
-              desc: "Skip & tag for later",
+              icon: <RotateCcw size={12} className="text-amber-400" />,
+              label: "3 بطاقات تخطي",
+              desc: "تأجيل لوقت لاحق",
             },
             {
-              icon: <Thermometer size={13} className="text-rose-400" />,
-              label: "Vibe Meter",
-              desc: "Watch it heat up",
+              icon: <Thermometer size={12} className="text-rose-400" />,
+              label: "مقياس الحرارة",
+              desc: "شاهدي الأجواء تدفأ",
             },
             {
-              icon: <Lock size={13} className="text-red-400" />,
-              label: "Time Capsule",
-              desc: "Secrets for when we meet",
+              icon: <Lock size={12} className="text-red-400" />,
+              label: "كبسولة الزمن",
+              desc: "أسرار ليوم اللقاء",
             },
           ].map((f) => (
             <div
               key={f.label}
-              className="glass rounded-xl px-3 py-2 text-center"
+              className="glass rounded-xl px-2.5 py-1.5 text-center flex-1 min-w-[90px]"
             >
-              <div className="text-xs font-semibold text-white/80 flex items-center justify-center gap-1.5">
+              <div className="text-[11px] font-semibold text-white/80 flex items-center justify-center gap-1">
                 {f.icon}
                 {f.label}
               </div>
-              <div className="text-[10px] text-white/40 mt-0.5">{f.desc}</div>
+              <div className="text-[9px] text-white/40 mt-0.5">{f.desc}</div>
             </div>
           ))}
         </motion.div>
 
         {/* Start Button */}
         <motion.button
-          onClick={onStart}
-          className="group relative px-10 py-4 bg-gradient-to-r from-rose-500 to-red-500 text-white font-bold text-lg rounded-2xl shadow-2xl shadow-rose-600/30 hover:shadow-rose-500/50 transition-shadow duration-300 cursor-pointer"
+          onClick={() => setPhase("game")}
+          className="group w-full relative px-8 py-4 bg-gradient-to-r from-rose-500 to-red-500 text-white font-bold text-lg rounded-2xl shadow-2xl shadow-rose-600/30 active:scale-95 transition-transform duration-200 cursor-pointer"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.3, duration: 0.6 }}
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.96 }}
         >
-          <span className="flex items-center gap-2">
-            <Play size={20} fill="currentColor" />
-            Begin Our Story
+          <span className="flex items-center justify-center gap-2">
+            <Play size={18} fill="currentColor" className="rotate-180" />
+            لنبدأ قصتنا
             <ArrowLeft
               size={18}
               className="transition-transform group-hover:-translate-x-1"
             />
           </span>
         </motion.button>
-
-        {/* Footer */}
-        <motion.p
-          className="mt-8 text-xs text-white/25 flex items-center gap-1.5"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.6 }}
-        >
-          5 chapters
-          <span className="text-white/15">·</span>
-          50 questions
-          <span className="text-white/15">·</span>
-          <Heart size={10} className="text-rose-400/50" fill="currentColor" />
-          all my love
-        </motion.p>
       </div>
     </motion.div>
   );
