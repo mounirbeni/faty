@@ -117,7 +117,7 @@ export default function RapidFireScreen() {
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIdx}
-          className="relative z-10 flex flex-col flex-1 items-center justify-center px-5 gap-4"
+          className="relative z-10 flex flex-col flex-1 items-center justify-center px-5 gap-4 will-change-transform"
           initial={{ opacity: 0, y: 30, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -30, scale: 0.95 }}
@@ -132,7 +132,7 @@ export default function RapidFireScreen() {
             onClick={() => handleChoice('a')}
             className={`
               w-full max-w-sm py-7 rounded-3xl font-bold text-lg text-center
-              border transition-all active:scale-95 cursor-pointer
+              border transition-all active:scale-95 cursor-pointer will-change-transform
               flex flex-col items-center gap-2
               ${selected === 'a'
                 ? 'bg-gradient-to-br from-orange-400 to-amber-500 border-transparent text-white shadow-2xl shadow-orange-500/40 scale-[1.02]'
@@ -157,7 +157,7 @@ export default function RapidFireScreen() {
             onClick={() => handleChoice('b')}
             className={`
               w-full max-w-sm py-7 rounded-3xl font-bold text-lg text-center
-              border transition-all active:scale-95 cursor-pointer
+              border transition-all active:scale-95 cursor-pointer will-change-transform
               flex flex-col items-center gap-2
               ${selected === 'b'
                 ? 'bg-gradient-to-br from-rose-500 to-pink-600 border-transparent text-white shadow-2xl shadow-rose-500/40 scale-[1.02]'

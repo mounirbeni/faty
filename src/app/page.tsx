@@ -5,9 +5,11 @@ import WelcomeScreen from '@/components/WelcomeScreen';
 import GameScreen from '@/components/GameScreen';
 import CompletionScreen from '@/components/CompletionScreen';
 import HomeMapScreen from '@/components/HomeMapScreen';
-import VibeCheckScreen from '@/components/VibeCheckScreen';
-import RapidFireScreen from '@/components/RapidFireScreen';
-import MayVaultScreen from '@/components/MayVaultScreen';
+import dynamic from 'next/dynamic';
+
+const VibeCheckScreen = dynamic(() => import('@/components/VibeCheckScreen'), { ssr: false });
+const RapidFireScreen = dynamic(() => import('@/components/RapidFireScreen'), { ssr: false });
+const MayVaultScreen = dynamic(() => import('@/components/MayVaultScreen'), { ssr: false });
 import AnimatedBackground from '@/components/AnimatedBackground';
 import { useGameStore } from '@/store/gameStore';
 import { questionsData } from '@/data/questions';

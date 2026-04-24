@@ -52,7 +52,11 @@ const MINI_GAMES = [
 const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand'];
 
 export default function HomeMapScreen() {
-  const { answers, reversed, isReturningUser, setPhase, startChapter } = useGameStore();
+  const answers = useGameStore(s => s.answers);
+  const reversed = useGameStore(s => s.reversed);
+  const isReturningUser = useGameStore(s => s.isReturningUser);
+  const setPhase = useGameStore(s => s.setPhase);
+  const startChapter = useGameStore(s => s.startChapter);
 
   const totalAnswered = Object.values(answers).filter((v) => v?.trim()).length + reversed.length;
   const overallPercent = Math.round((totalAnswered / 50) * 100);

@@ -129,7 +129,7 @@ export default function VibeCheckScreen() {
         {vibeScenarios.slice(currentIdx + 1, currentIdx + 3).reverse().map((s, i) => (
           <div
             key={s.id}
-            className="absolute glass-strong rounded-3xl p-6 w-full max-w-[320px]"
+            className="absolute glass-strong rounded-3xl p-6 w-full max-w-[320px] will-change-transform"
             style={{
               transform: `scale(${0.9 + i * 0.04}) translateY(${(1 - i) * -16}px)`,
               opacity: 0.4 + i * 0.2,
@@ -143,7 +143,7 @@ export default function VibeCheckScreen() {
           {current && (
             <motion.div
               key={current.id}
-              className="absolute w-full max-w-[320px] z-10 cursor-grab active:cursor-grabbing"
+              className="absolute w-full max-w-[320px] z-10 cursor-grab active:cursor-grabbing will-change-transform"
               style={{ x, rotate, opacity: cardOpacity }}
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}

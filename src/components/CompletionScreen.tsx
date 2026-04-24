@@ -19,14 +19,12 @@ import { submitGameAction } from "@/app/actions/submitGame";
 import Toast from "./Toast";
 
 export default function CompletionScreen() {
-  const { 
-    answers, 
-    reversed, 
-    isSubmitting,
-    isSuccess,
-    setIsSubmitting,
-    setIsSuccess
-  } = useGameStore();
+  const answers = useGameStore((s) => s.answers);
+  const reversed = useGameStore((s) => s.reversed);
+  const isSubmitting = useGameStore((s) => s.isSubmitting);
+  const isSuccess = useGameStore((s) => s.isSuccess);
+  const setIsSubmitting = useGameStore((s) => s.setIsSubmitting);
+  const setIsSuccess = useGameStore((s) => s.setIsSuccess);
   const hasLaunched = useRef(false);
   const [toastMsg, setToastMsg] = useState("");
   const [toastVisible, setToastVisible] = useState(false);

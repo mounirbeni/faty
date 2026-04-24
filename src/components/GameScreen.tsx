@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
@@ -66,18 +66,16 @@ const flipVariants = {
 // ─── Component ───────────────────────────────────────────────────────
 
 export default function GameScreen() {
-  const {
-    currentIndex,
-    answers,
-    reversed,
-    reverseCardsLeft,
-    setAnswer,
-    goNext,
-    goPrev,
-    playReverseCard,
-    undoReverse,
-    setPhase,
-  } = useGameStore();
+  const currentIndex = useGameStore((s) => s.currentIndex);
+  const answers = useGameStore((s) => s.answers);
+  const reversed = useGameStore((s) => s.reversed);
+  const reverseCardsLeft = useGameStore((s) => s.reverseCardsLeft);
+  const setAnswer = useGameStore((s) => s.setAnswer);
+  const goNext = useGameStore((s) => s.goNext);
+  const goPrev = useGameStore((s) => s.goPrev);
+  const playReverseCard = useGameStore((s) => s.playReverseCard);
+  const undoReverse = useGameStore((s) => s.undoReverse);
+  const setPhase = useGameStore((s) => s.setPhase);
 
   const [direction, setDirection] = useState(1);
   const [isFlipping, setIsFlipping] = useState(false);
@@ -90,12 +88,21 @@ export default function GameScreen() {
   const [showLevelIntro, setShowLevelIntro] = useState(true);
   const seenCategoriesRef = useRef<Set<number>>(new Set([1]));
 
+  const [localAnswer, setLocalAnswer] = useState("");
+
   const currentQuestion: Question = questions[currentIndex];
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === questions.length - 1;
   const currentAnswer = answers[currentQuestion.id] || "";
   const isReversed = reversed.includes(currentQuestion.id);
-  const hasAnswer = currentAnswer.trim().length > 0 || isReversed;
+
+  // Sync local answer when question changes
+  useEffect(() => {
+    setLocalAnswer(answers[currentQuestion.id] || "");
+  }, [currentQuestion.id, answers]);
+
+  const displayAnswer = currentQuestion.type === "text" ? localAnswer : currentAnswer;
+  const hasAnswer = displayAnswer.trim().length > 0 || isReversed;
   const isTimeCapsule = currentQuestion.category === 5;
   const categoryMeta = categoriesMeta[currentQuestion.category - 1];
   const theme = categoryStyles[currentQuestion.category] || categoryStyles[1];
@@ -105,6 +112,10 @@ export default function GameScreen() {
   const handleNext = useCallback(() => {
     if (!hasAnswer) return;
     setToastVisible(false);
+
+    if (currentQuestion.type === "text") {
+      setAnswer(currentQuestion.id, localAnswer);
+    }
 
     setHeartBurstTrigger((t) => t + 1);
     setLoveNoteTrigger((t) => t + 1);
@@ -134,7 +145,7 @@ export default function GameScreen() {
     }
     
     goNext();
-  }, [hasAnswer, isTimeCapsule, isReversed, isLast, currentIndex, currentQuestion.category, goNext]);
+  }, [hasAnswer, isTimeCapsule, isReversed, isLast, currentIndex, currentQuestion.category, currentQuestion.id, currentQuestion.type, localAnswer, goNext, setAnswer]);
 
   const handlePrev = useCallback(() => {
     if (currentIndex <= 0) return;
@@ -311,8 +322,8 @@ export default function GameScreen() {
                       >
                         {currentQuestion.type === "text" ? (
                           <TextInput
-                            value={currentAnswer}
-                            onChange={(v) => setAnswer(currentQuestion.id, v)}
+                            value={localAnswer}
+                            onChange={(v) => setLocalAnswer(v)}
                             placeholder="Type your answer here..."
                             theme={theme}
                           />
