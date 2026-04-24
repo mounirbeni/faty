@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Heart,
@@ -9,15 +9,46 @@ import {
   Sparkles,
   Lock,
   RotateCcw,
-  RefreshCw,
   Star,
+  Loader2,
+  CheckCircle2,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { useGameStore } from "@/store/gameStore";
+import { submitGameAction } from "@/app/actions/submitGame";
+import Toast from "./Toast";
 
 export default function CompletionScreen() {
-  const { answers, reversed, resetGame } = useGameStore();
+  const { 
+    answers, 
+    reversed, 
+    isSubmitting,
+    isSuccess,
+    setIsSubmitting,
+    setIsSuccess
+  } = useGameStore();
   const hasLaunched = useRef(false);
+  const [toastMsg, setToastMsg] = useState("");
+  const [toastVisible, setToastVisible] = useState(false);
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    try {
+      const reversedArray = Array.from(reversed);
+      const res = await submitGameAction(answers, reversedArray);
+      if (res.success) {
+        setIsSuccess(true);
+      } else {
+        setToastMsg(res.error || "Failed to secure answers. Try again.");
+        setToastVisible(true);
+      }
+    } catch {
+      setToastMsg("Network error. Please try again.");
+      setToastVisible(true);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // Calculate stats based on Object.values(answers)
   const answersArray = Object.entries(answers).map(([id, value]) => ({
@@ -78,11 +109,70 @@ export default function CompletionScreen() {
     }, 1500);
   }, []);
 
+  if (isSuccess) {
+    return (
+      <motion.div
+        className="absolute inset-0 flex flex-col items-center justify-center px-6 overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-rose-900/20 to-black pointer-events-none" />
+        
+        <div className="relative z-10 flex flex-col items-center text-center max-w-md w-full">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 200, damping: 20 }}
+            className="w-24 h-24 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-2xl shadow-green-500/30 mb-8"
+          >
+            <motion.div
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <CheckCircle2 size={48} className="text-white" />
+            </motion.div>
+          </motion.div>
+
+          <motion.h2
+            className="text-3xl font-extrabold text-white mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            Secured & Locked!
+          </motion.h2>
+
+          <motion.p
+            className="text-[15px] text-white/70 leading-relaxed mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+          >
+            Your answers are now safely encrypted and sent. The Time Capsule is sealed until May 11. 
+            <br/><br/>
+            I can&apos;t wait to see your smile in person.
+          </motion.p>
+          
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+          >
+            <Heart size={24} className="text-rose-500 animate-heartbeat" fill="currentColor" />
+          </motion.div>
+        </div>
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       className="absolute inset-0 flex flex-col items-center justify-center px-6 overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.8 }}
     >
       {/* Background glows */}
@@ -216,16 +306,27 @@ export default function CompletionScreen() {
         </motion.div>
 
         <motion.button
-          onClick={resetGame}
-          className="w-full py-4 glass rounded-2xl text-[15px] font-semibold text-rose-400 active:scale-95 transition-transform cursor-pointer flex items-center justify-center gap-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+          className="w-full py-4 bg-gradient-to-r from-rose-500 to-pink-500 rounded-2xl text-[15px] font-bold text-white shadow-xl shadow-rose-500/25 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-70 disabled:pointer-events-none"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.6, duration: 0.6 }}
         >
-          <RefreshCw size={16} />
-          Play Again
+          {isSubmitting ? (
+            <>
+              <Loader2 size={18} className="animate-spin" />
+              Encrypting and sending...
+            </>
+          ) : (
+            <>
+              Lock Answers Securely 🔒
+            </>
+          )}
         </motion.button>
       </div>
+      
+      <Toast message={toastMsg} visible={toastVisible} onDismiss={() => setToastVisible(false)} />
     </motion.div>
   );
 }

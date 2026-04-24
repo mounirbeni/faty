@@ -9,8 +9,12 @@ interface GameState {
   answers: Record<number, string>;
   reversed: Set<number>;
   reverseCardsLeft: number;
+  isSubmitting: boolean;
+  isSuccess: boolean;
   
   // Actions
+  setIsSubmitting: (val: boolean) => void;
+  setIsSuccess: (val: boolean) => void;
   setPhase: (phase: AppPhase) => void;
   setAnswer: (questionId: number, value: string) => void;
   goNext: () => void;
@@ -28,6 +32,11 @@ export const useGameStore = create<GameState>((set, get) => ({
   answers: {},
   reversed: new Set(),
   reverseCardsLeft: MAX_REVERSE_CARDS,
+  isSubmitting: false,
+  isSuccess: false,
+
+  setIsSubmitting: (isSubmitting) => set({ isSubmitting }),
+  setIsSuccess: (isSuccess) => set({ isSuccess }),
 
   setPhase: (phase) => set({ phase }),
 
@@ -88,5 +97,7 @@ export const useGameStore = create<GameState>((set, get) => ({
     answers: {},
     reversed: new Set(),
     reverseCardsLeft: MAX_REVERSE_CARDS,
+    isSubmitting: false,
+    isSuccess: false,
   })
 }));
