@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import {
   Heart,
   Sparkles,
-  ArrowLeft,
+  ArrowRight,
   Play,
   RotateCcw,
   Thermometer,
@@ -73,31 +73,35 @@ export default function WelcomeScreen() {
       <div className="relative z-10 flex flex-col items-center text-center max-w-md w-full">
         {/* Heartbeat icon with rings */}
         <motion.div
-          className="relative mb-8"
+          className="relative mb-10"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 160, damping: 14, delay: 0.2 }}
         >
-          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-rose-500 via-pink-500 to-red-500 flex items-center justify-center shadow-2xl shadow-rose-600/40">
-            <Heart size={40} className="text-white animate-heartbeat" fill="white" />
-          </div>
+          <motion.div
+            className="w-28 h-28 rounded-full bg-gradient-to-br from-rose-500 via-pink-500 to-red-500 flex items-center justify-center shadow-2xl shadow-rose-600/40 relative z-10"
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <Heart size={48} className="text-white animate-heartbeat" fill="white" />
+          </motion.div>
           {/* Pulse rings */}
-          <div className="absolute inset-0 rounded-full border-2 border-rose-400/30 animate-pulse-ring" />
-          <div className="absolute inset-0 rounded-full border border-rose-400/20 animate-pulse-ring" style={{ animationDelay: "0.5s" }} />
+          <div className="absolute inset-0 rounded-full border-2 border-rose-400/30 animate-pulse-ring z-0" />
+          <div className="absolute inset-0 rounded-full border border-rose-400/20 animate-pulse-ring z-0" style={{ animationDelay: "0.5s" }} />
 
           <motion.div
-            className="absolute -top-2 -start-2"
+            className="absolute -top-4 -right-2 z-20"
             animate={{ rotate: [0, 20, -20, 0], scale: [1, 1.2, 1] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
-            <Sparkles size={20} className="text-amber-400" />
+            <Sparkles size={24} className="text-amber-400" />
           </motion.div>
           <motion.div
-            className="absolute -bottom-1 -end-3"
+            className="absolute -bottom-2 -left-2 z-20"
             animate={{ scale: [1, 1.3, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
           >
-            <Star size={14} className="text-amber-300" fill="currentColor" />
+            <Star size={18} className="text-amber-300" fill="currentColor" />
           </motion.div>
         </motion.div>
 
@@ -192,18 +196,26 @@ export default function WelcomeScreen() {
         {/* Start Button */}
         <motion.button
           onClick={() => setPhase("home")}
-          className="group w-full relative px-8 py-4 bg-gradient-to-r from-rose-500 to-red-500 text-white font-bold text-lg rounded-2xl shadow-2xl shadow-rose-600/30 active:scale-95 transition-transform duration-200 cursor-pointer"
+          className="group w-full relative px-8 py-4 bg-gradient-to-r from-rose-500 to-red-500 text-white font-bold text-[16px] rounded-2xl shadow-2xl shadow-rose-600/30 active:scale-95 transition-transform duration-200 cursor-pointer overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.3, duration: 0.6 }}
         >
-          <span className="flex items-center justify-center gap-2">
-            <Play size={18} fill="currentColor" />
+          <motion.div
+            className="absolute inset-0 w-1/2 h-full bg-white/20 -skew-x-12"
+            initial={{ x: '-200%' }}
+            animate={{ x: '300%' }}
+            transition={{ duration: 2, repeat: Infinity, repeatDelay: 1, ease: "easeInOut" }}
+          />
+          <span className="relative z-10 flex items-center justify-center gap-2">
+            <Play size={16} fill="currentColor" />
             {isReturningUser ? 'Continue Our Story' : 'Begin Our Story'}
-            <ArrowLeft
-              size={18}
-              className="transition-transform group-hover:translate-x-1 rotate-180"
-            />
+            <motion.div
+              animate={{ x: [0, 5, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <ArrowRight size={18} />
+            </motion.div>
           </span>
         </motion.button>
       </div>

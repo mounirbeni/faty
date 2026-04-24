@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Heart, ArrowRight } from "lucide-react";
+import { Heart, ArrowRight, Sparkles, Star } from "lucide-react";
 import { categoriesMeta, categoryIntros } from "@/data/meta";
 import IconFromName from "./IconFromName";
 
@@ -43,22 +43,49 @@ export default function LevelIntro({ category, onContinue }: LevelIntroProps) {
       >
         {/* Level icon orb */}
         <motion.div
-          className="relative mb-8"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 150, damping: 12, delay: 0.3 }}
+          className="relative mb-12"
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: "spring", stiffness: 140, damping: 12, delay: 0.3 }}
         >
-          <div
-            className={`w-20 h-20 rounded-full bg-gradient-to-br ${meta.colorFrom} ${meta.colorTo} flex items-center justify-center shadow-2xl`}
+          <motion.div
+            className={`w-24 h-24 rounded-full bg-gradient-to-br ${meta.colorFrom} ${meta.colorTo} flex items-center justify-center shadow-2xl relative z-10`}
             style={{ boxShadow: `0 0 60px ${meta.accentHex}40` }}
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
-            <IconFromName name={meta.icon} size={32} className="text-white" />
-          </div>
+            <IconFromName name={meta.icon} size={40} className="text-white" />
+          </motion.div>
           {/* Pulse ring */}
           <div
-            className="absolute inset-0 rounded-full animate-pulse-ring"
+            className="absolute inset-0 rounded-full animate-pulse-ring z-0"
             style={{ border: `2px solid ${meta.accentHex}` }}
           />
+
+          {/* Floating fun particles */}
+          <motion.div
+            className="absolute -top-4 -right-4 text-amber-300 pointer-events-none"
+            animate={{ scale: [1, 1.3, 1], rotate: [0, 15, -15, 0] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <Sparkles size={24} />
+          </motion.div>
+          
+          <motion.div
+            className="absolute -bottom-2 -left-4 text-rose-300 pointer-events-none z-20"
+            animate={{ y: [0, -8, 0], scale: [1, 1.1, 1] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          >
+            <Heart size={20} fill="currentColor" />
+          </motion.div>
+
+          <motion.div
+            className="absolute top-1/2 -left-8 text-amber-200/70 pointer-events-none"
+            animate={{ scale: [0.8, 1.2, 0.8], opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          >
+            <Star size={14} fill="currentColor" />
+          </motion.div>
         </motion.div>
 
         {/* Chapter title */}
@@ -95,18 +122,28 @@ export default function LevelIntro({ category, onContinue }: LevelIntroProps) {
         <motion.button
           onClick={onContinue}
           className={`
-            w-full flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-[15px] font-bold text-white
-            bg-gradient-to-r ${meta.colorFrom} ${meta.colorTo}
-            active:scale-95 transition-transform duration-200 cursor-pointer
+            w-full flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-[16px] font-bold text-white
+            bg-gradient-to-r ${meta.colorFrom} ${meta.colorTo} overflow-hidden relative
+            active:scale-95 transition-transform duration-200 cursor-pointer shadow-xl
           `}
-          style={{ boxShadow: `0 8px 30px ${meta.accentHex}30` }}
-          initial={{ opacity: 0, y: 10 }}
+          style={{ boxShadow: `0 10px 30px -10px ${meta.accentHex}60` }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0, duration: 0.5 }}
+          transition={{ delay: 1, duration: 0.5, type: "spring" }}
         >
-          <Heart size={16} fill="currentColor" />
-          I&apos;m Ready
-          <ArrowRight size={16} />
+          <motion.div
+            className="absolute inset-0 w-1/2 h-full bg-white/20 -skew-x-12"
+            initial={{ x: '-200%' }}
+            animate={{ x: '300%' }}
+            transition={{ duration: 2, repeat: Infinity, repeatDelay: 1, ease: "easeInOut" }}
+          />
+          <span className="relative z-10">Continue Journey</span>
+          <motion.div
+            animate={{ x: [0, 5, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ArrowRight size={18} className="relative z-10" />
+          </motion.div>
         </motion.button>
 
         {/* Question count hint */}

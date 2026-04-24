@@ -15,6 +15,7 @@ import {
   Check,
   Globe,
   HeartPulse,
+  CalendarHeart,
 } from 'lucide-react';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
@@ -67,6 +68,15 @@ const MINI_GAMES = [
     gradient: 'from-rose-500/80 to-red-600/80',
     glow: 'shadow-rose-500/25',
   },
+  {
+    id: 'daily-note' as const,
+    icon: <CalendarHeart size={32} className="text-emerald-300 drop-shadow-md" />,
+    label: 'Daily Whisper',
+    sublabel: 'A new note daily',
+    unlocksAtChapter: 0,
+    gradient: 'from-emerald-500/80 to-teal-600/80',
+    glow: 'shadow-emerald-500/25',
+  },
 ];
 
 const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand'];
@@ -77,6 +87,7 @@ export default function HomeMapScreen() {
   const isReturningUser = useGameStore(s => s.isReturningUser);
   const setPhase = useGameStore(s => s.setPhase);
   const startChapter = useGameStore(s => s.startChapter);
+  const lastReadDailyDate = useGameStore(s => s.lastReadDailyDate);
 
   const totalAnswered = Object.values(answers).filter((v) => v?.trim()).length + reversed.length;
   const overallPercent = Math.round((totalAnswered / 50) * 100);
@@ -86,7 +97,7 @@ export default function HomeMapScreen() {
     startChapter(chapter);
   };
 
-  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'vault') => {
+  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'vault') => {
     heartbeat();
     setPhase(id);
   };
@@ -233,6 +244,18 @@ export default function HomeMapScreen() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35 + idx * 0.07 }}
                 >
+                  {/* NEW Badge for Daily Note */}
+                  {game.id === 'daily-note' && lastReadDailyDate !== new Date().toLocaleDateString() && (
+                    <motion.div
+                      className="absolute -top-2 -right-2 bg-red-500 text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-[0_0_10px_rgba(239,68,68,0.8)] border border-red-300 z-10"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                      NEW
+                    </motion.div>
+                  )}
+
                   {!unlocked && (
                     <div className="absolute top-2 right-2">
                       <Lock size={10} className="text-white/50" />

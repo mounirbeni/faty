@@ -12,6 +12,7 @@ const RapidFireScreen = dynamic(() => import('@/components/RapidFireScreen'), { 
 const MayVaultScreen = dynamic(() => import('@/components/MayVaultScreen'), { ssr: false });
 const FortuneTellerScreen = dynamic(() => import('@/components/FortuneTellerScreen'), { ssr: false });
 const HeartSyncScreen = dynamic(() => import('@/components/HeartSyncScreen'), { ssr: false });
+const DailyNoteScreen = dynamic(() => import('@/components/DailyNoteScreen'), { ssr: false });
 import AnimatedBackground from '@/components/AnimatedBackground';
 import { useGameStore } from '@/store/gameStore';
 import { questionsData } from '@/data/questions';
@@ -36,6 +37,7 @@ export default function HomePage() {
         {phase === 'vault' && <MayVaultScreen key="vault" />}
         {phase === 'fortune-teller' && <FortuneTellerScreen key="fortune-teller" />}
         {phase === 'heart-sync' && <HeartSyncScreen key="heart-sync" />}
+        {phase === 'daily-note' && <DailyNoteScreen key="daily-note" />}
         {phase === 'complete' && <CompletionScreen key="complete" />}
       </AnimatePresence>
     </main>

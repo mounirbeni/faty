@@ -10,6 +10,7 @@ export type AppPhase =
   | 'rapid-fire'
   | 'fortune-teller'
   | 'heart-sync'
+  | 'daily-note'
   | 'vault'
   | 'complete';
 
@@ -26,6 +27,7 @@ interface GameState {
   rapidFireChoices: Record<number, string>;
   fortuneResult: string | null;
   heartSyncComplete: boolean;
+  lastReadDailyDate: string | null;
 
   // Actions
   setIsSubmitting: (val: boolean) => void;
@@ -42,6 +44,7 @@ interface GameState {
   setRapidFireChoice: (id: number, choice: string) => void;
   setFortuneResult: (fortune: string) => void;
   setHeartSyncComplete: () => void;
+  setLastReadDailyDate: (date: string) => void;
 }
 
 const MAX_REVERSE_CARDS = 3;
@@ -61,6 +64,7 @@ export const useGameStore = create<GameState>()(
       rapidFireChoices: {},
       fortuneResult: null,
       heartSyncComplete: false,
+      lastReadDailyDate: null,
 
       setIsSubmitting: (isSubmitting) => set({ isSubmitting }),
       setIsSuccess: (isSuccess) => set({ isSuccess }),
@@ -141,6 +145,8 @@ export const useGameStore = create<GameState>()(
 
       setHeartSyncComplete: () => set({ heartSyncComplete: true }),
 
+      setLastReadDailyDate: (date) => set({ lastReadDailyDate: date }),
+
       resetGame: () =>
         set({
           phase: 'welcome',
@@ -155,6 +161,7 @@ export const useGameStore = create<GameState>()(
           rapidFireChoices: {},
           fortuneResult: null,
           heartSyncComplete: false,
+          lastReadDailyDate: null,
         }),
     }),
     {
