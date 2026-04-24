@@ -11,6 +11,7 @@ import {
   Pen,
   MessageCircleHeart,
   Heart,
+  Map,
 } from "lucide-react";
 import { questionsData as questions, type Question } from "@/data/questions";
 import { categoriesMeta } from "@/data/meta";
@@ -21,6 +22,7 @@ import LevelIntro from "./LevelIntro";
 import HeartBurst from "./HeartBurst";
 import LoveNote from "./LoveNote";
 import { useGameStore } from "@/store/gameStore";
+import { softTap } from "@/lib/useHaptics";
 
 // ─── Animation variants (Hardware accelerated) ────────────────────────
 
@@ -74,12 +76,15 @@ export default function GameScreen() {
     goPrev,
     playReverseCard,
     undoReverse,
+    setPhase,
   } = useGameStore();
 
   const [direction, setDirection] = useState(1);
   const [isFlipping, setIsFlipping] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
+
+  // Hide toast is now handled directly in button clicks
   const [heartBurstTrigger, setHeartBurstTrigger] = useState(0);
   const [loveNoteTrigger, setLoveNoteTrigger] = useState(0);
   const [showLevelIntro, setShowLevelIntro] = useState(true);
@@ -89,7 +94,7 @@ export default function GameScreen() {
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === questions.length - 1;
   const currentAnswer = answers[currentQuestion.id] || "";
-  const isReversed = reversed.has(currentQuestion.id);
+  const isReversed = reversed.includes(currentQuestion.id);
   const hasAnswer = currentAnswer.trim().length > 0 || isReversed;
   const isTimeCapsule = currentQuestion.category === 5;
   const categoryMeta = categoriesMeta[currentQuestion.category - 1];
@@ -99,6 +104,7 @@ export default function GameScreen() {
 
   const handleNext = useCallback(() => {
     if (!hasAnswer) return;
+    setToastVisible(false);
 
     setHeartBurstTrigger((t) => t + 1);
     setLoveNoteTrigger((t) => t + 1);
@@ -131,14 +137,15 @@ export default function GameScreen() {
   }, [hasAnswer, isTimeCapsule, isReversed, isLast, currentIndex, currentQuestion.category, goNext]);
 
   const handlePrev = useCallback(() => {
-    if (isFirst) return;
+    if (currentIndex <= 0) return;
+    setToastVisible(false);
     setDirection(-1);
     goPrev();
-  }, [isFirst, goPrev]);
+  }, [isFirst, currentIndex, goPrev]);
 
   const handleUseReverseCard = useCallback(() => {
     if (reverseCardsLeft <= 0 || isReversed) return;
-
+    softTap();
     setIsFlipping(true);
     setTimeout(() => {
       playReverseCard(currentQuestion.id);
@@ -183,15 +190,24 @@ export default function GameScreen() {
               <span className="text-white/15 mx-1">·</span>
               <span className="text-white/20">{posInLevel} / {levelEnd}</span>
             </div>
-            <button
-              onClick={handleUseReverseCard}
-              disabled={reverseCardsLeft <= 0 || isReversed || isFlipping}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl glass text-xs font-semibold text-white/70 active:scale-95 transition-transform disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
-            >
-              <RotateCcw size={14} className="text-amber-400" />
-              <span>{reverseCardsLeft}</span>
-              <span className="hidden sm:inline">Reverse</span>
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => { softTap(); setPhase('home'); }}
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl glass text-xs font-semibold text-white/50 active:scale-95 transition-transform cursor-pointer"
+              >
+                <Map size={12} className="text-white/40" />
+                <span className="hidden sm:inline">Map</span>
+              </button>
+              <button
+                onClick={handleUseReverseCard}
+                disabled={reverseCardsLeft <= 0 || isReversed || isFlipping}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl glass text-xs font-semibold text-white/70 active:scale-95 transition-transform disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+              >
+                <RotateCcw size={14} className="text-amber-400" />
+                <span>{reverseCardsLeft}</span>
+                <span className="hidden sm:inline">Reverse</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -417,7 +433,7 @@ function MultipleChoice({
   theme: { ring: string; shadow: string; bgGradient: string; buttonGradient: string; tagColor: string };
 }) {
   return (
-    <div className="grid gap-2.5">
+    <div className="grid gap-2.5 pb-2">
       {options.map((option, i) => {
         const isSelected = selected === option;
         return (

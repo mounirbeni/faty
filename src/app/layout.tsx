@@ -10,14 +10,14 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "For Faty — Our Little Game",
+  title: "For My Love — Our Little Game",
   description: "A romantic Q&A game to help us get to know each other before we finally meet.",
   robots: "noindex, nofollow",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Faty",
+    title: "My Angel",
   },
   icons: {
     icon: "/icon-192.png",

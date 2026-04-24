@@ -14,7 +14,7 @@ export default function Toast({
   message,
   visible,
   onDismiss,
-  durationMs = 4000,
+  durationMs = 60000,
 }: ToastProps) {
   const [exiting, setExiting] = useState(false);
 

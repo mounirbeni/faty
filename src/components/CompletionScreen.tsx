@@ -54,11 +54,11 @@ export default function CompletionScreen() {
   const answersArray = Object.entries(answers).map(([id, value]) => ({
     questionId: Number(id),
     value,
-    reversed: reversed.has(Number(id)),
+    reversed: reversed.includes(Number(id)),
   }));
 
   const answeredCount = answersArray.filter((a) => !a.reversed && a.value).length;
-  const reversedCount = reversed.size;
+  const reversedCount = reversed.length;
   const capsuleCount = answersArray.filter(
     (a) => !a.reversed && a.value && a.questionId > 40
   ).length;
@@ -220,7 +220,7 @@ export default function CompletionScreen() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
         >
-          You are amazing, Faty
+          You are amazing, my beautiful angel
         </motion.h1>
 
         <motion.p

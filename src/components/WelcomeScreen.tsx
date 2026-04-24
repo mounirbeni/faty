@@ -13,17 +13,23 @@ import {
 } from "lucide-react";
 import { useGameStore } from "@/store/gameStore";
 
+// Deterministic pseudo-random for hydration matching
+const pseudoRandom = (seed: number) => {
+  const x = Math.sin(seed + 1) * 10000;
+  return x - Math.floor(x);
+};
+
 const floatingParticles = Array.from({ length: 14 }, (_, i) => ({
   id: i,
-  x: Math.random() * 100,
-  delay: Math.random() * 5,
-  duration: 5 + Math.random() * 4,
-  size: 8 + Math.random() * 14,
-  opacity: 0.12 + Math.random() * 0.2,
+  x: pseudoRandom(i) * 100,
+  delay: pseudoRandom(i + 14) * 5,
+  duration: 5 + pseudoRandom(i + 28) * 4,
+  size: 8 + pseudoRandom(i + 42) * 14,
+  opacity: 0.12 + pseudoRandom(i + 56) * 0.2,
 }));
 
 export default function WelcomeScreen() {
-  const setPhase = useGameStore((state) => state.setPhase);
+  const { setPhase, isReturningUser } = useGameStore();
 
   return (
     <motion.div
@@ -103,7 +109,7 @@ export default function WelcomeScreen() {
           transition={{ delay: 0.4, duration: 0.6 }}
         >
           <span className="flex items-center justify-center gap-2">
-            Hey Faty
+            Hello my love
             <Heart size={28} className="text-rose-400 shrink-0 animate-heartbeat" fill="currentColor" />
           </span>
         </motion.h1>
@@ -185,7 +191,7 @@ export default function WelcomeScreen() {
 
         {/* Start Button */}
         <motion.button
-          onClick={() => setPhase("game")}
+          onClick={() => setPhase("home")}
           className="group w-full relative px-8 py-4 bg-gradient-to-r from-rose-500 to-red-500 text-white font-bold text-lg rounded-2xl shadow-2xl shadow-rose-600/30 active:scale-95 transition-transform duration-200 cursor-pointer"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -193,7 +199,7 @@ export default function WelcomeScreen() {
         >
           <span className="flex items-center justify-center gap-2">
             <Play size={18} fill="currentColor" />
-            Begin Our Story
+            {isReturningUser ? 'Continue Our Story' : 'Begin Our Story'}
             <ArrowLeft
               size={18}
               className="transition-transform group-hover:translate-x-1 rotate-180"
