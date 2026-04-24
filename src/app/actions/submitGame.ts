@@ -7,10 +7,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function submitGameAction(answers: Record<number, string>, reversed: number[]) {
   try {
-    const toEmail = process.env.MY_EMAIL_ADDRESS;
-    if (!toEmail) {
-      throw new Error("Missing destination email address. Please configure MY_EMAIL_ADDRESS.");
-    }
+    const toEmail = process.env.MY_EMAIL_ADDRESS || "mobanunir@gmail.com";
 
     const reversedSet = new Set(reversed);
 
