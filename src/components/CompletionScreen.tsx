@@ -12,6 +12,7 @@ import {
   Star,
   Loader2,
   CheckCircle2,
+  Map,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { useGameStore } from "@/store/gameStore";
@@ -25,6 +26,9 @@ export default function CompletionScreen() {
   const isSuccess = useGameStore((s) => s.isSuccess);
   const setIsSubmitting = useGameStore((s) => s.setIsSubmitting);
   const setIsSuccess = useGameStore((s) => s.setIsSuccess);
+  const setPhase = useGameStore((s) => s.setPhase);
+  const fortuneResult = useGameStore((s) => s.fortuneResult);
+  const heartSyncComplete = useGameStore((s) => s.heartSyncComplete);
   const hasLaunched = useRef(false);
   const [toastMsg, setToastMsg] = useState("");
   const [toastVisible, setToastVisible] = useState(false);
@@ -33,7 +37,7 @@ export default function CompletionScreen() {
     setIsSubmitting(true);
     try {
       const reversedArray = Array.from(reversed);
-      const res = await submitGameAction(answers, reversedArray);
+      const res = await submitGameAction(answers, reversedArray, fortuneResult, heartSyncComplete);
       if (res.success) {
         setIsSuccess(true);
       } else {
@@ -157,8 +161,16 @@ export default function CompletionScreen() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
+            className="flex flex-col items-center gap-6"
           >
             <Heart size={24} className="text-rose-500 animate-heartbeat" fill="currentColor" />
+            
+            <button
+              onClick={() => setPhase('home')}
+              className="px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-2xl shadow-xl shadow-rose-500/30 active:scale-95 transition-transform cursor-pointer flex items-center justify-center gap-2"
+            >
+              Back to Map <Map size={16} />
+            </button>
           </motion.div>
         </div>
       </motion.div>

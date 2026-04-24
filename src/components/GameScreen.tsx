@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
@@ -88,18 +88,20 @@ export default function GameScreen() {
   const [showLevelIntro, setShowLevelIntro] = useState(true);
   const seenCategoriesRef = useRef<Set<number>>(new Set([1]));
 
-  const [localAnswer, setLocalAnswer] = useState("");
-
   const currentQuestion: Question = questions[currentIndex];
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === questions.length - 1;
   const currentAnswer = answers[currentQuestion.id] || "";
   const isReversed = reversed.includes(currentQuestion.id);
 
-  // Sync local answer when question changes
-  useEffect(() => {
-    setLocalAnswer(answers[currentQuestion.id] || "");
-  }, [currentQuestion.id, answers]);
+  const [localAnswer, setLocalAnswer] = useState(currentAnswer);
+  const [prevQuestionId, setPrevQuestionId] = useState(currentQuestion.id);
+
+  // Sync local answer when question changes (render phase update)
+  if (currentQuestion.id !== prevQuestionId) {
+    setPrevQuestionId(currentQuestion.id);
+    setLocalAnswer(currentAnswer);
+  }
 
   const displayAnswer = currentQuestion.type === "text" ? localAnswer : currentAnswer;
   const hasAnswer = displayAnswer.trim().length > 0 || isReversed;
@@ -152,7 +154,7 @@ export default function GameScreen() {
     setToastVisible(false);
     setDirection(-1);
     goPrev();
-  }, [isFirst, currentIndex, goPrev]);
+  }, [currentIndex, goPrev]);
 
   const handleUseReverseCard = useCallback(() => {
     if (reverseCardsLeft <= 0 || isReversed) return;

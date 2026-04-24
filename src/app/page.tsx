@@ -10,6 +10,8 @@ import dynamic from 'next/dynamic';
 const VibeCheckScreen = dynamic(() => import('@/components/VibeCheckScreen'), { ssr: false });
 const RapidFireScreen = dynamic(() => import('@/components/RapidFireScreen'), { ssr: false });
 const MayVaultScreen = dynamic(() => import('@/components/MayVaultScreen'), { ssr: false });
+const FortuneTellerScreen = dynamic(() => import('@/components/FortuneTellerScreen'), { ssr: false });
+const HeartSyncScreen = dynamic(() => import('@/components/HeartSyncScreen'), { ssr: false });
 import AnimatedBackground from '@/components/AnimatedBackground';
 import { useGameStore } from '@/store/gameStore';
 import { questionsData } from '@/data/questions';
@@ -32,6 +34,8 @@ export default function HomePage() {
         {phase === 'vibe-check' && <VibeCheckScreen key="vibe-check" />}
         {phase === 'rapid-fire' && <RapidFireScreen key="rapid-fire" />}
         {phase === 'vault' && <MayVaultScreen key="vault" />}
+        {phase === 'fortune-teller' && <FortuneTellerScreen key="fortune-teller" />}
+        {phase === 'heart-sync' && <HeartSyncScreen key="heart-sync" />}
         {phase === 'complete' && <CompletionScreen key="complete" />}
       </AnimatePresence>
     </main>

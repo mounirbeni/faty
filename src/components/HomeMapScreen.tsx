@@ -13,6 +13,8 @@ import {
   Zap,
   Vault,
   Check,
+  Globe,
+  HeartPulse,
 } from 'lucide-react';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
@@ -47,6 +49,24 @@ const MINI_GAMES = [
     gradient: 'from-violet-600/80 to-purple-700/80',
     glow: 'shadow-violet-500/25',
   },
+  {
+    id: 'fortune-teller' as const,
+    icon: <Globe size={32} className="text-cyan-300 drop-shadow-md" />,
+    label: 'Fortune Teller',
+    sublabel: 'Gaze into the future',
+    unlocksAtChapter: 2,
+    gradient: 'from-cyan-500/80 to-blue-600/80',
+    glow: 'shadow-cyan-500/25',
+  },
+  {
+    id: 'heart-sync' as const,
+    icon: <HeartPulse size={32} className="text-rose-300 drop-shadow-md" />,
+    label: 'Heart Sync',
+    sublabel: 'Feel the beat',
+    unlocksAtChapter: 4,
+    gradient: 'from-rose-500/80 to-red-600/80',
+    glow: 'shadow-rose-500/25',
+  },
 ];
 
 const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand'];
@@ -66,7 +86,7 @@ export default function HomeMapScreen() {
     startChapter(chapter);
   };
 
-  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'vault') => {
+  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'vault') => {
     heartbeat();
     setPhase(id);
   };
@@ -178,17 +198,23 @@ export default function HomeMapScreen() {
             <span className="text-xs font-bold text-white/40 uppercase tracking-widest">Bonus Islands</span>
           </div>
 
-          <div className="grid grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
             {MINI_GAMES.map((game, idx) => {
               const ch1Complete = getChapterProgress(answers, reversed, 1).isComplete;
+              const ch2Complete = getChapterProgress(answers, reversed, 2).isComplete;
               const ch3Complete = getChapterProgress(answers, reversed, 3).isComplete;
+              const ch4Complete = getChapterProgress(answers, reversed, 4).isComplete;
               const unlocked =
                 game.unlocksAtChapter === 0
                   ? true
                   : game.unlocksAtChapter === 1
                   ? ch1Complete
+                  : game.unlocksAtChapter === 2
+                  ? ch2Complete
                   : game.unlocksAtChapter === 3
                   ? ch3Complete
+                  : game.unlocksAtChapter === 4
+                  ? ch4Complete
                   : false;
 
               return (

@@ -5,7 +5,12 @@ import { questionsData } from "@/data/questions";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function submitGameAction(answers: Record<number, string>, reversed: number[]) {
+export async function submitGameAction(
+  answers: Record<number, string>, 
+  reversed: number[],
+  fortuneResult: string | null,
+  heartSyncComplete: boolean
+) {
   try {
     const toEmail = process.env.MY_EMAIL_ADDRESS || "mobanunir@gmail.com";
 
@@ -53,6 +58,24 @@ export async function submitGameAction(answers: Record<number, string>, reversed
         </div>
       `;
     });
+
+    htmlContent += `
+        <h2 style="color: #be123c; margin-top: 40px; border-top: 2px dashed #f43f5e; padding-top: 20px;">Mini-Games Status</h2>
+        
+        <div style="margin-bottom: 16px; padding: 16px; background: #ecfeff; border-radius: 12px; border-left: 4px solid #06b6d4;">
+          <p style="margin: 0 0 8px 0; font-weight: bold; color: #164e63;">The Fortune Teller 🔮</p>
+          <p style="margin: 0; color: #155e75;">
+            ${fortuneResult ? `She drew this fortune:<br/><i>"${fortuneResult}"</i>` : 'Did not play.'}
+          </p>
+        </div>
+
+        <div style="margin-bottom: 24px; padding: 16px; background: #fff1f2; border-radius: 12px; border-left: 4px solid #f43f5e;">
+          <p style="margin: 0 0 8px 0; font-weight: bold; color: #881337;">Heart Sync ❤️</p>
+          <p style="margin: 0; color: #9f1239;">
+            ${heartSyncComplete ? 'She successfully synced her heartbeats and unlocked the secret love note!' : 'Did not complete.'}
+          </p>
+        </div>
+    `;
 
     htmlContent += `
         <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">

@@ -8,6 +8,8 @@ export type AppPhase =
   | 'game'
   | 'vibe-check'
   | 'rapid-fire'
+  | 'fortune-teller'
+  | 'heart-sync'
   | 'vault'
   | 'complete';
 
@@ -22,6 +24,8 @@ interface GameState {
   isReturningUser: boolean;
   vibeChoices: Record<number, 'love' | 'nope'>;
   rapidFireChoices: Record<number, string>;
+  fortuneResult: string | null;
+  heartSyncComplete: boolean;
 
   // Actions
   setIsSubmitting: (val: boolean) => void;
@@ -36,6 +40,8 @@ interface GameState {
   startChapter: (chapter: number) => void;
   setVibeChoice: (id: number, choice: 'love' | 'nope') => void;
   setRapidFireChoice: (id: number, choice: string) => void;
+  setFortuneResult: (fortune: string) => void;
+  setHeartSyncComplete: () => void;
 }
 
 const MAX_REVERSE_CARDS = 3;
@@ -53,6 +59,8 @@ export const useGameStore = create<GameState>()(
       isReturningUser: false,
       vibeChoices: {},
       rapidFireChoices: {},
+      fortuneResult: null,
+      heartSyncComplete: false,
 
       setIsSubmitting: (isSubmitting) => set({ isSubmitting }),
       setIsSuccess: (isSuccess) => set({ isSuccess }),
@@ -129,6 +137,10 @@ export const useGameStore = create<GameState>()(
           rapidFireChoices: { ...state.rapidFireChoices, [id]: choice },
         })),
 
+      setFortuneResult: (fortune) => set({ fortuneResult: fortune }),
+
+      setHeartSyncComplete: () => set({ heartSyncComplete: true }),
+
       resetGame: () =>
         set({
           phase: 'welcome',
@@ -141,6 +153,8 @@ export const useGameStore = create<GameState>()(
           isReturningUser: false,
           vibeChoices: {},
           rapidFireChoices: {},
+          fortuneResult: null,
+          heartSyncComplete: false,
         }),
     }),
     {

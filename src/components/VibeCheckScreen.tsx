@@ -7,7 +7,7 @@ import {
   useTransform,
   AnimatePresence,
 } from 'framer-motion';
-import { Heart, X, ArrowLeft, CheckCircle2, Map } from 'lucide-react';
+import { Heart, X, ArrowLeft, CheckCircle2, Map, RotateCcw } from 'lucide-react';
 import { vibeScenarios } from '@/data/vibeScenarios';
 import { useGameStore } from '@/store/gameStore';
 import { heartbeat, swipeLove, swipeNope } from '@/lib/useHaptics';
@@ -207,20 +207,41 @@ export default function VibeCheckScreen() {
         </motion.button>
       </div>
 
-      {/* Progress dots */}
-      <div className="flex justify-center gap-1.5 pb-6 shrink-0">
-        {vibeScenarios.map((_, i) => (
-          <div
-            key={i}
-            className={`rounded-full transition-all duration-300 ${
-              i < currentIdx
-                ? 'w-4 h-1.5 bg-rose-400'
-                : i === currentIdx
-                ? 'w-4 h-1.5 bg-white'
-                : 'w-1.5 h-1.5 bg-white/20'
-            }`}
-          />
-        ))}
+      {/* Footer controls */}
+      <div className="flex flex-col items-center gap-4 pb-6 shrink-0">
+        {/* Progress dots */}
+        <div className="flex justify-center gap-1.5 w-full">
+          {vibeScenarios.map((_, i) => (
+            <div
+              key={i}
+              className={`rounded-full transition-all duration-300 ${
+                i < currentIdx
+                  ? 'w-4 h-1.5 bg-rose-400'
+                  : i === currentIdx
+                  ? 'w-4 h-1.5 bg-white'
+                  : 'w-1.5 h-1.5 bg-white/20'
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Back button */}
+        <AnimatePresence>
+          {currentIdx > 0 && (
+            <motion.button
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              onClick={() => {
+                setCurrentIdx(i => i - 1);
+              }}
+              className="flex items-center gap-1.5 text-white/40 hover:text-white/80 transition-colors text-xs font-semibold active:scale-95 cursor-pointer uppercase tracking-widest mt-2"
+            >
+              <RotateCcw size={12} />
+              Undo
+            </motion.button>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   );

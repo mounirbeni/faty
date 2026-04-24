@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Zap, CheckCircle2, Map } from 'lucide-react';
+import { ArrowLeft, Zap, CheckCircle2, Map, RotateCcw } from 'lucide-react';
 import { rapidFirePairs } from '@/data/rapidFirePairs';
 import { useGameStore } from '@/store/gameStore';
 import { softTap, successVibe } from '@/lib/useHaptics';
@@ -174,20 +174,42 @@ export default function RapidFireScreen() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Progress dots */}
-      <div className="flex justify-center gap-1.5 pb-8 pt-4 shrink-0">
-        {rapidFirePairs.map((_, i) => (
-          <div
-            key={i}
-            className={`rounded-full transition-all duration-300 ${
-              i < currentIdx
-                ? 'w-4 h-1.5 bg-amber-400'
-                : i === currentIdx
-                ? 'w-4 h-1.5 bg-white'
-                : 'w-1.5 h-1.5 bg-white/20'
-            }`}
-          />
-        ))}
+      {/* Footer controls */}
+      <div className="px-8 pb-8 pt-4 shrink-0 flex flex-col items-center gap-5">
+        {/* Progress dots */}
+        <div className="flex justify-center gap-1.5 w-full">
+          {rapidFirePairs.map((_, i) => (
+            <div
+              key={i}
+              className={`rounded-full transition-all duration-300 ${
+                i < currentIdx
+                  ? 'w-4 h-1.5 bg-amber-400'
+                  : i === currentIdx
+                  ? 'w-4 h-1.5 bg-white'
+                  : 'w-1.5 h-1.5 bg-white/20'
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Back button */}
+        <AnimatePresence>
+          {currentIdx > 0 && (
+            <motion.button
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              onClick={() => {
+                setSelected(null);
+                setCurrentIdx(i => i - 1);
+              }}
+              className="flex items-center gap-1.5 text-white/40 hover:text-white/80 transition-colors text-xs font-semibold active:scale-95 cursor-pointer uppercase tracking-widest"
+            >
+              <RotateCcw size={12} />
+              Previous
+            </motion.button>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   );
