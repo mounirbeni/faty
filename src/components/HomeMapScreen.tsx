@@ -16,6 +16,8 @@ import {
   Globe,
   HeartPulse,
   CalendarHeart,
+  Puzzle,
+  Sun,
 } from 'lucide-react';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
@@ -77,6 +79,24 @@ const MINI_GAMES = [
     gradient: 'from-emerald-500/80 to-teal-600/80',
     glow: 'shadow-emerald-500/25',
   },
+  {
+    id: 'perfect-match' as const,
+    icon: <Puzzle size={32} className="text-indigo-300 drop-shadow-md" />,
+    label: 'Perfect Match',
+    sublabel: 'Memory game',
+    unlocksAtChapter: 2,
+    gradient: 'from-indigo-500/80 to-blue-600/80',
+    glow: 'shadow-indigo-500/25',
+  },
+  {
+    id: 'mood-ring' as const,
+    icon: <Sun size={32} className="text-yellow-300 drop-shadow-md" />,
+    label: 'Mood Ring',
+    sublabel: 'Daily check-in',
+    unlocksAtChapter: 0,
+    gradient: 'from-yellow-500/80 to-amber-600/80',
+    glow: 'shadow-yellow-500/25',
+  },
 ];
 
 const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand'];
@@ -97,7 +117,7 @@ export default function HomeMapScreen() {
     startChapter(chapter);
   };
 
-  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'vault') => {
+  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'vault') => {
     heartbeat();
     setPhase(id);
   };

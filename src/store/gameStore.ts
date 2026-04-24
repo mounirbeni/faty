@@ -11,6 +11,8 @@ export type AppPhase =
   | 'fortune-teller'
   | 'heart-sync'
   | 'daily-note'
+  | 'perfect-match'
+  | 'mood-ring'
   | 'vault'
   | 'complete';
 
