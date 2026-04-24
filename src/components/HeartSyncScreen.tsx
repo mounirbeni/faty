@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Map, HeartPulse, Heart, Mail } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { softTap, heartbeat, successVibe } from '@/lib/useHaptics';
+import { sendTelegramNotification } from '@/app/actions/notify';
 
 const MAX_TAPS = 15;
 
@@ -28,6 +29,10 @@ export default function HeartSyncScreen() {
           successVibe();
           setHeartSyncComplete();
           setRevealed(true);
+          // Silent Telegram notification
+          sendTelegramNotification(
+            `💓 <b>Faty just completed the Heart Sync!</b>\n\nShe is reading your secret love note right now. ❤️`
+          ).catch(console.error);
         }, 300);
       }
       return newTaps;

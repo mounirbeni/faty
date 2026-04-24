@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Map, Globe, Sparkles } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { softTap, heartbeat, successVibe } from '@/lib/useHaptics';
+import { sendTelegramNotification } from '@/app/actions/notify';
 
 export const fortunesData = [
   "The stars align over Meknes. Your upcoming meeting will spark a flame that distance can never extinguish. 💫",
@@ -35,8 +36,13 @@ export default function FortuneTellerScreen() {
     if (taps + 1 >= 3) {
       setTimeout(() => {
         successVibe();
-        setFortuneText(fortuneResult ? fortunesData[parseInt(fortuneResult)] : fortunesData[0]);
+        const resolvedText = fortuneResult ? fortunesData[parseInt(fortuneResult)] : fortunesData[0];
+        setFortuneText(resolvedText);
         setRevealed(true);
+        // Silent Telegram notification
+        sendTelegramNotification(
+          `🔮 <b>Faty just drew a Fortune!</b>\n\n\u201c${resolvedText}\u201d`
+        ).catch(console.error);
       }, 500);
     }
   };

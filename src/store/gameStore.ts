@@ -36,6 +36,7 @@ interface GameState {
   dailyWhisperLastTimestamp: number;
   dailyWhisperIsVoiceNote: boolean;
   fortuneHistory: number[];
+  currentMood: string | null;
 
   // Actions
   setIsSubmitting: (val: boolean) => void;
@@ -54,6 +55,7 @@ interface GameState {
   setHeartSyncComplete: () => void;
   generateDailyWhisper: (totalMessages: number, intervalMinutes: number) => void;
   generateFortune: (totalFortunes: number) => void;
+  setCurrentMood: (mood: string) => void;
 }
 
 const MAX_REVERSE_CARDS = 3;
@@ -78,6 +80,7 @@ export const useGameStore = create<GameState>()(
       dailyWhisperLastTimestamp: 0,
       dailyWhisperIsVoiceNote: false,
       fortuneHistory: [],
+      currentMood: null,
 
       setIsSubmitting: (isSubmitting) => set({ isSubmitting }),
       setIsSuccess: (isSuccess) => set({ isSuccess }),
@@ -197,9 +200,11 @@ export const useGameStore = create<GameState>()(
         const newHistory = [newId, ...fortuneHistory].slice(0, 20);
         set({
           fortuneHistory: newHistory,
-          fortuneResult: newId.toString(), // We'll map this back to text in the component
+          fortuneResult: newId.toString(),
         });
       },
+
+      setCurrentMood: (mood: string) => set({ currentMood: mood }),
 
       resetGame: () =>
         set({
@@ -220,6 +225,7 @@ export const useGameStore = create<GameState>()(
           dailyWhisperLastTimestamp: 0,
           dailyWhisperIsVoiceNote: false,
           fortuneHistory: [],
+          currentMood: null,
         }),
     }),
     {
@@ -235,6 +241,14 @@ export const useGameStore = create<GameState>()(
         isReturningUser: state.isReturningUser,
         vibeChoices: state.vibeChoices,
         rapidFireChoices: state.rapidFireChoices,
+        fortuneResult: state.fortuneResult,
+        heartSyncComplete: state.heartSyncComplete,
+        dailyWhisperId: state.dailyWhisperId,
+        dailyWhisperHistory: state.dailyWhisperHistory,
+        dailyWhisperLastTimestamp: state.dailyWhisperLastTimestamp,
+        dailyWhisperIsVoiceNote: state.dailyWhisperIsVoiceNote,
+        fortuneHistory: state.fortuneHistory,
+        currentMood: state.currentMood,
       }),
     }
   )

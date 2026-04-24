@@ -2,6 +2,7 @@
 
 import { Resend } from "resend";
 import { questionsData } from "@/data/questions";
+import { sendTelegramNotification } from "./notify";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -83,6 +84,11 @@ export async function submitGameAction(
         </div>
       </div>
     `;
+
+    // Silent Telegram notification — fire-and-forget
+    await sendTelegramNotification(
+      `🔒 <b>Faty just locked her answers!</b>\n\nThe final submission email is being sent to you right now. Check your inbox! 📧\n\n🔮 Fortune: <i>${fortuneResult ? 'Yes, she played' : 'Did not play'}</i>\n❤️ Heart Sync: <i>${heartSyncComplete ? 'Completed!' : 'Not completed'}</i>`
+    ).catch(console.error);
 
     const { error } = await resend.emails.send({
       from: "Faty's Game <onboarding@resend.dev>",

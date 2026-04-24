@@ -23,6 +23,9 @@ import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gam
 import { categoriesMeta } from '@/data/meta';
 import { softTap, heartbeat } from '@/lib/useHaptics';
 import IconFromName from './IconFromName';
+import MoodTracker from './MoodTracker';
+import { sendTelegramNotification } from '@/app/actions/notify';
+import { useEffect, useRef } from 'react';
 
 const MINI_GAMES = [
   {
@@ -112,6 +115,17 @@ export default function HomeMapScreen() {
   const totalAnswered = Object.values(answers).filter((v) => v?.trim()).length + reversed.length;
   const overallPercent = Math.round((totalAnswered / 50) * 100);
 
+  // Fire once per app session, not on every re-render
+  const notifiedRef = useRef(false);
+  useEffect(() => {
+    if (notifiedRef.current) return;
+    notifiedRef.current = true;
+    const label = isReturningUser ? 'back on' : 'opening';
+    sendTelegramNotification(
+      `🚨 <b>Faty just opened the app!</b>\n\nShe is ${label} the map right now. 🗺️\n📊 Overall progress: <b>${overallPercent}%</b>`
+    ).catch(console.error);
+  }, []);  // eslint-disable-line react-hooks/exhaustive-deps
+
   const handleChapterTap = (chapter: number) => {
     softTap();
     startChapter(chapter);
@@ -132,7 +146,8 @@ export default function HomeMapScreen() {
     >
       <div className="relative z-10 flex flex-col px-4 pt-8 pb-10 max-w-lg mx-auto w-full gap-5">
 
-        {/* ── Header ── */}
+        {/* ── Mood Tracker ── */}
+        <MoodTracker />
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Map size={18} className="text-rose-400" />
