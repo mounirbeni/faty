@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Zap, CheckCircle2, Map, RotateCcw } from 'lucide-react';
 import { rapidFirePairs } from '@/data/rapidFirePairs';
 import { useGameStore } from '@/store/gameStore';
-import { softTap, successVibe } from '@/lib/useHaptics';
+import { softTap, heartbeat, successVibe } from '@/lib/useHaptics';
 import IconFromName from './IconFromName';
 
 export default function RapidFireScreen() {
@@ -13,6 +13,10 @@ export default function RapidFireScreen() {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selected, setSelected] = useState<'a' | 'b' | null>(null);
   const [isDone, setIsDone] = useState(false);
+
+  useEffect(() => {
+    heartbeat();
+  }, []);
 
   const current = rapidFirePairs[currentIdx];
 

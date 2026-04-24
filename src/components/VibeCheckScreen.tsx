@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   motion,
   useMotionValue,
@@ -20,6 +20,10 @@ export default function VibeCheckScreen() {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [exitDir, setExitDir] = useState<'left' | 'right' | null>(null);
   const [isDone, setIsDone] = useState(false);
+
+  useEffect(() => {
+    heartbeat();
+  }, []);
 
   const x = useMotionValue(0);
   const rotate = useTransform(x, [-200, 200], [-18, 18]);

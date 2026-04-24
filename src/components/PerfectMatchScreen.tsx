@@ -29,6 +29,7 @@ export default function PerfectMatchScreen() {
   const [isLocked, setIsLocked] = useState(false);
 
   useEffect(() => {
+    heartbeat();
     // Initialize cards on mount: pairs of 0-5
     const initialPairs = [...Array(6).keys(), ...Array(6).keys()];
     setCards(shuffleArray(initialPairs));

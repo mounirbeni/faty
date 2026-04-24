@@ -107,7 +107,7 @@ export default function HomeMapScreen() {
   const isReturningUser = useGameStore(s => s.isReturningUser);
   const setPhase = useGameStore(s => s.setPhase);
   const startChapter = useGameStore(s => s.startChapter);
-  const lastReadDailyDate = useGameStore(s => s.lastReadDailyDate);
+  const dailyWhisperLastTimestamp = useGameStore(s => s.dailyWhisperLastTimestamp);
 
   const totalAnswered = Object.values(answers).filter((v) => v?.trim()).length + reversed.length;
   const overallPercent = Math.round((totalAnswered / 50) * 100);
@@ -265,7 +265,7 @@ export default function HomeMapScreen() {
                   transition={{ delay: 0.35 + idx * 0.07 }}
                 >
                   {/* NEW Badge for Daily Note */}
-                  {game.id === 'daily-note' && lastReadDailyDate !== new Date().toLocaleDateString() && (
+                  {game.id === 'daily-note' && Date.now() - dailyWhisperLastTimestamp > 1 * 60 * 60 * 1000 && (
                     <motion.div
                       className="absolute -top-2 -right-2 bg-red-500 text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-[0_0_10px_rgba(239,68,68,0.8)] border border-red-300 z-10"
                       initial={{ scale: 0 }}

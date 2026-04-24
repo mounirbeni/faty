@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Map, HeartPulse, Heart, Mail } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
@@ -12,6 +12,10 @@ export default function HeartSyncScreen() {
   const { setPhase, heartSyncComplete, setHeartSyncComplete } = useGameStore();
   const [taps, setTaps] = useState(heartSyncComplete ? MAX_TAPS : 0);
   const [revealed, setRevealed] = useState(!!heartSyncComplete);
+
+  useEffect(() => {
+    heartbeat();
+  }, []);
 
   const handleTap = () => {
     if (revealed) return;

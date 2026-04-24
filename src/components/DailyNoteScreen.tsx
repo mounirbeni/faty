@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Map, CalendarHeart, Heart, Sparkles, Plane } from 'lucide-react';
+import { ArrowLeft, Map, CalendarHeart, Heart, Sparkles, Plane, Mic } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { heartbeat, successVibe } from '@/lib/useHaptics';
+import ScratchCardWhisper from './ScratchCardWhisper';
+import VoiceNotePlayer from './VoiceNotePlayer';
 
 const dailyMessages = [
   "Every single day that passes is one day closer to May 11. I am counting the hours until I can hold your hand. ⏳",
@@ -41,24 +43,26 @@ const dailyMessages = [
 ];
 
 export default function DailyNoteScreen() {
-  const { setPhase, setLastReadDailyDate } = useGameStore();
-  const [isOpen, setIsOpen] = useState(false);
+  const { 
+    setPhase, 
+    generateDailyWhisper, 
+    dailyWhisperId, 
+    dailyWhisperIsVoiceNote 
+  } = useGameStore();
   
-  // Use day of the month (1-31) to pick a message
-  const dayOfMonth = new Date().getDate();
-  // Array is 0-indexed, so we subtract 1
-  const messageIndex = dayOfMonth - 1;
-  const todaysMessage = dailyMessages[messageIndex] || dailyMessages[0];
+  const [isRevealed, setIsRevealed] = useState(false);
 
   useEffect(() => {
-    // When she opens this screen, mark today as read
-    setLastReadDailyDate(new Date().toLocaleDateString());
-  }, [setLastReadDailyDate]);
+    heartbeat();
+    // Generate new whisper every 1 hour (60 minutes)
+    generateDailyWhisper(dailyMessages.length, 60);
+  }, [generateDailyWhisper]);
 
-  const handleOpen = () => {
-    if (isOpen) return;
+  const todaysMessage = dailyWhisperId !== null ? dailyMessages[dailyWhisperId] : dailyMessages[0];
+
+  const handleRevealed = () => {
     successVibe();
-    setIsOpen(true);
+    setIsRevealed(true);
   };
 
   return (
@@ -85,78 +89,41 @@ export default function DailyNoteScreen() {
         <div className="w-16" />
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-6 relative z-10">
-        <AnimatePresence mode="wait">
-          {!isOpen ? (
-            <motion.div
-              key="envelope"
-              className="flex flex-col items-center justify-center"
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 1.1, opacity: 0, y: -20 }}
-              transition={{ duration: 0.5, type: "spring" }}
-            >
-              <p className="text-white/60 text-sm mb-12 font-medium tracking-wide text-center">
-                A new thought, just for you, every single day.
-              </p>
-              
-              <motion.button
-                onClick={handleOpen}
-                className="relative cursor-pointer select-none group"
-                whileTap={{ scale: 0.95 }}
-                animate={{
-                  y: [0, -8, 0],
-                }}
-                transition={{
-                  y: { duration: 3, repeat: Infinity, ease: "easeInOut" }
-                }}
-              >
-                {/* Glow behind envelope */}
-                <div className="absolute inset-0 rounded-3xl bg-emerald-500/40 blur-[40px] transition-all duration-300 group-hover:bg-emerald-400/60" />
-                
-                {/* Envelope */}
-                <div className="w-64 h-48 rounded-3xl glass-strong border border-emerald-300/30 flex flex-col items-center justify-center shadow-[inset_0_0_40px_rgba(16,185,129,0.2)] relative overflow-hidden">
-                  <div className="absolute top-0 inset-x-0 h-1/2 border-b border-emerald-300/20 bg-emerald-500/10 skew-y-6 transform origin-top-left" />
-                  <div className="absolute top-0 inset-x-0 h-1/2 border-b border-emerald-300/20 bg-emerald-500/10 -skew-y-6 transform origin-top-right" />
-                  
-                  <Heart size={48} className="text-emerald-300 drop-shadow-lg z-10 animate-pulse" fill="currentColor" />
-                  <p className="text-xs font-bold text-emerald-200 mt-4 z-10 tracking-widest uppercase">Tap to open</p>
-                </div>
-              </motion.button>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="message"
-              className="flex flex-col items-center justify-center w-full max-w-sm"
-              initial={{ scale: 0.8, opacity: 0, y: 30 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6, type: "spring", damping: 15 }}
-            >
-              <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(16,185,129,0.4)] border border-emerald-400/30">
-                <Sparkles size={28} className="text-emerald-300" />
+      <div className="flex-1 flex flex-col items-center justify-center px-6 relative z-10 w-full max-w-sm mx-auto">
+        <p className="text-white/60 text-sm mb-6 font-medium tracking-wide text-center">
+          {isRevealed ? "A new thought, just for you." : "Scratch the card to reveal today's whisper."}
+        </p>
+
+        <ScratchCardWhisper onComplete={handleRevealed}>
+          <div className="flex flex-col items-center justify-center w-full">
+            {dailyWhisperIsVoiceNote ? (
+              <div className="flex flex-col items-center">
+                <Mic size={32} className="text-emerald-400 mb-4 animate-pulse" />
+                <p className="text-xs font-bold text-emerald-200 mb-4 tracking-widest uppercase">Secret Audio</p>
+                <VoiceNotePlayer src="/voice-notes/note-1.mp3" />
               </div>
-              
-              <h2 className="text-sm font-bold text-emerald-300 mb-6 tracking-widest uppercase">
-                Day {dayOfMonth}
-              </h2>
-              
-              <div className="glass-strong p-8 rounded-3xl w-full border border-emerald-500/30 shadow-2xl shadow-emerald-900/40 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 to-teal-500" />
+            ) : (
+              <div className="flex flex-col items-center">
+                <Heart size={32} className="text-emerald-400 mb-4 animate-heartbeat" fill="currentColor" />
                 <p className="text-[17px] text-white/95 leading-relaxed font-medium text-center italic">
                   &quot;{todaysMessage}&quot;
                 </p>
               </div>
+            )}
+          </div>
+        </ScratchCardWhisper>
 
-              <motion.button
-                onClick={() => setPhase('home')}
-                className="mt-10 px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold rounded-2xl shadow-xl shadow-emerald-500/30 active:scale-95 transition-transform cursor-pointer flex items-center gap-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-              >
-                Keep this in mind <Heart size={16} fill="currentColor" className="text-emerald-100" />
-              </motion.button>
-            </motion.div>
+        <AnimatePresence>
+          {isRevealed && (
+            <motion.button
+              onClick={() => setPhase('home')}
+              className="mt-10 px-8 py-4 w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold rounded-2xl shadow-xl shadow-emerald-500/30 active:scale-95 transition-transform cursor-pointer flex items-center justify-center gap-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              Keep this in mind <Heart size={16} fill="currentColor" className="text-emerald-100" />
+            </motion.button>
           )}
         </AnimatePresence>
       </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Map, Globe, Sparkles } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
@@ -15,10 +15,17 @@ export const fortunesData = [
 ];
 
 export default function FortuneTellerScreen() {
-  const { setPhase, setFortuneResult, fortuneResult } = useGameStore();
+  const { setPhase, generateFortune, fortuneResult } = useGameStore();
   const [taps, setTaps] = useState(fortuneResult ? 3 : 0);
   const [revealed, setRevealed] = useState(!!fortuneResult);
-  const [fortuneText, setFortuneText] = useState(fortuneResult || "");
+  const [fortuneText, setFortuneText] = useState(fortuneResult ? fortunesData[parseInt(fortuneResult)] : "");
+
+  useEffect(() => {
+    heartbeat();
+    if (!fortuneResult) {
+      generateFortune(fortunesData.length);
+    }
+  }, [fortuneResult, generateFortune]);
 
   const handleTap = () => {
     if (revealed) return;
@@ -28,9 +35,7 @@ export default function FortuneTellerScreen() {
     if (taps + 1 >= 3) {
       setTimeout(() => {
         successVibe();
-        const randomFortune = fortunesData[Math.floor(Math.random() * fortunesData.length)];
-        setFortuneText(randomFortune);
-        setFortuneResult(randomFortune);
+        setFortuneText(fortuneResult ? fortunesData[parseInt(fortuneResult)] : fortunesData[0]);
         setRevealed(true);
       }, 500);
     }

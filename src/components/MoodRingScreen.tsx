@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Sun, CloudRain, Zap, Heart, Sparkles, SmilePlus } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
@@ -42,6 +42,10 @@ const moodData = {
 export default function MoodRingScreen() {
   const { setPhase } = useGameStore();
   const [selectedMood, setSelectedMood] = useState<Mood>(null);
+
+  useEffect(() => {
+    heartbeat();
+  }, []);
 
   const handleMoodSelect = (mood: Mood) => {
     softTap();

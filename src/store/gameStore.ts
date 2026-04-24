@@ -29,7 +29,13 @@ interface GameState {
   rapidFireChoices: Record<number, string>;
   fortuneResult: string | null;
   heartSyncComplete: boolean;
-  lastReadDailyDate: string | null;
+  
+  // Dynamic Content (Smart Rotation)
+  dailyWhisperId: number | null;
+  dailyWhisperHistory: number[];
+  dailyWhisperLastTimestamp: number;
+  dailyWhisperIsVoiceNote: boolean;
+  fortuneHistory: number[];
 
   // Actions
   setIsSubmitting: (val: boolean) => void;
@@ -46,7 +52,8 @@ interface GameState {
   setRapidFireChoice: (id: number, choice: string) => void;
   setFortuneResult: (fortune: string) => void;
   setHeartSyncComplete: () => void;
-  setLastReadDailyDate: (date: string) => void;
+  generateDailyWhisper: (totalMessages: number, intervalMinutes: number) => void;
+  generateFortune: (totalFortunes: number) => void;
 }
 
 const MAX_REVERSE_CARDS = 3;
@@ -66,7 +73,11 @@ export const useGameStore = create<GameState>()(
       rapidFireChoices: {},
       fortuneResult: null,
       heartSyncComplete: false,
-      lastReadDailyDate: null,
+      dailyWhisperId: null,
+      dailyWhisperHistory: [],
+      dailyWhisperLastTimestamp: 0,
+      dailyWhisperIsVoiceNote: false,
+      fortuneHistory: [],
 
       setIsSubmitting: (isSubmitting) => set({ isSubmitting }),
       setIsSuccess: (isSuccess) => set({ isSuccess }),
@@ -147,7 +158,48 @@ export const useGameStore = create<GameState>()(
 
       setHeartSyncComplete: () => set({ heartSyncComplete: true }),
 
-      setLastReadDailyDate: (date) => set({ lastReadDailyDate: date }),
+      generateDailyWhisper: (totalMessages: number, intervalMinutes: number) => {
+        const { dailyWhisperLastTimestamp, dailyWhisperHistory } = get();
+        const now = Date.now();
+        const intervalMs = intervalMinutes * 60 * 1000;
+
+        if (now - dailyWhisperLastTimestamp > intervalMs || get().dailyWhisperId === null) {
+          // Generate new
+          let newId = Math.floor(Math.random() * totalMessages);
+          let attempts = 0;
+          while (dailyWhisperHistory.includes(newId) && attempts < 50) {
+            newId = Math.floor(Math.random() * totalMessages);
+            attempts++;
+          }
+
+          const newHistory = [newId, ...dailyWhisperHistory].slice(0, 20); // Keep last 20
+          // 15% chance for voice note
+          const isVoice = Math.random() < 0.15;
+
+          set({
+            dailyWhisperId: newId,
+            dailyWhisperHistory: newHistory,
+            dailyWhisperLastTimestamp: now,
+            dailyWhisperIsVoiceNote: isVoice,
+          });
+        }
+      },
+
+      generateFortune: (totalFortunes: number) => {
+        const { fortuneHistory } = get();
+        let newId = Math.floor(Math.random() * totalFortunes);
+        let attempts = 0;
+        while (fortuneHistory.includes(newId) && attempts < 50) {
+          newId = Math.floor(Math.random() * totalFortunes);
+          attempts++;
+        }
+        
+        const newHistory = [newId, ...fortuneHistory].slice(0, 20);
+        set({
+          fortuneHistory: newHistory,
+          fortuneResult: newId.toString(), // We'll map this back to text in the component
+        });
+      },
 
       resetGame: () =>
         set({
@@ -163,7 +215,11 @@ export const useGameStore = create<GameState>()(
           rapidFireChoices: {},
           fortuneResult: null,
           heartSyncComplete: false,
-          lastReadDailyDate: null,
+          dailyWhisperId: null,
+          dailyWhisperHistory: [],
+          dailyWhisperLastTimestamp: 0,
+          dailyWhisperIsVoiceNote: false,
+          fortuneHistory: [],
         }),
     }),
     {
