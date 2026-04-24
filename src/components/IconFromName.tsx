@@ -59,6 +59,13 @@ import {
   RotateCw,
   Send,
   Compass,
+  Utensils,
+  Coffee,
+  CloudRain,
+  Mountain,
+  Building,
+  Map,
+  Unlock,
   type LucideIcon,
 } from "lucide-react";
 
@@ -116,6 +123,13 @@ const iconMap: Record<string, LucideIcon> = {
   "rotate-cw": RotateCw,
   send: Send,
   compass: Compass,
+  utensils: Utensils,
+  coffee: Coffee,
+  "cloud-rain": CloudRain,
+  mountain: Mountain,
+  building: Building,
+  map: Map,
+  unlock: Unlock,
 };
 
 interface IconFromNameProps {

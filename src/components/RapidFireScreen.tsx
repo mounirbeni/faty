@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Zap, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Zap, CheckCircle2, Map } from 'lucide-react';
 import { rapidFirePairs } from '@/data/rapidFirePairs';
 import { useGameStore } from '@/store/gameStore';
 import { softTap, successVibe } from '@/lib/useHaptics';
+import IconFromName from './IconFromName';
 
 export default function RapidFireScreen() {
   const { setRapidFireChoice, setPhase } = useGameStore();
@@ -63,7 +64,7 @@ export default function RapidFireScreen() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          Back to Map 🗺️
+          Back to Map <Map size={16} className="ml-1" />
         </motion.button>
       </motion.div>
     );
@@ -142,7 +143,7 @@ export default function RapidFireScreen() {
             `}
             whileTap={{ scale: 0.97 }}
           >
-            <span className="text-3xl">{current.emojiA}</span>
+            <IconFromName name={current.iconA} size={32} />
             <span className="text-[16px]">{current.a}</span>
           </motion.button>
 
@@ -167,7 +168,7 @@ export default function RapidFireScreen() {
             `}
             whileTap={{ scale: 0.97 }}
           >
-            <span className="text-3xl">{current.emojiB}</span>
+            <IconFromName name={current.iconB} size={32} />
             <span className="text-[16px]">{current.b}</span>
           </motion.button>
         </motion.div>

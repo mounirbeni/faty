@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Lock, Heart, Plane } from 'lucide-react';
+import { ArrowLeft, Lock, Heart, Plane, Unlock } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { heartbeat } from '@/lib/useHaptics';
 
@@ -137,7 +137,9 @@ export default function MayVaultScreen() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
           >
-            <p className="text-lg font-bold text-white mb-2">The vault is open! 🔓</p>
+            <p className="text-lg font-bold text-white mb-2 flex items-center justify-center gap-2">
+              The vault is open! <Unlock size={20} className="text-white" />
+            </p>
             <p className="text-[13px] text-white/60">
               Today is our day. I love you.
             </p>

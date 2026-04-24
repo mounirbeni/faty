@@ -2,51 +2,51 @@ export interface RapidFirePair {
   id: number;
   a: string;
   b: string;
-  emojiA: string;
-  emojiB: string;
+  iconA: string;
+  iconB: string;
 }
 
 export const rapidFirePairs: RapidFirePair[] = [
   {
     id: 1,
-    emojiA: '👁️',
+    iconA: 'eye',
     a: 'Long eye contact',
-    emojiB: '🫦',
+    iconB: 'smile',
     b: 'Whispering in the ear',
   },
   {
     id: 2,
-    emojiA: '🌊',
+    iconA: 'waves',
     a: 'Beach at sunset',
-    emojiB: '🏔️',
+    iconB: 'mountain',
     b: 'Mountains in the fog',
   },
   {
     id: 3,
-    emojiA: '💬',
+    iconA: 'message-square',
     a: 'Deep conversation',
-    emojiB: '😂',
+    iconB: 'laugh',
     b: 'Laughing until you cry',
   },
   {
     id: 4,
-    emojiA: '🌙',
+    iconA: 'moon',
     a: 'Night owl',
-    emojiB: '🌅',
+    iconB: 'sun',
     b: 'Early riser',
   },
   {
     id: 5,
-    emojiA: '🤏',
+    iconA: 'sparkles',
     a: 'Small gestures daily',
-    emojiB: '🎁',
+    iconB: 'gift',
     b: 'Big romantic surprises',
   },
   {
     id: 6,
-    emojiA: '🏡',
+    iconA: 'home',
     a: 'Cozy stay-in date',
-    emojiB: '🌆',
+    iconB: 'building',
     b: 'Explore the city date',
   },
 ];

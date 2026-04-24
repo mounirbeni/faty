@@ -320,7 +320,7 @@ export default function CompletionScreen() {
             </>
           ) : (
             <>
-              Lock Answers Securely 🔒
+              Lock Answers Securely <Lock size={18} className="ml-1 inline" />
             </>
           )}
         </motion.button>

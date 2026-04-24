@@ -7,10 +7,11 @@ import {
   useTransform,
   AnimatePresence,
 } from 'framer-motion';
-import { Heart, X, ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { Heart, X, ArrowLeft, CheckCircle2, Map } from 'lucide-react';
 import { vibeScenarios } from '@/data/vibeScenarios';
 import { useGameStore } from '@/store/gameStore';
 import { heartbeat, swipeLove, swipeNope } from '@/lib/useHaptics';
+import IconFromName from './IconFromName';
 
 const SWIPE_THRESHOLD = 90;
 
@@ -83,7 +84,7 @@ export default function VibeCheckScreen() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          Back to Map 🗺️
+          Back to Map <Map size={16} className="ml-1" />
         </motion.button>
       </motion.div>
     );
@@ -164,18 +165,20 @@ export default function VibeCheckScreen() {
                 className="absolute top-6 left-6 px-3 py-1.5 bg-green-500 rounded-xl font-black text-white text-sm rotate-[-20deg] z-20"
                 style={{ opacity: loveOpacity }}
               >
-                LOVE IT 💕
+                LOVE IT <Heart size={16} className="ml-1" fill="currentColor" />
               </motion.div>
               <motion.div
                 className="absolute top-6 right-6 px-3 py-1.5 bg-rose-500 rounded-xl font-black text-white text-sm rotate-[20deg] z-20"
                 style={{ opacity: nopeOpacity }}
               >
-                NOPE ✕
+                NOPE <X size={16} className="ml-1" />
               </motion.div>
 
               {/* Card content */}
               <div className="glass-strong rounded-3xl p-8 text-center shadow-2xl shadow-black/30 select-none">
-                <div className="text-6xl mb-5">{current.emoji}</div>
+                <div className="mb-6 drop-shadow-2xl">
+                  <IconFromName name={current.icon} size={96} className="text-white" />
+                </div>
                 <h3 className="text-xl font-extrabold text-white mb-2 leading-tight">
                   {current.text}
                 </h3>

@@ -13,7 +13,7 @@ export async function submitGameAction(answers: Record<number, string>, reversed
 
     let htmlContent = `
       <div style="font-family: sans-serif; max-w: 600px; margin: 0 auto; color: #333;">
-        <h1 style="color: #e11d48; text-align: center;">Faty's Answers 💌</h1>
+        <h1 style="color: #e11d48; text-align: center;">My Angel's Answers</h1>
         <p style="text-align: center; color: #666;">She has finished the game! Here are her locked answers.</p>
         <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
     `;
@@ -39,7 +39,7 @@ export async function submitGameAction(answers: Record<number, string>, reversed
       `;
 
       if (isSkipped) {
-        htmlContent += `<span style="color: #d97706; font-style: italic;">🔄 Skipped (Reverse Card Played - You answer this one!)</span>`;
+        htmlContent += `<span style="color: #d97706; font-style: italic;">[Skipped - Reverse Card] (You answer this one!)</span>`;
       } else if (!answer) {
         htmlContent += `<span style="color: #9ca3af; font-style: italic;">No answer provided.</span>`;
       } else {
@@ -64,7 +64,7 @@ export async function submitGameAction(answers: Record<number, string>, reversed
     const { error } = await resend.emails.send({
       from: "Faty's Game <onboarding@resend.dev>",
       to: [toEmail],
-      subject: "💖 Faty has locked her answers!",
+      subject: "[LOCKED] My Angel has locked her answers!",
       html: htmlContent,
     });
 

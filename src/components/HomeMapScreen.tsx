@@ -12,16 +12,17 @@ import {
   Sparkles,
   Zap,
   Vault,
+  Check,
 } from 'lucide-react';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
 import { softTap, heartbeat } from '@/lib/useHaptics';
+import IconFromName from './IconFromName';
 
 const MINI_GAMES = [
   {
     id: 'vibe-check' as const,
-    emoji: '🌊',
-    icon: <Heart size={20} className="text-pink-300" />,
+    icon: <Heart size={32} className="text-pink-300 drop-shadow-md" />,
     label: 'Vibe Check',
     sublabel: 'Swipe cards',
     unlocksAtChapter: 1,
@@ -30,8 +31,7 @@ const MINI_GAMES = [
   },
   {
     id: 'rapid-fire' as const,
-    emoji: '🔥',
-    icon: <Zap size={20} className="text-amber-300" />,
+    icon: <Zap size={32} className="text-amber-300 drop-shadow-md" />,
     label: 'Rapid Fire',
     sublabel: 'This or That',
     unlocksAtChapter: 3,
@@ -40,8 +40,7 @@ const MINI_GAMES = [
   },
   {
     id: 'vault' as const,
-    emoji: '🔐',
-    icon: <Vault size={20} className="text-purple-300" />,
+    icon: <Vault size={32} className="text-purple-300 drop-shadow-md" />,
     label: 'The May 11 Vault',
     sublabel: 'Always visible',
     unlocksAtChapter: 0, // always tappable (locked internally)
@@ -50,7 +49,7 @@ const MINI_GAMES = [
   },
 ];
 
-const CHAPTER_ICONS = ['✨', '👁️', '🌊', '💭', '🔮'];
+const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand'];
 
 export default function HomeMapScreen() {
   const { answers, reversed, isReturningUser, setPhase, startChapter } = useGameStore();
@@ -127,7 +126,7 @@ export default function HomeMapScreen() {
             <div>
               <h1 className="text-xl font-extrabold text-white leading-tight">
                 {isReturningUser ? 'Welcome back, my angel' : 'Hey my love'}{' '}
-                <span className="text-rose-400">💕</span>
+                <Heart size={24} className="inline text-rose-400 ml-1" fill="currentColor" />
               </h1>
               <p className="text-[13px] text-white/50 mt-0.5">
                 {isReturningUser
@@ -209,7 +208,7 @@ export default function HomeMapScreen() {
                       <Lock size={10} className="text-white/50" />
                     </div>
                   )}
-                  <span className="text-2xl">{game.emoji}</span>
+                  <div className="mb-0.5">{game.icon}</div>
                   <div>
                     <div className="text-[11px] font-bold text-white leading-tight">{game.label}</div>
                     <div className="text-[9px] text-white/60 mt-0.5">{game.sublabel}</div>
@@ -281,7 +280,7 @@ function ChapterCard({
         ) : !unlocked ? (
           <Lock size={18} className="text-white/70" />
         ) : (
-          <span>{icon}</span>
+          <IconFromName name={icon} size={24} className="text-white/80" />
         )}
       </div>
 
@@ -292,8 +291,8 @@ function ChapterCard({
             Chapter {chapter}
           </span>
           {progress.isComplete && (
-            <span className="text-[9px] font-bold text-green-400 bg-green-500/15 px-1.5 py-0.5 rounded-full">
-              ✓ Done
+            <span className="text-[9px] font-bold text-green-400 bg-green-500/15 px-1.5 py-0.5 rounded-full flex items-center gap-0.5">
+              <Check size={10} /> Done
             </span>
           )}
         </div>
