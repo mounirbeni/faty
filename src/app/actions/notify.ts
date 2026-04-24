@@ -1,6 +1,6 @@
 'use server';
 
-export async function sendTelegramNotification(message: string): Promise<{ success: boolean, error?: any }> {
+export async function sendTelegramNotification(message: string): Promise<{ success: boolean; error?: string }> {
   try {
     const token = process.env.TELEGRAM_BOT_TOKEN;
     const chatId = process.env.TELEGRAM_CHAT_ID;
@@ -25,12 +25,12 @@ export async function sendTelegramNotification(message: string): Promise<{ succe
     );
 
     // سحب البيانات من تليجرام لمعرفة سبب الرفض
-    const data = await response.json();
+    const data: unknown = await response.json();
 
     if (!response.ok) {
-      // هذا السطر سيكشف لنا السر في سجلات Vercel!
-      console.error('[Telegram API ERROR]:', data);
-      return { success: false, error: data };
+      const errStr = typeof data === 'object' ? JSON.stringify(data) : String(data);
+      console.error('[Telegram API ERROR]:', errStr);
+      return { success: false, error: errStr };
     }
 
     return { success: true };
