@@ -18,6 +18,7 @@ import {
   CalendarHeart,
   Puzzle,
   Sun,
+  Moon,
 } from 'lucide-react';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
@@ -100,6 +101,15 @@ const MINI_GAMES = [
     gradient: 'from-yellow-500/80 to-amber-600/80',
     glow: 'shadow-yellow-500/25',
   },
+  {
+    id: 'comfort-mode' as const,
+    icon: <Moon size={32} className="text-pink-300 drop-shadow-md" />,
+    label: 'Comfort Room',
+    sublabel: 'Emergency hugs',
+    unlocksAtChapter: 0,
+    gradient: 'from-rose-500/80 to-pink-600/80',
+    glow: 'shadow-rose-500/25',
+  },
 ];
 
 const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand', 'smile'];
@@ -134,7 +144,7 @@ export default function HomeMapScreen() {
     startChapter(chapter);
   };
 
-  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'vault') => {
+  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault') => {
     heartbeat();
     setPhase(id);
   };

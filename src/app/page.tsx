@@ -15,6 +15,7 @@ const HeartSyncScreen = dynamic(() => import('@/components/HeartSyncScreen'), { 
 const DailyNoteScreen = dynamic(() => import('@/components/DailyNoteScreen'), { ssr: false });
 const PerfectMatchScreen = dynamic(() => import('@/components/PerfectMatchScreen'), { ssr: false });
 const MoodRingScreen = dynamic(() => import('@/components/MoodRingScreen'), { ssr: false });
+const ComfortScreen = dynamic(() => import('@/components/ComfortScreen'), { ssr: false });
 import AnimatedBackground from '@/components/AnimatedBackground';
 import { useGameStore } from '@/store/gameStore';
 import { questionsData } from '@/data/questions';
@@ -42,6 +43,7 @@ export default function HomePage() {
         {phase === 'daily-note' && <DailyNoteScreen key="daily-note" />}
         {phase === 'perfect-match' && <PerfectMatchScreen key="perfect-match" />}
         {phase === 'mood-ring' && <MoodRingScreen key="mood-ring" />}
+        {phase === 'comfort-mode' && <ComfortScreen key="comfort-mode" />}
         {phase === 'complete' && <CompletionScreen key="complete" />}
       </AnimatePresence>
     </main>
