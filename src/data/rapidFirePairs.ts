@@ -49,4 +49,32 @@ export const rapidFirePairs: RapidFirePair[] = [
     iconB: 'building',
     b: 'Explore the city date',
   },
+  {
+    id: 7,
+    iconA: 'pizza',
+    a: 'Stealing my fries',
+    iconB: 'ice-cream',
+    b: 'Making me share dessert',
+  },
+  {
+    id: 8,
+    iconA: 'ghost',
+    a: 'Scaring me for fun',
+    iconB: 'laugh',
+    b: 'Starting a tickle fight',
+  },
+  {
+    id: 9,
+    iconA: 'camera',
+    a: 'Silly selfies together',
+    iconB: 'video',
+    b: 'Making funny TikToks',
+  },
+  {
+    id: 10,
+    iconA: 'music',
+    a: 'Terrible karaoke duets',
+    iconB: 'tv',
+    b: 'Binge-watching cartoons',
+  },
 ];

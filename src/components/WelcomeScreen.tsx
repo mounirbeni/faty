@@ -149,7 +149,7 @@ export default function WelcomeScreen() {
             I know we haven&apos;t met yet, but you already mean the world to me. This little game is my way of understanding you deeper — your thoughts, your dreams, your heart.
           </p>
           <p className="text-[14px] text-white/70 leading-relaxed mb-3">
-            50 questions. 5 chapters that go from fun to intimate. Answer honestly — there are no wrong answers, only <span className="text-rose-400 font-semibold">real ones</span>.
+            60 questions. 6 chapters that go from fun to intimate. Answer honestly — there are no wrong answers, only <span className="text-rose-400 font-semibold">real ones</span>.
           </p>
           <p className="text-xs text-white/50 italic text-end">
             — From someone who can&apos;t wait to see your smile

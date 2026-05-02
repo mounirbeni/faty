@@ -68,5 +68,17 @@ export const questionsData: Question[] = [
   { id: 47, category: 5, categoryName: 'Compatibility & Future', type: 'text', question: 'What financial or practical decision could a partner make that you would consider a disaster or a reason to end things?' },
   { id: 48, category: 5, categoryName: 'Compatibility & Future', type: 'choice', question: 'If we had to decide where to settle down in the future, what matters most to you?', options: ['Being close to my family and city', 'Career opportunities and quality of life', 'Living in a calm and peaceful city', 'All of the above'] },
   { id: 49, category: 5, categoryName: 'Compatibility & Future', type: 'text', question: 'What is your biggest fear about the idea of formal commitment and building a shared life?' },
-  { id: 50, category: 5, categoryName: 'Compatibility & Future', type: 'text', question: 'Finally, what is the one question you wished I had asked you in this game? (The floor is yours).' }
+  { id: 50, category: 5, categoryName: 'Compatibility & Future', type: 'text', question: 'Finally, what is the one question you wished I had asked you in this game? (The floor is yours).' },
+
+  // Category 6: The Fun & Silly Side
+  { id: 51, category: 6, categoryName: 'The Fun & Silly Side', type: 'text', question: 'If we were stuck in an elevator for 5 hours, what is the first crazy thing you would do?' },
+  { id: 52, category: 6, categoryName: 'The Fun & Silly Side', type: 'choice', question: 'Which of these silly couple habits sounds the most like something we would end up doing?', options: ['Giving each other weird nicknames', 'Having fake dramatic arguments over what to eat for dinner', 'Having a staring contest until someone bursts into laughter', 'All of the above'] },
+  { id: 53, category: 6, categoryName: 'The Fun & Silly Side', type: 'text', question: 'If you had to choose a ridiculous theme song that plays every time I walk into the room, what would it be?' },
+  { id: 54, category: 6, categoryName: 'The Fun & Silly Side', type: 'choice', question: 'If I tried to cook for you and completely burned the food, what would you do?', options: ['Eat it anyway with a forced smile', 'Laugh uncontrollably and order pizza', 'Tease me about it for the rest of my life', 'All of the above'] },
+  { id: 55, category: 6, categoryName: 'The Fun & Silly Side', type: 'text', question: 'What is the most embarrassing, funniest moment you have ever had that still makes you laugh today?' },
+  { id: 56, category: 6, categoryName: 'The Fun & Silly Side', type: 'choice', question: 'What kind of game would you definitely beat me at?', options: ['A staring contest', 'A dancing competition', 'Mario Kart or a video game', 'Who can eat the most pizza', 'All of the above'] },
+  { id: 57, category: 6, categoryName: 'The Fun & Silly Side', type: 'text', question: 'If I woke you up at 3 AM with a terrible dad joke, would you laugh or be angry?' },
+  { id: 58, category: 6, categoryName: 'The Fun & Silly Side', type: 'choice', question: 'What is your guilty pleasure when nobody is watching?', options: ['Singing loudly in the shower', 'Eating a whole tub of ice cream', 'Watching cheesy romantic comedies', 'Talking to your reflection in the mirror', 'All of the above'] },
+  { id: 59, category: 6, categoryName: 'The Fun & Silly Side', type: 'text', question: 'If we suddenly switched bodies for one day, what is the first thing you would do in my body?' },
+  { id: 60, category: 6, categoryName: 'The Fun & Silly Side', type: 'text', question: 'If we had to wear matching outfits for a day in public, what silly or cute theme would you choose?' }
 ];

@@ -54,4 +54,28 @@ export const vibeScenarios: VibeScenario[] = [
     text: 'Handwritten notes left in random places',
     subtext: 'Little surprises for you to find',
   },
+  {
+    id: 9,
+    icon: 'gamepad-2',
+    text: 'Intense video game battles',
+    subtext: 'Where I pretend to let you win',
+  },
+  {
+    id: 10,
+    icon: 'party-popper',
+    text: 'Having a random dance party in the living room',
+    subtext: 'Zero coordination, pure joy',
+  },
+  {
+    id: 11,
+    icon: 'smile',
+    text: 'Making ridiculous faces at each other in public',
+    subtext: 'Our own secret language',
+  },
+  {
+    id: 12,
+    icon: 'pizza',
+    text: 'Arguing playfully over the last slice of pizza',
+    subtext: 'It is war, but cute',
+  }
 ];

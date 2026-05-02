@@ -102,7 +102,7 @@ const MINI_GAMES = [
   },
 ];
 
-const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand'];
+const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand', 'smile'];
 
 export default function HomeMapScreen() {
   const answers = useGameStore(s => s.answers);
@@ -116,7 +116,7 @@ export default function HomeMapScreen() {
   const [now] = useState(Date.now);
 
   const totalAnswered = Object.values(answers).filter((v) => v?.trim()).length + reversed.length;
-  const overallPercent = Math.round((totalAnswered / 50) * 100);
+  const overallPercent = Math.round((totalAnswered / 60) * 100);
 
   // Fire once per app session, not on every re-render
   const notifiedRef = useRef(false);
@@ -203,7 +203,7 @@ export default function HomeMapScreen() {
               </h1>
               <p className="text-[13px] text-white/50 mt-0.5">
                 {isReturningUser
-                  ? `${totalAnswered} of 50 answered — keep going!`
+                  ? `${totalAnswered} of 60 answered — keep going!`
                   : 'Tap a chapter to begin your journey'}
               </p>
             </div>

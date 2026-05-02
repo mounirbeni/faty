@@ -44,7 +44,17 @@ export const categoriesMeta = [
     colorTo: "to-rose-600",
     accentHex: "#ef4444",
   },
+  {
+    category: 6,
+    title: "The Fun & Silly Side",
+    icon: "smile",
+    description: "Time to laugh out loud…",
+    colorFrom: "from-amber-400",
+    colorTo: "to-yellow-500",
+    accentHex: "#fbbf24",
+  },
 ];
+
 
 export const loveNotes: string[] = [
   "Every answer makes me fall for you a little more…",
@@ -90,4 +100,10 @@ export const categoryIntros: Record<number, { title: string; subtitle: string; m
     subtitle: "Compatibility & Future",
     message: "This is the part where it's just us. No walls, no filters. These answers stay locked until we meet on May 11.",
   },
+  6: {
+    title: "Chapter Six",
+    subtitle: "The Fun & Silly Side",
+    message: "Because what is love without a little laughter? Let's drop the seriousness and see your funny side.",
+  },
 };
+
