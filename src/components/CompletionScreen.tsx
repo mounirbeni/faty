@@ -334,6 +334,18 @@ export default function CompletionScreen() {
             </>
           )}
         </motion.button>
+        
+        {!isSubmitting && (
+          <motion.button
+            onClick={() => setPhase('home')}
+            className="w-full py-3 mt-3 bg-white/5 hover:bg-white/10 rounded-2xl text-[14px] font-medium text-white/70 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.8, duration: 0.6 }}
+          >
+            Back to Home <Map size={16} className="ml-1 inline" />
+          </motion.button>
+        )}
       </div>
       
       <Toast message={toastMsg} visible={toastVisible} onDismiss={() => setToastVisible(false)} />

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import WelcomeScreen from '@/components/WelcomeScreen';
 import GameScreen from '@/components/GameScreen';
@@ -21,30 +22,40 @@ import { useGameStore } from '@/store/gameStore';
 import { questionsData } from '@/data/questions';
 
 export default function HomePage() {
+  const [isMounted, setIsMounted] = useState(false);
   const { phase, answers, reversed } = useGameStore();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Use initial states for SSR/Hydration to guarantee exact match, then switch to persisted state
+  const currentPhase = isMounted ? phase : 'welcome';
+  const currentAnswers = isMounted ? answers : {};
+  const currentReversed = isMounted ? reversed : [];
 
   // Compute warmth: 0 at start, 1 at end (based on overall answers)
   const totalAnswered =
-    Object.values(answers).filter((v) => v?.trim()).length + reversed.length;
+    Object.values(currentAnswers).filter((v) => v?.trim()).length + currentReversed.length;
   const warmth = Math.min(1, totalAnswered / questionsData.length);
 
   return (
     <main className="flex-1 h-full w-full relative">
       <AnimatedBackground warmth={warmth} />
       <AnimatePresence mode="wait">
-        {phase === 'welcome' && <WelcomeScreen key="welcome" />}
-        {phase === 'home' && <HomeMapScreen key="home" />}
-        {phase === 'game' && <GameScreen key="game" />}
-        {phase === 'vibe-check' && <VibeCheckScreen key="vibe-check" />}
-        {phase === 'rapid-fire' && <RapidFireScreen key="rapid-fire" />}
-        {phase === 'vault' && <MayVaultScreen key="vault" />}
-        {phase === 'fortune-teller' && <FortuneTellerScreen key="fortune-teller" />}
-        {phase === 'heart-sync' && <HeartSyncScreen key="heart-sync" />}
-        {phase === 'daily-note' && <DailyNoteScreen key="daily-note" />}
-        {phase === 'perfect-match' && <PerfectMatchScreen key="perfect-match" />}
-        {phase === 'mood-ring' && <MoodRingScreen key="mood-ring" />}
-        {phase === 'comfort-mode' && <ComfortScreen key="comfort-mode" />}
-        {phase === 'complete' && <CompletionScreen key="complete" />}
+        {currentPhase === 'welcome' && <WelcomeScreen key="welcome" />}
+        {currentPhase === 'home' && <HomeMapScreen key="home" />}
+        {currentPhase === 'game' && <GameScreen key="game" />}
+        {currentPhase === 'vibe-check' && <VibeCheckScreen key="vibe-check" />}
+        {currentPhase === 'rapid-fire' && <RapidFireScreen key="rapid-fire" />}
+        {currentPhase === 'vault' && <MayVaultScreen key="vault" />}
+        {currentPhase === 'fortune-teller' && <FortuneTellerScreen key="fortune-teller" />}
+        {currentPhase === 'heart-sync' && <HeartSyncScreen key="heart-sync" />}
+        {currentPhase === 'daily-note' && <DailyNoteScreen key="daily-note" />}
+        {currentPhase === 'perfect-match' && <PerfectMatchScreen key="perfect-match" />}
+        {currentPhase === 'mood-ring' && <MoodRingScreen key="mood-ring" />}
+        {currentPhase === 'comfort-mode' && <ComfortScreen key="comfort-mode" />}
+        {currentPhase === 'complete' && <CompletionScreen key="complete" />}
       </AnimatePresence>
     </main>
   );

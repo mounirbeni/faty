@@ -4,8 +4,6 @@ import { Resend } from "resend";
 import { questionsData } from "@/data/questions";
 import { sendTelegramNotification } from "./notify";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function submitGameAction(
   answers: Record<number, string>, 
   reversed: number[],
@@ -13,6 +11,7 @@ export async function submitGameAction(
   heartSyncComplete: boolean
 ) {
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy");
     const toEmail = process.env.MY_EMAIL_ADDRESS || "mobanunir@gmail.com";
 
     const reversedSet = new Set(reversed);

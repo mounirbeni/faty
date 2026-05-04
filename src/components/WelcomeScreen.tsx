@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Heart,
@@ -30,6 +31,11 @@ const floatingParticles = Array.from({ length: 14 }, (_, i) => ({
 
 export default function WelcomeScreen() {
   const { setPhase, isReturningUser } = useGameStore();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <motion.div
@@ -45,7 +51,7 @@ export default function WelcomeScreen() {
       <div className="absolute top-0 left-0 w-[300px] h-[300px] rounded-full bg-gradient-to-br from-rose-500/10 to-transparent blur-[80px] pointer-events-none" />
 
       {/* Floating Hearts */}
-      {floatingParticles.map((p) => (
+      {isMounted && floatingParticles.map((p) => (
         <motion.div
           key={p.id}
           className="absolute pointer-events-none"
@@ -209,7 +215,7 @@ export default function WelcomeScreen() {
           />
           <span className="relative z-10 flex items-center justify-center gap-2">
             <Play size={16} fill="currentColor" />
-            {isReturningUser ? 'Continue Our Story' : 'Begin Our Story'}
+            {(isMounted && isReturningUser) ? 'Back to Home' : 'Begin Our Story'}
             <motion.div
               animate={{ x: [0, 5, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
