@@ -26,7 +26,8 @@ export default function HomePage() {
   const { phase, answers, reversed } = useGameStore();
 
   useEffect(() => {
-    setIsMounted(true);
+    const t = setTimeout(() => setIsMounted(true), 0);
+    return () => clearTimeout(t);
   }, []);
 
   // Use initial states for SSR/Hydration to guarantee exact match, then switch to persisted state
