@@ -55,6 +55,8 @@ const categoryStyles: Record<number, { ring: string; shadow: string; bgGradient:
   3: { ring: "focus:ring-fuchsia-500/50 ring-fuchsia-400/30", shadow: "shadow-fuchsia-500/20", bgGradient: "bg-gradient-to-r from-fuchsia-500/90 to-rose-500/90", buttonGradient: "bg-gradient-to-r from-fuchsia-400 to-rose-400", tagColor: "bg-fuchsia-500/20 text-fuchsia-300 ring-1 ring-fuchsia-500/30" },
   4: { ring: "focus:ring-rose-500/50 ring-rose-400/30", shadow: "shadow-rose-500/20", bgGradient: "bg-gradient-to-r from-rose-500/90 to-orange-500/90", buttonGradient: "bg-gradient-to-r from-rose-400 to-orange-400", tagColor: "bg-rose-500/20 text-rose-300 ring-1 ring-rose-500/30" },
   5: { ring: "focus:ring-red-500/50 ring-red-400/30", shadow: "shadow-red-500/20", bgGradient: "bg-gradient-to-r from-red-600/90 to-rose-600/90", buttonGradient: "bg-gradient-to-r from-red-500 to-rose-600", tagColor: "bg-red-500/20 text-red-300 ring-1 ring-red-500/30" },
+  6: { ring: "focus:ring-amber-500/50 ring-amber-400/30", shadow: "shadow-amber-500/20", bgGradient: "bg-gradient-to-r from-amber-500/90 to-yellow-500/90", buttonGradient: "bg-gradient-to-r from-amber-400 to-yellow-400", tagColor: "bg-amber-500/20 text-amber-300 ring-1 ring-amber-500/30" },
+  7: { ring: "focus:ring-pink-500/50 ring-pink-400/30", shadow: "shadow-pink-500/20", bgGradient: "bg-gradient-to-r from-pink-500/90 to-rose-500/90", buttonGradient: "bg-gradient-to-r from-pink-400 to-rose-500", tagColor: "bg-pink-500/20 text-pink-300 ring-1 ring-pink-500/30" },
 };
 
 const flipVariants = {
@@ -251,13 +253,18 @@ export default function GameScreen() {
               >
                 <div
                   className={`
-                    rounded-3xl p-5 sm:p-8 shadow-2xl overflow-y-auto max-h-[60vh]
+                    rounded-3xl shadow-2xl overflow-hidden max-h-[60vh] flex flex-col
                     ${isTimeCapsule
                       ? "glass-warm ring-1 ring-red-500/20 shadow-red-500/10"
-                      : "glass-strong shadow-black/20"
+                      : "glass-premium shadow-black/25"
                     }
                   `}
                 >
+                  {/* Category color accent bar */}
+                  <div
+                    className={`h-[3px] w-full shrink-0 bg-gradient-to-r ${categoryMeta.colorFrom} ${categoryMeta.colorTo}`}
+                  />
+                  <div className="p-5 sm:p-7 overflow-y-auto flex-1">
                   {isReversed ? (
                     <div className="flex flex-col items-center justify-center py-6 text-center">
                       <motion.div
@@ -309,7 +316,7 @@ export default function GameScreen() {
                       </div>
 
                       <motion.h2
-                        className="text-lg sm:text-xl font-bold text-white leading-snug mb-5"
+                        className="text-xl sm:text-2xl font-bold text-white leading-snug mb-5"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.12, duration: 0.4 }}
@@ -340,6 +347,7 @@ export default function GameScreen() {
                       </motion.div>
                     </>
                   )}
+                  </div>
                 </div>
               </motion.div>
             </motion.div>
@@ -351,7 +359,7 @@ export default function GameScreen() {
           <motion.button
             onClick={handlePrev}
             disabled={isFirst}
-            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl text-sm font-semibold text-white/60 glass active:scale-95 transition-all disabled:opacity-20 disabled:pointer-events-none cursor-pointer"
+            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl text-sm font-semibold text-white/60 glass-premium active:scale-95 transition-all disabled:opacity-20 disabled:pointer-events-none cursor-pointer"
           >
             <ArrowLeft size={18} />
             Back
@@ -361,27 +369,36 @@ export default function GameScreen() {
             onClick={handleNext}
             disabled={!hasAnswer}
             className={`
-              flex-1 flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-sm font-bold text-white shadow-lg active:scale-95 transition-all cursor-pointer
+              flex-1 relative flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-sm font-bold text-white shadow-xl active:scale-95 transition-all cursor-pointer overflow-hidden
               disabled:opacity-30 disabled:pointer-events-none
               ${theme.buttonGradient} ${theme.shadow}
             `}
           >
-            {isLast ? (
-              <>
-                <Heart size={16} fill="currentColor" />
-                Finish
-              </>
-            ) : isTimeCapsule ? (
-              <>
-                <Lock size={14} />
-                Lock & Next
-              </>
-            ) : (
-              <>
-                Next
-                <ArrowRight size={18} />
-              </>
-            )}
+            {/* Shimmer on CTA */}
+            <motion.div
+              className="absolute inset-0 w-1/3 h-full bg-white/15 -skew-x-12 pointer-events-none"
+              initial={{ x: "-150%" }}
+              animate={{ x: "350%" }}
+              transition={{ duration: 2, repeat: Infinity, repeatDelay: 1.5, ease: "easeInOut" }}
+            />
+            <span className="relative z-10 flex items-center gap-2">
+              {isLast ? (
+                <>
+                  <Heart size={16} fill="currentColor" />
+                  Finish
+                </>
+              ) : isTimeCapsule ? (
+                <>
+                  <Lock size={14} />
+                  Lock & Next
+                </>
+              ) : (
+                <>
+                  Next
+                  <ArrowRight size={18} />
+                </>
+              )}
+            </span>
           </motion.button>
         </div>
       </div>

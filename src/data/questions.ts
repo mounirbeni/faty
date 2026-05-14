@@ -2,7 +2,7 @@ export type QuestionType = 'text' | 'choice';
 
 export interface Question {
   id: number;
-  category: number; // 1 to 5
+  category: number; // 1 to 7
   categoryName: string;
   type: QuestionType;
   question: string;
@@ -80,5 +80,17 @@ export const questionsData: Question[] = [
   { id: 57, category: 6, categoryName: 'The Fun & Silly Side', type: 'text', question: 'If I woke you up at 3 AM with a terrible dad joke, would you laugh or be angry?' },
   { id: 58, category: 6, categoryName: 'The Fun & Silly Side', type: 'choice', question: 'What is your guilty pleasure when nobody is watching?', options: ['Singing loudly in the shower', 'Eating a whole tub of ice cream', 'Watching cheesy romantic comedies', 'Talking to your reflection in the mirror', 'All of the above'] },
   { id: 59, category: 6, categoryName: 'The Fun & Silly Side', type: 'text', question: 'If we suddenly switched bodies for one day, what is the first thing you would do in my body?' },
-  { id: 60, category: 6, categoryName: 'The Fun & Silly Side', type: 'text', question: 'If we had to wear matching outfits for a day in public, what silly or cute theme would you choose?' }
+  { id: 60, category: 6, categoryName: 'The Fun & Silly Side', type: 'text', question: 'If we had to wear matching outfits for a day in public, what silly or cute theme would you choose?' },
+
+  // Category 7: After Meeting
+  { id: 61, category: 7, categoryName: 'After Meeting', type: 'text', question: 'How did you feel in the first moments after we said goodbye and went our separate ways?' },
+  { id: 62, category: 7, categoryName: 'After Meeting', type: 'choice', question: 'When I first walked in to meet you, what was your immediate reaction?', options: ['My heart was racing and I could barely breathe', 'I felt calm and strangely at ease', 'I was surprised — you were even better than I imagined', 'I was overwhelmed and a little emotional', 'All of the above'] },
+  { id: 63, category: 7, categoryName: 'After Meeting', type: 'text', question: 'Did the real me match the image you had built in your mind? What was different, and what was exactly right?' },
+  { id: 64, category: 7, categoryName: 'After Meeting', type: 'text', question: 'What is the one moment from our day together that you keep replaying in your head?' },
+  { id: 65, category: 7, categoryName: 'After Meeting', type: 'choice', question: 'After spending the day together, how do you feel about us now compared to before we met?', options: ['Even more certain and hopeful than before', 'Exactly as I expected — this feels right', 'I need a little time to process my feelings', 'My feelings grew stronger than I thought possible', 'All of the above'] },
+  { id: 66, category: 7, categoryName: 'After Meeting', type: 'text', question: 'Was there something you wanted to say or do during our meeting but held back? What was it?' },
+  { id: 67, category: 7, categoryName: 'After Meeting', type: 'text', question: 'What is one thing about me that surprised you the most after seeing me in person?' },
+  { id: 68, category: 7, categoryName: 'After Meeting', type: 'choice', question: 'Is there anything about the day you wish had gone differently?', options: ['I wish we had more time together', 'I wish I had been less nervous at the start', 'I wish I had said something I kept to myself', 'Everything was perfect the way it was', 'All of the above'] },
+  { id: 69, category: 7, categoryName: 'After Meeting', type: 'text', question: 'Knowing what you know now after meeting me, what does your heart tell you about where this is going?' },
+  { id: 70, category: 7, categoryName: 'After Meeting', type: 'text', question: 'What do you want our next meeting to look like, and when do you want it to happen?' },
 ];

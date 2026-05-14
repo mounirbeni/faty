@@ -62,7 +62,7 @@ export default function CompletionScreen() {
   const answeredCount = answersArray.filter((a) => !a.reversed && a.value).length;
   const reversedCount = reversed.length;
   const capsuleCount = answersArray.filter(
-    (a) => !a.reversed && a.value && a.questionId > 40
+    (a) => !a.reversed && a.value && a.questionId >= 41 && a.questionId <= 50
   ).length;
 
   useEffect(() => {
@@ -119,26 +119,24 @@ export default function CompletionScreen() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-rose-900/20 to-black pointer-events-none" />
-        
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/15 via-black to-rose-900/10 pointer-events-none" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-emerald-500/10 to-transparent blur-[120px] pointer-events-none" />
+
         <div className="relative z-10 flex flex-col items-center text-center max-w-md w-full">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            className="w-24 h-24 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-2xl shadow-green-500/30 mb-8"
+            className="relative mb-8"
           >
-            <motion.div
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 to-green-600 flex items-center justify-center shadow-2xl shadow-emerald-500/40">
               <CheckCircle2 size={48} className="text-white" />
-            </motion.div>
+            </div>
+            <div className="absolute inset-0 rounded-full border-2 border-emerald-400/25 animate-pulse-ring" />
           </motion.div>
 
           <motion.h2
-            className="text-3xl font-extrabold text-white mb-4"
+            className="text-3xl font-extrabold mb-3 bg-gradient-to-r from-emerald-300 via-green-200 to-teal-300 text-gradient"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -147,29 +145,47 @@ export default function CompletionScreen() {
           </motion.h2>
 
           <motion.p
-            className="text-[15px] text-white/70 leading-relaxed mb-8"
+            className="text-[15px] text-white/65 leading-relaxed mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            Your answers are now safely encrypted and sent. The Time Capsule is sealed until May 11. 
-            <br/><br/>
+            Your answers are now safely encrypted and sent. The Time Capsule is sealed until May 11.
+            <br /><br />
             I can&apos;t wait to see your smile in person.
           </motion.p>
-          
+
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
             className="flex flex-col items-center gap-6"
           >
-            <Heart size={24} className="text-rose-500 animate-heartbeat" fill="currentColor" />
-            
+            <div className="flex items-center gap-1">
+              {[0, 0.15, 0.3, 0.15, 0].map((delay, i) => (
+                <Heart
+                  key={i}
+                  size={i === 2 ? 20 : 14}
+                  className="text-rose-400 animate-heartbeat"
+                  fill="currentColor"
+                  style={{ animationDelay: `${delay}s` }}
+                />
+              ))}
+            </div>
+
             <button
               onClick={() => setPhase('home')}
-              className="px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-2xl shadow-xl shadow-rose-500/30 active:scale-95 transition-transform cursor-pointer flex items-center justify-center gap-2"
+              className="relative px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-2xl shadow-xl shadow-rose-500/30 active:scale-95 transition-transform cursor-pointer flex items-center justify-center gap-2 overflow-hidden"
             >
-              Back to Map <Map size={16} />
+              <motion.div
+                className="absolute inset-0 w-1/3 h-full bg-white/15 -skew-x-12"
+                initial={{ x: "-150%" }}
+                animate={{ x: "350%" }}
+                transition={{ duration: 2, repeat: Infinity, repeatDelay: 1, ease: "easeInOut" }}
+              />
+              <span className="relative z-10 flex items-center gap-2">
+                Back to Map <Map size={16} />
+              </span>
             </button>
           </motion.div>
         </div>
@@ -243,102 +259,130 @@ export default function CompletionScreen() {
         </motion.p>
 
         <motion.div
-          className="w-full glass-warm rounded-3xl p-5 mb-6 text-start"
+          className="w-full glass-rose rounded-3xl overflow-hidden mb-6 text-start"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.6 }}
         >
-          <p className="text-[14px] text-white/60 leading-relaxed mb-3">
-            Every word you wrote made my heart beat faster. I already knew you were special, but now I know you are <span className="text-rose-400 font-semibold">everything to me</span>.
-          </p>
-          <p className="text-[14px] text-white/60 leading-relaxed mb-3">
-            Some of your answers are locked in the Time Capsule — and will only be revealed when I look into your eyes soon. And honestly? I cannot wait for that day.
-          </p>
-          <p className="text-xs text-white/40 italic flex items-center justify-end gap-1.5 mt-2">
-            Always yours
-            <Heart size={10} className="text-rose-400/60" fill="currentColor" />
-          </p>
+          <div className="h-[3px] w-full bg-gradient-to-r from-rose-500 via-pink-400 to-rose-500" />
+          <div className="p-5">
+            <p className="text-[14px] text-white/70 leading-relaxed mb-3">
+              Every word you wrote made my heart beat faster. I already knew you were special, but now I know you are <span className="text-rose-300 font-semibold">everything to me</span>.
+            </p>
+            <p className="text-[14px] text-white/70 leading-relaxed mb-3">
+              Some of your answers are locked in the Time Capsule — and will only be revealed when I look into your eyes soon. And honestly? I cannot wait for that day.
+            </p>
+            <p className="text-xs text-white/40 italic flex items-center justify-end gap-1.5 mt-2">
+              Always yours
+              <Heart size={10} className="text-rose-400/70" fill="currentColor" />
+            </p>
+          </div>
         </motion.div>
 
+        {/* Stats */}
         <motion.div
           className="w-full grid grid-cols-3 gap-2.5 mb-6"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.1, duration: 0.6 }}
         >
-          <div className="glass-strong rounded-2xl py-3 px-2 text-center flex flex-col items-center">
-            <Heart size={16} className="text-rose-400 mb-1.5" fill="currentColor" />
-            <div className="text-xl font-bold text-white leading-none">{answeredCount}</div>
-            <div className="text-[10px] text-white/40 mt-1">Answered</div>
+          <div className="glass-premium rounded-2xl py-3.5 px-2 text-center flex flex-col items-center gap-1 ring-1 ring-rose-500/15">
+            <div className="w-8 h-8 rounded-xl bg-rose-500/20 flex items-center justify-center">
+              <Heart size={15} className="text-rose-400" fill="currentColor" />
+            </div>
+            <div className="text-2xl font-extrabold text-white leading-none">{answeredCount}</div>
+            <div className="text-[10px] text-white/40">Answered</div>
           </div>
-          <div className="glass-strong rounded-2xl py-3 px-2 text-center flex flex-col items-center">
-            <RotateCcw size={16} className="text-amber-400 mb-1.5" />
-            <div className="text-xl font-bold text-white leading-none">{reversedCount}</div>
-            <div className="text-[10px] text-white/40 mt-1">Skipped</div>
+          <div className="glass-premium rounded-2xl py-3.5 px-2 text-center flex flex-col items-center gap-1 ring-1 ring-amber-500/15">
+            <div className="w-8 h-8 rounded-xl bg-amber-500/20 flex items-center justify-center">
+              <RotateCcw size={15} className="text-amber-400" />
+            </div>
+            <div className="text-2xl font-extrabold text-white leading-none">{reversedCount}</div>
+            <div className="text-[10px] text-white/40">Skipped</div>
           </div>
-          <div className="glass-strong rounded-2xl py-3 px-2 text-center flex flex-col items-center">
-            <Lock size={16} className="text-red-400 mb-1.5" />
-            <div className="text-xl font-bold text-white leading-none">{capsuleCount}</div>
-            <div className="text-[10px] text-white/40 mt-1">Locked</div>
+          <div className="glass-premium rounded-2xl py-3.5 px-2 text-center flex flex-col items-center gap-1 ring-1 ring-violet-500/15">
+            <div className="w-8 h-8 rounded-xl bg-violet-500/20 flex items-center justify-center">
+              <Lock size={15} className="text-violet-400" />
+            </div>
+            <div className="text-2xl font-extrabold text-white leading-none">{capsuleCount}</div>
+            <div className="text-[10px] text-white/40">Locked</div>
           </div>
         </motion.div>
 
+        {/* Meeting countdown */}
         <motion.div
-          className="w-full glass-strong rounded-3xl p-5 mb-6 ring-1 ring-rose-500/20"
+          className="w-full glass-premium rounded-3xl p-5 mb-6 ring-1 ring-rose-500/20 overflow-hidden relative"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.3, duration: 0.6 }}
         >
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Plane size={14} className="text-rose-400" />
-            <span className="text-[10px] font-bold text-rose-400 uppercase tracking-widest">
-              Meeting Countdown
-            </span>
-          </div>
-          <p className="text-lg font-bold text-white mb-1 flex items-center justify-center gap-2">
-            We meet on May 11
-            <Plane size={16} className="text-white/60" />
-          </p>
-          <p className="text-[13px] text-white/40 mb-3">
-            The first chapter of our story together begins soon...
-          </p>
-          <div className="flex items-center justify-center gap-1">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Heart
-                key={i}
-                size={12}
-                className="text-rose-400/60"
-                fill="currentColor"
-                style={{ animationDelay: `${i * 0.15}s` }}
-              />
-            ))}
+          <div className="absolute inset-0 bg-gradient-to-br from-rose-600/5 to-transparent pointer-events-none" />
+          <div className="relative z-10">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Plane size={13} className="text-rose-400" />
+              <span className="text-[10px] font-bold text-rose-400/80 uppercase tracking-widest">
+                Meeting Countdown
+              </span>
+            </div>
+            <p className="text-lg font-bold text-white mb-1 flex items-center justify-center gap-2">
+              We meet on May 11
+              <Plane size={15} className="text-white/50" />
+            </p>
+            <p className="text-[12px] text-white/40 mb-3">
+              The first chapter of our story together begins soon...
+            </p>
+            <div className="flex items-center justify-center gap-1.5">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Heart
+                  key={i}
+                  size={i === 2 ? 14 : 10}
+                  className="text-rose-400/60 animate-heartbeat"
+                  fill="currentColor"
+                  style={{ animationDelay: `${i * 0.2}s` }}
+                />
+              ))}
+            </div>
           </div>
         </motion.div>
 
         <motion.button
           onClick={handleSubmit}
           disabled={isSubmitting}
-          className="w-full py-4 bg-gradient-to-r from-rose-500 to-pink-500 rounded-2xl text-[15px] font-bold text-white shadow-xl shadow-rose-500/25 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-70 disabled:pointer-events-none"
+          className="w-full relative py-4 rounded-2xl text-[15px] font-bold text-white shadow-xl active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-70 disabled:pointer-events-none overflow-hidden"
+          style={{
+            background: "linear-gradient(135deg, #f43f5e, #ec4899)",
+            boxShadow: "0 0 0 1px rgba(244,63,94,0.35), 0 8px 32px rgba(244,63,94,0.3)",
+          }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.6, duration: 0.6 }}
         >
-          {isSubmitting ? (
-            <>
-              <Loader2 size={18} className="animate-spin" />
-              Encrypting and sending...
-            </>
-          ) : (
-            <>
-              Lock Answers Securely <Lock size={18} className="ml-1 inline" />
-            </>
+          {!isSubmitting && (
+            <motion.div
+              className="absolute inset-0 w-1/3 h-full bg-white/15 -skew-x-12 pointer-events-none"
+              initial={{ x: "-150%" }}
+              animate={{ x: "350%" }}
+              transition={{ duration: 2, repeat: Infinity, repeatDelay: 1, ease: "easeInOut" }}
+            />
           )}
+          <span className="relative z-10 flex items-center gap-2">
+            {isSubmitting ? (
+              <>
+                <Loader2 size={18} className="animate-spin" />
+                Encrypting and sending...
+              </>
+            ) : (
+              <>
+                Lock Answers Securely <Lock size={18} className="ml-1 inline" />
+              </>
+            )}
+          </span>
         </motion.button>
-        
+
         {!isSubmitting && (
           <motion.button
             onClick={() => setPhase('home')}
-            className="w-full py-3 mt-3 bg-white/5 hover:bg-white/10 rounded-2xl text-[14px] font-medium text-white/70 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
+            className="w-full py-3 mt-3 glass-premium rounded-2xl text-[14px] font-medium text-white/60 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.8, duration: 0.6 }}

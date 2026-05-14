@@ -31,88 +31,88 @@ import { useEffect, useRef, useState } from 'react';
 const MINI_GAMES = [
   {
     id: 'vibe-check' as const,
-    icon: <Heart size={32} className="text-pink-300 drop-shadow-md" />,
+    icon: <Heart size={30} className="text-white drop-shadow-md" fill="currentColor" />,
     label: 'Vibe Check',
     sublabel: 'Swipe cards',
     unlocksAtChapter: 0,
-    gradient: 'from-pink-500/80 to-rose-600/80',
-    glow: 'shadow-pink-500/25',
+    gradient: 'from-pink-500 to-rose-600',
+    glow: 'shadow-pink-500/30',
   },
   {
     id: 'rapid-fire' as const,
-    icon: <Zap size={32} className="text-amber-300 drop-shadow-md" />,
+    icon: <Zap size={30} className="text-white drop-shadow-md" fill="currentColor" />,
     label: 'Rapid Fire',
     sublabel: 'This or That',
     unlocksAtChapter: 0,
-    gradient: 'from-orange-500/80 to-amber-600/80',
-    glow: 'shadow-orange-500/25',
+    gradient: 'from-orange-500 to-amber-500',
+    glow: 'shadow-orange-500/30',
   },
   {
     id: 'vault' as const,
-    icon: <Vault size={32} className="text-purple-300 drop-shadow-md" />,
-    label: 'The May 11 Vault',
+    icon: <Vault size={30} className="text-white drop-shadow-md" />,
+    label: 'May 11 Vault',
     sublabel: 'Always visible',
-    unlocksAtChapter: 0, // always tappable (locked internally)
-    gradient: 'from-violet-600/80 to-purple-700/80',
-    glow: 'shadow-violet-500/25',
+    unlocksAtChapter: 0,
+    gradient: 'from-violet-600 to-purple-700',
+    glow: 'shadow-violet-500/30',
   },
   {
     id: 'fortune-teller' as const,
-    icon: <Globe size={32} className="text-cyan-300 drop-shadow-md" />,
+    icon: <Globe size={30} className="text-white drop-shadow-md" />,
     label: 'Fortune Teller',
-    sublabel: 'Gaze into the future',
+    sublabel: 'Gaze into future',
     unlocksAtChapter: 0,
-    gradient: 'from-cyan-500/80 to-blue-600/80',
-    glow: 'shadow-cyan-500/25',
+    gradient: 'from-cyan-500 to-blue-600',
+    glow: 'shadow-cyan-500/30',
   },
   {
     id: 'heart-sync' as const,
-    icon: <HeartPulse size={32} className="text-rose-300 drop-shadow-md" />,
+    icon: <HeartPulse size={30} className="text-white drop-shadow-md" />,
     label: 'Heart Sync',
     sublabel: 'Feel the beat',
     unlocksAtChapter: 0,
-    gradient: 'from-rose-500/80 to-red-600/80',
-    glow: 'shadow-rose-500/25',
+    gradient: 'from-rose-500 to-red-600',
+    glow: 'shadow-rose-500/30',
   },
   {
     id: 'daily-note' as const,
-    icon: <CalendarHeart size={32} className="text-emerald-300 drop-shadow-md" />,
+    icon: <CalendarHeart size={30} className="text-white drop-shadow-md" />,
     label: 'Daily Whisper',
     sublabel: 'A new note daily',
     unlocksAtChapter: 0,
-    gradient: 'from-emerald-500/80 to-teal-600/80',
-    glow: 'shadow-emerald-500/25',
+    gradient: 'from-emerald-500 to-teal-600',
+    glow: 'shadow-emerald-500/30',
   },
   {
     id: 'perfect-match' as const,
-    icon: <Puzzle size={32} className="text-indigo-300 drop-shadow-md" />,
+    icon: <Puzzle size={30} className="text-white drop-shadow-md" />,
     label: 'Perfect Match',
     sublabel: 'Memory game',
     unlocksAtChapter: 0,
-    gradient: 'from-indigo-500/80 to-blue-600/80',
-    glow: 'shadow-indigo-500/25',
+    gradient: 'from-indigo-500 to-blue-600',
+    glow: 'shadow-indigo-500/30',
   },
   {
     id: 'mood-ring' as const,
-    icon: <Sun size={32} className="text-yellow-300 drop-shadow-md" />,
+    icon: <Sun size={30} className="text-white drop-shadow-md" fill="currentColor" />,
     label: 'Mood Ring',
     sublabel: 'Daily check-in',
     unlocksAtChapter: 0,
-    gradient: 'from-yellow-500/80 to-amber-600/80',
-    glow: 'shadow-yellow-500/25',
+    gradient: 'from-yellow-400 to-amber-500',
+    glow: 'shadow-yellow-500/30',
   },
   {
     id: 'comfort-mode' as const,
-    icon: <Moon size={32} className="text-pink-300 drop-shadow-md" />,
+    icon: <Moon size={30} className="text-white drop-shadow-md" fill="currentColor" />,
     label: 'Comfort Room',
     sublabel: 'Emergency hugs',
     unlocksAtChapter: 0,
-    gradient: 'from-rose-500/80 to-pink-600/80',
-    glow: 'shadow-rose-500/25',
+    gradient: 'from-rose-500 to-pink-600',
+    glow: 'shadow-rose-500/30',
   },
 ];
 
-const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand', 'smile'];
+const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand', 'smile', 'camera'];
 
 export default function HomeMapScreen() {
   const answers = useGameStore(s => s.answers);
@@ -122,13 +122,11 @@ export default function HomeMapScreen() {
   const startChapter = useGameStore(s => s.startChapter);
   const dailyWhisperLastTimestamp = useGameStore(s => s.dailyWhisperLastTimestamp);
 
-  // Snapshot once at mount — avoids calling Date.now() during render (React purity rule)
   const [now] = useState(Date.now);
 
   const totalAnswered = Object.values(answers).filter((v) => v?.trim()).length + reversed.length;
-  const overallPercent = Math.round((totalAnswered / 60) * 100);
+  const overallPercent = Math.round((totalAnswered / 70) * 100);
 
-  // Fire once per app session, not on every re-render
   const notifiedRef = useRef(false);
   useEffect(() => {
     if (notifiedRef.current) return;
@@ -157,33 +155,40 @@ export default function HomeMapScreen() {
       exit={{ opacity: 0, y: -24 }}
       transition={{ duration: 0.5 }}
     >
+      {/* Ambient glow */}
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full bg-gradient-to-b from-rose-600/12 to-transparent blur-[100px] pointer-events-none" />
+
       <div className="relative z-10 flex flex-col px-4 pt-8 pb-10 max-w-lg mx-auto w-full gap-5">
 
         {/* ── Mood Tracker ── */}
         <MoodTracker />
+
+        {/* ── Header bar ── */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Map size={18} className="text-rose-400" />
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center shadow-lg shadow-rose-500/25">
+              <Map size={14} className="text-white" />
+            </div>
             <span className="text-sm font-bold text-white/60 tracking-wider uppercase">
               Our Map
             </span>
           </div>
           {/* Overall progress ring */}
           <div className="flex items-center gap-2">
-            <div className="relative w-10 h-10">
-              <svg className="w-10 h-10 -rotate-90" viewBox="0 0 40 40">
-                <circle cx="20" cy="20" r="16" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="3.5" />
+            <div className="relative w-11 h-11">
+              <svg className="w-11 h-11 -rotate-90" viewBox="0 0 44 44">
+                <circle cx="22" cy="22" r="18" fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="3.5" />
                 <circle
-                  cx="20" cy="20" r="16" fill="none"
-                  stroke="url(#progressGradient)"
+                  cx="22" cy="22" r="18" fill="none"
+                  stroke="url(#progressGradientHome)"
                   strokeWidth="3.5"
                   strokeLinecap="round"
                   strokeDasharray={`${overallPercent} 100`}
                   pathLength="100"
                 />
                 <defs>
-                  <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#f43f5e" />
+                  <linearGradient id="progressGradientHome" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#fb7185" />
                     <stop offset="100%" stopColor="#fb923c" />
                   </linearGradient>
                 </defs>
@@ -197,21 +202,22 @@ export default function HomeMapScreen() {
 
         {/* ── Greeting ── */}
         <motion.div
-          className="glass-warm rounded-3xl p-5"
+          className="glass-rose rounded-3xl overflow-hidden"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
         >
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center shadow-lg shadow-rose-500/30 shrink-0">
-              <Heart size={22} fill="white" className="text-white animate-heartbeat" />
+          <div className="h-0.5 w-full bg-gradient-to-r from-rose-500/60 via-pink-400/60 to-rose-500/60" />
+          <div className="flex items-center gap-3 p-4">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center shadow-lg shadow-rose-500/30 shrink-0">
+              <Heart size={20} fill="white" className="text-white animate-heartbeat" />
             </div>
             <div>
-              <h1 className="text-xl font-extrabold text-white leading-tight">
+              <h1 className="text-[17px] font-extrabold text-white leading-tight">
                 {isReturningUser ? 'Welcome back, my angel' : 'Hey my love'}{' '}
-                <Heart size={24} className="inline text-rose-400 ml-1" fill="currentColor" />
+                <Heart size={16} className="inline text-rose-400 ml-0.5" fill="currentColor" />
               </h1>
-              <p className="text-[13px] text-white/50 mt-0.5">
+              <p className="text-[12px] text-white/50 mt-0.5">
                 {isReturningUser
                   ? `${totalAnswered} of 60 answered — keep going!`
                   : 'Tap a chapter to begin your journey'}
@@ -223,8 +229,8 @@ export default function HomeMapScreen() {
         {/* ── Chapter Islands ── */}
         <div>
           <div className="flex items-center gap-2 mb-3 px-1">
-            <Sparkles size={14} className="text-amber-400" />
-            <span className="text-xs font-bold text-white/40 uppercase tracking-widest">Chapters</span>
+            <Sparkles size={13} className="text-amber-400" />
+            <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Chapters</span>
           </div>
 
           <div className="flex flex-col gap-3">
@@ -253,11 +259,11 @@ export default function HomeMapScreen() {
         {/* ── Mini-Game Bonus Islands ── */}
         <div>
           <div className="flex items-center gap-2 mb-3 px-1">
-            <Zap size={14} className="text-purple-400" />
-            <span className="text-xs font-bold text-white/40 uppercase tracking-widest">Bonus Islands</span>
+            <Zap size={13} className="text-purple-400" fill="currentColor" />
+            <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Bonus Islands</span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-3 gap-2.5">
             {MINI_GAMES.map((game, idx) => {
               const ch1Complete = getChapterProgress(answers, reversed, 1).isComplete;
               const ch2Complete = getChapterProgress(answers, reversed, 2).isComplete;
@@ -281,21 +287,26 @@ export default function HomeMapScreen() {
                   key={game.id}
                   onClick={() => unlocked && handleMinigameTap(game.id)}
                   className={`
-                    relative flex flex-col items-center gap-2 p-3.5 rounded-2xl text-center
-                    transition-all active:scale-95 cursor-pointer
+                    relative flex flex-col items-center gap-2 py-4 px-2 rounded-2xl text-center
+                    transition-all active:scale-95 cursor-pointer overflow-hidden
                     ${unlocked
-                      ? `bg-gradient-to-b ${game.gradient} shadow-lg ${game.glow} border border-white/10`
-                      : 'glass opacity-40 pointer-events-none'
+                      ? `bg-gradient-to-b ${game.gradient} shadow-lg ${game.glow} border border-white/15`
+                      : 'glass opacity-35 pointer-events-none'
                     }
                   `}
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35 + idx * 0.07 }}
                 >
+                  {/* Inner top highlight */}
+                  {unlocked && (
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                  )}
+
                   {/* NEW Badge for Daily Note */}
                   {game.id === 'daily-note' && now - dailyWhisperLastTimestamp > 1 * 60 * 60 * 1000 && (
                     <motion.div
-                      className="absolute -top-2 -right-2 bg-red-500 text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-[0_0_10px_rgba(239,68,68,0.8)] border border-red-300 z-10"
+                      className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[8px] font-black px-1.5 py-0.5 rounded-full shadow-[0_0_10px_rgba(239,68,68,0.8)] border border-red-300 z-10"
                       initial={{ scale: 0 }}
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 1.5, repeat: Infinity }}
@@ -306,19 +317,19 @@ export default function HomeMapScreen() {
 
                   {!unlocked && (
                     <div className="absolute top-2 right-2">
-                      <Lock size={10} className="text-white/50" />
+                      <Lock size={9} className="text-white/50" />
                     </div>
                   )}
-                  <div className="mb-0.5">{game.icon}</div>
+                  <div>{game.icon}</div>
                   <div>
-                    <div className="text-[11px] font-bold text-white leading-tight">{game.label}</div>
-                    <div className="text-[9px] text-white/60 mt-0.5">{game.sublabel}</div>
+                    <div className="text-[10px] font-bold text-white leading-tight">{game.label}</div>
+                    <div className="text-[8px] text-white/70 mt-0.5">{game.sublabel}</div>
                   </div>
                 </motion.button>
               );
             })}
           </div>
-          <p className="text-[10px] text-white/25 text-center mt-2.5 italic">
+          <p className="text-[10px] text-white/20 text-center mt-3 italic">
             Complete chapters to unlock bonus islands
           </p>
         </div>
@@ -359,79 +370,84 @@ function ChapterCard({
     <motion.button
       onClick={unlocked ? onTap : undefined}
       className={`
-        w-full flex items-center gap-4 p-4 rounded-2xl text-start transition-all active:scale-[0.98]
-        ${unlocked ? 'glass-strong cursor-pointer' : 'glass opacity-50 cursor-not-allowed'}
-        ${progress.isComplete ? 'ring-1 ring-green-500/30' : ''}
+        w-full flex items-center gap-0 rounded-2xl text-start transition-all active:scale-[0.98] overflow-hidden
+        ${unlocked ? 'glass-premium cursor-pointer' : 'glass opacity-45 cursor-not-allowed'}
+        ${progress.isComplete ? 'ring-1 ring-green-500/25' : ''}
         ${!unlocked && !progress.isComplete ? 'pointer-events-none' : ''}
       `}
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay }}
     >
-      {/* Icon */}
+      {/* Left colored accent strip */}
       <div
-        className={`
-          w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0
-          bg-gradient-to-br ${meta.colorFrom} ${meta.colorTo} shadow-md
-          ${!unlocked ? 'grayscale' : ''}
-        `}
-      >
-        {progress.isComplete ? (
-          <CheckCircle2 size={22} className="text-white" />
-        ) : !unlocked ? (
-          <Lock size={18} className="text-white/70" />
-        ) : (
-          <IconFromName name={icon} size={24} className="text-white/80" />
-        )}
-      </div>
+        className={`w-1 self-stretch shrink-0 bg-gradient-to-b ${meta.colorFrom} ${meta.colorTo} ${!unlocked ? 'opacity-30' : ''}`}
+      />
 
-      {/* Info */}
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1">
-          <span className="text-[10px] font-bold text-white/30 uppercase tracking-wider">
-            Chapter {chapter}
-          </span>
-          {progress.isComplete && (
-            <span className="text-[9px] font-bold text-green-400 bg-green-500/15 px-1.5 py-0.5 rounded-full flex items-center gap-0.5">
-              <Check size={10} /> Done
-            </span>
+      <div className="flex items-center gap-3.5 p-3.5 flex-1 min-w-0">
+        {/* Icon */}
+        <div
+          className={`
+            w-11 h-11 rounded-xl flex items-center justify-center text-xl shrink-0
+            bg-gradient-to-br ${meta.colorFrom} ${meta.colorTo} shadow-md
+            ${!unlocked ? 'grayscale opacity-60' : ''}
+          `}
+        >
+          {progress.isComplete ? (
+            <CheckCircle2 size={20} className="text-white" />
+          ) : !unlocked ? (
+            <Lock size={16} className="text-white/70" />
+          ) : (
+            <IconFromName name={icon} size={22} className="text-white/90" />
           )}
         </div>
-        <p className="text-[13px] font-semibold text-white leading-tight truncate">{meta.title}</p>
 
-        {/* Progress bar */}
-        <div className="mt-2 flex items-center gap-2">
-          <div className="flex-1 h-1 bg-white/10 rounded-full overflow-hidden">
-            <motion.div
-              className={`h-full rounded-full bg-gradient-to-r ${meta.colorFrom} ${meta.colorTo}`}
-              initial={{ width: 0 }}
-              animate={{ width: `${progress.percent * 100}%` }}
-              transition={{ duration: 0.8, delay: delay + 0.2, ease: 'easeOut' }}
-            />
-          </div>
-          <span className="text-[10px] text-white/30 tabular-nums shrink-0">
-            {progress.answered}/{progress.total}
-          </span>
-        </div>
-      </div>
-
-      {/* Action */}
-      <div className="shrink-0">
-        {unlocked ? (
-          <div className="flex items-center gap-1">
-            {progress.answered > 0 && !progress.isComplete ? (
-              <RotateCcw size={14} className="text-white/40" />
-            ) : progress.isComplete ? (
-              <Play size={14} className="text-white/40" />
-            ) : (
-              <Play size={14} className="text-white/40" />
+        {/* Info */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="text-[9px] font-bold text-white/30 uppercase tracking-wider">
+              Chapter {chapter}
+            </span>
+            {progress.isComplete && (
+              <span className="text-[8px] font-bold text-green-400 bg-green-500/15 px-1.5 py-0.5 rounded-full flex items-center gap-0.5">
+                <Check size={8} /> Done
+              </span>
             )}
-            <span className="text-[11px] font-semibold text-white/50">{statusLabel}</span>
-            <ChevronRight size={14} className="text-white/30" />
           </div>
-        ) : (
-          <Lock size={15} className="text-white/25" />
-        )}
+          <p className="text-[13px] font-semibold text-white leading-tight truncate">{meta.title}</p>
+
+          {/* Progress bar */}
+          <div className="mt-2 flex items-center gap-2">
+            <div className="flex-1 h-1 bg-white/8 rounded-full overflow-hidden">
+              <motion.div
+                className={`h-full rounded-full bg-gradient-to-r ${meta.colorFrom} ${meta.colorTo}`}
+                initial={{ width: 0 }}
+                animate={{ width: `${progress.percent * 100}%` }}
+                transition={{ duration: 0.8, delay: delay + 0.2, ease: 'easeOut' }}
+              />
+            </div>
+            <span className="text-[9px] text-white/30 tabular-nums shrink-0">
+              {progress.answered}/{progress.total}
+            </span>
+          </div>
+        </div>
+
+        {/* Action */}
+        <div className="shrink-0 pl-1">
+          {unlocked ? (
+            <div className="flex items-center gap-0.5">
+              {progress.answered > 0 && !progress.isComplete ? (
+                <RotateCcw size={13} className="text-white/40" />
+              ) : (
+                <Play size={13} className="text-white/40" />
+              )}
+              <span className="text-[10px] font-semibold text-white/45 hidden sm:inline">{statusLabel}</span>
+              <ChevronRight size={13} className="text-white/25" />
+            </div>
+          ) : (
+            <Lock size={13} className="text-white/20" />
+          )}
+        </div>
       </div>
     </motion.button>
   );

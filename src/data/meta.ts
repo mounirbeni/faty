@@ -53,6 +53,15 @@ export const categoriesMeta = [
     colorTo: "to-yellow-500",
     accentHex: "#fbbf24",
   },
+  {
+    category: 7,
+    title: "After Meeting",
+    icon: "camera",
+    description: "Now that we've met…",
+    colorFrom: "from-pink-400",
+    colorTo: "to-rose-500",
+    accentHex: "#f472b6",
+  },
 ];
 
 
@@ -104,6 +113,11 @@ export const categoryIntros: Record<number, { title: string; subtitle: string; m
     title: "Chapter Six",
     subtitle: "The Fun & Silly Side",
     message: "Because what is love without a little laughter? Let's drop the seriousness and see your funny side.",
+  },
+  7: {
+    title: "Chapter Seven",
+    subtitle: "After Meeting",
+    message: "You made it. We finally met. Now tell me — from the heart — how did it feel?",
   },
 };
 
