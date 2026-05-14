@@ -2,55 +2,75 @@
 
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Heart, RefreshCw, Sparkles, Calendar } from 'lucide-react';
+import {
+  ArrowLeft, Heart, RefreshCw, Sparkles, Calendar,
+  Coffee, Film, UtensilsCrossed, Star, Car, Camera, TreePine, Gamepad2,
+} from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 
-const DATES = [
+interface DateIdea {
+  label: string;
+  short: string;
+  Icon: LucideIcon;
+  color: string;
+  description: string;
+}
+
+const DATES: DateIdea[] = [
   {
     label: 'Coffee & Walk',
-    emoji: '☕',
+    short: 'Coffee',
+    Icon: Coffee,
     color: '#f43f5e',
     description: 'A slow morning walk with coffee in hand — just us, talking about everything and nothing. No destination needed.',
   },
   {
     label: 'Movie Night',
-    emoji: '🎬',
+    short: 'Movie',
+    Icon: Film,
     color: '#fb923c',
     description: 'Blankets piled up, popcorn ready, and a movie we\'ll judge together while secretly loving it.',
   },
   {
     label: 'Cook Together',
-    emoji: '🍳',
+    short: 'Cook',
+    Icon: UtensilsCrossed,
     color: '#f59e0b',
     description: 'Pick a new recipe, make a mess in the kitchen, and eat something we actually made with our hands.',
   },
   {
     label: 'Stargazing',
-    emoji: '🌟',
+    short: 'Stars',
+    Icon: Star,
     color: '#10b981',
     description: 'A blanket on the grass, looking up at the sky, saying things we are too shy to say in the daylight.',
   },
   {
     label: 'Road Trip',
-    emoji: '🚗',
+    short: 'Drive',
+    Icon: Car,
     color: '#38bdf8',
     description: 'Windows down, playlist loud, no destination planned. Just the road, the music, and us.',
   },
   {
     label: 'Photo Walk',
-    emoji: '📸',
+    short: 'Photo',
+    Icon: Camera,
     color: '#818cf8',
     description: 'Wander through the streets with no plan. Capture each other exactly as we are — no posing allowed.',
   },
   {
     label: 'Picnic',
-    emoji: '🧺',
+    short: 'Picnic',
+    Icon: TreePine,
     color: '#e879f9',
     description: 'A blanket in the park, good food, and absolutely no agenda. Laziness is the whole point.',
   },
   {
     label: 'Game Night',
-    emoji: '🎮',
+    short: 'Games',
+    Icon: Gamepad2,
     color: '#f472b6',
     description: 'Pick a game, make a small bet, and do not go easy on each other. Winner gets to choose the next date.',
   },
@@ -59,7 +79,6 @@ const DATES = [
 const SEGMENT_COUNT = DATES.length;
 const SEGMENT_ANGLE = 360 / SEGMENT_COUNT;
 
-// Build SVG arc path for one pie segment
 function segmentPath(cx: number, cy: number, r: number, startDeg: number, endDeg: number) {
   const toRad = (d: number) => ((d - 90) * Math.PI) / 180;
   const x1 = cx + r * Math.cos(toRad(startDeg));
@@ -85,16 +104,8 @@ export default function DateSpinnerScreen() {
     setWinner(null);
     setIsSpinning(true);
 
-    // Pick a random winning segment
     const winnerIdx = Math.floor(Math.random() * SEGMENT_COUNT);
-
-    // Extra full spins (4–6) for drama
     const extraSpins = (4 + Math.floor(Math.random() * 3)) * 360;
-
-    // The rotation needed so winner segment centre lands at the top pointer.
-    // Winner centre is at: winnerIdx * SEGMENT_ANGLE + SEGMENT_ANGLE / 2 degrees from top.
-    // After rotating by R degrees clockwise, that centre lands at 0 (top).
-    // => (winnerCentre + currentRemainder + newExtra) % 360 === 0
     const winnerCentre = winnerIdx * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
     const currentRemainder = totalRotation % 360;
     const toAlign = (360 - ((winnerCentre + currentRemainder) % 360)) % 360;
@@ -103,7 +114,6 @@ export default function DateSpinnerScreen() {
     setTotalRotation(newTotal);
     setWinner(winnerIdx);
 
-    // Reveal result after animation (4.5s to be safe)
     setTimeout(() => {
       setIsSpinning(false);
       setShowResult(true);
@@ -115,6 +125,8 @@ export default function DateSpinnerScreen() {
   const CY = SIZE / 2;
   const R = SIZE / 2 - 4;
 
+  const WinnerIcon = winner !== null ? DATES[winner].Icon : null;
+
   return (
     <motion.div
       className="absolute inset-0 flex flex-col items-center px-5 pt-8 pb-6 overflow-y-auto"
@@ -123,7 +135,6 @@ export default function DateSpinnerScreen() {
       exit={{ opacity: 0, y: -24 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Ambient glows */}
       <div className="fixed top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-rose-600/12 to-transparent blur-[130px] pointer-events-none" />
       <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] rounded-full bg-gradient-to-t from-purple-600/10 to-transparent blur-[100px] pointer-events-none" />
 
@@ -155,19 +166,18 @@ export default function DateSpinnerScreen() {
           <p className="text-[13px] text-white/40">Spin the wheel and let fate decide our next date</p>
         </motion.div>
 
-        {/* Wheel area */}
+        {/* Wheel */}
         <motion.div
           className="relative flex items-center justify-center"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.25, type: 'spring', stiffness: 120, damping: 14 }}
         >
-          {/* Pointer triangle at top */}
+          {/* Pointer */}
           <div
             className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 z-20"
             style={{
-              width: 0,
-              height: 0,
+              width: 0, height: 0,
               borderLeft: '10px solid transparent',
               borderRight: '10px solid transparent',
               borderTop: '20px solid white',
@@ -175,7 +185,7 @@ export default function DateSpinnerScreen() {
             }}
           />
 
-          {/* Spinning wheel */}
+          {/* Spinning SVG wheel */}
           <motion.svg
             width={SIZE}
             height={SIZE}
@@ -187,7 +197,6 @@ export default function DateSpinnerScreen() {
               ease: isSpinning ? [0.15, 0.85, 0.35, 1] : 'linear',
             }}
           >
-            {/* Drop shadow circle */}
             <circle cx={CX} cy={CY} r={R + 2} fill="none" stroke="rgba(0,0,0,0.4)" strokeWidth="4" />
 
             {DATES.map((date, i) => {
@@ -207,22 +216,26 @@ export default function DateSpinnerScreen() {
                     stroke="rgba(255,255,255,0.15)"
                     strokeWidth="1.5"
                   />
-                  {/* Emoji */}
+                  {/* Short text label — rotated radially along the segment */}
                   <text
                     x={lx}
-                    y={ly - 6}
+                    y={ly}
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    fontSize="18"
+                    fontSize="9"
+                    fontWeight="700"
+                    fill="rgba(255,255,255,0.9)"
+                    fontFamily="system-ui, sans-serif"
+                    letterSpacing="0.5"
                     transform={`rotate(${midAngle}, ${lx}, ${ly})`}
                   >
-                    {date.emoji}
+                    {date.short}
                   </text>
                 </g>
               );
             })}
 
-            {/* Center circle cap */}
+            {/* Center cap */}
             <circle cx={CX} cy={CY} r={22} fill="#0c0a14" stroke="rgba(255,255,255,0.2)" strokeWidth="2" />
             <circle cx={CX} cy={CY} r={8} fill="white" opacity="0.9" />
           </motion.svg>
@@ -268,7 +281,7 @@ export default function DateSpinnerScreen() {
 
         {/* Result card */}
         <AnimatePresence>
-          {showResult && winner !== null && (
+          {showResult && winner !== null && WinnerIcon && (
             <motion.div
               className="w-full glass-rose rounded-3xl overflow-hidden"
               style={{ boxShadow: `0 0 0 1px ${DATES[winner].color}30, 0 20px 60px rgba(0,0,0,0.3), 0 0 60px ${DATES[winner].color}15` }}
@@ -283,16 +296,17 @@ export default function DateSpinnerScreen() {
               />
               <div className="p-5 text-center">
                 <motion.div
-                  className="text-5xl mb-3"
+                  className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-xl"
+                  style={{ background: `${DATES[winner].color}25`, border: `1px solid ${DATES[winner].color}40` }}
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.1 }}
                 >
-                  {DATES[winner].emoji}
+                  <WinnerIcon size={30} style={{ color: DATES[winner].color }} />
                 </motion.div>
                 <h3 className="text-xl font-extrabold text-white mb-2">{DATES[winner].label}</h3>
                 <p className="text-[13px] text-white/65 leading-relaxed mb-4">{DATES[winner].description}</p>
-                <div className="flex items-center justify-center gap-1">
+                <div className="flex items-center justify-center gap-1.5">
                   <Heart size={12} className="text-rose-400 animate-heartbeat" fill="currentColor" />
                   <span className="text-[11px] text-white/35 italic">Date idea unlocked</span>
                   <Heart size={12} className="text-rose-400 animate-heartbeat" fill="currentColor" />

@@ -8,11 +8,11 @@ import { softTap, heartbeat, successVibe } from '@/lib/useHaptics';
 import { sendTelegramNotification } from '@/app/actions/notify';
 
 export const fortunesData = [
-  "The stars align over Meknes. Your upcoming meeting will spark a flame that distance can never extinguish. 💫",
-  "I see a beautiful shared future. It starts with a nervous smile on May 11, but quickly turns into the comfort you've both searched for. 🔮",
-  "The crystal reveals a journey. The roads between Marrakesh and Meknes will soon feel very short. A deep, unbreakable bond is forming. 🛤️",
-  "Patience will be rewarded. The countdown to May 11 ends, and a beautiful new chapter of true partnership begins. ✨",
-  "Your energies match perfectly. Expect endless laughter, deep conversations, and the feeling of finally being 'home'. 🌙"
+  "The stars align over Meknes. Your upcoming meeting will spark a flame that distance can never extinguish.",
+  "I see a beautiful shared future. It starts with a nervous smile on May 11, but quickly turns into the comfort you've both searched for.",
+  "The crystal reveals a journey. The roads between Marrakesh and Meknes will soon feel very short. A deep, unbreakable bond is forming.",
+  "Patience will be rewarded. The countdown to May 11 ends, and a beautiful new chapter of true partnership begins.",
+  "Your energies match perfectly. Expect endless laughter, deep conversations, and the feeling of finally being 'home'.",
 ];
 
 export default function FortuneTellerScreen() {
