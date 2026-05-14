@@ -17,6 +17,9 @@ const DailyNoteScreen = dynamic(() => import('@/components/DailyNoteScreen'), { 
 const PerfectMatchScreen = dynamic(() => import('@/components/PerfectMatchScreen'), { ssr: false });
 const MoodRingScreen = dynamic(() => import('@/components/MoodRingScreen'), { ssr: false });
 const ComfortScreen = dynamic(() => import('@/components/ComfortScreen'), { ssr: false });
+const LoveLetterScreen = dynamic(() => import('@/components/LoveLetterScreen'), { ssr: false });
+const DateSpinnerScreen = dynamic(() => import('@/components/DateSpinnerScreen'), { ssr: false });
+const WouldYouRatherScreen = dynamic(() => import('@/components/WouldYouRatherScreen'), { ssr: false });
 import AnimatedBackground from '@/components/AnimatedBackground';
 import { useGameStore } from '@/store/gameStore';
 import { questionsData } from '@/data/questions';
@@ -56,6 +59,9 @@ export default function HomePage() {
         {currentPhase === 'perfect-match' && <PerfectMatchScreen key="perfect-match" />}
         {currentPhase === 'mood-ring' && <MoodRingScreen key="mood-ring" />}
         {currentPhase === 'comfort-mode' && <ComfortScreen key="comfort-mode" />}
+        {currentPhase === 'love-letter' && <LoveLetterScreen key="love-letter" />}
+        {currentPhase === 'date-spinner' && <DateSpinnerScreen key="date-spinner" />}
+        {currentPhase === 'would-you-rather' && <WouldYouRatherScreen key="would-you-rather" />}
         {currentPhase === 'complete' && <CompletionScreen key="complete" />}
       </AnimatePresence>
     </main>

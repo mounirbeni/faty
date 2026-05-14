@@ -19,6 +19,9 @@ import {
   Puzzle,
   Sun,
   Moon,
+  Mail,
+  Disc3,
+  HelpCircle,
 } from 'lucide-react';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
@@ -110,6 +113,33 @@ const MINI_GAMES = [
     gradient: 'from-rose-500 to-pink-600',
     glow: 'shadow-rose-500/30',
   },
+  {
+    id: 'love-letter' as const,
+    icon: <Mail size={30} className="text-white drop-shadow-md" />,
+    label: 'Love Letters',
+    sublabel: 'Written for you',
+    unlocksAtChapter: 0,
+    gradient: 'from-rose-400 to-pink-500',
+    glow: 'shadow-rose-400/30',
+  },
+  {
+    id: 'date-spinner' as const,
+    icon: <Disc3 size={30} className="text-white drop-shadow-md" />,
+    label: 'Date Spinner',
+    sublabel: 'Spin & decide',
+    unlocksAtChapter: 0,
+    gradient: 'from-fuchsia-500 to-violet-600',
+    glow: 'shadow-fuchsia-500/30',
+  },
+  {
+    id: 'would-you-rather' as const,
+    icon: <HelpCircle size={30} className="text-white drop-shadow-md" />,
+    label: 'Would You Rather',
+    sublabel: '15 scenarios',
+    unlocksAtChapter: 0,
+    gradient: 'from-violet-500 to-indigo-600',
+    glow: 'shadow-violet-500/30',
+  },
 ];
 
 const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand', 'smile', 'camera'];
@@ -142,7 +172,7 @@ export default function HomeMapScreen() {
     startChapter(chapter);
   };
 
-  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault') => {
+  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather') => {
     heartbeat();
     setPhase(id);
   };

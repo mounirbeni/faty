@@ -15,6 +15,9 @@ export type AppPhase =
   | 'mood-ring'
   | 'vault'
   | 'comfort-mode'
+  | 'love-letter'
+  | 'date-spinner'
+  | 'would-you-rather'
   | 'complete';
 
 interface GameState {
