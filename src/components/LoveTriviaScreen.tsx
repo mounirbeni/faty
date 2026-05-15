@@ -6,7 +6,7 @@ import { ArrowLeft, CheckCircle2, XCircle, Sparkles, Heart, Trophy, RotateCcw } 
 import { useGameStore } from '@/store/gameStore';
 import { softTap, successVibe, heartbeat } from '@/lib/useHaptics';
 import { triviaData } from '@/data/triviaData';
-import { sendTelegramNotification } from '@/app/actions/notify';
+import { notifyOwner } from '@/lib/notify';
 
 type AnswerState = 'unanswered' | 'correct' | 'wrong';
 
@@ -42,9 +42,7 @@ export default function LoveTriviaScreen() {
       const finalScore = score + (answerState === 'correct' ? 0 : 0); // already set above
       setTriviaScore(finalScore);
       logActivity('love-trivia', `Scored ${finalScore}/${triviaData.length} on Love Trivia`);
-      sendTelegramNotification(
-        `🧠 <b>Faty just completed Love Trivia!</b>\n\nShe scored <b>${finalScore}/${triviaData.length}</b>.\n\n${finalScore >= 8 ? 'She knows you so well!' : finalScore >= 5 ? 'She is learning!' : 'She needs more time with you.'}`
-      ).catch(console.error);
+      notifyOwner(`🧠 <b>Faty just completed Love Trivia!</b>\n\nShe scored <b>${finalScore}/${triviaData.length}</b>.\n\n${finalScore >= 8 ? 'She knows you so well!' : finalScore >= 5 ? 'She is learning!' : 'She needs more time with you.'}`);
       setIsDone(true);
     } else {
       setCurrentIdx((i) => i + 1);

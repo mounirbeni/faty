@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, ArrowLeft, RefreshCw, Sparkles, Star } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
+import { getDailyIndex } from '@/lib/dailyContent';
 
 const LETTERS = [
   {
@@ -67,7 +68,7 @@ function pickNext(current: number, total: number): number {
 
 export default function LoveLetterScreen() {
   const setPhase = useGameStore(s => s.setPhase);
-  const [idx, setIdx] = useState(() => Math.floor(Math.random() * LETTERS.length));
+  const [idx, setIdx] = useState(() => getDailyIndex(LETTERS.length, 'letter'));
   const [animKey, setAnimKey] = useState(0);
   const [isChanging, setIsChanging] = useState(false);
   const [direction, setDirection] = useState(1);

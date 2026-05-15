@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Map, CalendarHeart, Heart, Sparkles, Plane, Mic } from 'lucide-react';
+import { ArrowLeft, Map, CalendarHeart, Heart, Mic } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { heartbeat, successVibe } from '@/lib/useHaptics';
+import { getDailyIndex } from '@/lib/dailyContent';
 import ScratchCardWhisper from './ScratchCardWhisper';
 import VoiceNotePlayer from './VoiceNotePlayer';
 
@@ -43,22 +44,14 @@ const dailyMessages = [
 ];
 
 export default function DailyNoteScreen() {
-  const { 
-    setPhase, 
-    generateDailyWhisper, 
-    dailyWhisperId, 
-    dailyWhisperIsVoiceNote 
-  } = useGameStore();
-  
+  const { setPhase } = useGameStore();
   const [isRevealed, setIsRevealed] = useState(false);
 
-  useEffect(() => {
-    heartbeat();
-    // Generate new whisper every 1 hour (60 minutes)
-    generateDailyWhisper(dailyMessages.length, 60);
-  }, [generateDailyWhisper]);
+  useEffect(() => { heartbeat(); }, []);
 
-  const todaysMessage = dailyWhisperId !== null ? dailyMessages[dailyWhisperId] : dailyMessages[0];
+  // New message every day — deterministic, no localStorage needed
+  const todayIdx = getDailyIndex(dailyMessages.length, 'whisper');
+  const todaysMessage = dailyMessages[todayIdx];
 
   const handleRevealed = () => {
     successVibe();
@@ -96,7 +89,7 @@ export default function DailyNoteScreen() {
 
         <ScratchCardWhisper onComplete={handleRevealed}>
           <div className="flex flex-col items-center justify-center w-full">
-            {dailyWhisperIsVoiceNote ? (
+            {false ? (
               <div className="flex flex-col items-center">
                 <Mic size={32} className="text-emerald-400 mb-4 animate-pulse" />
                 <p className="text-xs font-bold text-emerald-200 mb-4 tracking-widest uppercase">Secret Audio</p>

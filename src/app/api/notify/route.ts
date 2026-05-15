@@ -1,16 +1,15 @@
-'use server';
-
+import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// ─── Core sender (runs on server) ────────────────────────────────────
-async function _send(message: string): Promise<{ success: boolean; error?: string }> {
+export async function POST(req: NextRequest) {
   try {
+    const { message } = (await req.json()) as { message: string };
+
     const apiKey = process.env.RESEND_API_KEY;
     const toEmail = process.env.MY_EMAIL_ADDRESS || 'mohajamedhide@gmail.com';
 
     if (!apiKey) {
-      console.error('[Notify] Missing RESEND_API_KEY');
-      return { success: false, error: 'Missing RESEND_API_KEY' };
+      return NextResponse.json({ success: false, error: 'Missing RESEND_API_KEY' }, { status: 500 });
     }
 
     const resend = new Resend(apiKey);
@@ -27,13 +26,17 @@ async function _send(message: string): Promise<{ success: boolean; error?: strin
 <body style="margin:0;padding:0;background:#0c0a14;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
   <div style="max-width:520px;margin:0 auto;padding:32px 16px;">
     <div style="text-align:center;margin-bottom:24px;">
-      <span style="display:inline-block;background:linear-gradient(135deg,#f43f5e,#ec4899);color:#fff;font-size:18px;font-weight:800;padding:8px 20px;border-radius:999px;">Faty's App</span>
+      <span style="display:inline-block;background:linear-gradient(135deg,#f43f5e,#ec4899);color:#fff;font-size:18px;font-weight:800;padding:8px 20px;border-radius:999px;">
+        Faty's App
+      </span>
     </div>
     <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:20px;overflow:hidden;">
       <div style="height:3px;background:linear-gradient(to right,#f43f5e,#fb923c);"></div>
       <div style="padding:24px;color:#e2e8f0;font-size:15px;line-height:1.7;">${lines}</div>
     </div>
-    <p style="text-align:center;color:rgba(255,255,255,0.2);font-size:11px;margin-top:16px;">Sent silently · Only you see this</p>
+    <p style="text-align:center;color:rgba(255,255,255,0.2);font-size:11px;margin-top:16px;">
+      Sent silently · Only you see this
+    </p>
   </div>
 </body></html>`;
 
@@ -45,22 +48,13 @@ async function _send(message: string): Promise<{ success: boolean; error?: strin
     });
 
     if (error) {
-      console.error('[Notify Resend error]:', error);
-      return { success: false, error: error.message };
+      console.error('[Notify API error]:', error);
+      return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     }
 
-    return { success: true };
+    return NextResponse.json({ success: true });
   } catch (err) {
-    console.error('[Notify crash]:', err);
-    return { success: false, error: String(err) };
+    console.error('[Notify API crash]:', err);
+    return NextResponse.json({ success: false, error: String(err) }, { status: 500 });
   }
-}
-
-// ─── Exported server actions ──────────────────────────────────────────
-export async function sendEmailNotification(message: string) {
-  return _send(message);
-}
-
-export async function sendTelegramNotification(message: string) {
-  return _send(message);
 }

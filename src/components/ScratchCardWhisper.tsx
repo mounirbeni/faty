@@ -1,6 +1,8 @@
+'use client';
+
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { sendTelegramNotification } from '@/app/actions/notify';
+import { notifyOwner } from '@/lib/notify';
 
 interface ScratchCardWhisperProps {
   children: React.ReactNode;
@@ -121,12 +123,10 @@ export default function ScratchCardWhisper({ children, onComplete }: ScratchCard
       const totalPixels = pixels.length / 4;
       const clearPercentage = (transparentPixels / totalPixels) * 100;
 
-      // Fire Telegram at 80% — only once
+      // Notify at 80% — only once
       if (clearPercentage > 80 && !notifiedRef.current) {
         notifiedRef.current = true;
-        sendTelegramNotification(
-          `✨ <b>Faty is scratching her Daily Whisper!</b>\n\nShe has revealed over 80% of today\u2019s secret message. 💚`
-        ).catch(console.error);
+        notifyOwner('✨ <b>Faty scratched her Daily Whisper!</b>\n\nShe just revealed today\'s secret message.');
       }
 
       if (clearPercentage > 60) {

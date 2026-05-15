@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Heart, Sparkles } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { softTap, successVibe, heartbeat } from '@/lib/useHaptics';
-import { sendTelegramNotification } from '@/app/actions/notify';
+import { notifyOwner } from '@/lib/notify';
 
 const JAR_GOAL = 100;
 
@@ -45,9 +45,7 @@ export default function KissJarScreen() {
         setJustHitMilestone(true);
         setTimeout(() => setJustHitMilestone(false), 1500);
         logActivity('kiss-jar', `${newCount} kisses sent!`);
-        sendTelegramNotification(
-          `💋 <b>Faty sent ${newCount} kisses!</b>\n\nThe Kiss Jar is now <b>${Math.round((newCount / JAR_GOAL) * 100)}%</b> full.`
-        ).catch(console.error);
+        notifyOwner(`💋 <b>Faty sent ${newCount} kisses!</b>\n\nThe Kiss Jar is now <b>${Math.round((newCount / JAR_GOAL) * 100)}%</b> full.`);
       }
     },
     [kissCount, addKiss, logActivity, particleId]

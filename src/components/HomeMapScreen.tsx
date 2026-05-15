@@ -30,7 +30,7 @@ import { categoriesMeta } from '@/data/meta';
 import { softTap, heartbeat } from '@/lib/useHaptics';
 import IconFromName from './IconFromName';
 import MoodTracker from './MoodTracker';
-import { sendTelegramNotification } from '@/app/actions/notify';
+import { notifyOwner } from '@/lib/notify';
 import { useEffect, useRef, useState } from 'react';
 
 const MINI_GAMES = [
@@ -182,9 +182,7 @@ export default function HomeMapScreen() {
     if (notifiedRef.current) return;
     notifiedRef.current = true;
     const label = isReturningUser ? 'back on' : 'opening';
-    sendTelegramNotification(
-      `🚨 <b>Faty just opened the app!</b>\n\nShe is ${label} the map right now. 🗺️\n📊 Overall progress: <b>${overallPercent}%</b>`
-    ).catch(console.error);
+    notifyOwner(`🚨 <b>Faty just opened the app!</b>\n\nShe is ${label} the map right now.\n📊 Overall progress: <b>${overallPercent}%</b>`);
   }, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChapterTap = (chapter: number) => {

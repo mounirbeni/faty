@@ -23,7 +23,7 @@ import HeartBurst from "./HeartBurst";
 import LoveNote from "./LoveNote";
 import { useGameStore } from "@/store/gameStore";
 import { softTap } from "@/lib/useHaptics";
-import { sendTelegramNotification } from "@/app/actions/notify";
+import { notifyOwner } from "@/lib/notify";
 
 // ─── Animation variants (Hardware accelerated) ────────────────────────
 
@@ -132,12 +132,12 @@ export default function GameScreen() {
     const chapterName = categoriesMeta[currentQuestion.category - 1]?.title ?? `Chapter ${currentQuestion.category}`;
     const capsuleTag = isTimeCapsule ? '\n🔒 <i>Time Capsule — sealed until May 11</i>' : '';
 
-    sendTelegramNotification(
+    notifyOwner(
       `✍️ <b>Faty answered a question!</b>\n\n` +
       `📖 <i>${chapterName}</i> · Q${currentQuestion.id}\n\n` +
       `<b>Q:</b> ${currentQuestion.question}\n\n` +
       `<b>A:</b> ${answerText}${capsuleTag}`
-    ).catch(console.error);
+    );
     // ────────────────────────────────────────────────────────────────
 
     setHeartBurstTrigger((t) => t + 1);

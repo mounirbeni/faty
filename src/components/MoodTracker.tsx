@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Sparkles, Plane, Smile, Moon, ChevronDown } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
-import { sendTelegramNotification } from '@/app/actions/notify';
+import { notifyOwner } from '@/lib/notify';
 import { softTap, successVibe } from '@/lib/useHaptics';
 
 const MOODS: { label: string; Icon: LucideIcon; color: string; bg: string; fillable?: boolean }[] = [
@@ -29,9 +29,7 @@ export default function MoodTracker() {
     setCurrentMood(label);
     setJustSelected(true);
 
-    sendTelegramNotification(
-      `💖 <b>Faty just updated her mood!</b>\n\n<b>${label}</b>\n\n<i>She is feeling something beautiful right now.</i>`
-    ).catch(console.error);
+    notifyOwner(`💖 <b>Faty just updated her mood!</b>\n\n<b>${label}</b>\n\n<i>She is feeling something beautiful right now.</i>`);
 
     setTimeout(() => {
       successVibe();

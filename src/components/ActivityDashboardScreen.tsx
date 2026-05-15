@@ -7,7 +7,7 @@ import {
   MessageCircle, Send, CheckCircle2, Clock,
 } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
-import { sendTelegramNotification } from '@/app/actions/notify';
+import { notifyOwner } from '@/lib/notify';
 import { softTap } from '@/lib/useHaptics';
 
 function timeAgo(ts: number): string {
@@ -59,7 +59,7 @@ export default function ActivityDashboardScreen() {
       `📝 Total logged events: <b>${activityLog.length}</b>\n\n` +
       `<b>Recent Activity:</b>\n${last5 || 'No activity yet.'}`;
 
-    await sendTelegramNotification(report).catch(console.error);
+    notifyOwner(report);
     setSending(false);
     setSent(true);
     setTimeout(() => setSent(false), 3000);

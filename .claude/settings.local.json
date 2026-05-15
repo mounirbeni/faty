@@ -5,7 +5,9 @@
       "Bash(not exist *)",
       "Bash(mkdir -p \"C:/Users/mouni/Desktop/faty/.claude/worktrees/admiring-shannon-70b278/.claude\")",
       "Bash(npm run *)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(curl -s -X POST http://localhost:3000/api/test-notify -H \"Content-Type: application/json\" -d \"{\\\\\"message\\\\\":\\\\\"test from client path\\\\\"}\")",
+      "Bash(node -e ' *)"
     ]
   }
 }
