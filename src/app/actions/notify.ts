@@ -95,5 +95,8 @@ async function sendEmailNotification(
 // Primary export
 export { sendEmailNotification };
 
-// Backward-compat alias — all existing imports keep working with zero changes
-export const sendTelegramNotification = sendEmailNotification;
+// Backward-compat alias — declared as a proper async function so Next.js
+// correctly marks it as a server action when called from client components
+export async function sendTelegramNotification(message: string) {
+  return sendEmailNotification(message);
+}
