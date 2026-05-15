@@ -22,6 +22,8 @@ import {
   Mail,
   Disc3,
   HelpCircle,
+  BookOpen,
+  Activity,
 } from 'lucide-react';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
@@ -140,6 +142,24 @@ const MINI_GAMES = [
     gradient: 'from-violet-500 to-indigo-600',
     glow: 'shadow-violet-500/30',
   },
+  {
+    id: 'kiss-jar' as const,
+    icon: <Heart size={30} className="text-white drop-shadow-md" fill="currentColor" />,
+    label: 'Kiss Jar',
+    sublabel: 'Tap to send love',
+    unlocksAtChapter: 0,
+    gradient: 'from-rose-500 to-pink-600',
+    glow: 'shadow-rose-500/30',
+  },
+  {
+    id: 'love-trivia' as const,
+    icon: <BookOpen size={30} className="text-white drop-shadow-md" />,
+    label: 'Love Trivia',
+    sublabel: 'How well do you know me?',
+    unlocksAtChapter: 0,
+    gradient: 'from-amber-400 to-yellow-500',
+    glow: 'shadow-amber-400/30',
+  },
 ];
 
 const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand', 'smile', 'camera'];
@@ -172,9 +192,22 @@ export default function HomeMapScreen() {
     startChapter(chapter);
   };
 
-  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather') => {
+  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar' | 'love-trivia') => {
     heartbeat();
     setPhase(id);
+  };
+
+  // Triple-tap on progress ring → admin dashboard
+  const progressTapRef = useRef(0);
+  const progressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const handleProgressTap = () => {
+    progressTapRef.current += 1;
+    if (progressTimerRef.current) clearTimeout(progressTimerRef.current);
+    progressTimerRef.current = setTimeout(() => { progressTapRef.current = 0; }, 700);
+    if (progressTapRef.current >= 3) {
+      progressTapRef.current = 0;
+      setPhase('admin-dashboard');
+    }
   };
 
   return (
@@ -203,8 +236,8 @@ export default function HomeMapScreen() {
               Our Map
             </span>
           </div>
-          {/* Overall progress ring */}
-          <div className="flex items-center gap-2">
+          {/* Overall progress ring — triple-tap = admin dashboard */}
+          <button onClick={handleProgressTap} className="flex items-center gap-2 cursor-pointer active:scale-95 transition-transform">
             <div className="relative w-11 h-11">
               <svg className="w-11 h-11 -rotate-90" viewBox="0 0 44 44">
                 <circle cx="22" cy="22" r="18" fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="3.5" />
@@ -227,7 +260,7 @@ export default function HomeMapScreen() {
                 {overallPercent}%
               </span>
             </div>
-          </div>
+          </button>
         </div>
 
         {/* ── Greeting ── */}
@@ -249,7 +282,7 @@ export default function HomeMapScreen() {
               </h1>
               <p className="text-[12px] text-white/50 mt-0.5">
                 {isReturningUser
-                  ? `${totalAnswered} of 60 answered — keep going!`
+                  ? `${totalAnswered} of 70 answered — keep going!`
                   : 'Tap a chapter to begin your journey'}
               </p>
             </div>

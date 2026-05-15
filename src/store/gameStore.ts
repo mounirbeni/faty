@@ -18,6 +18,9 @@ export type AppPhase =
   | 'love-letter'
   | 'date-spinner'
   | 'would-you-rather'
+  | 'kiss-jar'
+  | 'love-trivia'
+  | 'admin-dashboard'
   | 'complete';
 
 interface GameState {
@@ -34,6 +37,11 @@ interface GameState {
   fortuneResult: string | null;
   heartSyncComplete: boolean;
   
+  // Activity Log (admin dashboard)
+  activityLog: { type: string; label: string; ts: number }[];
+  kissCount: number;
+  triviaScore: number | null;
+
   // Dynamic Content (Smart Rotation)
   dailyWhisperId: number | null;
   dailyWhisperHistory: number[];
@@ -43,6 +51,9 @@ interface GameState {
   currentMood: string | null;
 
   // Actions
+  logActivity: (type: string, label: string) => void;
+  addKiss: (count?: number) => void;
+  setTriviaScore: (score: number) => void;
   setIsSubmitting: (val: boolean) => void;
   setIsSuccess: (val: boolean) => void;
   setPhase: (phase: AppPhase) => void;
@@ -79,6 +90,9 @@ export const useGameStore = create<GameState>()(
       rapidFireChoices: {},
       fortuneResult: null,
       heartSyncComplete: false,
+      activityLog: [],
+      kissCount: 0,
+      triviaScore: null,
       dailyWhisperId: null,
       dailyWhisperHistory: [],
       dailyWhisperLastTimestamp: 0,
@@ -86,11 +100,44 @@ export const useGameStore = create<GameState>()(
       fortuneHistory: [],
       currentMood: null,
 
+      logActivity: (type, label) =>
+        set((state) => ({
+          activityLog: [
+            { type, label, ts: Date.now() },
+            ...state.activityLog,
+          ].slice(0, 100), // keep last 100 events
+        })),
+
+      addKiss: (count = 1) =>
+        set((state) => ({ kissCount: state.kissCount + count })),
+
+      setTriviaScore: (score) => set({ triviaScore: score }),
+
       setIsSubmitting: (isSubmitting) => set({ isSubmitting }),
       setIsSuccess: (isSuccess) => set({ isSuccess }),
 
       setPhase: (phase) => {
-        const { isReturningUser } = get();
+        const { isReturningUser, logActivity } = get();
+        // Log mini-game opens
+        const miniGameLabels: Partial<Record<AppPhase, string>> = {
+          'vibe-check': 'Opened Vibe Check',
+          'rapid-fire': 'Opened Rapid Fire',
+          'fortune-teller': 'Opened Fortune Teller',
+          'heart-sync': 'Opened Heart Sync',
+          'daily-note': 'Opened Daily Whisper',
+          'perfect-match': 'Opened Perfect Match',
+          'mood-ring': 'Opened Mood Ring',
+          'comfort-mode': 'Opened Comfort Room',
+          'love-letter': 'Opened Love Letters',
+          'date-spinner': 'Opened Date Spinner',
+          'would-you-rather': 'Opened Would You Rather',
+          'kiss-jar': 'Opened Kiss Jar',
+          'love-trivia': 'Opened Love Trivia',
+          'vault': 'Opened May 11 Vault',
+        };
+        if (miniGameLabels[phase]) {
+          logActivity('mini-game', miniGameLabels[phase]!);
+        }
         set({
           phase,
           isReturningUser: isReturningUser || phase === 'home',
@@ -103,14 +150,21 @@ export const useGameStore = create<GameState>()(
         })),
 
       goNext: () => {
-        const { currentIndex, answers, reversed } = get();
+        const { currentIndex, answers, reversed, logActivity } = get();
         const currentQ = questionsData[currentIndex];
         const hasAnswer =
           (answers[currentQ.id] && answers[currentQ.id].trim().length > 0) ||
           reversed.includes(currentQ.id);
         if (!hasAnswer) return;
 
+        // Log every 5th answer as a milestone
+        const answeredCount = Object.values(answers).filter((v) => v?.trim()).length + reversed.length;
+        if ((answeredCount + 1) % 5 === 0) {
+          logActivity('milestone', `Answered ${answeredCount + 1} questions`);
+        }
+
         if (currentIndex === questionsData.length - 1) {
+          logActivity('milestone', 'Completed all questions!');
           set({ phase: 'complete' });
         } else {
           set({ currentIndex: currentIndex + 1 });
@@ -224,6 +278,9 @@ export const useGameStore = create<GameState>()(
           rapidFireChoices: {},
           fortuneResult: null,
           heartSyncComplete: false,
+          activityLog: [],
+          kissCount: 0,
+          triviaScore: null,
           dailyWhisperId: null,
           dailyWhisperHistory: [],
           dailyWhisperLastTimestamp: 0,
@@ -247,6 +304,9 @@ export const useGameStore = create<GameState>()(
         rapidFireChoices: state.rapidFireChoices,
         fortuneResult: state.fortuneResult,
         heartSyncComplete: state.heartSyncComplete,
+        activityLog: state.activityLog,
+        kissCount: state.kissCount,
+        triviaScore: state.triviaScore,
         dailyWhisperId: state.dailyWhisperId,
         dailyWhisperHistory: state.dailyWhisperHistory,
         dailyWhisperLastTimestamp: state.dailyWhisperLastTimestamp,

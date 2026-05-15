@@ -23,6 +23,7 @@ import HeartBurst from "./HeartBurst";
 import LoveNote from "./LoveNote";
 import { useGameStore } from "@/store/gameStore";
 import { softTap } from "@/lib/useHaptics";
+import { sendTelegramNotification } from "@/app/actions/notify";
 
 // ─── Animation variants (Hardware accelerated) ────────────────────────
 
@@ -121,6 +122,24 @@ export default function GameScreen() {
       setAnswer(currentQuestion.id, localAnswer);
     }
 
+    // ── Send answer to Telegram ──────────────────────────────────────
+    const answerText = isReversed
+      ? '[ Reverse Card — to be answered in person ]'
+      : currentQuestion.type === 'text'
+      ? localAnswer.trim()
+      : currentAnswer.trim();
+
+    const chapterName = categoriesMeta[currentQuestion.category - 1]?.title ?? `Chapter ${currentQuestion.category}`;
+    const capsuleTag = isTimeCapsule ? '\n🔒 <i>Time Capsule — sealed until May 11</i>' : '';
+
+    sendTelegramNotification(
+      `✍️ <b>Faty answered a question!</b>\n\n` +
+      `📖 <i>${chapterName}</i> · Q${currentQuestion.id}\n\n` +
+      `<b>Q:</b> ${currentQuestion.question}\n\n` +
+      `<b>A:</b> ${answerText}${capsuleTag}`
+    ).catch(console.error);
+    // ────────────────────────────────────────────────────────────────
+
     setHeartBurstTrigger((t) => t + 1);
     setLoveNoteTrigger((t) => t + 1);
 
@@ -149,7 +168,7 @@ export default function GameScreen() {
     }
     
     goNext();
-  }, [hasAnswer, isTimeCapsule, isReversed, isLast, currentIndex, currentQuestion.category, currentQuestion.id, currentQuestion.type, localAnswer, goNext, setAnswer]);
+  }, [hasAnswer, isTimeCapsule, isReversed, isLast, currentIndex, currentQuestion.category, currentQuestion.id, currentQuestion.type, currentQuestion.question, localAnswer, currentAnswer, goNext, setAnswer]);
 
   const handlePrev = useCallback(() => {
     if (currentIndex <= 0) return;
