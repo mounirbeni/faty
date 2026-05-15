@@ -9,6 +9,7 @@ import {
   Play,
   RotateCcw,
   Map,
+  MapPin,
   Sparkles,
   Zap,
   Vault,
@@ -255,6 +256,65 @@ export default function HomeMapScreen() {
           </button>
         </div>
 
+        {/* ── Two Cities Banner ── */}
+        <motion.div
+          className="rounded-[22px] overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, rgba(217,119,6,0.1) 0%, rgba(100,20,80,0.08) 50%, rgba(210,12,55,0.1) 100%)',
+            backdropFilter: 'blur(40px) saturate(160%)',
+            WebkitBackdropFilter: 'blur(40px) saturate(160%)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            boxShadow: '0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
+          }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.08 }}
+        >
+          <div className="flex items-center justify-between px-5 py-4">
+            {/* Her side */}
+            <div className="flex flex-col items-center gap-1">
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center"
+                style={{ background: 'rgba(217,119,6,0.2)', border: '1px solid rgba(217,119,6,0.3)', boxShadow: '0 0 16px rgba(217,119,6,0.25)' }}>
+                <MapPin size={16} className="text-amber-400" fill="currentColor" />
+              </div>
+              <span className="text-[10px] font-black uppercase tracking-wider" style={{ color: 'rgba(251,191,36,0.8)' }}>Her heart</span>
+              <span className="text-[8px]" style={{ color: 'rgba(251,191,36,0.4)' }}>My angel 🌙</span>
+            </div>
+
+            {/* Connection line */}
+            <div className="flex-1 flex flex-col items-center gap-1.5 px-3">
+              <div className="w-full flex items-center gap-0.5 justify-center">
+                {Array.from({ length: 9 }).map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="rounded-full"
+                    style={{
+                      width: i === 4 ? 7 : 3,
+                      height: i === 4 ? 7 : 3,
+                      background: i === 4
+                        ? 'linear-gradient(135deg, #f43f5e, #e8b86d)'
+                        : i < 4 ? `rgba(217,119,6,${0.3 + i * 0.07})` : `rgba(244,63,94,${0.3 + (8-i) * 0.07})`,
+                    }}
+                    animate={i === 4 ? { scale: [1, 1.4, 1], opacity: [0.7, 1, 0.7] } : {}}
+                    transition={{ duration: 1.8, repeat: Infinity, delay: 0 }}
+                  />
+                ))}
+              </div>
+              <span className="text-[8px] font-semibold" style={{ color: 'rgba(255,255,255,0.25)' }}>always together ✦</span>
+            </div>
+
+            {/* His side */}
+            <div className="flex flex-col items-center gap-1">
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center"
+                style={{ background: 'rgba(244,63,94,0.2)', border: '1px solid rgba(244,63,94,0.3)', boxShadow: '0 0 16px rgba(244,63,94,0.25)' }}>
+                <Heart size={16} className="text-rose-400" fill="currentColor" />
+              </div>
+              <span className="text-[10px] font-black uppercase tracking-wider" style={{ color: 'rgba(251,113,133,0.8)' }}>His heart</span>
+              <span className="text-[8px]" style={{ color: 'rgba(251,113,133,0.4)' }}>Your love ❤️</span>
+            </div>
+          </div>
+        </motion.div>
+
         {/* ── Greeting ── */}
         <motion.div
           className="rounded-[22px] overflow-hidden"
@@ -267,9 +327,9 @@ export default function HomeMapScreen() {
           }}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+          transition={{ delay: 0.14 }}
         >
-          <div className="h-[2.5px] w-full" style={{ background: 'linear-gradient(90deg, #f43f5e, #e8b86d, #f43f5e)' }} />
+          <div className="h-[2.5px] w-full" style={{ background: 'linear-gradient(90deg, #d97706, #f43f5e, #d97706)' }} />
           <div className="flex items-center gap-3.5 p-4">
             <div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg shrink-0"
               style={{
@@ -280,13 +340,13 @@ export default function HomeMapScreen() {
             </div>
             <div>
               <h1 className="text-[17px] font-black leading-tight" style={{ color: 'rgba(255,235,240,0.95)' }}>
-                {isReturningUser ? 'Welcome back, my angel' : 'Hey my love'}{' '}
+                {isReturningUser ? 'Welcome back, my angel' : 'Hey my love, it\'s me'}{' '}
                 <Heart size={15} className="inline text-rose-400 ml-0.5" fill="currentColor" />
               </h1>
               <p className="text-[12px] mt-0.5" style={{ color: 'rgba(255,200,210,0.5)' }}>
                 {isReturningUser
-                  ? `${totalAnswered} of 70 answered — keep going!`
-                  : 'Tap a chapter to begin your journey'}
+                  ? `I miss you so much — ${totalAnswered} of 70 answered`
+                  : 'From me, with all my love 🌹'}
               </p>
             </div>
           </div>

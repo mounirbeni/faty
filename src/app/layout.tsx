@@ -54,36 +54,47 @@ export default function RootLayout({
             pointerEvents: 'none',
           }}
         >
-          {/* Top crimson halo — the "heart" of the app */}
+          {/* Marrakech — top-right rose halo */}
           <div style={{
             position: 'absolute',
-            top: '-25%',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '130vw',
-            height: '70vh',
-            background: 'radial-gradient(ellipse, rgba(210,12,55,0.24) 0%, rgba(150,5,40,0.1) 45%, transparent 68%)',
-            filter: 'blur(55px)',
+            top: '-20%',
+            right: '-10%',
+            width: '80vw',
+            height: '65vh',
+            background: 'radial-gradient(ellipse, rgba(210,12,55,0.22) 0%, rgba(150,5,40,0.09) 48%, transparent 68%)',
+            filter: 'blur(60px)',
           }} />
-          {/* Bottom-left violet aurora */}
+          {/* Meknes — top-left amber/gold halo */}
           <div style={{
             position: 'absolute',
-            bottom: '-18%',
-            left: '-18%',
+            top: '-15%',
+            left: '-15%',
             width: '75vw',
             height: '60vh',
-            background: 'radial-gradient(ellipse, rgba(95,22,200,0.16) 0%, transparent 60%)',
-            filter: 'blur(58px)',
+            background: 'radial-gradient(ellipse, rgba(217,119,6,0.18) 0%, rgba(180,90,10,0.08) 48%, transparent 68%)',
+            filter: 'blur(62px)',
           }} />
-          {/* Right warm ember */}
+          {/* Connection point — center violet where hearts meet */}
           <div style={{
             position: 'absolute',
-            top: '38%',
-            right: '-12%',
-            width: '48vw',
-            height: '48vh',
-            background: 'radial-gradient(ellipse, rgba(180,75,15,0.09) 0%, transparent 60%)',
-            filter: 'blur(52px)',
+            top: '15%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '50vw',
+            height: '40vh',
+            background: 'radial-gradient(ellipse, rgba(120,40,180,0.12) 0%, transparent 65%)',
+            filter: 'blur(55px)',
+          }} />
+          {/* Bottom warmth */}
+          <div style={{
+            position: 'absolute',
+            bottom: '-15%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '60vw',
+            height: '40vh',
+            background: 'radial-gradient(ellipse, rgba(180,40,20,0.08) 0%, transparent 60%)',
+            filter: 'blur(50px)',
           }} />
         </div>
 

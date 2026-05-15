@@ -66,21 +66,21 @@ export const categoriesMeta = [
 
 
 export const loveNotes: string[] = [
-  "Every answer makes me fall for you a little more…",
+  "Every answer makes me fall for you even more…",
   "I could read your words forever.",
   "You have no idea how much this means to me.",
   "I'm smiling so hard right now.",
-  "Knowing you in person makes every answer even more beautiful.",
+  "So far apart and yet you feel so close.",
   "My heart skipped reading that.",
-  "You're the best thing that happened to my timeline.",
-  "I hope you know how special you are.",
+  "You're the best thing that ever happened to my life.",
+  "I hope you know how special you are, my angel.",
   "This is exactly the kind of answer I needed.",
   "Keep going… it gets even better.",
   "I already know I'm the luckiest.",
   "Your honesty is everything to me.",
-  "I wish I could hug you through this screen.",
+  "I wish I could be there right now just to hug you.",
   "This is exactly why I can't stop thinking about you.",
-  "You make every distance feel worth it.",
+  "Every moment apart is worth it for every moment together.",
 ];
 
 export const categoryIntros: Record<number, { title: string; subtitle: string; message: string }> = {
@@ -107,7 +107,7 @@ export const categoryIntros: Record<number, { title: string; subtitle: string; m
   5: {
     title: "Chapter Five",
     subtitle: "Compatibility & Future",
-    message: "This is the part where it's just us. No walls, no filters. These are the questions that matter most.",
+    message: "This is the part where it's just us. No walls, no filters. What we have is just the beginning of our story.",
   },
   6: {
     title: "Chapter Six",
@@ -117,7 +117,7 @@ export const categoryIntros: Record<number, { title: string; subtitle: string; m
   7: {
     title: "Chapter Seven",
     subtitle: "After Meeting",
-    message: "You made it. We finally met. Now tell me — from the heart — how did it feel?",
+    message: "We met, and now we're back to our lives apart. Tell me everything about how that felt, and how it feels now.",
   },
 };
 

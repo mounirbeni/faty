@@ -147,6 +147,11 @@
   100% { transform: translateY(0) scale(1); opacity: 1; }
 }
 
+@keyframes city-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
 /* ─── Base Styles ──────────────────────────────────────────────────── */
 
 @layer base {
@@ -233,6 +238,7 @@
   .animate-glow-border { animation: glow-border 3s ease-in-out infinite; }
   .animate-aurora { animation: aurora-drift 6s ease-in-out infinite; }
   .animate-card-rise { animation: card-rise 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  .animate-city-pulse { animation: city-pulse 2s ease-in-out infinite; }
 
   /* ── Glass System ── */
 
@@ -301,6 +307,15 @@
     -webkit-backdrop-filter: blur(40px) saturate(120%);
     border: 1px solid rgba(255, 255, 255, 0.09);
     box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  }
+
+  /* Meknes amber glass */
+  .glass-amber {
+    background: rgba(217, 119, 6, 0.08);
+    backdrop-filter: blur(40px) saturate(155%);
+    -webkit-backdrop-filter: blur(40px) saturate(155%);
+    border: 1px solid rgba(217, 119, 6, 0.22);
+    box-shadow: 0 8px 36px rgba(217, 119, 6, 0.14), inset 0 1px 0 rgba(255, 200, 80, 0.1);
   }
 
   .text-gradient {

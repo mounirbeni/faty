@@ -209,16 +209,16 @@ export default function WelcomeScreen() {
           <div className="h-[3px] w-full" style={{ background: 'linear-gradient(90deg, #f43f5e, #e8b86d, #f43f5e)' }} />
           <div className="p-5">
             <p className="text-[13.5px] leading-relaxed mb-3" style={{ color: 'rgba(255,235,240,0.78)' }}>
-              I made this for you — and now that we have finally met, I want to understand you even deeper. Your thoughts, your dreams, every part of your heart.
+              I built this thinking of you every single day. We finally met — and now the distance feels different. Harder and sweeter at the same time.
             </p>
             <p className="text-[13.5px] leading-relaxed mb-3" style={{ color: 'rgba(255,235,240,0.78)' }}>
-              60 questions. 6 chapters. Some are fun, some go deep. Answer honestly — there are no wrong answers, only{' '}
-              <span className="font-semibold" style={{ color: '#fda4af' }}>real ones</span>.
+              70 questions. 7 chapters. Some are fun, some go deep. Let me understand you completely — because{' '}
+              <span className="font-semibold" style={{ color: '#fda4af' }}>the distance is nothing</span> compared to what we have.
             </p>
             <div className="flex items-center justify-end gap-1.5 mt-2">
-              <Heart size={9} className="text-rose-400/70" fill="currentColor" />
+              <Heart size={9} className="text-amber-400/70" fill="currentColor" />
               <p className="text-[11px] italic" style={{ color: 'rgba(253, 164, 175, 0.55)' }}>
-                From the one who finally got to see your smile
+                From your love, with everything 🌹
               </p>
             </div>
           </div>
