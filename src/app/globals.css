@@ -25,20 +25,20 @@
 
 @keyframes heartbeat {
   0%, 100% { transform: scale(1); }
-  14% { transform: scale(1.15); }
+  14% { transform: scale(1.18); }
   28% { transform: scale(1); }
-  42% { transform: scale(1.1); }
+  42% { transform: scale(1.12); }
   56% { transform: scale(1); }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.05); }
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.06); }
 }
 
 @keyframes pulse-ring {
-  0% { transform: scale(1); opacity: 0.6; }
-  100% { transform: scale(1.8); opacity: 0; }
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(1.9); opacity: 0; }
 }
 
 @keyframes pulse-soft {
@@ -62,8 +62,8 @@
 }
 
 @keyframes glow-breathe {
-  0%, 100% { opacity: 0.15; transform: scale(1); }
-  50% { opacity: 0.3; transform: scale(1.08); }
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(1.1); }
 }
 
 @keyframes slide-up-fade {
@@ -90,13 +90,8 @@
 }
 
 @keyframes vault-glow {
-  0%, 100% { box-shadow: 0 0 40px rgba(139,92,246,0.3), 0 0 80px rgba(139,92,246,0.1); }
-  50% { box-shadow: 0 0 60px rgba(244,63,94,0.4), 0 0 120px rgba(244,63,94,0.15); }
-}
-
-@keyframes countdown-tick {
-  0% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0%, 100% { box-shadow: 0 0 40px rgba(139,92,246,0.35), 0 0 80px rgba(139,92,246,0.12); }
+  50% { box-shadow: 0 0 60px rgba(244,63,94,0.45), 0 0 120px rgba(244,63,94,0.18); }
 }
 
 @keyframes swipe-hint {
@@ -139,18 +134,33 @@
 
 @keyframes glow-border {
   0%, 100% { box-shadow: 0 0 0 0 rgba(244,63,94,0); }
-  50% { box-shadow: 0 0 20px 2px rgba(244,63,94,0.3), 0 0 40px 4px rgba(244,63,94,0.1); }
+  50% { box-shadow: 0 0 20px 2px rgba(244,63,94,0.35), 0 0 40px 4px rgba(244,63,94,0.12); }
+}
+
+@keyframes aurora-drift {
+  0%, 100% { opacity: 0.6; transform: scale(1) translateY(0); }
+  50% { opacity: 1; transform: scale(1.08) translateY(-20px); }
+}
+
+@keyframes card-rise {
+  0% { transform: translateY(32px) scale(0.96); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
 }
 
 /* ─── Base Styles ──────────────────────────────────────────────────── */
 
 @layer base {
   :root {
-    --background: #0c0a14;
-    --card-bg: rgba(255, 255, 255, 0.06);
-    --card-border: rgba(255, 255, 255, 0.1);
-    --glass-bg: rgba(255, 255, 255, 0.08);
-    --glass-border: rgba(255, 255, 255, 0.12);
+    --background: #070310;
+    --card-bg: rgba(255, 255, 255, 0.065);
+    --card-border: rgba(255, 255, 255, 0.12);
+    --glass-bg: rgba(255, 255, 255, 0.07);
+    --glass-border: rgba(255, 255, 255, 0.13);
+    --rose: #f43f5e;
+    --gold: #e8b86d;
+    --violet: #9b5cf6;
+    --text-primary: #f5eef0;
+    --text-muted: rgba(245, 238, 240, 0.55);
   }
 
   * {
@@ -163,19 +173,15 @@
   }
 
   body {
-    background: var(--background);
-    background: linear-gradient(
-      160deg,
-      #0c0a14 0%,
-      #1a0f24 30%,
-      #180d20 50%,
-      #14101e 70%,
-      #0c0a14 100%
-    );
+    /* Deep void with a living crimson halo and violet aurora */
+    background:
+      radial-gradient(ellipse 140% 75% at 50% -8%, rgba(210, 12, 55, 0.26) 0%, rgba(140, 5, 40, 0.1) 42%, transparent 65%),
+      radial-gradient(ellipse 65% 55% at 82% 98%, rgba(95, 25, 190, 0.18) 0%, transparent 55%),
+      radial-gradient(ellipse 55% 45% at 12% 68%, rgba(170, 40, 20, 0.1) 0%, transparent 55%),
+      linear-gradient(165deg, #09040f 0%, #0e061a 40%, #080311 75%, #060210 100%);
     background-attachment: fixed;
-    color: #e2e8f0;
+    color: var(--text-primary);
     min-height: 100dvh;
-    /* Smooth font rendering */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -189,10 +195,10 @@
     font-family: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
   }
 
-  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar { width: 3px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(244, 63, 94, 0.25);
     border-radius: 999px;
   }
 }
@@ -206,7 +212,7 @@
   .animate-float-subtle { animation: float-subtle 4s ease-in-out infinite; }
   .animate-heartbeat { animation: heartbeat 1.4s ease-in-out infinite; }
   .animate-pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
-  .animate-pulse-ring { animation: pulse-ring 1.5s ease-out infinite; }
+  .animate-pulse-ring { animation: pulse-ring 1.6s ease-out infinite; }
   .animate-pulse-soft { animation: pulse-soft 2s ease-in-out infinite; }
   .animate-toast-in { animation: toast-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
   .animate-toast-out { animation: toast-out 0.3s ease-in forwards; }
@@ -225,48 +231,91 @@
   .animate-pop-in { animation: pop-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
   .animate-slide-right { animation: slide-right 2.5s ease-in-out infinite; }
   .animate-glow-border { animation: glow-border 3s ease-in-out infinite; }
+  .animate-aurora { animation: aurora-drift 6s ease-in-out infinite; }
+  .animate-card-rise { animation: card-rise 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+  /* ── Glass System ── */
 
   .glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.065);
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.115);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 
   .glass-strong {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.09);
+    backdrop-filter: blur(60px) saturate(180%);
+    -webkit-backdrop-filter: blur(60px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.17);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   }
 
   .glass-warm {
-    background: rgba(244, 63, 94, 0.08);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    border: 1px solid rgba(244, 63, 94, 0.15);
+    background: rgba(244, 63, 94, 0.09);
+    backdrop-filter: blur(40px) saturate(160%);
+    -webkit-backdrop-filter: blur(40px) saturate(160%);
+    border: 1px solid rgba(244, 63, 94, 0.2);
+    box-shadow: 0 8px 32px rgba(244, 63, 94, 0.18), inset 0 1px 0 rgba(255, 160, 180, 0.12);
   }
 
   .glass-rose {
-    background: rgba(244, 63, 94, 0.07);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    border: 1px solid rgba(244, 63, 94, 0.2);
-    box-shadow: inset 0 1px 0 rgba(255, 182, 193, 0.08), 0 0 40px rgba(244, 63, 94, 0.06);
+    background: rgba(244, 63, 94, 0.09);
+    backdrop-filter: blur(40px) saturate(165%);
+    -webkit-backdrop-filter: blur(40px) saturate(165%);
+    border: 1px solid rgba(244, 63, 94, 0.24);
+    box-shadow: 0 8px 44px rgba(244, 63, 94, 0.18), 0 1px 0 rgba(255, 190, 200, 0.06), inset 0 1px 0 rgba(255, 180, 195, 0.14);
   }
 
   .glass-premium {
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(32px);
-    -webkit-backdrop-filter: blur(32px);
+    background: rgba(255, 255, 255, 0.072);
+    backdrop-filter: blur(40px) saturate(160%);
+    -webkit-backdrop-filter: blur(40px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.14);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 36px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.13), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  /* New: gold-tinted glass — for special cards, fortune teller */
+  .glass-gold {
+    background: rgba(232, 184, 109, 0.07);
+    backdrop-filter: blur(40px) saturate(150%);
+    -webkit-backdrop-filter: blur(40px) saturate(150%);
+    border: 1px solid rgba(232, 184, 109, 0.22);
+    box-shadow: 0 8px 36px rgba(232, 184, 109, 0.12), inset 0 1px 0 rgba(255, 215, 110, 0.1);
+  }
+
+  /* New: violet glass — for trivia, fortune, vault */
+  .glass-violet {
+    background: rgba(139, 92, 246, 0.08);
+    backdrop-filter: blur(40px) saturate(160%);
+    -webkit-backdrop-filter: blur(40px) saturate(160%);
+    border: 1px solid rgba(139, 92, 246, 0.22);
+    box-shadow: 0 8px 36px rgba(139, 92, 246, 0.14), inset 0 1px 0 rgba(190, 150, 255, 0.1);
+  }
+
+  /* New: obsidian — ultra-dark card */
+  .glass-obsidian {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(40px) saturate(120%);
+    -webkit-backdrop-filter: blur(40px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.07);
   }
 
   .text-gradient {
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  /* Premium button glow */
+  .btn-glow-rose {
+    box-shadow: 0 0 0 1px rgba(244, 63, 94, 0.45), 0 8px 32px rgba(244, 63, 94, 0.38), 0 2px 8px rgba(0, 0, 0, 0.35);
+  }
+
+  .btn-glow-gold {
+    box-shadow: 0 0 0 1px rgba(232, 184, 109, 0.45), 0 8px 32px rgba(232, 184, 109, 0.3), 0 2px 8px rgba(0, 0, 0, 0.35);
   }
 
   /* Safe-area insets for PWA / notched phones */

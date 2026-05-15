@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Heart, Sparkles, ChevronRight, RotateCcw, Star } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
+import { notifyOwner } from '@/lib/notify';
 
 interface Scenario {
   id: number;
@@ -48,6 +49,9 @@ export default function WouldYouRatherScreen() {
     if (picked) return;
     setPicked(choice);
     setChoices(prev => ({ ...prev, [scenario.id]: choice }));
+    notifyOwner(
+      `🤔 <b>Faty answered a Would You Rather!</b>\n\nQ${currentIdx + 1} of ${total}\n\nShe chose <b>${choice.toUpperCase()}</b>:\n"${choice === 'a' ? scenario.a : scenario.b}"\n\nOver: "${choice === 'a' ? scenario.b : scenario.a}"`
+    );
 
     setTimeout(() => {
       if (isLast) {
@@ -112,7 +116,7 @@ export default function WouldYouRatherScreen() {
                 Every choice you made tells me something about you. And I love every answer — even the ones that surprised me.
               </p>
               <p className="text-[14px] text-white/70 leading-relaxed">
-                One day we will go through these together, and I will tell you which ones I would have picked too.
+                I want to go through every single one of these with you in person, and tell you exactly which ones I would have picked too.
               </p>
               <div className="flex items-center justify-end gap-1.5 mt-3">
                 <Heart size={10} className="text-rose-400/70" fill="currentColor" />

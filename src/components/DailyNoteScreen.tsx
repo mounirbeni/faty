@@ -10,37 +10,37 @@ import ScratchCardWhisper from './ScratchCardWhisper';
 import VoiceNotePlayer from './VoiceNotePlayer';
 
 const dailyMessages = [
-  "Every single day that passes is one day closer to May 11. I am counting the hours until I can hold your hand.",
-  "Your smile is the first thing I look for every morning, even from miles away.",
-  "The distance between Marrakesh and Meknes is nothing compared to the bond we share.",
-  "I catch myself smiling at my phone just thinking about the last thing you said.",
+  "Seeing your face for the first time is a memory I will carry for the rest of my life.",
+  "You are even more beautiful in person than in every version of you I had imagined.",
+  "I keep replaying our first moments together. They feel too good to be real.",
+  "I catch myself smiling for no reason, and then I realize — there is always a reason. It is always you.",
   "You are my peace in the chaos of every day.",
-  "I cannot wait for the moment my eyes finally meet yours in person.",
-  "Every voice note you send feels like a warm hug.",
-  "I love how we can talk for hours and it only feels like minutes.",
-  "May 11 isn't just a date; it's the start of our real, tangible chapter.",
+  "Now that I have finally looked into your eyes in person, everything makes complete sense.",
+  "Every voice note you send feels different now. I know the smile it is coming from.",
+  "I love how we can talk for hours and it still feels like we never have enough time.",
+  "May 11 was not just a date. It was the start of the realest chapter of my life.",
   "You make me want to be the best version of myself, every single day.",
-  "I look at the stars at night and know you are looking at the exact same sky.",
-  "Your laugh is my absolute favorite sound in the world.",
-  "No matter how far apart we are right now, you are always right here in my heart.",
-  "I am so proud of the woman you are, and I am so lucky to know you.",
-  "Sometimes I just pause and thank the universe for bringing you into my life.",
-  "Counting down the days until our screens are replaced by reality.",
-  "You are my favorite notification. Always.",
-  "I love learning every little detail about your mind and your heart.",
-  "May 11 is going to be the most beautiful day of my year.",
-  "I promise to make every moment we share in person worth the wait.",
-  "You have the kind of soul that makes everything else fade away.",
-  "I didn't know I was looking for anything until I found you.",
-  "Your beauty is stunning, but your mind is what truly captured me.",
-  "Every day I find a new reason to fall for you all over again.",
-  "I can't wait to learn your favorite coffee order by heart.",
-  "The thought of seeing your smile in person gives me butterflies.",
-  "We are building something so rare and so beautiful.",
-  "You are worth every single mile, every single second, every single wait.",
-  "May 11: The day I finally get to tell you how amazing you are, face to face.",
-  "I love the way we understand each other without even trying.",
-  "Today, just like yesterday, and just like tomorrow... you are my favorite thought.",
+  "I look at the stars at night and smile, knowing you are somewhere looking at the same sky.",
+  "Your laugh is my absolute favorite sound in the entire world.",
+  "The distance still exists, but it cannot take from me what I already have — the memory of being next to you.",
+  "I am so proud of the woman you are, and I am the luckiest person alive to know you.",
+  "Sometimes I just pause and thank the universe for giving me the courage to message you first.",
+  "Now I count the days until we see each other again. The wait is harder because I know what it feels like.",
+  "You are my favorite notification. You always have been. Now you are my favorite memory too.",
+  "I love learning every little detail about your mind and your heart — especially the things I only discovered in person.",
+  "May 11 was the most beautiful day of my year. I need a second, a third, and a fourth.",
+  "I promise every moment we share in person will keep getting better. We are only just beginning.",
+  "You have the kind of soul that makes everything else fade away. I felt that the second I saw you.",
+  "I did not know I was looking for anything — until I found you. Now I cannot imagine looking for anything else.",
+  "Your beauty stopped me. Your heart made me stay.",
+  "Every single day I find a new reason to fall for you all over again.",
+  "I already know your favorite things. Now I just want to live all of them with you.",
+  "Meeting you in person was not just a moment. It was proof of everything I already knew.",
+  "We are building something so rare and so beautiful. I felt it the moment we were in the same room.",
+  "You are worth every single mile, every single second, every single moment of the wait.",
+  "I finally got to tell you how amazing you are — face to face. And I still did not say it enough.",
+  "I love the way we understand each other — in texts, in calls, and now in person too.",
+  "Today, just like every day since May 11 — you are my favorite thought.",
 ];
 
 export default function DailyNoteScreen() {
@@ -82,6 +82,9 @@ export default function DailyNoteScreen() {
         <div className="w-16" />
       </div>
 
+      {/* Ambient glow */}
+      <div className="fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(ellipse, rgba(16,185,129,0.14) 0%, transparent 65%)', filter: 'blur(70px)', zIndex: 0 }} />
+
       <div className="flex-1 flex flex-col items-center justify-center px-6 relative z-10 w-full max-w-sm mx-auto">
         <p className="text-white/60 text-sm mb-6 font-medium tracking-wide text-center">
           {isRevealed ? "A new thought, just for you." : "Scratch the card to reveal today's whisper."}
@@ -110,7 +113,11 @@ export default function DailyNoteScreen() {
           {isRevealed && (
             <motion.button
               onClick={() => setPhase('home')}
-              className="mt-10 px-8 py-4 w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold rounded-2xl shadow-xl shadow-emerald-500/30 active:scale-95 transition-transform cursor-pointer flex items-center justify-center gap-2"
+              className="mt-10 px-8 py-[18px] w-full text-white font-black rounded-2xl active:scale-95 transition-transform cursor-pointer flex items-center justify-center gap-2"
+              style={{
+                background: 'linear-gradient(135deg, #10b981 0%, #059669 60%, #047857 100%)',
+                boxShadow: '0 0 0 1px rgba(16,185,129,0.45), 0 8px 36px rgba(16,185,129,0.38), 0 2px 8px rgba(0,0,0,0.4)',
+              }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}

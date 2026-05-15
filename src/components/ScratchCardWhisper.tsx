@@ -28,21 +28,31 @@ export default function ScratchCardWhisper({ children, onComplete }: ScratchCard
       canvas.width = container.offsetWidth;
       canvas.height = container.offsetHeight;
       
-      // Draw metallic gradient overlay
+      // Draw rich gradient overlay
       const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      gradient.addColorStop(0, '#10b981'); // emerald-500
-      gradient.addColorStop(0.5, '#34d399'); // emerald-400
-      gradient.addColorStop(1, '#059669'); // emerald-600
+      gradient.addColorStop(0, '#1e0a2e');
+      gradient.addColorStop(0.35, '#3b0764');
+      gradient.addColorStop(0.65, '#4c0519');
+      gradient.addColorStop(1, '#1a0827');
 
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
+      // Draw shimmer overlay
+      const shimmer = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      shimmer.addColorStop(0, 'rgba(244, 63, 94, 0.08)');
+      shimmer.addColorStop(0.5, 'rgba(232, 184, 109, 0.12)');
+      shimmer.addColorStop(1, 'rgba(139, 92, 246, 0.08)');
+      ctx.fillStyle = shimmer;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
       // Draw text
-      ctx.font = 'bold 24px sans-serif';
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+      ctx.font = 'bold 18px sans-serif';
+      ctx.fillStyle = 'rgba(255, 220, 230, 0.5)';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('SCRATCH TO REVEAL', canvas.width / 2, canvas.height / 2);
+      ctx.letterSpacing = '4px';
+      ctx.fillText('✦  SCRATCH TO REVEAL  ✦', canvas.width / 2, canvas.height / 2);
     };
 
     resizeCanvas();

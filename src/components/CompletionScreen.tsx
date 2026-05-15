@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import {
   Heart,
   PartyPopper,
-  Plane,
   Sparkles,
   Lock,
   RotateCcw,
@@ -17,6 +16,7 @@ import {
 import confetti from "canvas-confetti";
 import { useGameStore } from "@/store/gameStore";
 import { submitGameAction } from "@/app/actions/submitGame";
+import { notifyOwner } from "@/lib/notify";
 import Toast from "./Toast";
 
 export default function CompletionScreen() {
@@ -40,6 +40,9 @@ export default function CompletionScreen() {
       const res = await submitGameAction(answers, reversedArray, fortuneResult, heartSyncComplete);
       if (res.success) {
         setIsSuccess(true);
+        notifyOwner(
+          `🎉 <b>Faty just completed everything!</b>\n\nShe answered <b>${answeredCount} questions</b>, skipped ${reversedCount}, and locked ${capsuleCount} in the Time Capsule.\n\nShe secured her answers — go read them! 💌`
+        );
       } else {
         setToastMsg(res.error || "Failed to secure answers. Try again.");
         setToastVisible(true);
@@ -150,9 +153,9 @@ export default function CompletionScreen() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            Your answers are now safely encrypted and sent. The Time Capsule is sealed until May 11.
+            Your answers are now safely kept. The Time Capsule was sealed before we met — and it opened on May 11.
             <br /><br />
-            I can&apos;t wait to see your smile in person.
+            Seeing your smile in person was everything I had hoped for.
           </motion.p>
 
           <motion.div
@@ -270,7 +273,7 @@ export default function CompletionScreen() {
               Every word you wrote made my heart beat faster. I already knew you were special, but now I know you are <span className="text-rose-300 font-semibold">everything to me</span>.
             </p>
             <p className="text-[14px] text-white/70 leading-relaxed mb-3">
-              Some of your answers are locked in the Time Capsule — and will only be revealed when I look into your eyes soon. And honestly? I cannot wait for that day.
+              Some of your answers were sealed in the Time Capsule — and they were already opened on May 11, when I finally looked into your eyes for the first time.
             </p>
             <p className="text-xs text-white/40 italic flex items-center justify-end gap-1.5 mt-2">
               Always yours
@@ -309,7 +312,7 @@ export default function CompletionScreen() {
           </div>
         </motion.div>
 
-        {/* Meeting countdown */}
+        {/* After meeting celebration */}
         <motion.div
           className="w-full glass-premium rounded-3xl p-5 mb-6 ring-1 ring-rose-500/20 overflow-hidden relative"
           initial={{ opacity: 0, y: 30 }}
@@ -319,17 +322,16 @@ export default function CompletionScreen() {
           <div className="absolute inset-0 bg-gradient-to-br from-rose-600/5 to-transparent pointer-events-none" />
           <div className="relative z-10">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <Plane size={13} className="text-rose-400" />
+              <Heart size={13} className="text-rose-400" fill="currentColor" />
               <span className="text-[10px] font-bold text-rose-400/80 uppercase tracking-widest">
-                Meeting Countdown
+                We Already Met
               </span>
             </div>
             <p className="text-lg font-bold text-white mb-1 flex items-center justify-center gap-2">
-              We meet on May 11
-              <Plane size={15} className="text-white/50" />
+              May 11, 2026
             </p>
             <p className="text-[12px] text-white/40 mb-3">
-              The first chapter of our story together begins soon...
+              The real chapter has already begun. This is just the start.
             </p>
             <div className="flex items-center justify-center gap-1.5">
               {Array.from({ length: 5 }).map((_, i) => (

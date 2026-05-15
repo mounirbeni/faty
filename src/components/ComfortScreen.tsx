@@ -5,12 +5,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Map, Coffee, Heart, Bell, Moon } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { softTap, heartbeat, successVibe } from '@/lib/useHaptics';
-import { sendTelegramNotification } from '@/app/actions/notify';
+import { notifyOwner } from '@/lib/notify';
 
 export default function ComfortScreen() {
   const { setPhase } = useGameStore();
   const [isCuddling, setIsCuddling] = useState(false);
   const [alertSent, setAlertSent] = useState(false);
+  const [cuddleNotified, setCuddleNotified] = useState(false);
 
   // Continuous heartbeat while cuddling
   useEffect(() => {
@@ -24,12 +25,12 @@ export default function ComfortScreen() {
     return () => clearInterval(interval);
   }, [isCuddling]);
 
-  const handleSendAlert = async () => {
+  const handleSendAlert = () => {
     if (alertSent) return;
     softTap();
     setAlertSent(true);
     successVibe();
-    await sendTelegramNotification(
+    notifyOwner(
       `🚨 <b>Faty needs you right now!</b>\n\nShe is in the Comfort Room feeling unwell (period cramps/tired). Send her some love ASAP! ❤️🩹`
     );
   };
@@ -105,7 +106,13 @@ export default function ComfortScreen() {
 
           <motion.div
             className="relative flex items-center justify-center w-32 h-32 mb-4"
-            onPointerDown={() => setIsCuddling(true)}
+            onPointerDown={() => {
+              setIsCuddling(true);
+              if (!cuddleNotified) {
+                setCuddleNotified(true);
+                notifyOwner(`🤗 <b>Faty is using the Virtual Cuddle!</b>\n\nShe pressed and held the heart in the Comfort Room. She might need some extra love right now. 💗`);
+              }
+            }}
             onPointerUp={() => setIsCuddling(false)}
             onPointerLeave={() => setIsCuddling(false)}
           >

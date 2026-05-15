@@ -21,7 +21,6 @@ const LoveLetterScreen = dynamic(() => import('@/components/LoveLetterScreen'), 
 const DateSpinnerScreen = dynamic(() => import('@/components/DateSpinnerScreen'), { ssr: false });
 const WouldYouRatherScreen = dynamic(() => import('@/components/WouldYouRatherScreen'), { ssr: false });
 const KissJarScreen = dynamic(() => import('@/components/KissJarScreen'), { ssr: false });
-const LoveTriviaScreen = dynamic(() => import('@/components/LoveTriviaScreen'), { ssr: false });
 const ActivityDashboardScreen = dynamic(() => import('@/components/ActivityDashboardScreen'), { ssr: false });
 import AnimatedBackground from '@/components/AnimatedBackground';
 import { useGameStore } from '@/store/gameStore';
@@ -66,7 +65,6 @@ export default function HomePage() {
         {currentPhase === 'date-spinner' && <DateSpinnerScreen key="date-spinner" />}
         {currentPhase === 'would-you-rather' && <WouldYouRatherScreen key="would-you-rather" />}
         {currentPhase === 'kiss-jar' && <KissJarScreen key="kiss-jar" />}
-        {currentPhase === 'love-trivia' && <LoveTriviaScreen key="love-trivia" />}
         {currentPhase === 'admin-dashboard' && <ActivityDashboardScreen key="admin-dashboard" />}
         {currentPhase === 'complete' && <CompletionScreen key="complete" />}
       </AnimatePresence>

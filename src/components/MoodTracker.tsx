@@ -41,7 +41,14 @@ export default function MoodTracker() {
   return (
     <div className="w-full px-4">
       <motion.div
-        className="glass-strong rounded-3xl border border-white/10 overflow-hidden"
+        className="rounded-[22px] overflow-hidden"
+        style={{
+          background: 'rgba(255,255,255,0.07)',
+          backdropFilter: 'blur(40px) saturate(155%)',
+          WebkitBackdropFilter: 'blur(40px) saturate(155%)',
+          border: '1px solid rgba(255,255,255,0.13)',
+          boxShadow: '0 8px 36px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.12)',
+        }}
         layout
         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
       >

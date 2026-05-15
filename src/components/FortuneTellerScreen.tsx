@@ -9,18 +9,18 @@ import { notifyOwner } from '@/lib/notify';
 import { getDailyIndex } from '@/lib/dailyContent';
 
 export const fortunesData = [
-  "The stars align over Meknes. Your upcoming meeting will spark a flame that distance can never extinguish.",
-  "I see a beautiful shared future. It starts with a nervous smile, but quickly turns into the comfort you have both searched for.",
-  "The crystal reveals a journey. The roads between Marrakesh and Meknes will soon feel very short. A deep, unbreakable bond is forming.",
-  "Patience will be rewarded. The countdown ends, and a beautiful new chapter of true partnership begins.",
-  "Your energies match perfectly. Expect endless laughter, deep conversations, and the feeling of finally being home.",
-  "Something extraordinary is already in motion. The universe placed you two together for a reason that will become clear very soon.",
-  "I see warmth. The kind that stays long after the moment passes. You are about to experience something you will carry forever.",
-  "Two hearts, different cities, same frequency. What is being built here is rare. Protect it.",
-  "The wait is almost over. And the reward will be far greater than anything distance tried to take from you.",
-  "Trust the pull you feel. It is not random. It is the most honest thing either of you has ever followed.",
-  "Joy is coming. Not the kind that fades, but the quiet, steady kind that settles in and stays.",
-  "The distance is lying to you. You are already closer than you know.",
+  "The stars aligned on May 11. What began as a nervous heartbeat has become a steady flame — and distance cannot touch it.",
+  "That first nervous smile you gave was the most beautiful thing. What comes next between you two is even more extraordinary.",
+  "The universe set this in motion long before either of you understood why. Now you do. Hold on to it and never let go.",
+  "The hardest part is behind you. What lies ahead is softer, warmer, and more beautiful than either of you has dared to imagine.",
+  "I see laughter. The kind that sneaks up on you at random moments because something reminded you of each other.",
+  "Your energies are rare together. What you have built is not luck — it is the result of two brave hearts choosing each other.",
+  "I see late-night conversations and long silences that feel just as comfortable. The comfort between you is only beginning.",
+  "Something extraordinary is already in motion. It started before May 11 and it will outlast every ordinary day.",
+  "Two hearts, different cities, same pull. What has been built here is too rare to be called anything but meant.",
+  "Trust what your heart already knows. It has been right about this from the very first message.",
+  "Joy is not coming — it is already here. Quiet, steady, and completely yours to keep.",
+  "The distance was never a wall. It was a test. And you both passed.",
 ];
 
 export default function FortuneTellerScreen() {

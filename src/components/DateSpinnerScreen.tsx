@@ -8,6 +8,8 @@ import {
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
+import { notifyOwner } from '@/lib/notify';
+import { softTap } from '@/lib/useHaptics';
 
 interface DateIdea {
   label: string;
@@ -117,6 +119,8 @@ export default function DateSpinnerScreen() {
     setTimeout(() => {
       setIsSpinning(false);
       setShowResult(true);
+      softTap();
+      notifyOwner(`🎡 <b>Faty just spun the Date Spinner!</b>\n\nThe wheel landed on: <b>${DATES[winnerIdx].label}</b>\n\n"${DATES[winnerIdx].description}"`);
     }, 4600);
   };
 

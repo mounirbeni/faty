@@ -130,7 +130,7 @@ export default function GameScreen() {
       : currentAnswer.trim();
 
     const chapterName = categoriesMeta[currentQuestion.category - 1]?.title ?? `Chapter ${currentQuestion.category}`;
-    const capsuleTag = isTimeCapsule ? '\n🔒 <i>Time Capsule — sealed until May 11</i>' : '';
+    const capsuleTag = isTimeCapsule ? '\n🔒 <i>Time Capsule — opened on May 11</i>' : '';
 
     notifyOwner(
       `✍️ <b>Faty answered a question!</b>\n\n` +

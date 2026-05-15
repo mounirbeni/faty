@@ -10,17 +10,17 @@ export interface Question {
 }
 
 export const questionsData: Question[] = [
-  // Category 1: Meeting May 11 & Expectations
-  { id: 1, category: 1, categoryName: 'Meeting May 11 & Expectations', type: 'text', question: 'How do you imagine the very first moment we meet face-to-face in Meknes?' },
-  { id: 2, category: 1, categoryName: 'Meeting May 11 & Expectations', type: 'choice', question: 'Do you prefer our first meeting to be in...?', options: ['A public and crowded place so you feel comfortable', 'A quiet place that allows for deep conversation', 'A long walking tour through the streets of Meknes', 'All of the above'] },
-  { id: 3, category: 1, categoryName: 'Meeting May 11 & Expectations', type: 'text', question: 'If you feel nervous or shy when we meet, what is something I can do to make you feel instantly at ease?' },
-  { id: 4, category: 1, categoryName: 'Meeting May 11 & Expectations', type: 'choice', question: 'If you suddenly feel awkward while we are sitting together, what would you prefer I do?', options: ['Change the subject to something funny', 'Give you some comfortable silence', 'Ask you directly if you are okay', 'All of the above'] },
-  { id: 5, category: 1, categoryName: 'Meeting May 11 & Expectations', type: 'text', question: 'Are there any time constraints (like when you need to be home) that I should plan around?' },
-  { id: 6, category: 1, categoryName: 'Meeting May 11 & Expectations', type: 'choice', question: 'At the end of our first day together, what feeling do you hope to go home with?', options: ['Excitement and longing for our second meeting', 'A deep sense of peace that you made the right choice', 'Huge relief that the nervousness is finally gone', 'All of the above'] },
-  { id: 7, category: 1, categoryName: 'Meeting May 11 & Expectations', type: 'text', question: 'What is the worst-case scenario you fear might happen on May 11, and how can we prevent it?' },
-  { id: 8, category: 1, categoryName: 'Meeting May 11 & Expectations', type: 'choice', question: 'How do you prefer we end our first meeting?', options: ['A quick, smiling goodbye', 'A warm hug', 'Sitting for a moment just looking at each other before leaving', 'All of the above'] },
-  { id: 9, category: 1, categoryName: 'Meeting May 11 & Expectations', type: 'text', question: 'Would silence between us during our meeting bother you, or do you consider it comfortable?' },
-  { id: 10, category: 1, categoryName: 'Meeting May 11 & Expectations', type: 'text', question: 'What is something I could wear or do that day that would make you smile on the inside?' },
+  // Category 1: How We First Met
+  { id: 1, category: 1, categoryName: 'How We First Met', type: 'text', question: 'How did the very first moment you saw me in person compare to what you had imagined?' },
+  { id: 2, category: 1, categoryName: 'How We First Met', type: 'choice', question: 'When I first walked in to meet you, what was your immediate reaction?', options: ['My heart was racing and I could barely breathe', 'I felt calm and strangely at ease', 'I was surprised — you were even better than I imagined', 'I was overwhelmed and a little emotional'] },
+  { id: 3, category: 1, categoryName: 'How We First Met', type: 'text', question: 'In the first moments, were you more nervous or more excited — and which one took over?' },
+  { id: 4, category: 1, categoryName: 'How We First Met', type: 'choice', question: 'Was there a moment during our first meeting when you truly relaxed and felt at ease?', options: ['Yes, almost immediately when you smiled', 'After a few minutes of talking', 'When we started laughing together', 'I was nervous almost the whole time but in a good way'] },
+  { id: 5, category: 1, categoryName: 'How We First Met', type: 'text', question: 'What did you think about where we met and the time we had together? Would you change anything?' },
+  { id: 6, category: 1, categoryName: 'How We First Met', type: 'choice', question: 'As you went home that evening, what feeling stayed with you the longest?', options: ['Excitement and longing to see you again', 'A deep sense of peace that I made the right choice', 'Huge relief that the nervousness was finally gone', 'All of the above'] },
+  { id: 7, category: 1, categoryName: 'How We First Met', type: 'text', question: 'What went better than you expected that day? Was there anything that surprised you in a really good way?' },
+  { id: 8, category: 1, categoryName: 'How We First Met', type: 'choice', question: 'How did we say goodbye that day, and how did that moment feel?', options: ['It felt too soon — I was not ready to leave', 'It was bittersweet but warm', 'It felt natural and comfortable', 'It made me emotional in a way I did not expect'] },
+  { id: 9, category: 1, categoryName: 'How We First Met', type: 'text', question: 'Were there comfortable silences between us? How did those feel — awkward or natural?' },
+  { id: 10, category: 1, categoryName: 'How We First Met', type: 'text', question: 'Looking back now, what is the one detail from that day that you keep coming back to in your mind?' },
 
   // Category 2: How You See Me
   { id: 11, category: 2, categoryName: 'How You See Me', type: 'text', question: 'What was your very first impression of me, and has it changed now?' },
@@ -35,7 +35,7 @@ export const questionsData: Question[] = [
   { id: 20, category: 2, categoryName: 'How You See Me', type: 'text', question: 'Based on everything you know, what is the biggest thing that makes me different from anyone else you have known?' },
 
   // Category 3: Boundaries & Physical Space
-  { id: 21, category: 3, categoryName: 'Boundaries & Physical Space', type: 'choice', question: 'In all honesty, what are your boundaries regarding physical closeness on our first meeting?', options: ['A handshake only, I need time to feel completely comfortable', 'Holding hands and a welcoming hug are beautiful', 'I prefer absolutely no physical contact at first', 'All of the above'] },
+  { id: 21, category: 3, categoryName: 'Boundaries & Physical Space', type: 'choice', question: 'In all honesty, how do you feel about physical closeness between us as we continue to grow together?', options: ['I want to take it slowly and let it feel natural', 'Holding hands and warm hugs feel right to me', 'I am comfortable showing affection when we are together', 'All of the above'] },
   { id: 22, category: 3, categoryName: 'Boundaries & Physical Space', type: 'text', question: 'How do you view showing affection (like holding hands) in public? Is it normal or does it cause you embarrassment?' },
   { id: 23, category: 3, categoryName: 'Boundaries & Physical Space', type: 'choice', question: 'If I make a spontaneous physical gesture and you feel uncomfortable, how will you react?', options: ['I will tell you gently and directly', 'I will step back slightly so you get the hint', 'I will stay quiet to avoid awkwardness', 'All of the above'] },
   { id: 24, category: 3, categoryName: 'Boundaries & Physical Space', type: 'text', question: 'What is the red line that, if crossed, would make you lose trust and pull away instantly?' },
@@ -61,7 +61,7 @@ export const questionsData: Question[] = [
   // Category 5: Compatibility & Future
   { id: 41, category: 5, categoryName: 'Compatibility & Future', type: 'text', question: 'We all have flaws. What is a difficult trait in your personality that you want me to understand and be patient with?' },
   { id: 42, category: 5, categoryName: 'Compatibility & Future', type: 'choice', question: 'How do you view privacy between us (like phones and messages)?', options: ['Absolute transparency, no secrets', 'Everyone has their privacy that must be respected', 'We share what we want, but without snooping or suspicion', 'All of the above'] },
-  { id: 43, category: 5, categoryName: 'Compatibility & Future', type: 'text', question: 'How do you see our ability to maintain the warmth of our relationship despite the distance between Marrakesh and Meknes?' },
+  { id: 43, category: 5, categoryName: 'Compatibility & Future', type: 'text', question: 'How do you see our ability to keep the warmth between us strong even across the distance we still have?' },
   { id: 44, category: 5, categoryName: 'Compatibility & Future', type: 'choice', question: 'What is the acceptable limit of jealousy for you?', options: ['I love obvious jealousy, it makes me feel valued', 'I accept rational jealousy that doesn\'t restrict my freedom', 'I hate jealousy and consider it a lack of trust', 'All of the above'] },
   { id: 45, category: 5, categoryName: 'Compatibility & Future', type: 'text', question: 'When I need some isolation to focus on my coding or work, how will you handle my need for space without feeling ignored?' },
   { id: 46, category: 5, categoryName: 'Compatibility & Future', type: 'choice', question: 'What is your expectation or goal for this relationship right now?', options: ['Building a strong foundation for a serious future/marriage', 'Getting to know each other calmly and exploring our compatibility first', 'Enjoying the present moment without pressure', 'All of the above'] },

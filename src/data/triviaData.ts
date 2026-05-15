@@ -12,7 +12,7 @@ export const triviaData: TriviaQuestion[] = [
     question: "What city do I live in?",
     options: ["Casablanca", "Rabat", "Meknes", "Fes"],
     correctIndex: 2,
-    funFact: "Meknes — the imperial city. And it's where I'll be waiting for you.",
+    funFact: "Meknes — the imperial city. And it's where we finally met.",
   },
   {
     id: 2,

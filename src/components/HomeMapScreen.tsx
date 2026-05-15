@@ -22,7 +22,6 @@ import {
   Mail,
   Disc3,
   HelpCircle,
-  BookOpen,
   Activity,
 } from 'lucide-react';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
@@ -55,8 +54,8 @@ const MINI_GAMES = [
   {
     id: 'vault' as const,
     icon: <Vault size={30} className="text-white drop-shadow-md" />,
-    label: 'May 11 Vault',
-    sublabel: 'Always visible',
+    label: 'Memory Vault',
+    sublabel: 'Our first chapter',
     unlocksAtChapter: 0,
     gradient: 'from-violet-600 to-purple-700',
     glow: 'shadow-violet-500/30',
@@ -151,15 +150,6 @@ const MINI_GAMES = [
     gradient: 'from-rose-500 to-pink-600',
     glow: 'shadow-rose-500/30',
   },
-  {
-    id: 'love-trivia' as const,
-    icon: <BookOpen size={30} className="text-white drop-shadow-md" />,
-    label: 'Love Trivia',
-    sublabel: 'How well do you know me?',
-    unlocksAtChapter: 0,
-    gradient: 'from-amber-400 to-yellow-500',
-    glow: 'shadow-amber-400/30',
-  },
 ];
 
 const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand', 'smile', 'camera'];
@@ -190,7 +180,7 @@ export default function HomeMapScreen() {
     startChapter(chapter);
   };
 
-  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar' | 'love-trivia') => {
+  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar') => {
     heartbeat();
     setPhase(id);
   };
@@ -226,11 +216,15 @@ export default function HomeMapScreen() {
 
         {/* ── Header bar ── */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center shadow-lg shadow-rose-500/25">
-              <Map size={14} className="text-white" />
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center"
+              style={{
+                background: 'linear-gradient(135deg, #f43f5e, #e11d48)',
+                boxShadow: '0 4px 16px rgba(244,63,94,0.4)',
+              }}>
+              <Map size={15} className="text-white" />
             </div>
-            <span className="text-sm font-bold text-white/60 tracking-wider uppercase">
+            <span className="text-[13px] font-black uppercase tracking-[0.15em]" style={{ color: 'rgba(255,235,240,0.55)' }}>
               Our Map
             </span>
           </div>
@@ -263,22 +257,33 @@ export default function HomeMapScreen() {
 
         {/* ── Greeting ── */}
         <motion.div
-          className="glass-rose rounded-3xl overflow-hidden"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
+          className="rounded-[22px] overflow-hidden"
+          style={{
+            background: 'rgba(244, 63, 94, 0.1)',
+            backdropFilter: 'blur(40px) saturate(160%)',
+            WebkitBackdropFilter: 'blur(40px) saturate(160%)',
+            border: '1px solid rgba(244, 63, 94, 0.26)',
+            boxShadow: '0 8px 44px rgba(244, 63, 94, 0.18), inset 0 1px 0 rgba(255, 180, 195, 0.14)',
+          }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <div className="h-0.5 w-full bg-gradient-to-r from-rose-500/60 via-pink-400/60 to-rose-500/60" />
-          <div className="flex items-center gap-3 p-4">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center shadow-lg shadow-rose-500/30 shrink-0">
-              <Heart size={20} fill="white" className="text-white animate-heartbeat" />
+          <div className="h-[2.5px] w-full" style={{ background: 'linear-gradient(90deg, #f43f5e, #e8b86d, #f43f5e)' }} />
+          <div className="flex items-center gap-3.5 p-4">
+            <div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg shrink-0"
+              style={{
+                background: 'linear-gradient(135deg, #f43f5e, #e11d48)',
+                boxShadow: '0 4px 20px rgba(244,63,94,0.45)',
+              }}>
+              <Heart size={22} fill="white" className="text-white animate-heartbeat" />
             </div>
             <div>
-              <h1 className="text-[17px] font-extrabold text-white leading-tight">
+              <h1 className="text-[17px] font-black leading-tight" style={{ color: 'rgba(255,235,240,0.95)' }}>
                 {isReturningUser ? 'Welcome back, my angel' : 'Hey my love'}{' '}
-                <Heart size={16} className="inline text-rose-400 ml-0.5" fill="currentColor" />
+                <Heart size={15} className="inline text-rose-400 ml-0.5" fill="currentColor" />
               </h1>
-              <p className="text-[12px] text-white/50 mt-0.5">
+              <p className="text-[12px] mt-0.5" style={{ color: 'rgba(255,200,210,0.5)' }}>
                 {isReturningUser
                   ? `${totalAnswered} of 70 answered — keep going!`
                   : 'Tap a chapter to begin your journey'}
@@ -290,8 +295,10 @@ export default function HomeMapScreen() {
         {/* ── Chapter Islands ── */}
         <div>
           <div className="flex items-center gap-2 mb-3 px-1">
-            <Sparkles size={13} className="text-amber-400" />
-            <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Chapters</span>
+            <div className="w-5 h-5 rounded-lg flex items-center justify-center" style={{ background: 'rgba(251,191,36,0.15)', boxShadow: '0 0 12px rgba(251,191,36,0.2)' }}>
+              <Sparkles size={11} className="text-amber-300" />
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-[0.18em]" style={{ color: 'rgba(251,191,36,0.6)' }}>Chapters</span>
           </div>
 
           <div className="flex flex-col gap-3">
@@ -320,8 +327,10 @@ export default function HomeMapScreen() {
         {/* ── Mini-Game Bonus Islands ── */}
         <div>
           <div className="flex items-center gap-2 mb-3 px-1">
-            <Zap size={13} className="text-purple-400" fill="currentColor" />
-            <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Bonus Islands</span>
+            <div className="w-5 h-5 rounded-lg flex items-center justify-center" style={{ background: 'rgba(167,139,250,0.15)', boxShadow: '0 0 12px rgba(139,92,246,0.2)' }}>
+              <Zap size={11} className="text-violet-300" fill="currentColor" />
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-[0.18em]" style={{ color: 'rgba(167,139,250,0.6)' }}>Bonus Islands</span>
           </div>
 
           <div className="grid grid-cols-3 gap-2.5">
@@ -431,11 +440,28 @@ function ChapterCard({
     <motion.button
       onClick={unlocked ? onTap : undefined}
       className={`
-        w-full flex items-center gap-0 rounded-2xl text-start transition-all active:scale-[0.98] overflow-hidden
-        ${unlocked ? 'glass-premium cursor-pointer' : 'glass opacity-45 cursor-not-allowed'}
-        ${progress.isComplete ? 'ring-1 ring-green-500/25' : ''}
+        w-full flex items-center gap-0 rounded-[20px] text-start transition-all active:scale-[0.98] overflow-hidden
         ${!unlocked && !progress.isComplete ? 'pointer-events-none' : ''}
       `}
+      style={unlocked ? {
+        background: 'rgba(255,255,255,0.07)',
+        backdropFilter: 'blur(40px) saturate(155%)',
+        WebkitBackdropFilter: 'blur(40px) saturate(155%)',
+        border: progress.isComplete
+          ? '1px solid rgba(34,197,94,0.3)'
+          : '1px solid rgba(255,255,255,0.13)',
+        boxShadow: progress.isComplete
+          ? '0 6px 28px rgba(34,197,94,0.12), inset 0 1px 0 rgba(255,255,255,0.1)'
+          : '0 6px 28px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.1)',
+        cursor: 'pointer',
+      } : {
+        background: 'rgba(255,255,255,0.04)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        border: '1px solid rgba(255,255,255,0.07)',
+        opacity: 0.4,
+        cursor: 'not-allowed',
+      }}
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay }}

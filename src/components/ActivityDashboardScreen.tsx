@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowLeft, Activity, Heart, Gamepad2, Trophy, Sparkles,
+  ArrowLeft, Activity, Heart, Gamepad2, Trophy,
   MessageCircle, Send, CheckCircle2, Clock,
 } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
@@ -25,13 +25,12 @@ const typeIcons: Record<string, { icon: React.ReactNode; color: string }> = {
   'mini-game': { icon: <Gamepad2 size={13} />, color: 'text-violet-300 bg-violet-500/20' },
   'milestone': { icon: <Trophy size={13} />, color: 'text-amber-300 bg-amber-500/20' },
   'kiss-jar': { icon: <Heart size={13} fill="currentColor" />, color: 'text-rose-300 bg-rose-500/20' },
-  'love-trivia': { icon: <Sparkles size={13} />, color: 'text-yellow-300 bg-yellow-500/20' },
   'mood': { icon: <Activity size={13} />, color: 'text-sky-300 bg-sky-500/20' },
 };
 
 export default function ActivityDashboardScreen() {
   const {
-    setPhase, activityLog, kissCount, triviaScore,
+    setPhase, activityLog, kissCount,
     answers, reversed, currentMood,
   } = useGameStore();
 
@@ -40,7 +39,6 @@ export default function ActivityDashboardScreen() {
 
   const totalAnswered = Object.values(answers).filter((v) => v?.trim()).length + reversed.length;
   const moodText = currentMood ?? 'Not set';
-  const triviaText = triviaScore !== null ? `${triviaScore}/10` : 'Not played';
 
   const handleSendReport = async () => {
     softTap();
@@ -54,7 +52,6 @@ export default function ActivityDashboardScreen() {
       `📊 <b>Faty's Full Activity Report</b>\n\n` +
       `❤️ Questions answered: <b>${totalAnswered}/70</b>\n` +
       `💋 Kisses sent: <b>${kissCount}</b>\n` +
-      `🧠 Trivia score: <b>${triviaText}</b>\n` +
       `🌙 Current mood: <b>${moodText}</b>\n` +
       `📝 Total logged events: <b>${activityLog.length}</b>\n\n` +
       `<b>Recent Activity:</b>\n${last5 || 'No activity yet.'}`;
@@ -109,13 +106,6 @@ export default function ActivityDashboardScreen() {
               label="Kisses"
               value={String(kissCount)}
               sub="sent from the heart"
-            />
-            <StatCard
-              icon={<Sparkles size={18} className="text-amber-300" />}
-              bg="bg-amber-500/15 border-amber-400/20"
-              label="Trivia Score"
-              value={triviaText}
-              sub="how well she knows me"
             />
             <StatCard
               icon={<Activity size={18} className="text-violet-300" />}

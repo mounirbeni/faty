@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Sun, CloudRain, Zap, Heart, Sparkles, SmilePlus } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { heartbeat, softTap } from '@/lib/useHaptics';
+import { notifyOwner } from '@/lib/notify';
 
 type Mood = 'missing' | 'stressed' | 'happy' | 'excited' | null;
 
@@ -14,7 +15,7 @@ const moodData = {
     color: 'from-blue-400 to-indigo-500',
     shadow: 'shadow-blue-500/40',
     label: 'Missing You',
-    response: "I'm right here. Every second that passes is one second closer to May 11. Close your eyes, take a breath, and know I am thinking about you exactly right now. 💙",
+    response: "I'm right here. No matter the distance, you are never alone. Close your eyes, take a breath, and know I am thinking about you exactly right now. 💙",
   },
   stressed: {
     icon: Zap,
@@ -35,7 +36,7 @@ const moodData = {
     color: 'from-pink-400 to-rose-500',
     shadow: 'shadow-pink-500/40',
     label: 'Excited',
-    response: "Me too! The countdown to May 11 is on, and I promise you, it's going to be even more magical than we can imagine. I can't wait to share this excitement with you in person! 💖",
+    response: "I love when you're excited — it makes me excited too. You deserve every bit of this feeling. Keep it, celebrate it, and know that whatever is making you smile, I am smiling with you. 💖",
   },
 };
 
@@ -50,6 +51,11 @@ export default function MoodRingScreen() {
   const handleMoodSelect = (mood: Mood) => {
     softTap();
     setSelectedMood(mood);
+    if (mood) {
+      notifyOwner(
+        `🌙 <b>Faty just checked her mood!</b>\n\nShe is feeling: <b>${moodData[mood].label}</b>\n\n"${moodData[mood].response}"`
+      );
+    }
   };
 
   return (

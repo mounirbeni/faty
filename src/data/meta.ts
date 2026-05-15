@@ -1,9 +1,9 @@
 export const categoriesMeta = [
   {
     category: 1,
-    title: "Meeting May 11 & Expectations",
+    title: "How We First Met",
     icon: "sparkles",
-    description: "Let's break the ice…",
+    description: "Looking back now…",
     colorFrom: "from-sky-400",
     colorTo: "to-indigo-400",
     accentHex: "#38bdf8",
@@ -70,24 +70,24 @@ export const loveNotes: string[] = [
   "I could read your words forever.",
   "You have no idea how much this means to me.",
   "I'm smiling so hard right now.",
-  "I can't wait to hear you say these things in person.",
+  "Knowing you in person makes every answer even more beautiful.",
   "My heart skipped reading that.",
   "You're the best thing that happened to my timeline.",
   "I hope you know how special you are.",
-  "May 11 is getting closer...",
+  "This is exactly the kind of answer I needed.",
   "Keep going… it gets even better.",
   "I already know I'm the luckiest.",
   "Your honesty is everything to me.",
   "I wish I could hug you through this screen.",
   "This is exactly why I can't stop thinking about you.",
-  "You make distance feel like nothing.",
+  "You make every distance feel worth it.",
 ];
 
 export const categoryIntros: Record<number, { title: string; subtitle: string; message: string }> = {
   1: {
     title: "Chapter One",
-    subtitle: "Meeting May 11 & Expectations",
-    message: "Before we meet, I want to know what's going on in that beautiful mind of yours. Let's start easy…",
+    subtitle: "How We First Met",
+    message: "Now that we have finally met, I want to know everything about how it felt from your side. Be completely honest…",
   },
   2: {
     title: "Chapter Two",
@@ -107,7 +107,7 @@ export const categoryIntros: Record<number, { title: string; subtitle: string; m
   5: {
     title: "Chapter Five",
     subtitle: "Compatibility & Future",
-    message: "This is the part where it's just us. No walls, no filters. These answers stay locked until we meet on May 11.",
+    message: "This is the part where it's just us. No walls, no filters. These are the questions that matter most.",
   },
   6: {
     title: "Chapter Six",

@@ -138,7 +138,7 @@ export default function HeartSyncScreen() {
               <div className="glass-strong p-8 rounded-3xl w-full border border-rose-500/30 shadow-2xl shadow-rose-900/40 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-rose-400 to-pink-500" />
                 <p className="text-[15px] text-white/90 leading-relaxed font-medium">
-                  &quot;You did it! Faty, as you tapped this screen, just know my heart beats exactly the same way when I think about you. Every mile between Marrakesh and Meknes disappears when we talk. I can&apos;t wait to finally look you in the eyes and hold your hand on May 11. You are worth every single second of the wait. ❤️&quot;
+                  &quot;You did it! Faty, now that I have finally looked into your eyes and held your hand, I can tell you this — you were even more beautiful than everything I had imagined. What I felt that day is real, and I am never letting go of it. You are everything. ❤️&quot;
                 </p>
               </div>
 

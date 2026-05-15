@@ -19,7 +19,6 @@ export type AppPhase =
   | 'date-spinner'
   | 'would-you-rather'
   | 'kiss-jar'
-  | 'love-trivia'
   | 'admin-dashboard'
   | 'complete';
 
@@ -40,7 +39,6 @@ interface GameState {
   // Activity Log (admin dashboard)
   activityLog: { type: string; label: string; ts: number }[];
   kissCount: number;
-  triviaScore: number | null;
 
   // Dynamic Content (Smart Rotation)
   dailyWhisperId: number | null;
@@ -53,7 +51,6 @@ interface GameState {
   // Actions
   logActivity: (type: string, label: string) => void;
   addKiss: (count?: number) => void;
-  setTriviaScore: (score: number) => void;
   setIsSubmitting: (val: boolean) => void;
   setIsSuccess: (val: boolean) => void;
   setPhase: (phase: AppPhase) => void;
@@ -92,7 +89,6 @@ export const useGameStore = create<GameState>()(
       heartSyncComplete: false,
       activityLog: [],
       kissCount: 0,
-      triviaScore: null,
       dailyWhisperId: null,
       dailyWhisperHistory: [],
       dailyWhisperLastTimestamp: 0,
@@ -110,8 +106,6 @@ export const useGameStore = create<GameState>()(
 
       addKiss: (count = 1) =>
         set((state) => ({ kissCount: state.kissCount + count })),
-
-      setTriviaScore: (score) => set({ triviaScore: score }),
 
       setIsSubmitting: (isSubmitting) => set({ isSubmitting }),
       setIsSuccess: (isSuccess) => set({ isSuccess }),
@@ -132,8 +126,7 @@ export const useGameStore = create<GameState>()(
           'date-spinner': 'Opened Date Spinner',
           'would-you-rather': 'Opened Would You Rather',
           'kiss-jar': 'Opened Kiss Jar',
-          'love-trivia': 'Opened Love Trivia',
-          'vault': 'Opened May 11 Vault',
+          'vault': 'Opened Memory Vault',
         };
         if (miniGameLabels[phase]) {
           logActivity('mini-game', miniGameLabels[phase]!);
@@ -280,7 +273,6 @@ export const useGameStore = create<GameState>()(
           heartSyncComplete: false,
           activityLog: [],
           kissCount: 0,
-          triviaScore: null,
           dailyWhisperId: null,
           dailyWhisperHistory: [],
           dailyWhisperLastTimestamp: 0,
@@ -306,7 +298,6 @@ export const useGameStore = create<GameState>()(
         heartSyncComplete: state.heartSyncComplete,
         activityLog: state.activityLog,
         kissCount: state.kissCount,
-        triviaScore: state.triviaScore,
         dailyWhisperId: state.dailyWhisperId,
         dailyWhisperHistory: state.dailyWhisperHistory,
         dailyWhisperLastTimestamp: state.dailyWhisperLastTimestamp,
