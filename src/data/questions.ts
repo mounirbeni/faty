@@ -24,7 +24,7 @@ export const questionsData: Question[] = [
 
   // Category 2: How You See Me
   { id: 11, category: 2, categoryName: 'How You See Me', type: 'text', question: 'What was your very first impression of me, and has it changed now?' },
-  { id: 12, category: 2, categoryName: 'How You See Me', type: 'choice', question: 'If you had to describe my personality based on our interactions, what would you choose?', options: ['Affectionate, supportive, and a good listener', 'Ambitious, practical, and focused on his future', 'Fun, spontaneous, and loves life', 'Calm, slightly mysterious, and deep', 'All of the above'] },
+  { id: 12, category: 2, categoryName: 'How You See Me', type: 'choice', question: 'If you had to describe my personality based on our interactions, what would you choose?', options: ['Affectionate, supportive, and a good listener', 'Ambitious, practical, and focused on my future', 'Fun, spontaneous, and loves life', 'Calm, slightly mysterious, and deep', 'All of the above'] },
   { id: 13, category: 2, categoryName: 'How You See Me', type: 'text', question: 'When I talk passionately about coding or music, how do you perceive this passion in my personality?' },
   { id: 14, category: 2, categoryName: 'How You See Me', type: 'choice', question: 'What trait of mine makes you feel most comfortable with me?', options: ['How you listen and accept my thoughts', 'Your calm tone of voice', 'Your ability to make me laugh', 'Your honesty and absolute clarity', 'All of the above'] },
   { id: 15, category: 2, categoryName: 'How You See Me', type: 'text', question: 'What is a flaw or habit you have noticed in me that you think will require some understanding between us?' },

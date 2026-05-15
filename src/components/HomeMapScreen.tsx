@@ -277,7 +277,7 @@ export default function HomeMapScreen() {
                 style={{ background: 'rgba(217,119,6,0.2)', border: '1px solid rgba(217,119,6,0.3)', boxShadow: '0 0 16px rgba(217,119,6,0.25)' }}>
                 <MapPin size={16} className="text-amber-400" fill="currentColor" />
               </div>
-              <span className="text-[10px] font-black uppercase tracking-wider" style={{ color: 'rgba(251,191,36,0.8)' }}>Her heart</span>
+              <span className="text-[10px] font-black uppercase tracking-wider" style={{ color: 'rgba(251,191,36,0.8)' }}>Your heart</span>
               <span className="text-[8px]" style={{ color: 'rgba(251,191,36,0.4)' }}>My angel 🌙</span>
             </div>
 
@@ -309,7 +309,7 @@ export default function HomeMapScreen() {
                 style={{ background: 'rgba(244,63,94,0.2)', border: '1px solid rgba(244,63,94,0.3)', boxShadow: '0 0 16px rgba(244,63,94,0.25)' }}>
                 <Heart size={16} className="text-rose-400" fill="currentColor" />
               </div>
-              <span className="text-[10px] font-black uppercase tracking-wider" style={{ color: 'rgba(251,113,133,0.8)' }}>His heart</span>
+              <span className="text-[10px] font-black uppercase tracking-wider" style={{ color: 'rgba(251,113,133,0.8)' }}>My heart</span>
               <span className="text-[8px]" style={{ color: 'rgba(251,113,133,0.4)' }}>Your love ❤️</span>
             </div>
           </div>

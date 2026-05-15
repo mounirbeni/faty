@@ -26,12 +26,12 @@ const LETTERS = [
   },
   {
     greeting: 'My angel,',
-    body: `Missing you after May 11 is different. It hurts in a new way — because now I know exactly what I am missing.\n\nI find you in everything. In a song. In a quiet evening. In every street I walk down and think — I walked a street with her, and I want to do it again.\n\nSoon, my love. It will always be soon.`,
+    body: `Missing you after May 11 is different. It hurts in a new way — because now I know exactly what I am missing.\n\nI find you in everything. In a song. In a quiet evening. In every street I walk down and think — I walked a street with you, and I want to do it again.\n\nSoon, my love. It will always be soon.`,
     closing: '— Already counting the next time',
   },
   {
     greeting: 'My sunshine,',
-    body: `Today I caught myself smiling for no reason and then realized — there was a reason. There is always a reason lately. And her name is you.\n\nYou came into my world quietly, and then I met you in person, and you rearranged everything all over again. Deeper this time. More permanent.\n\nThank you for existing. Thank you for being mine.`,
+    body: `Today I caught myself smiling for no reason and then realized — there was a reason. There is always a reason lately. And it is always you.\n\nYou came into my world quietly, and then I met you in person, and you rearranged everything all over again. Deeper this time. More permanent.\n\nThank you for existing. Thank you for being mine.`,
     closing: '— Smiling because of you',
   },
   {
