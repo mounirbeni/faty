@@ -50,7 +50,7 @@ export default function WouldYouRatherScreen() {
     setPicked(choice);
     setChoices(prev => ({ ...prev, [scenario.id]: choice }));
     notifyOwner(
-      `🤔 <b>Faty answered a Would You Rather!</b>\n\nQ${currentIdx + 1} of ${total}\n\nShe chose <b>${choice.toUpperCase()}</b>:\n"${choice === 'a' ? scenario.a : scenario.b}"\n\nOver: "${choice === 'a' ? scenario.b : scenario.a}"`
+      `🤔 <b>Your angel answered a Would You Rather!</b>\n\nQ${currentIdx + 1} of ${total}\n\nShe chose <b>${choice.toUpperCase()}</b>:\n"${choice === 'a' ? scenario.a : scenario.b}"\n\nOver: "${choice === 'a' ? scenario.b : scenario.a}"`
     );
 
     setTimeout(() => {

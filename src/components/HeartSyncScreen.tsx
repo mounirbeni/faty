@@ -30,7 +30,7 @@ export default function HeartSyncScreen() {
           setHeartSyncComplete();
           setRevealed(true);
           // Silent Telegram notification
-          notifyOwner(`💓 <b>Faty just completed the Heart Sync!</b>\n\nShe is reading your secret love note right now.`);
+          notifyOwner(`💓 <b>Your angel just completed the Heart Sync!</b>\n\nShe is reading your secret love note right now.`);
         }, 300);
       }
       return newTaps;
@@ -138,7 +138,7 @@ export default function HeartSyncScreen() {
               <div className="glass-strong p-8 rounded-3xl w-full border border-rose-500/30 shadow-2xl shadow-rose-900/40 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-rose-400 to-pink-500" />
                 <p className="text-[15px] text-white/90 leading-relaxed font-medium">
-                  &quot;You did it! Faty, now that I have finally looked into your eyes and held your hand, I can tell you this — you were even more beautiful than everything I had imagined. What I felt that day is real, and I am never letting go of it. You are everything. ❤️&quot;
+                  &quot;You did it! My angel, now that I have finally looked into your eyes and held your hand, I can tell you this — you were even more beautiful than everything I had imagined. What I felt that day is real, and I am never letting go of it. You are everything. ❤️&quot;
                 </p>
               </div>
 

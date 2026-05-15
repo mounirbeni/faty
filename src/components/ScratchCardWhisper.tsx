@@ -136,7 +136,7 @@ export default function ScratchCardWhisper({ children, onComplete }: ScratchCard
       // Notify at 80% — only once
       if (clearPercentage > 80 && !notifiedRef.current) {
         notifiedRef.current = true;
-        notifyOwner('✨ <b>Faty scratched her Daily Whisper!</b>\n\nShe just revealed today\'s secret message.');
+        notifyOwner('✨ <b>Your angel scratched her Daily Whisper!</b>\n\nShe just revealed today\'s secret message.');
       }
 
       if (clearPercentage > 60) {

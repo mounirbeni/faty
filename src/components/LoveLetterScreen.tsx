@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, ArrowLeft, RefreshCw, Sparkles, Star } from 'lucide-react';
+import { useEffect } from 'react';
 import { useGameStore } from '@/store/gameStore';
 import { getDailyIndex } from '@/lib/dailyContent';
 import { notifyOwner } from '@/lib/notify';
@@ -76,12 +77,18 @@ export default function LoveLetterScreen() {
 
   const letter = LETTERS[idx];
 
+  // Notify on first open
+  useEffect(() => {
+    notifyOwner(`💌 <b>Your angel opened Love Letters!</b>\n\nShe is reading:\n\n<i>${letter.greeting}</i>\n\n"${letter.body.slice(0, 120)}..."`);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const nextLetter = () => {
     if (isChanging) return;
     setIsChanging(true);
     setDirection(1);
     const nextIdx = pickNext(idx, LETTERS.length);
-    notifyOwner(`💌 <b>Faty is reading another love letter!</b>\n\nShe tapped "Another Letter" and is now reading:\n\n<i>${LETTERS[nextIdx].greeting}</i>\n\n"${LETTERS[nextIdx].body.slice(0, 120)}..."`);
+    notifyOwner(`💌 <b>Your angel is reading another love letter!</b>\n\nShe tapped "Another Letter" and is now reading:\n\n<i>${LETTERS[nextIdx].greeting}</i>\n\n"${LETTERS[nextIdx].body.slice(0, 120)}..."`);
     setTimeout(() => {
       setIdx(nextIdx);
       setAnimKey(k => k + 1);

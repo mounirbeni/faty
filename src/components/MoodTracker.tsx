@@ -29,7 +29,7 @@ export default function MoodTracker() {
     setCurrentMood(label);
     setJustSelected(true);
 
-    notifyOwner(`💖 <b>Faty just updated her mood!</b>\n\n<b>${label}</b>\n\n<i>She is feeling something beautiful right now.</i>`);
+    notifyOwner(`💖 <b>Your angel just updated her mood!</b>\n\n<b>${label}</b>\n\n<i>She is feeling something beautiful right now.</i>`);
 
     setTimeout(() => {
       successVibe();

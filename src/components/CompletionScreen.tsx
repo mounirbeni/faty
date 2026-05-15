@@ -41,7 +41,7 @@ export default function CompletionScreen() {
       if (res.success) {
         setIsSuccess(true);
         notifyOwner(
-          `🎉 <b>Faty just completed everything!</b>\n\nShe answered <b>${answeredCount} questions</b>, skipped ${reversedCount}, and locked ${capsuleCount} in the Time Capsule.\n\nShe secured her answers — go read them! 💌`
+          `🎉 <b>Your angel just completed everything!</b>\n\nShe answered <b>${answeredCount} questions</b>, skipped ${reversedCount}, and locked ${capsuleCount} in the Time Capsule.\n\nShe secured her answers — go read them! 💌`
         );
       } else {
         setToastMsg(res.error || "Failed to secure answers. Try again.");

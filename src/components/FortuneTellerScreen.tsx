@@ -47,7 +47,7 @@ export default function FortuneTellerScreen() {
         const resolvedText = fortunesData[todayFortune];
         setFortuneText(resolvedText);
         setRevealed(true);
-        notifyOwner(`🔮 <b>Faty just drew a Fortune!</b>\n\n"${resolvedText}"`);
+        notifyOwner(`🔮 <b>Your angel just drew a Fortune!</b>\n\n"${resolvedText}"`);
       }, 500);
     }
   };

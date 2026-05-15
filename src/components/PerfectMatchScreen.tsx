@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Puzzle, Plane, Coffee, Heart, Star, Camera, Music, CheckCircle2 } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { heartbeat, softTap, successVibe } from '@/lib/useHaptics';
+import { notifyOwner } from '@/lib/notify';
 
 const MATCH_ICONS = [Plane, Coffee, Heart, Star, Camera, Music];
 
@@ -40,6 +41,7 @@ export default function PerfectMatchScreen() {
       setTimeout(() => {
         successVibe();
         setIsDone(true);
+        notifyOwner(`🧩 <b>Your angel completed Perfect Match!</b>\n\nShe found all 6 pairs in the memory matching game. 💙`);
       }, 800);
     }
   }, [matchedPairs, isDone]);

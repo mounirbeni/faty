@@ -45,7 +45,7 @@ export default function KissJarScreen() {
         setJustHitMilestone(true);
         setTimeout(() => setJustHitMilestone(false), 1500);
         logActivity('kiss-jar', `${newCount} kisses sent!`);
-        notifyOwner(`💋 <b>Faty sent ${newCount} kisses!</b>\n\nThe Kiss Jar is now <b>${Math.round((newCount / JAR_GOAL) * 100)}%</b> full.`);
+        notifyOwner(`💋 <b>Your angel sent ${newCount} kisses!</b>\n\nThe Kiss Jar is now <b>${Math.round((newCount / JAR_GOAL) * 100)}%</b> full.`);
       }
     },
     [kissCount, addKiss, logActivity, particleId]

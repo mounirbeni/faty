@@ -6,6 +6,7 @@ import { ArrowLeft, Zap, CheckCircle2, Map, RotateCcw } from 'lucide-react';
 import { rapidFirePairs } from '@/data/rapidFirePairs';
 import { useGameStore } from '@/store/gameStore';
 import { softTap, heartbeat, successVibe } from '@/lib/useHaptics';
+import { notifyOwner } from '@/lib/notify';
 import IconFromName from './IconFromName';
 
 export default function RapidFireScreen() {
@@ -24,7 +25,10 @@ export default function RapidFireScreen() {
     if (selected) return; // already chosen
     softTap();
     setSelected(choice);
-    setRapidFireChoice(current.id, choice === 'a' ? current.a : current.b);
+    const chosenLabel = choice === 'a' ? current.a : current.b;
+    const otherLabel = choice === 'a' ? current.b : current.a;
+    setRapidFireChoice(current.id, chosenLabel);
+    notifyOwner(`⚡ <b>Your angel chose in Rapid Fire!</b>\n\n✅ <b>${chosenLabel}</b>\nvs ~~${otherLabel}~~\n\n(${currentIdx + 1}/${rapidFirePairs.length})`);
 
     // Auto-advance after 420ms
     setTimeout(() => {
@@ -32,6 +36,7 @@ export default function RapidFireScreen() {
       if (currentIdx >= rapidFirePairs.length - 1) {
         successVibe();
         setIsDone(true);
+        notifyOwner(`✅ <b>Your angel finished Rapid Fire!</b>\n\nShe blasted through all ${rapidFirePairs.length} rapid-fire choices! ⚡`);
       } else {
         setCurrentIdx((i) => i + 1);
       }

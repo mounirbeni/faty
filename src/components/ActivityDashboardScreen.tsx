@@ -49,7 +49,7 @@ export default function ActivityDashboardScreen() {
       .join('\n');
 
     const report =
-      `📊 <b>Faty's Full Activity Report</b>\n\n` +
+      `📊 <b>Your Angel's Full Activity Report</b>\n\n` +
       `❤️ Questions answered: <b>${totalAnswered}/70</b>\n` +
       `💋 Kisses sent: <b>${kissCount}</b>\n` +
       `🌙 Current mood: <b>${moodText}</b>\n` +

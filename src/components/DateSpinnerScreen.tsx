@@ -120,7 +120,7 @@ export default function DateSpinnerScreen() {
       setIsSpinning(false);
       setShowResult(true);
       softTap();
-      notifyOwner(`🎡 <b>Faty just spun the Date Spinner!</b>\n\nThe wheel landed on: <b>${DATES[winnerIdx].label}</b>\n\n"${DATES[winnerIdx].description}"`);
+      notifyOwner(`🎡 <b>Your angel just spun the Date Spinner!</b>\n\nThe wheel landed on: <b>${DATES[winnerIdx].label}</b>\n\n"${DATES[winnerIdx].description}"`);
     }, 4600);
   };
 

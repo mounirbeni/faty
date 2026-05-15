@@ -11,6 +11,7 @@ import { Heart, X, ArrowLeft, CheckCircle2, Map, RotateCcw } from 'lucide-react'
 import { vibeScenarios } from '@/data/vibeScenarios';
 import { useGameStore } from '@/store/gameStore';
 import { heartbeat, swipeLove, swipeNope } from '@/lib/useHaptics';
+import { notifyOwner } from '@/lib/notify';
 import IconFromName from './IconFromName';
 
 const SWIPE_THRESHOLD = 90;
@@ -43,11 +44,15 @@ export default function VibeCheckScreen() {
     setVibeChoice(current.id, dir);
     setExitDir(dir === 'love' ? 'right' : 'left');
 
+    const emoji = dir === 'love' ? '💚 LOVE IT' : '❌ NOPE';
+    notifyOwner(`💫 <b>Your angel swiped on Vibe Check!</b>\n\n${emoji}: <b>${current.text}</b>\n\n<i>${current.subtext}</i>\n\n(${currentIdx + 1}/${vibeScenarios.length})`);
+
     setTimeout(() => {
       x.set(0);
       setExitDir(null);
       if (currentIdx >= vibeScenarios.length - 1) {
         setIsDone(true);
+        notifyOwner(`✅ <b>Your angel finished the Vibe Check!</b>\n\nShe swiped through all ${vibeScenarios.length} scenarios. You now know her vibes! 💫`);
       } else {
         setCurrentIdx((i) => i + 1);
       }

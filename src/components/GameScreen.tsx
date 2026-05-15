@@ -133,7 +133,7 @@ export default function GameScreen() {
     const capsuleTag = isTimeCapsule ? '\n🔒 <i>Time Capsule — opened on May 11</i>' : '';
 
     notifyOwner(
-      `✍️ <b>Faty answered a question!</b>\n\n` +
+      `✍️ <b>Your angel answered a question!</b>\n\n` +
       `📖 <i>${chapterName}</i> · Q${currentQuestion.id}\n\n` +
       `<b>Q:</b> ${currentQuestion.question}\n\n` +
       `<b>A:</b> ${answerText}${capsuleTag}`

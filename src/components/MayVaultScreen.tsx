@@ -92,7 +92,7 @@ export default function MayVaultScreen() {
                 onClick={() => {
                   heartbeat();
                   setRevealed(true);
-                  notifyOwner(`🔓 <b>Faty just opened the Memory Vault!</b>\n\nShe tapped "Open the Vault" and read the letter you wrote before you ever met. 💜`);
+                  notifyOwner(`🔓 <b>Your angel just opened the Memory Vault!</b>\n\nShe tapped "Open the Vault" and read the letter you wrote before you ever met. 💜`);
                 }}
                 className="px-6 py-3 bg-gradient-to-r from-violet-500 to-rose-500 text-white font-bold rounded-2xl text-sm active:scale-95 transition-transform cursor-pointer shadow-lg shadow-violet-500/25"
                 whileTap={{ scale: 0.97 }}
@@ -107,7 +107,7 @@ export default function MayVaultScreen() {
               transition={{ duration: 0.4 }}
             >
               <p className="text-[15px] text-white/85 leading-relaxed italic">
-                &quot;Faty, I am writing this before I have ever stood in the same room as you. I do not know how that day will feel exactly — but I know it will change everything. If you are reading this after May 11, then it happened. We met. And I hope it was everything I imagined. I hope I made you feel safe. I hope you smiled. I hope you went home knowing that what we have is real. Because it is. It always was. ❤️&quot;
+                &quot;My angel, I am writing this before I have ever stood in the same room as you. I do not know how that day will feel exactly — but I know it will change everything. If you are reading this after May 11, then it happened. We met. And I hope it was everything I imagined. I hope I made you feel safe. I hope you smiled. I hope you went home knowing that what we have is real. Because it is. It always was. ❤️&quot;
               </p>
             </motion.div>
           )}

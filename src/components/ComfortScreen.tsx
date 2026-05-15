@@ -31,7 +31,7 @@ export default function ComfortScreen() {
     setAlertSent(true);
     successVibe();
     notifyOwner(
-      `🚨 <b>Faty needs you right now!</b>\n\nShe is in the Comfort Room feeling unwell (period cramps/tired). Send her some love ASAP! ❤️🩹`
+      `🚨 <b>Your love needs you right now!</b>\n\nShe is in the Comfort Room feeling unwell (period cramps/tired). Send her some love ASAP! ❤️🩹`
     );
   };
 
@@ -110,7 +110,7 @@ export default function ComfortScreen() {
               setIsCuddling(true);
               if (!cuddleNotified) {
                 setCuddleNotified(true);
-                notifyOwner(`🤗 <b>Faty is using the Virtual Cuddle!</b>\n\nShe pressed and held the heart in the Comfort Room. She might need some extra love right now. 💗`);
+                notifyOwner(`🤗 <b>Your angel is using the Virtual Cuddle!</b>\n\nShe pressed and held the heart in the Comfort Room. She might need some extra love right now. 💗`);
               }
             }}
             onPointerUp={() => setIsCuddling(false)}

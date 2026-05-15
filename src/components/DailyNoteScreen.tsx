@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Map, CalendarHeart, Heart, Mic } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { heartbeat, successVibe } from '@/lib/useHaptics';
+import { notifyOwner } from '@/lib/notify';
 import { getDailyIndex } from '@/lib/dailyContent';
 import ScratchCardWhisper from './ScratchCardWhisper';
 import VoiceNotePlayer from './VoiceNotePlayer';
@@ -56,6 +57,7 @@ export default function DailyNoteScreen() {
   const handleRevealed = () => {
     successVibe();
     setIsRevealed(true);
+    notifyOwner(`🌿 <b>Your angel scratched today's Daily Whisper!</b>\n\nShe revealed today's message:\n\n"${todaysMessage}"`);
   };
 
   return (

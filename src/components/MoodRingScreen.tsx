@@ -53,7 +53,7 @@ export default function MoodRingScreen() {
     setSelectedMood(mood);
     if (mood) {
       notifyOwner(
-        `🌙 <b>Faty just checked her mood!</b>\n\nShe is feeling: <b>${moodData[mood].label}</b>\n\n"${moodData[mood].response}"`
+        `🌙 <b>Your angel just checked her mood!</b>\n\nShe is feeling: <b>${moodData[mood].label}</b>\n\n"${moodData[mood].response}"`
       );
     }
   };
