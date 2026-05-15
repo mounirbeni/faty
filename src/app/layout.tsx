@@ -40,8 +40,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" dir="ltr" className={`${outfit.variable} h-[100dvh] antialiased`}>
-      <body className="h-[100dvh] w-full overflow-hidden flex flex-col font-[family-name:var(--font-outfit)] select-none touch-manipulation">
+    <html lang="en" dir="ltr" className={`${outfit.variable} h-[100dvh] antialiased overflow-hidden`}>
+      <body className="h-[100dvh] w-full overflow-hidden flex flex-col font-[family-name:var(--font-outfit)] select-none touch-manipulation overscroll-none" style={{ WebkitUserSelect: 'none', MozUserSelect: 'none', msUserSelect: 'none' }}>
 
         {/* ── Permanent ambient background — always behind every screen ── */}
         <div
@@ -104,6 +104,26 @@ export default function RootLayout({
         </div>
 
         <RegisterSW />
+
+        {/* ── Native-app hardening: block context menu, kill overscroll ── */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function(){
+            // Block long-press context menu
+            document.addEventListener('contextmenu', function(e){ e.preventDefault(); }, { passive: false });
+            // Kill pull-to-refresh and overscroll
+            document.addEventListener('touchmove', function(e){
+              if (e.target.closest('[data-scroll]')) return;
+              if (e.touches.length > 1) { e.preventDefault(); return; }
+            }, { passive: false });
+            // Prevent double-tap zoom
+            var lastTap = 0;
+            document.addEventListener('touchend', function(e){
+              var now = Date.now();
+              if (now - lastTap < 300) { e.preventDefault(); }
+              lastTap = now;
+            }, { passive: false });
+          })();
+        `}} />
       </body>
     </html>
   );

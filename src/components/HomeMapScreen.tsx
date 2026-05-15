@@ -201,7 +201,7 @@ export default function HomeMapScreen() {
 
   return (
     <motion.div
-      className="absolute inset-0 flex flex-col overflow-y-auto"
+      className="absolute inset-0 flex flex-col overflow-y-auto app-scroll" data-scroll
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -24 }}

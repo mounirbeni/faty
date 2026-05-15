@@ -1,13 +1,16 @@
 {
-  "name": "For Faty — Our Little Game",
-  "short_name": "Faty",
-  "description": "A romantic Q&A game made with love",
+  "name": "For My Love",
+  "short_name": "My Love",
+  "description": "A romantic journey built just for you",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0c0a14",
-  "theme_color": "#0c0a14",
-  "orientation": "portrait",
+  "display_override": ["fullscreen", "standalone"],
+  "background_color": "#070310",
+  "theme_color": "#070310",
+  "orientation": "portrait-primary",
   "scope": "/",
+  "lang": "en",
+  "categories": ["lifestyle"],
   "icons": [
     {
       "src": "/icon-192.png",

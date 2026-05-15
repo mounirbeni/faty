@@ -133,7 +133,7 @@ export default function DateSpinnerScreen() {
 
   return (
     <motion.div
-      className="absolute inset-0 flex flex-col items-center px-5 pt-8 pb-6 overflow-y-auto"
+      className="absolute inset-0 flex flex-col items-center px-5 pt-8 pb-6 overflow-y-auto app-scroll" data-scroll
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -24 }}

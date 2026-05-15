@@ -37,7 +37,7 @@ export default function ComfortScreen() {
 
   return (
     <motion.div
-      className="absolute inset-0 flex flex-col overflow-y-auto"
+      className="absolute inset-0 flex flex-col overflow-y-auto app-scroll" data-scroll
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
