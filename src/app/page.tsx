@@ -27,6 +27,10 @@ const DateSpinnerScreen     = dynamic(() => import('@/components/DateSpinnerScre
 const WouldYouRatherScreen  = dynamic(() => import('@/components/WouldYouRatherScreen'), { ssr: false });
 const KissJarScreen         = dynamic(() => import('@/components/KissJarScreen'), { ssr: false });
 const ActivityDashboardScreen = dynamic(() => import('@/components/ActivityDashboardScreen'), { ssr: false });
+const TruthBombsScreen        = dynamic(() => import('@/components/TruthBombsScreen'), { ssr: false });
+const CatchMyHeartScreen      = dynamic(() => import('@/components/CatchMyHeartScreen'), { ssr: false });
+const DreamDateScreen         = dynamic(() => import('@/components/DreamDateScreen'), { ssr: false });
+const LoveStoryScreen         = dynamic(() => import('@/components/LoveStoryScreen'), { ssr: false });
 
 function Screen({ children }: { children: React.ReactNode }) {
   return (
@@ -98,6 +102,10 @@ export default function HomePage() {
         {currentPhase === 'would-you-rather' && <Screen key="would-you-rather"><WouldYouRatherScreen /></Screen>}
         {currentPhase === 'kiss-jar'         && <Screen key="kiss-jar"><KissJarScreen /></Screen>}
         {currentPhase === 'admin-dashboard'  && <Screen key="admin-dashboard"><ActivityDashboardScreen /></Screen>}
+        {currentPhase === 'truth-bombs'      && <Screen key="truth-bombs"><TruthBombsScreen /></Screen>}
+        {currentPhase === 'catch-my-heart'   && <Screen key="catch-my-heart"><CatchMyHeartScreen /></Screen>}
+        {currentPhase === 'dream-date'       && <Screen key="dream-date"><DreamDateScreen /></Screen>}
+        {currentPhase === 'love-story'       && <Screen key="love-story"><LoveStoryScreen /></Screen>}
         {currentPhase === 'complete'         && <Screen key="complete"><CompletionScreen /></Screen>}
       </AnimatePresence>
     </main>

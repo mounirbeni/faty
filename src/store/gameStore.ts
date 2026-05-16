@@ -19,6 +19,10 @@ export type AppPhase =
   | 'date-spinner'
   | 'would-you-rather'
   | 'kiss-jar'
+  | 'truth-bombs'
+  | 'catch-my-heart'
+  | 'dream-date'
+  | 'love-story'
   | 'admin-dashboard'
   | 'complete';
 
@@ -127,6 +131,10 @@ export const useGameStore = create<GameState>()(
           'would-you-rather': 'Opened Would You Rather',
           'kiss-jar': 'Opened Kiss Jar',
           'vault': 'Opened Memory Vault',
+          'truth-bombs': 'Opened Truth Bombs',
+          'catch-my-heart': 'Opened Catch My Heart',
+          'dream-date': 'Opened Dream Date',
+          'love-story': 'Opened Love Story',
         };
         if (miniGameLabels[phase]) {
           logActivity('mini-game', miniGameLabels[phase]!);

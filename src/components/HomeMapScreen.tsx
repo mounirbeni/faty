@@ -24,6 +24,10 @@ import {
   Disc3,
   HelpCircle,
   Activity,
+  Bomb,
+  BookOpen,
+  Gamepad2,
+  Stars,
 } from 'lucide-react';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
@@ -155,6 +159,42 @@ const MINI_GAMES = [
     gradient: 'from-rose-500 to-pink-600',
     glow: 'shadow-rose-500/30',
   },
+  {
+    id: 'truth-bombs' as const,
+    icon: <Bomb size={30} className="text-white drop-shadow-md" />,
+    label: 'Truth Bombs',
+    sublabel: '15 deep questions',
+    unlocksAtChapter: 0,
+    gradient: 'from-pink-600 to-rose-700',
+    glow: 'shadow-pink-500/30',
+  },
+  {
+    id: 'catch-my-heart' as const,
+    icon: <Gamepad2 size={30} className="text-white drop-shadow-md" />,
+    label: 'Catch My Heart',
+    sublabel: 'Tap falling hearts',
+    unlocksAtChapter: 0,
+    gradient: 'from-rose-400 to-fuchsia-600',
+    glow: 'shadow-fuchsia-500/30',
+  },
+  {
+    id: 'dream-date' as const,
+    icon: <Stars size={30} className="text-white drop-shadow-md" />,
+    label: 'Dream Date',
+    sublabel: 'Build our perfect day',
+    unlocksAtChapter: 0,
+    gradient: 'from-amber-500 to-orange-600',
+    glow: 'shadow-amber-500/30',
+  },
+  {
+    id: 'love-story' as const,
+    icon: <BookOpen size={30} className="text-white drop-shadow-md" />,
+    label: 'Love Story',
+    sublabel: 'Write our story',
+    unlocksAtChapter: 0,
+    gradient: 'from-violet-500 to-purple-700',
+    glow: 'shadow-violet-500/30',
+  },
 ];
 
 const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand', 'smile', 'camera'];
@@ -165,10 +205,7 @@ export default function HomeMapScreen() {
   const isReturningUser = useGameStore(s => s.isReturningUser);
   const setPhase = useGameStore(s => s.setPhase);
   const startChapter = useGameStore(s => s.startChapter);
-  const dailyWhisperLastTimestamp = useGameStore(s => s.dailyWhisperLastTimestamp);
   const time = useTimeContext();
-
-  const [now] = useState(Date.now);
 
   const totalAnswered = Object.values(answers).filter((v) => v?.trim()).length + reversed.length;
   const overallPercent = Math.round((totalAnswered / 70) * 100);
@@ -187,7 +224,7 @@ export default function HomeMapScreen() {
     startChapter(chapter);
   };
 
-  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar') => {
+  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'catch-my-heart' | 'dream-date' | 'love-story') => {
     heartbeat();
     playSparkle();
     setPhase(id);
@@ -446,18 +483,6 @@ export default function HomeMapScreen() {
                   {/* Inner top highlight */}
                   {unlocked && (
                     <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-                  )}
-
-                  {/* NEW Badge for Daily Note */}
-                  {game.id === 'daily-note' && now - dailyWhisperLastTimestamp > 1 * 60 * 60 * 1000 && (
-                    <motion.div
-                      className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[8px] font-black px-1.5 py-0.5 rounded-full shadow-[0_0_10px_rgba(239,68,68,0.8)] border border-red-300 z-10"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      NEW
-                    </motion.div>
                   )}
 
                   {!unlocked && (
