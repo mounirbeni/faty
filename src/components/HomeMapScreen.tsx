@@ -28,6 +28,7 @@ import {
   BookOpen,
   Gamepad2,
   Stars,
+  Flame,
 } from 'lucide-react';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
@@ -36,10 +37,9 @@ import IconFromName from './IconFromName';
 import MoodTracker from './MoodTracker';
 import EmotionalStatus from './EmotionalStatus';
 import LongPressNote from './LongPressNote';
-import { notifyOwner } from '@/lib/notify';
 import { useTimeContext } from '@/lib/timeSystem';
 import { playSparkle, playBloom } from '@/lib/sounds';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 const MINI_GAMES = [
   {
@@ -195,6 +195,20 @@ const MINI_GAMES = [
     gradient: 'from-violet-500 to-purple-700',
     glow: 'shadow-violet-500/30',
   },
+  {
+    id: 'intimacy-hub' as const,
+    icon: (
+      <div className="relative">
+        <Flame size={28} className="text-white drop-shadow-md" fill="currentColor" />
+        <div className="absolute inset-0 rounded-full" style={{ boxShadow: '0 0 14px rgba(255,77,141,0.8)', borderRadius: '50%' }} />
+      </div>
+    ),
+    label: 'Emotional Intimacy',
+    sublabel: '4 intimate games',
+    unlocksAtChapter: 0,
+    gradient: 'from-rose-500 via-pink-600 to-purple-700',
+    glow: 'shadow-pink-500/40',
+  },
 ];
 
 const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand', 'smile', 'camera'];
@@ -210,13 +224,6 @@ export default function HomeMapScreen() {
   const totalAnswered = Object.values(answers).filter((v) => v?.trim()).length + reversed.length;
   const overallPercent = Math.round((totalAnswered / 70) * 100);
 
-  const notifiedRef = useRef(false);
-  useEffect(() => {
-    if (notifiedRef.current) return;
-    notifiedRef.current = true;
-    const label = isReturningUser ? 'back on' : 'opening';
-    notifyOwner(`🚨 <b>Your angel just opened the app!</b>\n\nShe is ${label} the map right now.\n📊 Overall progress: <b>${overallPercent}%</b>`);
-  }, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChapterTap = (chapter: number) => {
     softTap();
@@ -224,7 +231,7 @@ export default function HomeMapScreen() {
     startChapter(chapter);
   };
 
-  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'catch-my-heart' | 'dream-date' | 'love-story') => {
+  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'catch-my-heart' | 'dream-date' | 'love-story' | 'intimacy-hub') => {
     heartbeat();
     playSparkle();
     setPhase(id);

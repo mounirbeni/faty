@@ -4,6 +4,7 @@ import { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, X } from 'lucide-react';
 import { playDiscovery } from '@/lib/sounds';
+import { trackInteraction } from '@/lib/sessionTracker';
 
 interface Props {
   note: string;
@@ -35,6 +36,7 @@ export default function LongPressNote({ note, children, className = '', holdMs =
         setRevealed(true);
         setProgress(0);
         playDiscovery();
+        trackInteraction('hidden-note');
       } else {
         rafRef.current = requestAnimationFrame(animate);
       }

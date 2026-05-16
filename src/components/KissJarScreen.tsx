@@ -6,6 +6,8 @@ import { ArrowLeft, Heart, Sparkles } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { softTap, successVibe, heartbeat } from '@/lib/useHaptics';
 import { notifyOwner } from '@/lib/notify';
+import { trackInteraction } from '@/lib/sessionTracker';
+import { getCachedPresence } from '@/lib/presenceContext';
 
 const JAR_GOAL = 100;
 
@@ -39,13 +41,18 @@ export default function KissJarScreen() {
       setParticles((prev) => [...prev, { id, x, y }]);
       setTimeout(() => setParticles((prev) => prev.filter((p) => p.id !== id)), 1200);
 
+      // Track every kiss for session intelligence
+      trackInteraction('kiss');
+
       // Milestones
       if (newCount % 10 === 0) {
         successVibe();
         setJustHitMilestone(true);
         setTimeout(() => setJustHitMilestone(false), 1500);
         logActivity('kiss-jar', `${newCount} kisses sent!`);
-        notifyOwner(`💋 <b>Your angel sent ${newCount} kisses!</b>\n\nThe Kiss Jar is now <b>${Math.round((newCount / JAR_GOAL) * 100)}%</b> full.`);
+        const ctx = getCachedPresence();
+        const timeNote = ctx ? `\n🕒 ${ctx.moroccoTime} Morocco time` : '';
+        notifyOwner(`💋 <b>Your angel just sent ${newCount} kisses!</b>${timeNote}\n\nThe Kiss Jar is now <b>${Math.round((newCount / JAR_GOAL) * 100)}%</b> full 💗`);
       }
     },
     [kissCount, addKiss, logActivity, particleId]

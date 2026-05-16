@@ -1,26 +1,38 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Map, Coffee, Heart, Bell, Moon } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { softTap, heartbeat, successVibe } from '@/lib/useHaptics';
 import { notifyOwner } from '@/lib/notify';
+import { trackInteraction } from '@/lib/sessionTracker';
+import { getCachedPresence } from '@/lib/presenceContext';
 
 export default function ComfortScreen() {
   const { setPhase } = useGameStore();
   const [isCuddling, setIsCuddling] = useState(false);
   const [alertSent, setAlertSent] = useState(false);
   const [cuddleNotified, setCuddleNotified] = useState(false);
+  const comfortEnteredAt = useRef(Date.now());
+
+  // Track comfort session duration when leaving
+  useEffect(() => {
+    comfortEnteredAt.current = Date.now();
+    return () => {
+      const durationMs = Date.now() - comfortEnteredAt.current;
+      const minutes = Math.round(durationMs / 60_000);
+      const note = minutes > 0 ? `${minutes} min` : undefined;
+      trackInteraction('comfort-session', note);
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Continuous heartbeat while cuddling
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (isCuddling) {
       heartbeat(); // initial
-      interval = setInterval(() => {
-        heartbeat();
-      }, 1200); // gentle slow heartbeat
+      interval = setInterval(() => heartbeat(), 1200);
     }
     return () => clearInterval(interval);
   }, [isCuddling]);
@@ -30,8 +42,10 @@ export default function ComfortScreen() {
     softTap();
     setAlertSent(true);
     successVibe();
+    const ctx = getCachedPresence();
+    const timeNote = ctx ? `\n🕒 ${ctx.moroccoTime} Morocco time  ·  📍 ${ctx.locationLabel}` : '';
     notifyOwner(
-      `🚨 <b>Your love needs you right now!</b>\n\nShe is in the Comfort Room feeling unwell (period cramps/tired). Send her some love ASAP! ❤️🩹`
+      `🚨 <b>Your love needs you right now!</b>${timeNote}\n\nShe is in the Comfort Room. She might be feeling unwell or just needs your warmth.\n\nSend her some love immediately 💗🩹`
     );
   };
 
@@ -110,7 +124,9 @@ export default function ComfortScreen() {
               setIsCuddling(true);
               if (!cuddleNotified) {
                 setCuddleNotified(true);
-                notifyOwner(`🤗 <b>Your angel is using the Virtual Cuddle!</b>\n\nShe pressed and held the heart in the Comfort Room. She might need some extra love right now. 💗`);
+                const ctx = getCachedPresence();
+                const timeNote = ctx ? `\n🕒 ${ctx.moroccoTime} Morocco time` : '';
+                notifyOwner(`🫂 <b>Your angel needs your warmth right now</b>${timeNote}\n\nShe is holding the cuddle heart in the Comfort Room.\n\n<i>She might just need to feel you close tonight 💗</i>`);
               }
             }}
             onPointerUp={() => setIsCuddling(false)}

@@ -7,6 +7,7 @@ import { useGameStore } from '@/store/gameStore';
 import { notifyOwner } from '@/lib/notify';
 import { successVibe, softTap } from '@/lib/useHaptics';
 import { playReveal, playBloom, playSparkle } from '@/lib/sounds';
+import { trackInteraction } from '@/lib/sessionTracker';
 
 const QUESTIONS = [
   { id: 1,  color: '#FF4D8D', q: 'What was the exact moment you knew you had real feelings for me?' },
@@ -46,6 +47,7 @@ export default function TruthBombsScreen() {
     successVibe(); playBloom();
     setSubmitted(s => new Set([...s, q.id]));
     setActive(null);
+    trackInteraction('truth-bomb-answer');
     notifyOwner(`💣 <b>Truth Bomb answered!</b>\n\n<b>Q:</b> ${q.q}\n\n<b>Her answer:</b>\n"${answer}"`);
     if (submitted.size + 1 >= QUESTIONS.length) setDone(true);
   };

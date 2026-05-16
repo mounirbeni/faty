@@ -7,6 +7,7 @@ import { useGameStore } from '@/store/gameStore';
 import { notifyOwner } from '@/lib/notify';
 import { successVibe, softTap } from '@/lib/useHaptics';
 import { playBloom, playSparkle, playReveal } from '@/lib/sounds';
+import { trackInteraction } from '@/lib/sessionTracker';
 
 const CHAPTERS = [
   {
@@ -109,6 +110,7 @@ export default function LoveStoryScreen() {
       setTimeout(() => setStep(s => s + 1), 320);
     } else {
       successVibe(); playBloom();
+      trackInteraction('love-story-written');
       setTimeout(() => {
         setPhaseLocal('reading');
         const story = buildStory(newSel);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import WelcomeScreen from '@/components/WelcomeScreen';
 import GameScreen from '@/components/GameScreen';
@@ -11,26 +11,30 @@ import TouchGlow from '@/components/TouchGlow';
 import CinematicLoader from '@/components/CinematicLoader';
 import { useGameStore } from '@/store/gameStore';
 import { questionsData } from '@/data/questions';
+import { initPresenceContext } from '@/lib/presenceContext';
+import { startSession, trackScreen, sendSessionRecap } from '@/lib/sessionTracker';
+import { notifyEntry, notifyBeacon } from '@/lib/notify';
 import dynamic from 'next/dynamic';
 
-const VibeCheckScreen       = dynamic(() => import('@/components/VibeCheckScreen'), { ssr: false });
-const RapidFireScreen       = dynamic(() => import('@/components/RapidFireScreen'), { ssr: false });
-const MayVaultScreen        = dynamic(() => import('@/components/MayVaultScreen'), { ssr: false });
-const FortuneTellerScreen   = dynamic(() => import('@/components/FortuneTellerScreen'), { ssr: false });
-const HeartSyncScreen       = dynamic(() => import('@/components/HeartSyncScreen'), { ssr: false });
-const DailyNoteScreen       = dynamic(() => import('@/components/DailyNoteScreen'), { ssr: false });
-const PerfectMatchScreen    = dynamic(() => import('@/components/PerfectMatchScreen'), { ssr: false });
-const MoodRingScreen        = dynamic(() => import('@/components/MoodRingScreen'), { ssr: false });
-const ComfortScreen         = dynamic(() => import('@/components/ComfortScreen'), { ssr: false });
-const LoveLetterScreen      = dynamic(() => import('@/components/LoveLetterScreen'), { ssr: false });
-const DateSpinnerScreen     = dynamic(() => import('@/components/DateSpinnerScreen'), { ssr: false });
-const WouldYouRatherScreen  = dynamic(() => import('@/components/WouldYouRatherScreen'), { ssr: false });
-const KissJarScreen         = dynamic(() => import('@/components/KissJarScreen'), { ssr: false });
+const VibeCheckScreen         = dynamic(() => import('@/components/VibeCheckScreen'), { ssr: false });
+const RapidFireScreen         = dynamic(() => import('@/components/RapidFireScreen'), { ssr: false });
+const MayVaultScreen          = dynamic(() => import('@/components/MayVaultScreen'), { ssr: false });
+const FortuneTellerScreen     = dynamic(() => import('@/components/FortuneTellerScreen'), { ssr: false });
+const HeartSyncScreen         = dynamic(() => import('@/components/HeartSyncScreen'), { ssr: false });
+const DailyNoteScreen         = dynamic(() => import('@/components/DailyNoteScreen'), { ssr: false });
+const PerfectMatchScreen      = dynamic(() => import('@/components/PerfectMatchScreen'), { ssr: false });
+const MoodRingScreen          = dynamic(() => import('@/components/MoodRingScreen'), { ssr: false });
+const ComfortScreen           = dynamic(() => import('@/components/ComfortScreen'), { ssr: false });
+const LoveLetterScreen        = dynamic(() => import('@/components/LoveLetterScreen'), { ssr: false });
+const DateSpinnerScreen       = dynamic(() => import('@/components/DateSpinnerScreen'), { ssr: false });
+const WouldYouRatherScreen    = dynamic(() => import('@/components/WouldYouRatherScreen'), { ssr: false });
+const KissJarScreen           = dynamic(() => import('@/components/KissJarScreen'), { ssr: false });
 const ActivityDashboardScreen = dynamic(() => import('@/components/ActivityDashboardScreen'), { ssr: false });
 const TruthBombsScreen        = dynamic(() => import('@/components/TruthBombsScreen'), { ssr: false });
 const CatchMyHeartScreen      = dynamic(() => import('@/components/CatchMyHeartScreen'), { ssr: false });
 const DreamDateScreen         = dynamic(() => import('@/components/DreamDateScreen'), { ssr: false });
 const LoveStoryScreen         = dynamic(() => import('@/components/LoveStoryScreen'), { ssr: false });
+const IntimacyHubScreen       = dynamic(() => import('@/components/IntimacyHubScreen'), { ssr: false });
 
 function Screen({ children }: { children: React.ReactNode }) {
   return (
@@ -49,14 +53,50 @@ function Screen({ children }: { children: React.ReactNode }) {
 export default function HomePage() {
   const [isMounted, setIsMounted] = useState(false);
   const [loaderDone, setLoaderDone] = useState(false);
-  const { phase, answers, reversed } = useGameStore();
+  const { phase, answers, reversed, isReturningUser } = useGameStore();
+  const presenceReady = useRef(false);
 
+  // ── Mount: start session + fetch presence + send entry notification ──────
   useEffect(() => {
-    // Show loader only on first session visit
     const seen = sessionStorage.getItem('lu_entered');
     if (seen) setLoaderDone(true);
     const t = setTimeout(() => setIsMounted(true), 0);
+
+    startSession();
+
+    const totalAnswered =
+      Object.values(answers).filter(v => v?.trim()).length + reversed.length;
+    const overallPercent = Math.round((totalAnswered / questionsData.length) * 100);
+
+    initPresenceContext().then(ctx => {
+      if (presenceReady.current) return;
+      presenceReady.current = true;
+      notifyEntry(ctx, overallPercent, isReturningUser);
+    });
+
     return () => clearTimeout(t);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Track screen transitions for session intelligence ────────────────────
+  useEffect(() => {
+    if (!isMounted) return;
+    trackScreen(phase);
+  }, [phase, isMounted]);
+
+  // ── beforeunload: send "Tonight's Story" recap ───────────────────────────
+  useEffect(() => {
+    const handleUnload = () => {
+      import('@/lib/presenceContext').then(({ getCachedPresence }) => {
+        const ctx = getCachedPresence();
+        if (!ctx) return;
+        import('@/lib/sessionTracker').then(({ buildTonightStory }) => {
+          const story = buildTonightStory(ctx);
+          notifyBeacon(story);
+        });
+      });
+    };
+    window.addEventListener('beforeunload', handleUnload);
+    return () => window.removeEventListener('beforeunload', handleUnload);
   }, []);
 
   const handleLoaderDone = useCallback(() => {
@@ -64,8 +104,8 @@ export default function HomePage() {
     setLoaderDone(true);
   }, []);
 
-  const currentPhase   = isMounted ? phase    : 'welcome';
-  const currentAnswers = isMounted ? answers  : {};
+  const currentPhase    = isMounted ? phase    : 'welcome';
+  const currentAnswers  = isMounted ? answers  : {};
   const currentReversed = isMounted ? reversed : [];
 
   const totalAnswered =
@@ -106,6 +146,7 @@ export default function HomePage() {
         {currentPhase === 'catch-my-heart'   && <Screen key="catch-my-heart"><CatchMyHeartScreen /></Screen>}
         {currentPhase === 'dream-date'       && <Screen key="dream-date"><DreamDateScreen /></Screen>}
         {currentPhase === 'love-story'       && <Screen key="love-story"><LoveStoryScreen /></Screen>}
+        {currentPhase === 'intimacy-hub'     && <Screen key="intimacy-hub"><IntimacyHubScreen /></Screen>}
         {currentPhase === 'complete'         && <Screen key="complete"><CompletionScreen /></Screen>}
       </AnimatePresence>
     </main>

@@ -7,6 +7,7 @@ import { useGameStore } from '@/store/gameStore';
 import { notifyOwner } from '@/lib/notify';
 import { successVibe, softTap } from '@/lib/useHaptics';
 import { playBloom, playSparkle } from '@/lib/sounds';
+import { trackInteraction } from '@/lib/sessionTracker';
 
 const SECTIONS = [
   {
@@ -105,6 +106,7 @@ export default function DreamDateScreen() {
       setTimeout(() => setStep(s => s + 1), 320);
     } else {
       successVibe(); playBloom();
+      trackInteraction('dream-date-built');
       setTimeout(() => {
         setDone(true);
         const summary = SECTIONS.map(s => `<b>${s.label}</b> ${newPicks[s.key] ?? '?'}`).join('\n');

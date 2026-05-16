@@ -7,6 +7,7 @@ import { useGameStore } from '@/store/gameStore';
 import { notifyOwner } from '@/lib/notify';
 import { successVibe, softTap } from '@/lib/useHaptics';
 import { playHeartbeat, playBloom, playSparkle } from '@/lib/sounds';
+import { trackInteraction } from '@/lib/sessionTracker';
 
 interface FallingHeart {
   id: number;
@@ -95,6 +96,7 @@ export default function CatchMyHeartScreen() {
     setGameState('done');
     playBloom();
     successVibe();
+    trackInteraction('catch-my-heart-played', String(scoreRef.current));
     notifyOwner(
       `💕 <b>Catch My Heart results!</b>\n\n` +
       `<b>Score:</b> ${scoreRef.current} hearts caught\n` +

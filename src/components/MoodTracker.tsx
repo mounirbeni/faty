@@ -7,6 +7,7 @@ import type { LucideIcon } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { notifyOwner } from '@/lib/notify';
 import { softTap, successVibe } from '@/lib/useHaptics';
+import { trackInteraction } from '@/lib/sessionTracker';
 
 const MOODS: { label: string; Icon: LucideIcon; color: string; bg: string; fillable?: boolean }[] = [
   { label: 'Loved',    Icon: Heart,    color: 'text-rose-400',   bg: 'bg-rose-500/20',   fillable: true },
@@ -29,6 +30,7 @@ export default function MoodTracker() {
     setCurrentMood(label);
     setJustSelected(true);
 
+    trackInteraction('mood-update', label);
     notifyOwner(`💖 <b>Your angel just updated her mood!</b>\n\n<b>${label}</b>\n\n<i>She is feeling something beautiful right now.</i>`);
 
     setTimeout(() => {

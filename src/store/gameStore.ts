@@ -23,6 +23,7 @@ export type AppPhase =
   | 'catch-my-heart'
   | 'dream-date'
   | 'love-story'
+  | 'intimacy-hub'
   | 'admin-dashboard'
   | 'complete';
 
@@ -135,6 +136,7 @@ export const useGameStore = create<GameState>()(
           'catch-my-heart': 'Opened Catch My Heart',
           'dream-date': 'Opened Dream Date',
           'love-story': 'Opened Love Story',
+          'intimacy-hub': 'Opened Emotional Intimacy',
         };
         if (miniGameLabels[phase]) {
           logActivity('mini-game', miniGameLabels[phase]!);
