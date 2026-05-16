@@ -6,7 +6,7 @@ import { ArrowLeft, Heart, BookOpen, Sparkles, RotateCcw } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { notifyOwner } from '@/lib/notify';
 import { successVibe, softTap } from '@/lib/useHaptics';
-import { playBloom, playSparkle, playReveal } from '@/lib/sounds';
+import { playBloom, playSparkle, playReveal, playPop, playSuccess } from '@/lib/sounds';
 import { trackInteraction } from '@/lib/sessionTracker';
 
 const CHAPTERS = [
@@ -102,14 +102,14 @@ export default function LoveStoryScreen() {
   const chapter = CHAPTERS[step];
 
   const choose = (text: string) => {
-    softTap(); playSparkle();
+    softTap(); playPop(); playSparkle();
     const newSel = { ...selections, [chapter.id]: text };
     setSelections(newSel);
 
     if (step < CHAPTERS.length - 1) {
       setTimeout(() => setStep(s => s + 1), 320);
     } else {
-      successVibe(); playBloom();
+      successVibe(); playBloom(); playSuccess();
       trackInteraction('love-story-written');
       setTimeout(() => {
         setPhaseLocal('reading');

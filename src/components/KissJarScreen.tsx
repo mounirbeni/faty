@@ -6,6 +6,7 @@ import { ArrowLeft, Heart, Sparkles } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { softTap, successVibe, heartbeat } from '@/lib/useHaptics';
 import { notifyOwner } from '@/lib/notify';
+import { playKiss, playChime } from '@/lib/sounds';
 import { trackInteraction } from '@/lib/sessionTracker';
 import { getCachedPresence } from '@/lib/presenceContext';
 
@@ -28,7 +29,7 @@ export default function KissJarScreen() {
 
   const handleTap = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
-      softTap();
+      softTap(); playKiss();
       addKiss(1);
       const newCount = kissCount + 1;
 
@@ -46,7 +47,7 @@ export default function KissJarScreen() {
 
       // Milestones
       if (newCount % 10 === 0) {
-        successVibe();
+        successVibe(); playChime();
         setJustHitMilestone(true);
         setTimeout(() => setJustHitMilestone(false), 1500);
         logActivity('kiss-jar', `${newCount} kisses sent!`);

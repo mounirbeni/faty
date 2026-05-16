@@ -7,6 +7,7 @@ import type { LucideIcon } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { notifyOwner } from '@/lib/notify';
 import { softTap, successVibe } from '@/lib/useHaptics';
+import { playChime } from '@/lib/sounds';
 import { trackInteraction } from '@/lib/sessionTracker';
 
 const MOODS: { label: string; Icon: LucideIcon; color: string; bg: string; fillable?: boolean }[] = [
@@ -26,7 +27,7 @@ export default function MoodTracker() {
   const activeMood = MOODS.find(m => currentMood?.includes(m.label));
 
   const handleMoodPick = (label: string) => {
-    softTap();
+    softTap(); playChime();
     setCurrentMood(label);
     setJustSelected(true);
 

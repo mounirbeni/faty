@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Heart, Lock } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { softTap } from '@/lib/useHaptics';
-import { playBloom, playSparkle } from '@/lib/sounds';
+import { playBloom, playSparkle, playGlow } from '@/lib/sounds';
 import IntimacyQuestionFlow from './IntimacyQuestionFlow';
 import MemoryReconstructionGame from './MemoryReconstructionGame';
 
@@ -189,7 +189,7 @@ export default function IntimacyHubScreen() {
   };
 
   const openGame = (id: SubGame) => {
-    softTap(); playSparkle();
+    softTap(); playSparkle(); playGlow();
     setActiveGame(id);
   };
 

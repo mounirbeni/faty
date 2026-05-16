@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Sparkles, ArrowRight, Play, RotateCcw, Lock, Star } from "lucide-react";
 import { useGameStore } from "@/store/gameStore";
+import { playWhoosh, playBloom } from "@/lib/sounds";
 
 const pr = (seed: number) => { const x = Math.sin(seed + 1) * 10000; return x - Math.floor(x); };
 
@@ -288,7 +289,7 @@ export default function WelcomeScreen() {
 
         {/* CTA */}
         <motion.button
-          onClick={() => setPhase('home')}
+          onClick={() => { playWhoosh(); playBloom(); setPhase('home'); }}
           className="w-full relative px-8 py-[18px] rounded-[22px] text-white font-black text-[16px] active:scale-[0.97] transition-transform duration-150 cursor-pointer overflow-hidden"
           style={{
             background: 'linear-gradient(135deg, #FF4D8D 0%, #D9266B 55%, #B01A55 100%)',

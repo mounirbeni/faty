@@ -6,7 +6,7 @@ import { ArrowLeft, Heart, Sparkles, Trophy, Zap } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { notifyOwner } from '@/lib/notify';
 import { successVibe, softTap } from '@/lib/useHaptics';
-import { playHeartbeat, playBloom, playSparkle } from '@/lib/sounds';
+import { playKiss, playTwinkle, playBloom, playSparkle, playSuccess } from '@/lib/sounds';
 import { trackInteraction } from '@/lib/sessionTracker';
 
 interface FallingHeart {
@@ -94,7 +94,7 @@ export default function CatchMyHeartScreen() {
   const endGame = useCallback(() => {
     stopAll();
     setGameState('done');
-    playBloom();
+    playBloom(); playSuccess();
     successVibe();
     trackInteraction('catch-my-heart-played', String(scoreRef.current));
     notifyOwner(
@@ -219,7 +219,7 @@ export default function CatchMyHeartScreen() {
   }, [gameState, endGame]);
 
   const catchHeart = (id: number, x: number, y: number, color: string, isGolden: boolean, size: number) => {
-    playHeartbeat();
+    isGolden ? playTwinkle() : playKiss();
     softTap();
 
     setHearts(prev => prev.filter(h => h.id !== id));

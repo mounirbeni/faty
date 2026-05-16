@@ -6,7 +6,7 @@ import { ArrowLeft, Heart, Sparkles, RotateCcw, ChevronRight, Bomb } from 'lucid
 import { useGameStore } from '@/store/gameStore';
 import { notifyOwner } from '@/lib/notify';
 import { successVibe, softTap } from '@/lib/useHaptics';
-import { playReveal, playBloom, playSparkle } from '@/lib/sounds';
+import { playReveal, playBloom, playSparkle, playPop, playSuccess } from '@/lib/sounds';
 import { trackInteraction } from '@/lib/sessionTracker';
 
 const QUESTIONS = [
@@ -36,7 +36,7 @@ export default function TruthBombsScreen() {
   const [done, setDone] = useState(false);
 
   const handleFlip = (id: number) => {
-    softTap(); playReveal();
+    softTap(); playPop(); playReveal();
     setFlipped(s => new Set([...s, id]));
     setActive(id);
   };
@@ -44,7 +44,7 @@ export default function TruthBombsScreen() {
   const handleSubmit = (q: typeof QUESTIONS[0]) => {
     const answer = answers[q.id]?.trim();
     if (!answer) return;
-    successVibe(); playBloom();
+    successVibe(); playBloom(); playSuccess();
     setSubmitted(s => new Set([...s, q.id]));
     setActive(null);
     trackInteraction('truth-bomb-answer');

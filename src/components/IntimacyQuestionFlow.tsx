@@ -6,7 +6,7 @@ import { ArrowLeft, Heart, Sparkles, Send } from 'lucide-react';
 import { notifyOwner } from '@/lib/notify';
 import { getCachedPresence } from '@/lib/presenceContext';
 import { softTap, successVibe } from '@/lib/useHaptics';
-import { playReveal, playBloom, playDiscovery } from '@/lib/sounds';
+import { playReveal, playBloom, playDiscovery, playSubmit } from '@/lib/sounds';
 
 interface Props {
   icon: string;
@@ -63,7 +63,7 @@ export default function IntimacyQuestionFlow({
     if (!canSubmit) return;
     softTap();
     successVibe();
-    playBloom();
+    playBloom(); playSubmit();
 
     const newAnswers = { ...answers, [step]: currentAnswer.trim() };
     setAnswers(newAnswers);
