@@ -43,11 +43,11 @@ export default function MoodTracker() {
       <motion.div
         className="rounded-[22px] overflow-hidden"
         style={{
-          background: 'rgba(255,255,255,0.07)',
-          backdropFilter: 'blur(40px) saturate(155%)',
-          WebkitBackdropFilter: 'blur(40px) saturate(155%)',
-          border: '1px solid rgba(255,255,255,0.13)',
-          boxShadow: '0 8px 36px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.12)',
+          background: 'linear-gradient(135deg, rgba(255,77,141,0.07) 0%, rgba(123,92,255,0.05) 100%)',
+          backdropFilter: 'blur(44px) saturate(165%)',
+          WebkitBackdropFilter: 'blur(44px) saturate(165%)',
+          border: '1px solid rgba(255,77,141,0.14)',
+          boxShadow: '0 8px 40px rgba(0,0,0,0.42), 0 0 30px rgba(255,77,141,0.05), inset 0 1px 0 rgba(255,180,210,0.1)',
         }}
         layout
         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
@@ -110,7 +110,7 @@ export default function MoodTracker() {
                       onClick={() => handleMoodPick(label)}
                       className={`flex flex-col items-center gap-1.5 p-2.5 rounded-2xl cursor-pointer transition-all active:scale-90 ${
                         isSelected
-                          ? 'bg-rose-500/30 border border-rose-400/50 shadow-[0_0_16px_rgba(244,63,94,0.3)]'
+                          ? 'border shadow-[0_0_20px_rgba(255,77,141,0.3)]'
                           : 'glass border border-white/5'
                       }`}
                       whileTap={{ scale: 0.88 }}

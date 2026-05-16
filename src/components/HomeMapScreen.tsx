@@ -30,7 +30,11 @@ import { categoriesMeta } from '@/data/meta';
 import { softTap, heartbeat } from '@/lib/useHaptics';
 import IconFromName from './IconFromName';
 import MoodTracker from './MoodTracker';
+import EmotionalStatus from './EmotionalStatus';
+import LongPressNote from './LongPressNote';
 import { notifyOwner } from '@/lib/notify';
+import { useTimeContext } from '@/lib/timeSystem';
+import { playSparkle, playBloom } from '@/lib/sounds';
 import { useEffect, useRef, useState } from 'react';
 
 const MINI_GAMES = [
@@ -162,6 +166,7 @@ export default function HomeMapScreen() {
   const setPhase = useGameStore(s => s.setPhase);
   const startChapter = useGameStore(s => s.startChapter);
   const dailyWhisperLastTimestamp = useGameStore(s => s.dailyWhisperLastTimestamp);
+  const time = useTimeContext();
 
   const [now] = useState(Date.now);
 
@@ -178,11 +183,13 @@ export default function HomeMapScreen() {
 
   const handleChapterTap = (chapter: number) => {
     softTap();
+    playBloom();
     startChapter(chapter);
   };
 
   const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar') => {
     heartbeat();
+    playSparkle();
     setPhase(id);
   };
 
@@ -301,7 +308,9 @@ export default function HomeMapScreen() {
                   />
                 ))}
               </div>
-              <span className="text-[8px] font-semibold" style={{ color: 'rgba(255,255,255,0.25)' }}>always together ✦</span>
+              <LongPressNote note="No distance is big enough to change what I feel. Always together, always yours. ✦">
+                <span className="text-[8px] font-semibold" style={{ color: 'rgba(255,255,255,0.25)' }}>always together ✦</span>
+              </LongPressNote>
             </div>
 
             {/* His side */}
@@ -333,16 +342,18 @@ export default function HomeMapScreen() {
         >
           <div className="h-[2.5px] w-full" style={{ background: 'linear-gradient(90deg, #FFB84D, #FF4D8D, #A78BFA, #FF4D8D, #FFB84D)', backgroundSize: '200% 100%', animation: 'gradient-x 5s linear infinite' }} />
           <div className="flex items-center gap-3.5 p-4">
-            <div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg shrink-0"
-              style={{
-                background: 'linear-gradient(135deg, #FF4D8D, #C9245F)',
-                boxShadow: '0 4px 24px rgba(255,77,141,0.5), 0 0 40px rgba(255,77,141,0.18)',
-              }}>
-              <Heart size={22} fill="white" className="text-white animate-heartbeat" />
-            </div>
+            <LongPressNote note="I love you more than any word I know. You are my safest place. ❤️">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg shrink-0"
+                style={{
+                  background: 'linear-gradient(135deg, #FF4D8D, #C9245F)',
+                  boxShadow: '0 4px 24px rgba(255,77,141,0.5), 0 0 40px rgba(255,77,141,0.18)',
+                }}>
+                <Heart size={22} fill="white" className="text-white animate-heartbeat" />
+              </div>
+            </LongPressNote>
             <div>
               <h1 className="text-[17px] font-black leading-tight" style={{ color: 'rgba(255,235,240,0.95)' }}>
-                {isReturningUser ? 'Welcome back, my angel' : 'Hey my love, it\'s me'}{' '}
+                {isReturningUser ? time.greeting : 'Hey my love, it\'s me'}{' '}
                 <Heart size={15} className="inline ml-0.5 animate-heartbeat" style={{ color: '#FF7AA2' }} fill="currentColor" />
               </h1>
               <p className="text-[12px] mt-0.5" style={{ color: 'rgba(255,200,210,0.5)' }}>
@@ -352,6 +363,8 @@ export default function HomeMapScreen() {
               </p>
             </div>
           </div>
+          {/* Emotional presence status */}
+          <EmotionalStatus className="pb-3" />
         </motion.div>
 
         {/* ── Chapter Islands ── */}
