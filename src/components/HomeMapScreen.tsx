@@ -208,7 +208,8 @@ export default function HomeMapScreen() {
       transition={{ duration: 0.5 }}
     >
       {/* Ambient glow */}
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full bg-gradient-to-b from-rose-600/12 to-transparent blur-[100px] pointer-events-none" />
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[560px] h-[320px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse, rgba(255,77,141,0.18) 0%, rgba(123,92,255,0.08) 50%, transparent 70%)', filter: 'blur(80px)', animation: 'breathe-glow 6s ease-in-out infinite' }} />
 
       <div className="relative z-10 flex flex-col px-4 pt-8 pb-10 max-w-lg mx-auto w-full gap-5">
 
@@ -220,8 +221,8 @@ export default function HomeMapScreen() {
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center"
               style={{
-                background: 'linear-gradient(135deg, #f43f5e, #e11d48)',
-                boxShadow: '0 4px 16px rgba(244,63,94,0.4)',
+                background: 'linear-gradient(135deg, #FF4D8D, #C9245F)',
+                boxShadow: '0 4px 16px rgba(255,77,141,0.45)',
               }}>
               <Map size={15} className="text-white" />
             </div>
@@ -244,8 +245,8 @@ export default function HomeMapScreen() {
                 />
                 <defs>
                   <linearGradient id="progressGradientHome" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#fb7185" />
-                    <stop offset="100%" stopColor="#fb923c" />
+                    <stop offset="0%" stopColor="#FF4D8D" />
+                    <stop offset="100%" stopColor="#A78BFA" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -260,11 +261,11 @@ export default function HomeMapScreen() {
         <motion.div
           className="rounded-[22px] overflow-hidden"
           style={{
-            background: 'linear-gradient(135deg, rgba(217,119,6,0.1) 0%, rgba(100,20,80,0.08) 50%, rgba(210,12,55,0.1) 100%)',
-            backdropFilter: 'blur(40px) saturate(160%)',
-            WebkitBackdropFilter: 'blur(40px) saturate(160%)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            boxShadow: '0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
+            background: 'linear-gradient(135deg, rgba(255,184,77,0.08) 0%, rgba(123,92,255,0.07) 50%, rgba(255,77,141,0.08) 100%)',
+            backdropFilter: 'blur(44px) saturate(165%)',
+            WebkitBackdropFilter: 'blur(44px) saturate(165%)',
+            border: '1px solid rgba(255,255,255,0.09)',
+            boxShadow: '0 8px 40px rgba(0,0,0,0.35), 0 0 60px rgba(255,77,141,0.04), inset 0 1px 0 rgba(255,255,255,0.09)',
           }}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -292,8 +293,8 @@ export default function HomeMapScreen() {
                       width: i === 4 ? 7 : 3,
                       height: i === 4 ? 7 : 3,
                       background: i === 4
-                        ? 'linear-gradient(135deg, #f43f5e, #e8b86d)'
-                        : i < 4 ? `rgba(217,119,6,${0.3 + i * 0.07})` : `rgba(244,63,94,${0.3 + (8-i) * 0.07})`,
+                        ? 'linear-gradient(135deg, #FF4D8D, #A78BFA)'
+                        : i < 4 ? `rgba(255,184,77,${0.3 + i * 0.07})` : `rgba(255,77,141,${0.3 + (8-i) * 0.07})`,
                     }}
                     animate={i === 4 ? { scale: [1, 1.4, 1], opacity: [0.7, 1, 0.7] } : {}}
                     transition={{ duration: 1.8, repeat: Infinity, delay: 0 }}
@@ -319,29 +320,30 @@ export default function HomeMapScreen() {
         <motion.div
           className="rounded-[22px] overflow-hidden"
           style={{
-            background: 'rgba(244, 63, 94, 0.1)',
-            backdropFilter: 'blur(40px) saturate(160%)',
-            WebkitBackdropFilter: 'blur(40px) saturate(160%)',
-            border: '1px solid rgba(244, 63, 94, 0.26)',
-            boxShadow: '0 8px 44px rgba(244, 63, 94, 0.18), inset 0 1px 0 rgba(255, 180, 195, 0.14)',
+            background: 'linear-gradient(135deg, rgba(255,77,141,0.1) 0%, rgba(123,92,255,0.07) 100%)',
+            backdropFilter: 'blur(44px) saturate(165%)',
+            WebkitBackdropFilter: 'blur(44px) saturate(165%)',
+            border: '1px solid rgba(255,77,141,0.22)',
+            boxShadow: '0 8px 44px rgba(255,77,141,0.15), 0 4px 24px rgba(123,92,255,0.08), inset 0 1px 0 rgba(255,180,210,0.12)',
+            animation: 'breathe-card 5s ease-in-out infinite',
           }}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.14 }}
         >
-          <div className="h-[2.5px] w-full" style={{ background: 'linear-gradient(90deg, #d97706, #f43f5e, #d97706)' }} />
+          <div className="h-[2.5px] w-full" style={{ background: 'linear-gradient(90deg, #FFB84D, #FF4D8D, #A78BFA, #FF4D8D, #FFB84D)', backgroundSize: '200% 100%', animation: 'gradient-x 5s linear infinite' }} />
           <div className="flex items-center gap-3.5 p-4">
             <div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg shrink-0"
               style={{
-                background: 'linear-gradient(135deg, #f43f5e, #e11d48)',
-                boxShadow: '0 4px 20px rgba(244,63,94,0.45)',
+                background: 'linear-gradient(135deg, #FF4D8D, #C9245F)',
+                boxShadow: '0 4px 24px rgba(255,77,141,0.5), 0 0 40px rgba(255,77,141,0.18)',
               }}>
               <Heart size={22} fill="white" className="text-white animate-heartbeat" />
             </div>
             <div>
               <h1 className="text-[17px] font-black leading-tight" style={{ color: 'rgba(255,235,240,0.95)' }}>
                 {isReturningUser ? 'Welcome back, my angel' : 'Hey my love, it\'s me'}{' '}
-                <Heart size={15} className="inline text-rose-400 ml-0.5" fill="currentColor" />
+                <Heart size={15} className="inline ml-0.5 animate-heartbeat" style={{ color: '#FF7AA2' }} fill="currentColor" />
               </h1>
               <p className="text-[12px] mt-0.5" style={{ color: 'rgba(255,200,210,0.5)' }}>
                 {isReturningUser
@@ -358,7 +360,7 @@ export default function HomeMapScreen() {
             <div className="w-5 h-5 rounded-lg flex items-center justify-center" style={{ background: 'rgba(251,191,36,0.15)', boxShadow: '0 0 12px rgba(251,191,36,0.2)' }}>
               <Sparkles size={11} className="text-amber-300" />
             </div>
-            <span className="text-[10px] font-black uppercase tracking-[0.18em]" style={{ color: 'rgba(251,191,36,0.6)' }}>Chapters</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.18em]" style={{ color: 'rgba(255,211,110,0.65)' }}>Chapters</span>
           </div>
 
           <div className="flex flex-col gap-3">
@@ -504,22 +506,24 @@ function ChapterCard({
         ${!unlocked && !progress.isComplete ? 'pointer-events-none' : ''}
       `}
       style={unlocked ? {
-        background: 'rgba(255,255,255,0.07)',
-        backdropFilter: 'blur(40px) saturate(155%)',
-        WebkitBackdropFilter: 'blur(40px) saturate(155%)',
+        background: progress.isComplete
+          ? 'linear-gradient(135deg, rgba(255,77,141,0.09) 0%, rgba(123,92,255,0.06) 100%)'
+          : 'rgba(255,255,255,0.065)',
+        backdropFilter: 'blur(44px) saturate(160%)',
+        WebkitBackdropFilter: 'blur(44px) saturate(160%)',
         border: progress.isComplete
-          ? '1px solid rgba(34,197,94,0.3)'
-          : '1px solid rgba(255,255,255,0.13)',
+          ? '1px solid rgba(255,77,141,0.25)'
+          : '1px solid rgba(255,255,255,0.11)',
         boxShadow: progress.isComplete
-          ? '0 6px 28px rgba(34,197,94,0.12), inset 0 1px 0 rgba(255,255,255,0.1)'
-          : '0 6px 28px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.1)',
+          ? '0 6px 32px rgba(255,77,141,0.12), 0 2px 8px rgba(123,92,255,0.08), inset 0 1px 0 rgba(255,180,210,0.1)'
+          : '0 6px 28px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.09)',
         cursor: 'pointer',
       } : {
-        background: 'rgba(255,255,255,0.04)',
+        background: 'rgba(255,255,255,0.035)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
         border: '1px solid rgba(255,255,255,0.07)',
-        opacity: 0.4,
+        opacity: 0.38,
         cursor: 'not-allowed',
       }}
       initial={{ opacity: 0, x: -20 }}
