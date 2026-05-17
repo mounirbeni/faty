@@ -8,9 +8,13 @@ import { softTap, heartbeat, successVibe } from '@/lib/useHaptics';
 import { notifyOwner } from '@/lib/notify';
 import { trackInteraction } from '@/lib/sessionTracker';
 import { getCachedPresence } from '@/lib/presenceContext';
+import { useEmotionalEngine } from '@/lib/emotional/emotionalEngine';
+import { playGlow } from '@/lib/sounds';
 
 export default function ComfortScreen() {
   const { setPhase } = useGameStore();
+  const enterComfort = useEmotionalEngine((s) => s.enterComfort);
+  const exitComfort = useEmotionalEngine((s) => s.exitComfort);
   const [isCuddling, setIsCuddling] = useState(false);
   const [alertSent, setAlertSent] = useState(false);
   const [cuddleNotified, setCuddleNotified] = useState(false);
@@ -19,13 +23,16 @@ export default function ComfortScreen() {
   // Track comfort session duration when leaving
   useEffect(() => {
     comfortEnteredAt.current = Date.now();
+    enterComfort();
+    playGlow();
     return () => {
+      exitComfort();
       const durationMs = Date.now() - comfortEnteredAt.current;
       const minutes = Math.round(durationMs / 60_000);
       const note = minutes > 0 ? `${minutes} min` : undefined;
       trackInteraction('comfort-session', note);
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [enterComfort, exitComfort]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Continuous heartbeat while cuddling
   useEffect(() => {

@@ -40,6 +40,7 @@ const CINEMATIC: Record<string, string> = {
   'game':             '📖 the Chapter Journals',
   'vault':            '🌌 the Memory Sky',
   'comfort-mode':     '🫂 the Comfort Room',
+  'safe-place':       '🏠 Our Safe Place',
   'daily-note':       '🎧 Daily Whispers',
   'love-letter':      '💌 Love Letters',
   'truth-bombs':      '💣 Truth Bombs',

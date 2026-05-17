@@ -3,6 +3,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useTimeContext } from '@/lib/timeSystem';
+import { useEmotionalEngine, weatherModifiers } from '@/lib/emotional/emotionalEngine';
+import type { EvolutionState } from '@/lib/emotional/emotionalEngine';
 
 /* Deterministic pseudo-random — avoids hydration mismatch */
 const pr = (seed: number) => { const x = Math.sin(seed + 1) * 10000; return x - Math.floor(x); };
@@ -43,14 +45,24 @@ const PARTICLES = Array.from({ length: 20 }, (_, i) => ({
   isHeart: i % 3 !== 0,
 }));
 
-interface Props { warmth?: number }
+interface Props {
+  warmth?: number;
+  evolution?: EvolutionState;
+  animSpeed?: number;
+}
 
-export default function AnimatedBackground({ warmth = 0 }: Props) {
+export default function AnimatedBackground({ warmth = 0, evolution, animSpeed = 1 }: Props) {
   const [mounted, setMounted] = useState(false);
   const shootingRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [shootingStars, setShootingStars] = useState<{ id: number; x: number; y: number }[]>([]);
   const ssId = useRef(0);
   const time = useTimeContext();
+  const weather = useEmotionalEngine((s) => s.weather);
+  const wMod = weatherModifiers(weather, time.period);
+  const auroraBoost = (wMod as { auroraBoost?: number }).auroraBoost ?? 1;
+  const evStars = evolution?.stars ?? 0;
+  const evAurora = evolution?.auroraIntensity ?? 0.45;
+  const animDur = (base: number) => `${base / animSpeed}s`;
 
   useEffect(() => {
     setMounted(true);
@@ -73,13 +85,14 @@ export default function AnimatedBackground({ warmth = 0 }: Props) {
   }, [time.period]);
 
   /* Star visibility — brighter at night, dimmer in morning */
-  const starOpacityMax = time.period === 'midnight' || time.period === 'night' ? 0.8
+  const starOpacityMax = (time.period === 'midnight' || time.period === 'night' ? 0.8
     : time.period === 'evening' ? 0.55
     : time.period === 'dawn' ? 0.25
-    : 0.12;
+    : 0.12) * wMod.starBoost * (1 + Math.min(evStars, 60) * 0.004);
 
   /* Particle multiplier */
-  const pMult = Math.min(1.6, time.particleMult);
+  const pMult = Math.min(1.8, time.particleMult * (time.period === 'midnight' ? 0.85 : 1));
+  const auroraOpacity = 0.55 + evAurora * 0.35 * auroraBoost;
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }} aria-hidden="true">
@@ -94,6 +107,8 @@ export default function AnimatedBackground({ warmth = 0 }: Props) {
         width: '90vw', height: '80vh',
         background: `radial-gradient(ellipse, ${time.auroraA} 0%, transparent 68%)`,
         filter: 'blur(58px)',
+        opacity: auroraOpacity,
+        animationDuration: animDur(18),
       }} />
 
       {/* ── Aurora B ── */}

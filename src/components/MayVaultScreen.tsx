@@ -6,10 +6,13 @@ import { ArrowLeft, Heart, Unlock } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { heartbeat } from '@/lib/useHaptics';
 import { notifyOwner } from '@/lib/notify';
+import CinematicMemoryViewer from '@/components/memory/CinematicMemoryViewer';
+import { playBloom } from '@/lib/sounds';
 
 export default function MayVaultScreen() {
   const { setPhase } = useGameStore();
   const [revealed, setRevealed] = useState(false);
+  const [cinemaOpen, setCinemaOpen] = useState(false);
 
   return (
     <motion.div
@@ -91,7 +94,9 @@ export default function MayVaultScreen() {
               <motion.button
                 onClick={() => {
                   heartbeat();
+                  playBloom();
                   setRevealed(true);
+                  setCinemaOpen(true);
                   notifyOwner(`🔓 <b>Your angel just opened the Memory Vault!</b>\n\nShe tapped "Open the Vault" and read the letter you wrote before you ever met. 💜`);
                 }}
                 className="px-6 py-3 bg-gradient-to-r from-violet-500 to-rose-500 text-white font-bold rounded-2xl text-sm active:scale-95 transition-transform cursor-pointer shadow-lg shadow-violet-500/25"
@@ -126,6 +131,18 @@ export default function MayVaultScreen() {
         </motion.p>
 
       </div>
+
+      <CinematicMemoryViewer
+        open={cinemaOpen && revealed}
+        onClose={() => setCinemaOpen(false)}
+        title="The May 11 Memory"
+        subtitle="Written before we ever met"
+        timestamp="May 11, 2026"
+      >
+        <p className="text-[15px] text-white/85 leading-relaxed italic">
+          &quot;My angel, I am writing this before I have ever stood in the same room as you. I do not know how that day will feel exactly — but I know it will change everything. If you are reading this after May 11, then it happened. We met. And I hope it was everything I imagined. I hope I made you feel safe. I hope you smiled. I hope you went home knowing that what we have is real. Because it is. It always was. ❤️&quot;
+        </p>
+      </CinematicMemoryViewer>
     </motion.div>
   );
 }

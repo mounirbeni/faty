@@ -29,6 +29,7 @@ import {
   Gamepad2,
   Stars,
   Flame,
+  Home,
 } from 'lucide-react';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
@@ -122,6 +123,15 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-rose-500 to-pink-600',
     glow: 'shadow-rose-500/30',
+  },
+  {
+    id: 'safe-place' as const,
+    icon: <Home size={30} className="text-white drop-shadow-md" />,
+    label: 'Safe Place',
+    sublabel: 'Rainy window · us',
+    unlocksAtChapter: 0,
+    gradient: 'from-amber-900/90 to-rose-900',
+    glow: 'shadow-amber-900/30',
   },
   {
     id: 'love-letter' as const,
@@ -231,7 +241,7 @@ export default function HomeMapScreen() {
     startChapter(chapter);
   };
 
-  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'catch-my-heart' | 'dream-date' | 'love-story' | 'intimacy-hub') => {
+  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'safe-place' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'catch-my-heart' | 'dream-date' | 'love-story' | 'intimacy-hub') => {
     heartbeat();
     playSparkle();
     setPhase(id);

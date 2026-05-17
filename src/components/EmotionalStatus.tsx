@@ -2,42 +2,28 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const STATUSES = [
-  'thinking about you…',
-  'missing you softly 💗',
-  'listening to our song 🎧',
-  'reading old memories 📖',
-  'awake, thinking of you 🌙',
-  'dreaming about us ✨',
-  'always thinking of you 💖',
-  'you make everything better 🌸',
-  'wishing you were here right now',
-  'counting every moment 💫',
-];
+import { useEmotionalEngine } from '@/lib/emotional/emotionalEngine';
 
 interface Props {
   className?: string;
 }
 
 export default function EmotionalStatus({ className = '' }: Props) {
-  const [idx, setIdx] = useState(0);
+  const presence = useEmotionalEngine((s) => s.presence);
   const [visible, setVisible] = useState(true);
+  const [display, setDisplay] = useState(presence);
 
   useEffect(() => {
-    const cycle = setInterval(() => {
-      setVisible(false);
-      setTimeout(() => {
-        setIdx(i => (i + 1) % STATUSES.length);
-        setVisible(true);
-      }, 500);
-    }, 5000);
-    return () => clearInterval(cycle);
-  }, []);
+    setVisible(false);
+    const t = setTimeout(() => {
+      setDisplay(presence);
+      setVisible(true);
+    }, 450);
+    return () => clearTimeout(t);
+  }, [presence]);
 
   return (
     <div className={`flex items-center justify-center gap-2.5 ${className}`}>
-      {/* Live pulse dot */}
       <motion.div
         className="w-1.5 h-1.5 rounded-full shrink-0"
         style={{ background: '#FF4D8D', boxShadow: '0 0 6px 2px rgba(255,77,141,0.55)' }}
@@ -48,7 +34,7 @@ export default function EmotionalStatus({ className = '' }: Props) {
       <AnimatePresence mode="wait">
         {visible && (
           <motion.p
-            key={idx}
+            key={display}
             className="text-[11px] italic tracking-wide"
             style={{ color: 'rgba(255,179,199,0.6)' }}
             initial={{ opacity: 0, y: 5, filter: 'blur(4px)' }}
@@ -56,7 +42,7 @@ export default function EmotionalStatus({ className = '' }: Props) {
             exit={{ opacity: 0, y: -5, filter: 'blur(4px)' }}
             transition={{ duration: 0.45, ease: 'easeOut' }}
           >
-            {STATUSES[idx]}
+            {display}
           </motion.p>
         )}
       </AnimatePresence>

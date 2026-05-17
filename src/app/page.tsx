@@ -6,7 +6,7 @@ import WelcomeScreen from '@/components/WelcomeScreen';
 import GameScreen from '@/components/GameScreen';
 import CompletionScreen from '@/components/CompletionScreen';
 import HomeMapScreen from '@/components/HomeMapScreen';
-import AnimatedBackground from '@/components/AnimatedBackground';
+import LivingWorld from '@/components/world/LivingWorld';
 import TouchGlow from '@/components/TouchGlow';
 import CinematicLoader from '@/components/CinematicLoader';
 import { useGameStore } from '@/store/gameStore';
@@ -35,6 +35,7 @@ const CatchMyHeartScreen      = dynamic(() => import('@/components/CatchMyHeartS
 const DreamDateScreen         = dynamic(() => import('@/components/DreamDateScreen'), { ssr: false });
 const LoveStoryScreen         = dynamic(() => import('@/components/LoveStoryScreen'), { ssr: false });
 const IntimacyHubScreen       = dynamic(() => import('@/components/IntimacyHubScreen'), { ssr: false });
+const SafePlaceScreen         = dynamic(() => import('@/components/SafePlaceScreen'), { ssr: false });
 
 function Screen({ children }: { children: React.ReactNode }) {
   return (
@@ -118,7 +119,7 @@ export default function HomePage() {
       {!loaderDone && <CinematicLoader onDone={handleLoaderDone} />}
 
       {/* Living aurora background */}
-      <AnimatedBackground warmth={warmth} />
+      <LivingWorld warmth={warmth} />
 
       {/* Touch glow trail */}
       <TouchGlow />
@@ -147,6 +148,7 @@ export default function HomePage() {
         {currentPhase === 'dream-date'       && <Screen key="dream-date"><DreamDateScreen /></Screen>}
         {currentPhase === 'love-story'       && <Screen key="love-story"><LoveStoryScreen /></Screen>}
         {currentPhase === 'intimacy-hub'     && <Screen key="intimacy-hub"><IntimacyHubScreen /></Screen>}
+        {currentPhase === 'safe-place'       && <Screen key="safe-place"><SafePlaceScreen /></Screen>}
         {currentPhase === 'complete'         && <Screen key="complete"><CompletionScreen /></Screen>}
       </AnimatePresence>
     </main>
