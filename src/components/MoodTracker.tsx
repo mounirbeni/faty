@@ -9,6 +9,7 @@ import { notifyOwner } from '@/lib/notify';
 import { softTap, successVibe } from '@/lib/useHaptics';
 import { playChime } from '@/lib/sounds';
 import { trackInteraction } from '@/lib/sessionTracker';
+import MoodToast from '@/components/MoodToast';
 
 const MOODS: { label: string; Icon: LucideIcon; color: string; bg: string; fillable?: boolean }[] = [
   { label: 'Loved',      Icon: Heart,         color: 'text-rose-400',    bg: 'bg-rose-500/20',    fillable: true },
@@ -40,6 +41,7 @@ export default function MoodTracker() {
   const { currentMood, setCurrentMood } = useGameStore();
   const [isExpanded, setIsExpanded] = useState(false);
   const [justSelected, setJustSelected] = useState(false);
+  const [toastMood, setToastMood] = useState<string | null>(null);
 
   // Handles both old "🥰 Loved" format and new "Loved" format
   const activeMood = MOODS.find(m => currentMood?.includes(m.label));
@@ -48,6 +50,7 @@ export default function MoodTracker() {
     softTap(); playChime();
     setCurrentMood(label);
     setJustSelected(true);
+    setToastMood(label);
 
     trackInteraction('mood-update', label);
     notifyOwner(`💖 <b>Your angel just updated her mood!</b>\n\n<b>${label}</b>\n\n<i>She is feeling something beautiful right now.</i>`);
@@ -61,6 +64,12 @@ export default function MoodTracker() {
 
   return (
     <div className="w-full px-4">
+      {/* Mood toast popup */}
+      <AnimatePresence>
+        {toastMood && (
+          <MoodToast key={toastMood + Date.now()} mood={toastMood} onClose={() => setToastMood(null)} />
+        )}
+      </AnimatePresence>
       <motion.div
         className="rounded-[22px] overflow-hidden"
         style={{
