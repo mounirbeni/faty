@@ -29,7 +29,6 @@ import {
   Gamepad2,
   Stars,
   Flame,
-  Home,
 } from 'lucide-react';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
@@ -40,7 +39,19 @@ import EmotionalStatus from './EmotionalStatus';
 import LongPressNote from './LongPressNote';
 import { useTimeContext } from '@/lib/timeSystem';
 import { playSparkle, playBloom } from '@/lib/sounds';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
+
+/* ── Rotating emotional presence messages ── */
+const PRESENCE_MSGS = [
+  { text: 'thinking about you softly…',    emoji: '💭' },
+  { text: 'missing you from here',          emoji: '💗' },
+  { text: 'replaying our moments tonight',  emoji: '✨' },
+  { text: 'listening to the quiet with you',emoji: '🌙' },
+  { text: 'awake and thinking of your smile',emoji: '🌹' },
+  { text: 'feeling you close, even from far',emoji: '❤️' },
+  { text: 'safe and loved inside this world',emoji: '🌌' },
+];
 
 const MINI_GAMES = [
   {
@@ -123,15 +134,6 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-rose-500 to-pink-600',
     glow: 'shadow-rose-500/30',
-  },
-  {
-    id: 'safe-place' as const,
-    icon: <Home size={30} className="text-white drop-shadow-md" />,
-    label: 'Safe Place',
-    sublabel: 'Rainy window · us',
-    unlocksAtChapter: 0,
-    gradient: 'from-amber-900/90 to-rose-900',
-    glow: 'shadow-amber-900/30',
   },
   {
     id: 'love-letter' as const,
@@ -241,11 +243,25 @@ export default function HomeMapScreen() {
     startChapter(chapter);
   };
 
-  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'safe-place' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'catch-my-heart' | 'dream-date' | 'love-story' | 'intimacy-hub') => {
+  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'catch-my-heart' | 'dream-date' | 'love-story' | 'intimacy-hub') => {
     heartbeat();
     playSparkle();
     setPhase(id);
   };
+
+  // Rotating presence messages
+  const [presenceIdx, setPresenceIdx]     = useState(0);
+  const [presenceVisible, setPresenceVisible] = useState(true);
+  useEffect(() => {
+    const t = setInterval(() => {
+      setPresenceVisible(false);
+      setTimeout(() => {
+        setPresenceIdx(i => (i + 1) % PRESENCE_MSGS.length);
+        setPresenceVisible(true);
+      }, 600);
+    }, 7000);
+    return () => clearInterval(t);
+  }, []);
 
   // Triple-tap on progress ring → admin dashboard
   const progressTapRef = useRef(0);
@@ -276,6 +292,28 @@ export default function HomeMapScreen() {
 
         {/* ── Mood Tracker ── */}
         <MoodTracker />
+
+        {/* ── Emotional presence message ── */}
+        <div className="flex items-center justify-center gap-2 py-0.5">
+          <div className="h-px flex-1" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,77,141,0.2))' }} />
+          <AnimatePresence mode="wait">
+            {presenceVisible && (
+              <motion.div
+                key={presenceIdx}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                transition={{ duration: 0.55 }}
+                className="flex items-center gap-1.5 shrink-0">
+                <span className="text-[11px]">{PRESENCE_MSGS[presenceIdx].emoji}</span>
+                <span className="text-[11px] italic" style={{ color: 'rgba(255,179,199,0.55)' }}>
+                  {PRESENCE_MSGS[presenceIdx].text}
+                </span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <div className="h-px flex-1" style={{ background: 'linear-gradient(90deg, rgba(255,77,141,0.2), transparent)' }} />
+        </div>
 
         {/* ── Header bar ── */}
         <div className="flex items-center justify-between">

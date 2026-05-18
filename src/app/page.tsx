@@ -6,7 +6,7 @@ import WelcomeScreen from '@/components/WelcomeScreen';
 import GameScreen from '@/components/GameScreen';
 import CompletionScreen from '@/components/CompletionScreen';
 import HomeMapScreen from '@/components/HomeMapScreen';
-import LivingWorld from '@/components/world/LivingWorld';
+import AnimatedBackground from '@/components/AnimatedBackground';
 import TouchGlow from '@/components/TouchGlow';
 import CinematicLoader from '@/components/CinematicLoader';
 import { useGameStore } from '@/store/gameStore';
@@ -15,6 +15,7 @@ import { initPresenceContext } from '@/lib/presenceContext';
 import { startSession, trackScreen, sendSessionRecap } from '@/lib/sessionTracker';
 import { notifyEntry, notifyBeacon } from '@/lib/notify';
 import dynamic from 'next/dynamic';
+import MidnightOverlay from '@/components/MidnightOverlay';
 
 const VibeCheckScreen         = dynamic(() => import('@/components/VibeCheckScreen'), { ssr: false });
 const RapidFireScreen         = dynamic(() => import('@/components/RapidFireScreen'), { ssr: false });
@@ -35,7 +36,6 @@ const CatchMyHeartScreen      = dynamic(() => import('@/components/CatchMyHeartS
 const DreamDateScreen         = dynamic(() => import('@/components/DreamDateScreen'), { ssr: false });
 const LoveStoryScreen         = dynamic(() => import('@/components/LoveStoryScreen'), { ssr: false });
 const IntimacyHubScreen       = dynamic(() => import('@/components/IntimacyHubScreen'), { ssr: false });
-const SafePlaceScreen         = dynamic(() => import('@/components/SafePlaceScreen'), { ssr: false });
 
 function Screen({ children }: { children: React.ReactNode }) {
   return (
@@ -54,7 +54,7 @@ function Screen({ children }: { children: React.ReactNode }) {
 export default function HomePage() {
   const [isMounted, setIsMounted] = useState(false);
   const [loaderDone, setLoaderDone] = useState(false);
-  const { phase, answers, reversed, isReturningUser } = useGameStore();
+  const { phase, answers, reversed, isReturningUser, currentMood } = useGameStore();
   const presenceReady = useRef(false);
 
   // ── Mount: start session + fetch presence + send entry notification ──────
@@ -118,8 +118,11 @@ export default function HomePage() {
       {/* Cinematic entry loader (session-once) */}
       {!loaderDone && <CinematicLoader onDone={handleLoaderDone} />}
 
-      {/* Living aurora background */}
-      <LivingWorld warmth={warmth} />
+      {/* Living aurora background — mood + warmth reactive */}
+      <AnimatedBackground warmth={warmth} mood={isMounted ? currentMood : null} />
+
+      {/* Midnight emotional overlay — shows 12AM–4:59AM Morocco time, once per session */}
+      <MidnightOverlay />
 
       {/* Touch glow trail */}
       <TouchGlow />
@@ -148,7 +151,6 @@ export default function HomePage() {
         {currentPhase === 'dream-date'       && <Screen key="dream-date"><DreamDateScreen /></Screen>}
         {currentPhase === 'love-story'       && <Screen key="love-story"><LoveStoryScreen /></Screen>}
         {currentPhase === 'intimacy-hub'     && <Screen key="intimacy-hub"><IntimacyHubScreen /></Screen>}
-        {currentPhase === 'safe-place'       && <Screen key="safe-place"><SafePlaceScreen /></Screen>}
         {currentPhase === 'complete'         && <Screen key="complete"><CompletionScreen /></Screen>}
       </AnimatePresence>
     </main>

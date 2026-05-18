@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import RegisterSW from "@/components/RegisterSW";
-import EmotionalProvider from "@/context/EmotionalProvider";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -48,11 +47,9 @@ export default function RootLayout({
       >
 
         {/* ── App content ── */}
-        <EmotionalProvider>
-          <div style={{ position: 'relative', zIndex: 1, height: '100dvh', width: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-            {children}
-          </div>
-        </EmotionalProvider>
+        <div style={{ position: 'relative', zIndex: 1, height: '100dvh', width: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+          {children}
+        </div>
 
         <RegisterSW />
 

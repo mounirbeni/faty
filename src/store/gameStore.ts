@@ -24,7 +24,6 @@ export type AppPhase =
   | 'dream-date'
   | 'love-story'
   | 'intimacy-hub'
-  | 'safe-place'
   | 'admin-dashboard'
   | 'complete';
 
@@ -138,7 +137,6 @@ export const useGameStore = create<GameState>()(
           'dream-date': 'Opened Dream Date',
           'love-story': 'Opened Love Story',
           'intimacy-hub': 'Opened Emotional Intimacy',
-          'safe-place': 'Entered Our Safe Place',
         };
         if (miniGameLabels[phase]) {
           logActivity('mini-game', miniGameLabels[phase]!);
