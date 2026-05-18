@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Sparkles, Plane, Smile, Moon, ChevronDown } from 'lucide-react';
+import { Heart, Sparkles, Plane, Smile, Moon, ChevronDown, Star, Coffee, Zap, HeartHandshake, Shield, Cloud, Flower2, Clock } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { notifyOwner } from '@/lib/notify';
@@ -11,11 +11,19 @@ import { playChime } from '@/lib/sounds';
 import { trackInteraction } from '@/lib/sessionTracker';
 
 const MOODS: { label: string; Icon: LucideIcon; color: string; bg: string; fillable?: boolean }[] = [
-  { label: 'Loved',    Icon: Heart,    color: 'text-rose-400',   bg: 'bg-rose-500/20',   fillable: true },
-  { label: 'Excited',  Icon: Sparkles, color: 'text-amber-400',  bg: 'bg-amber-500/20'  },
-  { label: 'Miss You', Icon: Plane,    color: 'text-sky-400',    bg: 'bg-sky-500/20'    },
-  { label: 'Happy',    Icon: Smile,    color: 'text-yellow-400', bg: 'bg-yellow-500/20' },
-  { label: 'Dreamy',   Icon: Moon,     color: 'text-violet-400', bg: 'bg-violet-500/20', fillable: true },
+  { label: 'Loved',      Icon: Heart,         color: 'text-rose-400',    bg: 'bg-rose-500/20',    fillable: true },
+  { label: 'Excited',    Icon: Sparkles,      color: 'text-amber-400',   bg: 'bg-amber-500/20'   },
+  { label: 'Miss You',   Icon: Plane,         color: 'text-sky-400',     bg: 'bg-sky-500/20'     },
+  { label: 'Happy',      Icon: Smile,         color: 'text-yellow-400',  bg: 'bg-yellow-500/20'  },
+  { label: 'Dreamy',     Icon: Moon,          color: 'text-violet-400',  bg: 'bg-violet-500/20',  fillable: true },
+  { label: 'Grateful',   Icon: Star,          color: 'text-amber-300',   bg: 'bg-amber-400/20',  fillable: true },
+  { label: 'Cozy',       Icon: Coffee,        color: 'text-orange-400',  bg: 'bg-orange-500/20'  },
+  { label: 'Playful',    Icon: Zap,           color: 'text-yellow-300',  bg: 'bg-yellow-400/20'  },
+  { label: 'Tender',     Icon: HeartHandshake,color: 'text-pink-400',    bg: 'bg-pink-500/20'    },
+  { label: 'Safe',       Icon: Shield,        color: 'text-emerald-400', bg: 'bg-emerald-500/20' },
+  { label: 'Soft',       Icon: Cloud,         color: 'text-slate-300',   bg: 'bg-slate-400/20'   },
+  { label: 'Blushing',   Icon: Flower2,       color: 'text-fuchsia-400', bg: 'bg-fuchsia-500/20' },
+  { label: 'Nostalgic',  Icon: Clock,         color: 'text-indigo-300',  bg: 'bg-indigo-500/20'  },
 ];
 
 export default function MoodTracker() {
