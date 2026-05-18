@@ -12,7 +12,7 @@ import { playHeartbeat, playGlow, playNightSwell } from '@/lib/sounds';
 
 /* ── Deterministic rain drops ── */
 const pr = (s: number) => Math.abs(Math.sin(s * 9301 + 49297) * 233280) % 1;
-const RAIN_DROPS = Array.from({ length: 40 }, (_, i) => ({
+const RAIN_DROPS = Array.from({ length: 10 }, (_, i) => ({
   id: i,
   x: pr(i * 3) * 102 - 1,
   delay: pr(i * 3 + 1) * 3.5,
@@ -23,7 +23,7 @@ const RAIN_DROPS = Array.from({ length: 40 }, (_, i) => ({
 }));
 
 /* ── Floating warm particles ── */
-const WARM_PARTICLES = Array.from({ length: 18 }, (_, i) => ({
+const WARM_PARTICLES = Array.from({ length: 8 }, (_, i) => ({
   id: i,
   x: pr(i * 5) * 100,
   delay: pr(i * 5 + 1) * 12,
@@ -146,10 +146,10 @@ export default function ComfortScreen() {
     <motion.div
       className="absolute inset-0 flex flex-col overflow-y-auto app-scroll"
       data-scroll
-      initial={{ opacity: 0, filter: 'blur(16px)' }}
-      animate={{ opacity: 1, filter: 'blur(0px)' }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 1.0, ease: 'easeOut' }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
     >
       {/* ── Fixed atmospheric layers ── */}
       <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 0 }}>
@@ -157,18 +157,15 @@ export default function ComfortScreen() {
         {/* Candle glow — warm amber bottom */}
         <div className="absolute bottom-0 left-0 right-0 h-[45vh]" style={{
           background: 'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,140,60,0.18) 0%, rgba(255,100,40,0.08) 45%, transparent 70%)',
-          filter: 'blur(30px)',
           animation: 'candle-flicker 3.5s ease-in-out infinite',
         }} />
         <div className="absolute bottom-0 left-1/3 w-[200px] h-[280px]" style={{
           background: 'radial-gradient(ellipse at 50% 100%, rgba(255,160,60,0.14) 0%, transparent 70%)',
-          filter: 'blur(40px)',
           animation: 'candle-flicker 4.2s ease-in-out infinite',
           animationDelay: '0.8s',
         }} />
         <div className="absolute bottom-0 right-1/4 w-[160px] h-[220px]" style={{
           background: 'radial-gradient(ellipse at 50% 100%, rgba(255,120,60,0.12) 0%, transparent 70%)',
-          filter: 'blur(35px)',
           animation: 'candle-flicker 3.8s ease-in-out infinite',
           animationDelay: '1.5s',
         }} />
@@ -176,7 +173,6 @@ export default function ComfortScreen() {
         {/* Warm top glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[280px]" style={{
           background: 'radial-gradient(ellipse at 50% 0%, rgba(255,77,141,0.16) 0%, rgba(255,140,80,0.06) 50%, transparent 70%)',
-          filter: 'blur(60px)',
         }} />
 
         {/* Deep rose ambient */}

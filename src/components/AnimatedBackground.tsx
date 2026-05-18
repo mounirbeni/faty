@@ -128,7 +128,6 @@ export default function AnimatedBackground({ warmth = 0, mood = null }: Props) {
         top: '-30%', left: '-15%',
         width: '92vw', height: '82vh',
         background: `radial-gradient(ellipse, ${time.auroraA} 0%, transparent 68%)`,
-        filter: 'blur(48px)',
         animation: `aurora-wave ${auroraSpeedA}s ease-in-out infinite`,
       }} />
 
@@ -137,7 +136,6 @@ export default function AnimatedBackground({ warmth = 0, mood = null }: Props) {
         top: '-14%', right: '-20%',
         width: '78vw', height: '72vh',
         background: `radial-gradient(ellipse, ${time.auroraB} 0%, transparent 65%)`,
-        filter: 'blur(52px)',
         animation: `aurora-wave-b ${auroraSpeedB}s ease-in-out infinite`,
       }} />
 
@@ -146,7 +144,6 @@ export default function AnimatedBackground({ warmth = 0, mood = null }: Props) {
         bottom: '-14%', left: '26%',
         width: '64vw', height: '54vh',
         background: `radial-gradient(ellipse, ${time.auroraC} 0%, transparent 62%)`,
-        filter: 'blur(56px)',
         animation: `aurora-wave-c ${auroraSpeedC}s ease-in-out infinite`,
       }} />
 
@@ -156,7 +153,6 @@ export default function AnimatedBackground({ warmth = 0, mood = null }: Props) {
           top: '10%', left: '50%', transform: 'translateX(-50%)',
           width: '70vw', height: '60vh',
           background: 'radial-gradient(ellipse, rgba(60,20,160,0.18) 0%, rgba(80,40,200,0.1) 40%, transparent 70%)',
-          filter: 'blur(70px)',
           animation: 'midnight-breathe 9s ease-in-out infinite',
         }} />
       )}
@@ -166,7 +162,6 @@ export default function AnimatedBackground({ warmth = 0, mood = null }: Props) {
         top: '18%', left: '50%', transform: 'translateX(-50%)',
         width: `${50 + warmth * 16}vw`, height: '50vh',
         background: `radial-gradient(ellipse, rgba(167,139,250,${0.07 + warmth * 0.12}) 0%, transparent 62%)`,
-        filter: 'blur(60px)',
       }} />
 
       {/* ── Bottom warmth radial ── */}
@@ -174,7 +169,6 @@ export default function AnimatedBackground({ warmth = 0, mood = null }: Props) {
         bottom: '-20%', left: '50%', transform: 'translateX(-50%)',
         width: '70vw', height: '44vh',
         background: `radial-gradient(ellipse, rgba(255,77,141,${0.05 + warmth * 0.09}) 0%, rgba(123,92,255,0.03) 50%, transparent 65%)`,
-        filter: 'blur(50px)',
         animation: `aurora-wave-c ${auroraSpeedC + 6}s ease-in-out infinite`,
       }} />
 
@@ -309,7 +303,6 @@ export default function AnimatedBackground({ warmth = 0, mood = null }: Props) {
           bottom: '-8%', left: '50%', transform: 'translateX(-50%)',
           width: '50vw', height: '35vh',
           background: `radial-gradient(ellipse at 50% 100%, rgba(255,140,60,${0.06 + warmth * 0.04}) 0%, rgba(255,100,40,0.02) 55%, transparent 75%)`,
-          filter: 'blur(36px)',
         }} />
       )}
     </div>

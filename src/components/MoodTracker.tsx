@@ -74,8 +74,8 @@ export default function MoodTracker() {
         className="rounded-[22px] overflow-hidden"
         style={{
           background: 'linear-gradient(135deg, rgba(255,77,141,0.07) 0%, rgba(123,92,255,0.05) 100%)',
-          backdropFilter: 'blur(44px) saturate(165%)',
-          WebkitBackdropFilter: 'blur(44px) saturate(165%)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
           border: '1px solid rgba(255,77,141,0.14)',
           boxShadow: '0 8px 40px rgba(0,0,0,0.42), 0 0 30px rgba(255,77,141,0.05), inset 0 1px 0 rgba(255,180,210,0.1)',
         }}
