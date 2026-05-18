@@ -24,7 +24,8 @@ export type InteractionType =
   | 'dream-date-built'
   | 'catch-my-heart-played'
   | 'vibe-swiped'
-  | 'love-letter-read';
+  | 'love-letter-read'
+  | 'safe-place-session';
 
 interface ScreenVisit {
   phase: string;
