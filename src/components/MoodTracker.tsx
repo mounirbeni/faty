@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Sparkles, Plane, Smile, Moon, ChevronDown, Star, Coffee, Zap, HeartHandshake, Shield, Cloud, Flower2, Clock } from 'lucide-react';
+import { Heart, Sparkles, Plane, Smile, Moon, ChevronDown, Star, Coffee, Zap, HeartHandshake, Shield, Cloud, Flower2, Clock, UtensilsCrossed, BatteryLow, Flame, Laugh, Frown, AlarmClock, Meh, Wind, Skull, Music } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { notifyOwner } from '@/lib/notify';
@@ -22,8 +22,18 @@ const MOODS: { label: string; Icon: LucideIcon; color: string; bg: string; filla
   { label: 'Tender',     Icon: HeartHandshake,color: 'text-pink-400',    bg: 'bg-pink-500/20'    },
   { label: 'Safe',       Icon: Shield,        color: 'text-emerald-400', bg: 'bg-emerald-500/20' },
   { label: 'Soft',       Icon: Cloud,         color: 'text-slate-300',   bg: 'bg-slate-400/20'   },
-  { label: 'Blushing',   Icon: Flower2,       color: 'text-fuchsia-400', bg: 'bg-fuchsia-500/20' },
-  { label: 'Nostalgic',  Icon: Clock,         color: 'text-indigo-300',  bg: 'bg-indigo-500/20'  },
+  { label: 'Blushing',   Icon: Flower2,         color: 'text-fuchsia-400', bg: 'bg-fuchsia-500/20'  },
+  { label: 'Nostalgic',  Icon: Clock,           color: 'text-indigo-300',  bg: 'bg-indigo-500/20'   },
+  { label: 'Hungry',     Icon: UtensilsCrossed, color: 'text-orange-300',  bg: 'bg-orange-400/20'   },
+  { label: 'Tired',      Icon: BatteryLow,      color: 'text-slate-400',   bg: 'bg-slate-500/20'    },
+  { label: 'Angry',      Icon: Flame,           color: 'text-red-400',     bg: 'bg-red-500/20'      },
+  { label: 'Crazy',      Icon: Laugh,           color: 'text-pink-300',    bg: 'bg-pink-400/20'     },
+  { label: 'Sad',        Icon: Frown,           color: 'text-blue-400',    bg: 'bg-blue-500/20'     },
+  { label: 'Stressed',   Icon: AlarmClock,      color: 'text-red-300',     bg: 'bg-red-400/20'      },
+  { label: 'Bored',      Icon: Meh,             color: 'text-gray-400',    bg: 'bg-gray-500/20'     },
+  { label: 'Anxious',    Icon: Wind,            color: 'text-cyan-400',    bg: 'bg-cyan-500/20'     },
+  { label: 'Silly',      Icon: Skull,           color: 'text-lime-400',    bg: 'bg-lime-500/20'     },
+  { label: 'Vibing',     Icon: Music,           color: 'text-purple-400',  bg: 'bg-purple-500/20'   },
 ];
 
 export default function MoodTracker() {
