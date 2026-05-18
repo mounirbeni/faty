@@ -491,7 +491,7 @@ export default function MoodToast({ mood, onClose }: Props) {
 
       {/* Toast card */}
       <motion.div
-        className="fixed left-0 right-0 bottom-0 px-4 pb-8"
+        className="fixed left-0 right-0 bottom-0 px-4 pb-6"
         style={{ zIndex: 200 }}
         initial={{ y: 120, opacity: 0, scale: 0.96 }}
         animate={{ y: 0, opacity: 1, scale: 1 }}
@@ -499,47 +499,47 @@ export default function MoodToast({ mood, onClose }: Props) {
         transition={{ type: 'spring', damping: 22, stiffness: 190 }}
       >
         <div
-          className="rounded-[30px] overflow-hidden"
+          className="rounded-[22px] overflow-hidden"
           style={{
-            background: `linear-gradient(148deg, ${data.bg}, rgba(7,2,14,0.97))`,
+            background: `linear-gradient(148deg, ${data.bg}, rgba(7,2,14,0.96))`,
             border: `1px solid ${data.color}38`,
-            boxShadow: `0 0 80px ${data.glow}, 0 24px 64px rgba(0,0,0,0.7), inset 0 1px 0 ${data.color}22`,
-            backdropFilter: 'blur(60px)',
-            WebkitBackdropFilter: 'blur(60px)',
+            boxShadow: `0 0 60px ${data.glow}, 0 16px 48px rgba(0,0,0,0.75), inset 0 1px 0 ${data.color}22`,
+            backdropFilter: 'blur(100px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(100px) saturate(180%)',
           }}
         >
           {/* Top accent line */}
-          <div className="h-[2px]" style={{
+          <div className="h-[1.5px]" style={{
             background: `linear-gradient(90deg, transparent, ${data.color}DD, transparent)`,
           }} />
 
-          <div className="p-5">
+          <div className="p-4">
             {/* Header row */}
-            <div className="flex items-center gap-3 mb-3">
+            <div className="flex items-center gap-2.5 mb-2.5">
               <motion.span
-                className="text-[28px] select-none leading-none"
-                animate={{ scale: [1, 1.3, 1], rotate: [0, -10, 10, 0] }}
+                className="text-[22px] select-none leading-none"
+                animate={{ scale: [1, 1.25, 1], rotate: [0, -8, 8, 0] }}
                 transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
               >
                 {data.emoji}
               </motion.span>
               <div className="flex-1 min-w-0">
-                <p className="text-[11px] uppercase tracking-[0.22em] font-black leading-tight" style={{ color: data.color + 'BB' }}>
+                <p className="text-[10px] uppercase tracking-[0.2em] font-black leading-tight" style={{ color: data.color + 'BB' }}>
                   feeling {mood}
                 </p>
-                <p className="text-[9px] text-white/25 mt-0.5 italic">a thought just for you ✦</p>
+                <p className="text-[8px] text-white/25 mt-0.5 italic">a thought just for you ✦</p>
               </div>
               <button
                 onClick={() => { softTap(); onClose(); }}
-                className="w-8 h-8 rounded-[12px] flex items-center justify-center cursor-pointer shrink-0 transition-opacity opacity-30 hover:opacity-60 active:opacity-80"
+                className="w-7 h-7 rounded-[10px] flex items-center justify-center cursor-pointer shrink-0 transition-opacity opacity-30 hover:opacity-60 active:opacity-80"
                 style={{ background: 'rgba(255,255,255,0.05)' }}
               >
-                <X size={13} className="text-white" />
+                <X size={11} className="text-white" />
               </button>
             </div>
 
             {/* Divider */}
-            <div className="h-px mb-4" style={{
+            <div className="h-px mb-3" style={{
               background: `linear-gradient(90deg, transparent, ${data.color}35, transparent)`,
             }} />
 
@@ -548,11 +548,11 @@ export default function MoodToast({ mood, onClose }: Props) {
               {quoteVisible && (
                 <motion.p
                   key={quoteIdx}
-                  initial={{ opacity: 0, y: 10, filter: 'blur(6px)' }}
+                  initial={{ opacity: 0, y: 8, filter: 'blur(6px)' }}
                   animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, y: -8, filter: 'blur(4px)' }}
+                  exit={{ opacity: 0, y: -6, filter: 'blur(4px)' }}
                   transition={{ duration: 0.5, ease: 'easeOut' }}
-                  className="text-[15.5px] leading-[1.65] font-medium italic mb-5"
+                  className="text-[13.5px] leading-[1.6] font-medium italic mb-3.5"
                   style={{ color: 'rgba(255,240,248,0.88)' }}
                 >
                   &ldquo;{data.quotes[quoteIdx]}&rdquo;
@@ -562,18 +562,18 @@ export default function MoodToast({ mood, onClose }: Props) {
 
             {/* Footer */}
             <div className="flex items-center justify-between gap-3">
-              <p className="text-[9px] italic text-white/20 leading-tight">
-                each thought is different ✦ it updates every time
+              <p className="text-[8px] italic text-white/20 leading-tight">
+                each thought is different ✦ updates every time
               </p>
               <motion.button
                 onClick={handleNext}
                 whileTap={{ scale: 0.91 }}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-[14px] text-[12px] font-black cursor-pointer shrink-0"
+                className="flex items-center gap-1 px-3.5 py-1.5 rounded-[12px] text-[11px] font-black cursor-pointer shrink-0"
                 style={{
                   background: data.color + '1A',
                   border: `1px solid ${data.color}45`,
                   color: data.color,
-                  boxShadow: `0 0 20px ${data.color}25`,
+                  boxShadow: `0 0 16px ${data.color}25`,
                 }}
               >
                 Next ✦
