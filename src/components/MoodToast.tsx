@@ -504,8 +504,8 @@ export default function MoodToast({ mood, onClose }: Props) {
             background: `linear-gradient(148deg, ${data.bg}, rgba(7,2,14,0.96))`,
             border: `1px solid ${data.color}38`,
             boxShadow: `0 0 60px ${data.glow}, 0 16px 48px rgba(0,0,0,0.75), inset 0 1px 0 ${data.color}22`,
-            backdropFilter: 'blur(100px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(100px) saturate(180%)',
+            backdropFilter: 'blur(160px) saturate(220%) brightness(0.7)',
+            WebkitBackdropFilter: 'blur(160px) saturate(220%) brightness(0.7)',
           }}
         >
           {/* Top accent line */}
