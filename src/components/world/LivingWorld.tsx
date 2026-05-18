@@ -74,7 +74,7 @@ export default function LivingWorld({ warmth = 0 }: Props) {
 
   return (
     <>
-      <AnimatedBackground warmth={evolvedWarmth} evolution={evolution} animSpeed={speed} />
+      <AnimatedBackground warmth={evolvedWarmth} />
       <WeatherOverlay />
       <canvas
         ref={dustRef}
