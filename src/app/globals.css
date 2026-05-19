@@ -8,18 +8,18 @@
 /* ─── Keyframes ─────────────────────────────────────────────────────── */
 
 @keyframes aurora-wave {
-  0%   { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.55; }
-  25%  { transform: translate(6%, -4%) scale(1.06) rotate(1deg); opacity: 0.75; }
-  50%  { transform: translate(-4%, 6%) scale(0.97) rotate(-1deg); opacity: 0.6; }
-  75%  { transform: translate(3%, 3%) scale(1.04) rotate(0.5deg); opacity: 0.7; }
-  100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.55; }
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.55; }
+  25%  { transform: translate(6%, -4%) scale(1.06); opacity: 0.75; }
+  50%  { transform: translate(-4%, 6%) scale(0.97); opacity: 0.6; }
+  75%  { transform: translate(3%, 3%) scale(1.04); opacity: 0.7; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.55; }
 }
 
 @keyframes aurora-wave-b {
-  0%   { transform: translate(0, 0) scale(1.04) rotate(0deg); opacity: 0.45; }
-  33%  { transform: translate(-8%, 5%) scale(0.96) rotate(-2deg); opacity: 0.65; }
-  66%  { transform: translate(5%, -7%) scale(1.08) rotate(1deg); opacity: 0.5; }
-  100% { transform: translate(0, 0) scale(1.04) rotate(0deg); opacity: 0.45; }
+  0%   { transform: translate(0, 0) scale(1.04); opacity: 0.45; }
+  33%  { transform: translate(-8%, 5%) scale(0.96); opacity: 0.65; }
+  66%  { transform: translate(5%, -7%) scale(1.08); opacity: 0.5; }
+  100% { transform: translate(0, 0) scale(1.04); opacity: 0.45; }
 }
 
 @keyframes aurora-wave-c {
@@ -54,8 +54,8 @@
 }
 
 @keyframes breathe-glow {
-  0%, 100% { opacity: 0.4; transform: scale(1); filter: blur(60px); }
-  50%       { opacity: 0.75; transform: scale(1.12); filter: blur(55px); }
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 0.75; transform: scale(1.08); }
 }
 
 @keyframes breathe-card {
@@ -227,6 +227,20 @@
   100% { transform: translate(var(--px), var(--py)) scale(0) rotate(180deg); opacity: 0; }
 }
 
+@keyframes star-pulse {
+  0%, 100% { opacity: 0; transform: scale(0.2); }
+  50%       { opacity: var(--op, 0.7); transform: scale(1); }
+}
+@keyframes particle-rise {
+  0%        { transform: translateY(110dvh); opacity: 0; }
+  8%, 82%   { opacity: var(--op, 0.1); }
+  100%      { transform: translateY(-10dvh); opacity: 0; }
+}
+@keyframes rain-drop-fall {
+  0%   { transform: translateY(-30px); }
+  100% { transform: translateY(105vh); }
+}
+
 @keyframes rain-fall {
   0%   { transform: translateY(-30px) translateX(0); opacity: 0; }
   8%   { opacity: 1; }
@@ -251,7 +265,7 @@
 
 @keyframes midnight-breathe {
   0%, 100% { opacity: 0.15; transform: scale(1); }
-  50%       { opacity: 0.32; transform: scale(1.18); }
+  50%       { opacity: 0.28; transform: scale(1.04); }
 }
 
 @keyframes mist-drift {
@@ -260,8 +274,8 @@
 }
 
 @keyframes cinematic-reveal {
-  0%   { filter: blur(24px); opacity: 0; transform: scale(1.04); }
-  100% { filter: blur(0px); opacity: 1; transform: scale(1); }
+  0%   { opacity: 0; transform: scale(1.04); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 @keyframes secret-pulse {
@@ -421,6 +435,11 @@
   .animate-city-pulse      { animation: city-pulse     2s  ease-in-out infinite; }
   .animate-neon-pulse      { animation: neon-pulse     2.5s ease-in-out infinite; }
   .animate-magnetic        { animation: magnetic-hover 2.5s ease-in-out infinite; }
+  /* ── Performance-optimised CSS-only particle animations ── */
+  .animate-star-pulse      { animation: star-pulse var(--dur,4s) ease-in-out var(--delay,0s) infinite; }
+  .animate-particle-rise   { animation: particle-rise var(--dur,12s) linear var(--delay,0s) infinite; }
+  .animate-rain-drop-fall  { animation: rain-drop-fall var(--dur,1.4s) linear var(--delay,0s) infinite; }
+
   .animate-rain            { animation: rain-fall linear infinite; }
   .animate-dust            { animation: dust-drift ease-in-out infinite; }
   .animate-candle          { animation: candle-flicker 3.2s ease-in-out infinite; }
@@ -435,9 +454,9 @@
 
   /* Base glass — neutral */
   .glass {
-    background: rgba(255,255,255,0.055);
-    backdrop-filter: blur(24px) saturate(145%);
-    -webkit-backdrop-filter: blur(24px) saturate(145%);
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255,255,255,0.1);
     box-shadow: 0 4px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.09);
   }
@@ -445,8 +464,8 @@
   /* Premium — slightly brighter */
   .glass-premium {
     background: rgba(255,255,255,0.07);
-    backdrop-filter: blur(44px) saturate(165%);
-    -webkit-backdrop-filter: blur(44px) saturate(165%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255,255,255,0.13);
     box-shadow: 0 8px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.08);
   }
@@ -454,8 +473,8 @@
   /* Strong */
   .glass-strong {
     background: rgba(255,255,255,0.09);
-    backdrop-filter: blur(60px) saturate(180%);
-    -webkit-backdrop-filter: blur(60px) saturate(180%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255,255,255,0.16);
     box-shadow: 0 12px 52px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.14);
   }
@@ -464,8 +483,8 @@
   .glass-warm,
   .glass-rose {
     background: rgba(255,77,141,0.1);
-    backdrop-filter: blur(44px) saturate(165%);
-    -webkit-backdrop-filter: blur(44px) saturate(165%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255,77,141,0.22);
     box-shadow: 0 8px 44px rgba(255,77,141,0.18), inset 0 1px 0 rgba(255,180,210,0.12);
   }
@@ -473,8 +492,8 @@
   /* Violet glass */
   .glass-violet {
     background: rgba(123,92,255,0.1);
-    backdrop-filter: blur(44px) saturate(165%);
-    -webkit-backdrop-filter: blur(44px) saturate(165%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(123,92,255,0.22);
     box-shadow: 0 8px 40px rgba(123,92,255,0.18), inset 0 1px 0 rgba(190,160,255,0.1);
   }
@@ -482,8 +501,8 @@
   /* Gold glass */
   .glass-gold {
     background: rgba(255,184,77,0.08);
-    backdrop-filter: blur(44px) saturate(155%);
-    -webkit-backdrop-filter: blur(44px) saturate(155%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255,184,77,0.22);
     box-shadow: 0 8px 36px rgba(255,184,77,0.14), inset 0 1px 0 rgba(255,215,110,0.1);
   }
@@ -491,17 +510,17 @@
   /* Amber (warm gold) */
   .glass-amber {
     background: rgba(255,184,77,0.09);
-    backdrop-filter: blur(40px) saturate(155%);
-    -webkit-backdrop-filter: blur(40px) saturate(155%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255,184,77,0.2);
     box-shadow: 0 8px 36px rgba(255,184,77,0.14), inset 0 1px 0 rgba(255,220,130,0.1);
   }
 
   /* Obsidian */
   .glass-obsidian {
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(44px) saturate(120%);
-    -webkit-backdrop-filter: blur(44px) saturate(120%);
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255,255,255,0.08);
     box-shadow: 0 12px 52px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.06);
   }
@@ -509,8 +528,8 @@
   /* Cinematic dark card */
   .glass-cinema {
     background: linear-gradient(145deg, rgba(255,77,141,0.08) 0%, rgba(123,92,255,0.06) 100%);
-    backdrop-filter: blur(50px) saturate(180%);
-    -webkit-backdrop-filter: blur(50px) saturate(180%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255,77,141,0.15);
     box-shadow:
       0 2px 0 0 rgba(255,130,180,0.08) inset,
