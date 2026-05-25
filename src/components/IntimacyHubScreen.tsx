@@ -9,7 +9,7 @@ import { playBloom, playSparkle, playGlow } from '@/lib/sounds';
 import IntimacyQuestionFlow from './IntimacyQuestionFlow';
 import MemoryReconstructionGame from './MemoryReconstructionGame';
 
-// --- Game definitions ---------------------------------------------------------
+// ─── Game definitions ─────────────────────────────────────────────────────────
 
 type SubGame = 'first-kiss' | 'touch-presence' | 'inner-thoughts' | 'memory-reconstruction';
 
@@ -20,7 +20,7 @@ const FIRST_KISS_QUESTIONS = [
   'Did you wish it lasted longer? What would you have done differently?',
   'What was going through your mind in the seconds just before it happened?',
   'Did your heartbeat change? Tell me exactly how it felt.',
-  'What emotion hit you first � warmth, excitement, peace� or something else?',
+  'What emotion hit you first — warmth, excitement, peace… or something else?',
   'What would you tell me about that kiss that you have never said out loud?',
 ] as const;
 
@@ -36,7 +36,7 @@ const TOUCH_QUESTIONS = [
 ] as const;
 
 const INNER_THOUGHTS_QUESTIONS = [
-  'What was the very first thing about me that you truly noticed � not just saw, but felt?',
+  'What was the very first thing about me that you truly noticed — not just saw, but felt?',
   'Did you ever secretly imagine what it would be like to be close to me, before it happened?',
   'Is there a moment I said or did something that made your heart emotionally melt? Tell me.',
   'What thought about us do you keep coming back to when you are alone at night?',
@@ -61,7 +61,7 @@ interface GameDef {
 const GAMES: GameDef[] = [
   {
     id: 'first-kiss',
-    icon: '??',
+    icon: '💋',
     title: 'First Kiss Memory',
     subtitle: 'Relive what your heart felt',
     description: 'Eight intimate questions about the moment our first kiss happened.',
@@ -72,7 +72,7 @@ const GAMES: GameDef[] = [
   },
   {
     id: 'touch-presence',
-    icon: '??',
+    icon: '🫂',
     title: 'Touch & Presence',
     subtitle: 'How closeness feels to you',
     description: 'Questions about physical affection, warmth, and feeling safe together.',
@@ -83,7 +83,7 @@ const GAMES: GameDef[] = [
   },
   {
     id: 'inner-thoughts',
-    icon: '??',
+    icon: '💭',
     title: 'Inner Thoughts',
     subtitle: 'Thoughts you have kept inside',
     description: 'The quiet things you think about me that you have never said.',
@@ -94,7 +94,7 @@ const GAMES: GameDef[] = [
   },
   {
     id: 'memory-reconstruction',
-    icon: '??',
+    icon: '🌌',
     title: 'Memory Stories',
     subtitle: 'Tell me what you felt',
     description: 'Close your eyes and walk me through five of our most intimate moments.',
@@ -118,13 +118,13 @@ const PARTICLES = Array.from({ length: 26 }, (_, i) => ({
   opacity: 0.06 + pr(i * 13) * 0.1,
 }));
 
-// --- Chemistry Meter ----------------------------------------------------------
+// ─── Chemistry Meter ──────────────────────────────────────────────────────────
 
 function ChemistryMeter({ completed }: { completed: Set<SubGame> }) {
   const pct = completed.size / GAMES.length;
   const R = 28;
   const C = 2 * Math.PI * R;
-  const label = pct === 0 ? 'Begin your journey' : pct < 0.5 ? 'Growing closer' : pct < 1 ? 'Deeply connected' : 'Fully open ??';
+  const label = pct === 0 ? 'Begin your journey' : pct < 0.5 ? 'Growing closer' : pct < 1 ? 'Deeply connected' : 'Fully open 💗';
 
   return (
     <motion.div
@@ -167,7 +167,7 @@ function ChemistryMeter({ completed }: { completed: Set<SubGame> }) {
   );
 }
 
-// --- Main Component -----------------------------------------------------------
+// ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function IntimacyHubScreen() {
   const setPhase = useGameStore(s => s.setPhase);
@@ -193,11 +193,11 @@ export default function IntimacyHubScreen() {
     setActiveGame(id);
   };
 
-  // -- Sub-game router ---------------------------------------------------------
+  // ── Sub-game router ─────────────────────────────────────────────────────────
   if (activeGame === 'first-kiss') {
     return (
       <IntimacyQuestionFlow
-        icon="??" title="First Kiss Memory" subtitle="Relive what your heart felt"
+        icon="💋" title="First Kiss Memory" subtitle="Relive what your heart felt"
         accentColor="#FF4D8D" glowColor="#FF4D8D"
         questions={FIRST_KISS_QUESTIONS}
         telegramTitle="She answered the First Kiss Memory questions"
@@ -209,7 +209,7 @@ export default function IntimacyHubScreen() {
   if (activeGame === 'touch-presence') {
     return (
       <IntimacyQuestionFlow
-        icon="??" title="Touch & Presence" subtitle="How closeness feels to you"
+        icon="🫂" title="Touch & Presence" subtitle="How closeness feels to you"
         accentColor="#A78BFA" glowColor="#A78BFA"
         questions={TOUCH_QUESTIONS}
         telegramTitle="She answered the Touch & Presence questions"
@@ -221,7 +221,7 @@ export default function IntimacyHubScreen() {
   if (activeGame === 'inner-thoughts') {
     return (
       <IntimacyQuestionFlow
-        icon="??" title="Inner Thoughts" subtitle="Thoughts you have kept inside"
+        icon="💭" title="Inner Thoughts" subtitle="Thoughts you have kept inside"
         accentColor="#FFB84D" glowColor="#FFB84D"
         questions={INNER_THOUGHTS_QUESTIONS}
         telegramTitle="She shared her Inner Thoughts"
@@ -239,7 +239,7 @@ export default function IntimacyHubScreen() {
     );
   }
 
-  // -- Hub landing -------------------------------------------------------------
+  // ── Hub landing ─────────────────────────────────────────────────────────────
   return (
     <motion.div
       className="absolute inset-0 flex flex-col overflow-y-auto app-scroll" data-scroll
@@ -326,8 +326,7 @@ export default function IntimacyHubScreen() {
                 }}
                 initial={{ opacity: 0, y: 20, scale: 0.96 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: 0.18 + i * 0.08, duration: 0.45 }}
-                >
+                transition={{ delay: 0.18 + i * 0.08, duration: 0.45 }}>
 
                 {/* Top accent line */}
                 <div className="h-[2px]" style={{ background: `linear-gradient(90deg, ${game.accentColor}, ${game.accentColor}22)` }} />

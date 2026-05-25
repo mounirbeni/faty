@@ -50,7 +50,7 @@ export default function WouldYouRatherScreen() {
     setPicked(choice);
     setChoices(prev => ({ ...prev, [scenario.id]: choice }));
     notifyOwner(
-      `?? <b>Your angel answered a Would You Rather!</b>\n\nQ${currentIdx + 1} of ${total}\n\nShe chose <b>${choice.toUpperCase()}</b>:\n"${choice === 'a' ? scenario.a : scenario.b}"\n\nOver: "${choice === 'a' ? scenario.b : scenario.a}"`
+      `🤔 <b>Your angel answered a Would You Rather!</b>\n\nQ${currentIdx + 1} of ${total}\n\nShe chose <b>${choice.toUpperCase()}</b>:\n"${choice === 'a' ? scenario.a : scenario.b}"\n\nOver: "${choice === 'a' ? scenario.b : scenario.a}"`
     );
 
     setTimeout(() => {
@@ -113,7 +113,7 @@ export default function WouldYouRatherScreen() {
             <div className="h-[3px] w-full bg-gradient-to-r from-rose-500 via-pink-400 to-rose-500" />
             <div className="p-5">
               <p className="text-[14px] text-white/70 leading-relaxed mb-3">
-                Every choice you made tells me something about you. And I love every answer � even the ones that surprised me.
+                Every choice you made tells me something about you. And I love every answer — even the ones that surprised me.
               </p>
               <p className="text-[14px] text-white/70 leading-relaxed">
                 I want to go through every single one of these with you in person, and tell you exactly which ones I would have picked too.
@@ -231,7 +231,6 @@ export default function WouldYouRatherScreen() {
                   : 'glass-premium text-white hover:bg-white/10'
                 }
               `}
-              
             >
               {picked === 'a' && (
                 <motion.div
@@ -272,7 +271,6 @@ export default function WouldYouRatherScreen() {
                   : 'glass-premium text-white hover:bg-white/10'
                 }
               `}
-              
             >
               {picked === 'b' && (
                 <motion.div

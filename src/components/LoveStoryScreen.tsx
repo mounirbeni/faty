@@ -13,73 +13,73 @@ const CHAPTERS = [
   {
     id: 1,
     color: '#FF4D8D',
-    title: 'How the story begins�',
-    prompt: 'She looked up and there he was. The first thing she noticed about him was�',
+    title: 'How the story begins…',
+    prompt: 'She looked up and there he was. The first thing she noticed about him was…',
     choices: [
-      { emoji: '??', text: 'his eyes � like they already knew her' },
-      { emoji: '??', text: 'the way he smiled without even trying' },
-      { emoji: '???', text: 'his voice � soft but sure of itself' },
-      { emoji: '??', text: 'the way he made the room feel different' },
+      { emoji: '👀', text: 'his eyes — like they already knew her' },
+      { emoji: '😊', text: 'the way he smiled without even trying' },
+      { emoji: '🗣️', text: 'his voice — soft but sure of itself' },
+      { emoji: '💫', text: 'the way he made the room feel different' },
     ],
   },
   {
     id: 2,
     color: '#A78BFA',
-    title: 'The first feeling�',
-    prompt: 'Before she knew anything real about him, she already felt�',
+    title: 'The first feeling…',
+    prompt: 'Before she knew anything real about him, she already felt…',
     choices: [
-      { emoji: '??', text: 'butterflies she didn\'t understand yet' },
-      { emoji: '??', text: 'a wave of calm she hadn\'t felt before' },
-      { emoji: '??', text: 'something she tried very hard to ignore' },
-      { emoji: '?', text: 'like the universe was trying to tell her something' },
+      { emoji: '🦋', text: 'butterflies she didn\'t understand yet' },
+      { emoji: '🌊', text: 'a wave of calm she hadn\'t felt before' },
+      { emoji: '🔥', text: 'something she tried very hard to ignore' },
+      { emoji: '⭐', text: 'like the universe was trying to tell her something' },
     ],
   },
   {
     id: 3,
     color: '#FFB84D',
-    title: 'The turning point�',
-    prompt: 'There was one moment she knew something had changed. It was when�',
+    title: 'The turning point…',
+    prompt: 'There was one moment she knew something had changed. It was when…',
     choices: [
-      { emoji: '??', text: 'he said her name like it meant something' },
-      { emoji: '??', text: 'he stayed when he didn\'t have to' },
-      { emoji: '??', text: 'they laughed at exactly the same thing at exactly the same time' },
-      { emoji: '??', text: 'they talked until it was almost morning and she didn\'t notice' },
+      { emoji: '💬', text: 'he said her name like it meant something' },
+      { emoji: '🤝', text: 'he stayed when he didn\'t have to' },
+      { emoji: '😂', text: 'they laughed at exactly the same thing at exactly the same time' },
+      { emoji: '🌙', text: 'they talked until it was almost morning and she didn\'t notice' },
     ],
   },
   {
     id: 4,
     color: '#FF4D8D',
-    title: 'What she discovered�',
-    prompt: 'The longer she knew him, the more she realized�',
+    title: 'What she discovered…',
+    prompt: 'The longer she knew him, the more she realized…',
     choices: [
-      { emoji: '??', text: 'he felt like home � and she\'d been looking for that' },
-      { emoji: '??', text: 'he made her braver, even when she didn\'t say it' },
-      { emoji: '??', text: 'he saw her � the real her � and chose to stay' },
-      { emoji: '?', text: 'she was different around him, softer, more herself' },
+      { emoji: '🏠', text: 'he felt like home — and she\'d been looking for that' },
+      { emoji: '💪', text: 'he made her braver, even when she didn\'t say it' },
+      { emoji: '🪞', text: 'he saw her — the real her — and chose to stay' },
+      { emoji: '✨', text: 'she was different around him, softer, more herself' },
     ],
   },
   {
     id: 5,
     color: '#A78BFA',
-    title: 'The love that grew�',
-    prompt: 'She had loved people before, but this was different because�',
+    title: 'The love that grew…',
+    prompt: 'She had loved people before, but this was different because…',
     choices: [
-      { emoji: '??', text: 'it felt chosen, not just felt' },
-      { emoji: '??', text: 'it grew slowly, like something real' },
-      { emoji: '??', text: 'it scared her a little � and that\'s how she knew' },
-      { emoji: '??', text: 'it made her want to be everything she already was, but more' },
+      { emoji: '💗', text: 'it felt chosen, not just felt' },
+      { emoji: '🌱', text: 'it grew slowly, like something real' },
+      { emoji: '🌊', text: 'it scared her a little — and that\'s how she knew' },
+      { emoji: '🌟', text: 'it made her want to be everything she already was, but more' },
     ],
   },
   {
     id: 6,
     color: '#FFB84D',
-    title: 'And so the story continues�',
-    prompt: 'In the end � and in the beginning � all she wanted was�',
+    title: 'And so the story continues…',
+    prompt: 'In the end — and in the beginning — all she wanted was…',
     choices: [
-      { emoji: '??', text: 'to hold him and never rush it' },
-      { emoji: '??', text: 'to build something real with him, one day at a time' },
-      { emoji: '??', text: 'this � exactly this � and nothing more' },
-      { emoji: '??', text: 'forever, however that looks for them' },
+      { emoji: '🤗', text: 'to hold him and never rush it' },
+      { emoji: '🌍', text: 'to build something real with him, one day at a time' },
+      { emoji: '💫', text: 'this — exactly this — and nothing more' },
+      { emoji: '♾️', text: 'forever, however that looks for them' },
     ],
   },
 ] as const;
@@ -89,7 +89,7 @@ type Selections = Partial<Record<number, string>>;
 function buildStory(selections: Selections): string {
   return CHAPTERS.map(c => {
     const choice = selections[c.id];
-    return `${c.prompt.replace('�', '')} ${choice ?? '�'}`;
+    return `${c.prompt.replace('…', '')} ${choice ?? '…'}`;
   }).join(' ');
 }
 
@@ -114,7 +114,7 @@ export default function LoveStoryScreen() {
       setTimeout(() => {
         setPhaseLocal('reading');
         const story = buildStory(newSel);
-        notifyOwner(`?? <b>She wrote your love story!</b>\n\n<i>"${story}"</i>\n\n<b>Chapter by chapter, she chose you. ??</b>`);
+        notifyOwner(`📖 <b>She wrote your love story!</b>\n\n<i>"${story}"</i>\n\n<b>Chapter by chapter, she chose you. 💕</b>`);
       }, 350);
     }
   };
@@ -181,7 +181,7 @@ export default function LoveStoryScreen() {
           <motion.div className="glass-cinema rounded-[20px] p-4 text-center"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>
             <p className="text-[13px] italic leading-relaxed" style={{ color: 'rgba(255,230,242,0.6)' }}>
-              "This is your story � but it belongs to both of you. He read every word." ??
+              "This is your story — but it belongs to both of you. He read every word." 💌
             </p>
           </motion.div>
 
@@ -245,7 +245,7 @@ export default function LoveStoryScreen() {
                 <div className="flex items-center gap-2 mb-2">
                   <Sparkles size={12} style={{ color: chapter.color }} />
                   <span className="text-[10px] uppercase tracking-widest font-bold" style={{ color: `${chapter.color}aa` }}>
-                    Chapter {step + 1} � {chapter.title}
+                    Chapter {step + 1} · {chapter.title}
                   </span>
                 </div>
                 <p className="text-[15px] font-semibold leading-relaxed" style={{ color: 'rgba(255,230,242,0.9)' }}>
@@ -268,8 +268,7 @@ export default function LoveStoryScreen() {
                       background: isSelected ? `linear-gradient(135deg, ${chapter.color}28, ${chapter.color}14)` : 'rgba(255,255,255,0.045)',
                       border: isSelected ? `1px solid ${chapter.color}50` : '1px solid rgba(255,255,255,0.08)',
                       boxShadow: isSelected ? `0 0 20px ${chapter.color}28` : 'none',
-                    }}
-                    >
+                    }}>
                     <span className="text-2xl shrink-0">{choice.emoji}</span>
                     <span className="text-[13px] font-medium leading-snug" style={{ color: isSelected ? 'rgba(255,230,242,0.95)' : 'rgba(255,230,242,0.65)' }}>
                       {choice.text}

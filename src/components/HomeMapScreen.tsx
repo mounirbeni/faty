@@ -42,15 +42,15 @@ import { playSparkle, playBloom } from '@/lib/sounds';
 import { useRef, useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 
-/* -- Rotating emotional presence messages -- */
+/* ── Rotating emotional presence messages ── */
 const PRESENCE_MSGS = [
-  { text: 'thinking about you softly�',    emoji: '??' },
-  { text: 'missing you from here',          emoji: '??' },
-  { text: 'replaying our moments tonight',  emoji: '?' },
-  { text: 'listening to the quiet with you',emoji: '??' },
-  { text: 'awake and thinking of your smile',emoji: '??' },
-  { text: 'feeling you close, even from far',emoji: '??' },
-  { text: 'safe and loved inside this world',emoji: '??' },
+  { text: 'thinking about you softly…',    emoji: '💭' },
+  { text: 'missing you from here',          emoji: '💗' },
+  { text: 'replaying our moments tonight',  emoji: '✨' },
+  { text: 'listening to the quiet with you',emoji: '🌙' },
+  { text: 'awake and thinking of your smile',emoji: '🌹' },
+  { text: 'feeling you close, even from far',emoji: '❤️' },
+  { text: 'safe and loved inside this world',emoji: '🌌' },
 ];
 
 const MINI_GAMES = [
@@ -263,7 +263,7 @@ export default function HomeMapScreen() {
     return () => clearInterval(t);
   }, []);
 
-  // Triple-tap on progress ring ? admin dashboard
+  // Triple-tap on progress ring → admin dashboard
   const progressTapRef = useRef(0);
   const progressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const handleProgressTap = () => {
@@ -290,10 +290,10 @@ export default function HomeMapScreen() {
 
       <div className="relative z-10 flex flex-col px-4 pt-8 pb-10 max-w-lg mx-auto w-full gap-5">
 
-        {/* -- Mood Tracker -- */}
+        {/* ── Mood Tracker ── */}
         <MoodTracker />
 
-        {/* -- Emotional presence message -- */}
+        {/* ── Emotional presence message ── */}
         <div className="flex items-center justify-center gap-2 py-0.5">
           <div className="h-px flex-1" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,77,141,0.2))' }} />
           <AnimatePresence mode="wait">
@@ -315,7 +315,7 @@ export default function HomeMapScreen() {
           <div className="h-px flex-1" style={{ background: 'linear-gradient(90deg, rgba(255,77,141,0.2), transparent)' }} />
         </div>
 
-        {/* -- Header bar -- */}
+        {/* ── Header bar ── */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center"
@@ -329,7 +329,7 @@ export default function HomeMapScreen() {
               Our Map
             </span>
           </div>
-          {/* Overall progress ring � triple-tap = admin dashboard */}
+          {/* Overall progress ring — triple-tap = admin dashboard */}
           <button onClick={handleProgressTap} className="flex items-center gap-2 cursor-pointer transition-transform">
             <div className="relative w-11 h-11">
               <svg className="w-11 h-11 -rotate-90" viewBox="0 0 44 44">
@@ -356,7 +356,7 @@ export default function HomeMapScreen() {
           </button>
         </div>
 
-        {/* -- Two Cities Banner -- */}
+        {/* ── Two Cities Banner ── */}
         <motion.div
           className="rounded-[22px] overflow-hidden"
           style={{
@@ -378,7 +378,7 @@ export default function HomeMapScreen() {
                 <MapPin size={16} className="text-amber-400" fill="currentColor" />
               </div>
               <span className="text-[10px] font-black uppercase tracking-wider" style={{ color: 'rgba(251,191,36,0.8)' }}>Your heart</span>
-              <span className="text-[8px]" style={{ color: 'rgba(251,191,36,0.4)' }}>My angel ??</span>
+              <span className="text-[8px]" style={{ color: 'rgba(251,191,36,0.4)' }}>My angel 🌙</span>
             </div>
 
             {/* Connection line */}
@@ -400,8 +400,8 @@ export default function HomeMapScreen() {
                   />
                 ))}
               </div>
-              <LongPressNote note="No distance is big enough to change what I feel. Always together, always yours. ?">
-                <span className="text-[8px] font-semibold" style={{ color: 'rgba(255,255,255,0.25)' }}>always together ?</span>
+              <LongPressNote note="No distance is big enough to change what I feel. Always together, always yours. ✦">
+                <span className="text-[8px] font-semibold" style={{ color: 'rgba(255,255,255,0.25)' }}>always together ✦</span>
               </LongPressNote>
             </div>
 
@@ -412,12 +412,12 @@ export default function HomeMapScreen() {
                 <Heart size={16} className="text-rose-400" fill="currentColor" />
               </div>
               <span className="text-[10px] font-black uppercase tracking-wider" style={{ color: 'rgba(251,113,133,0.8)' }}>My heart</span>
-              <span className="text-[8px]" style={{ color: 'rgba(251,113,133,0.4)' }}>Your love ??</span>
+              <span className="text-[8px]" style={{ color: 'rgba(251,113,133,0.4)' }}>Your love ❤️</span>
             </div>
           </div>
         </motion.div>
 
-        {/* -- Greeting -- */}
+        {/* ── Greeting ── */}
         <motion.div
           className="rounded-[22px] overflow-hidden"
           style={{
@@ -434,7 +434,7 @@ export default function HomeMapScreen() {
         >
           <div className="h-[2.5px] w-full" style={{ background: 'linear-gradient(90deg, #FFB84D, #FF4D8D, #A78BFA, #FF4D8D, #FFB84D)', backgroundSize: '200% 100%', animation: 'gradient-x 5s linear infinite' }} />
           <div className="flex items-center gap-3.5 p-4">
-            <LongPressNote note="I love you more than any word I know. You are my safest place. ??">
+            <LongPressNote note="I love you more than any word I know. You are my safest place. ❤️">
               <div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg shrink-0"
                 style={{
                   background: 'linear-gradient(135deg, #FF4D8D, #C9245F)',
@@ -450,8 +450,8 @@ export default function HomeMapScreen() {
               </h1>
               <p className="text-[12px] mt-0.5" style={{ color: 'rgba(255,200,210,0.5)' }}>
                 {isReturningUser
-                  ? `I miss you so much � ${totalAnswered} of 70 answered`
-                  : 'From me, with all my love ??'}
+                  ? `I miss you so much — ${totalAnswered} of 70 answered`
+                  : 'From me, with all my love 🌹'}
               </p>
             </div>
           </div>
@@ -459,7 +459,7 @@ export default function HomeMapScreen() {
           <EmotionalStatus className="pb-3" />
         </motion.div>
 
-        {/* -- Chapter Islands -- */}
+        {/* ── Chapter Islands ── */}
         <div>
           <div className="flex items-center gap-2 mb-3 px-1">
             <div className="w-5 h-5 rounded-lg flex items-center justify-center" style={{ background: 'rgba(251,191,36,0.15)', boxShadow: '0 0 12px rgba(251,191,36,0.2)' }}>
@@ -491,7 +491,7 @@ export default function HomeMapScreen() {
           </div>
         </div>
 
-        {/* -- Mini-Game Bonus Islands -- */}
+        {/* ── Mini-Game Bonus Islands ── */}
         <div>
           <div className="flex items-center gap-2 mb-3 px-1">
             <div className="w-5 h-5 rounded-lg flex items-center justify-center" style={{ background: 'rgba(167,139,250,0.15)', boxShadow: '0 0 12px rgba(139,92,246,0.2)' }}>
@@ -564,7 +564,7 @@ export default function HomeMapScreen() {
   );
 }
 
-// --- Chapter Card Sub-component --------------------------------------
+// ─── Chapter Card Sub-component ──────────────────────────────────────
 
 function ChapterCard({
   chapter,

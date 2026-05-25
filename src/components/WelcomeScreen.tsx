@@ -57,7 +57,7 @@ export default function WelcomeScreen() {
       exit={{ opacity: 0, scale: 0.97 }}
       transition={{ duration: 0.6 }}
     >
-      {/* -- Ambient orb glows -- */}
+      {/* ── Ambient orb glows ── */}
       {mounted && ORBS.map(o => (
         <motion.div
           key={o.id}
@@ -74,7 +74,7 @@ export default function WelcomeScreen() {
         />
       ))}
 
-      {/* -- Star field -- */}
+      {/* ── Star field ── */}
       {mounted && TWINKLE.map(s => (
         <motion.div
           key={`star-${s.id}`}
@@ -85,7 +85,7 @@ export default function WelcomeScreen() {
         />
       ))}
 
-      {/* -- Floating hearts + stars -- */}
+      {/* ── Floating hearts + stars ── */}
       {mounted && FLOATERS.map(p => (
         <motion.div
           key={p.id}
@@ -101,11 +101,11 @@ export default function WelcomeScreen() {
           animate={{ y: '-10dvh', opacity: [0, p.opacity, p.opacity, 0] }}
           transition={{ duration: p.dur, delay: p.delay, repeat: Infinity, ease: 'linear' }}
         >
-          {p.isStar ? '?' : '?'}
+          {p.isStar ? '✦' : '♥'}
         </motion.div>
       ))}
 
-      {/* -- Main card -- */}
+      {/* ── Main card ── */}
       <div className="relative z-10 flex flex-col items-center text-center max-w-[390px] w-full">
 
         {/* Hero Icon */}
@@ -198,7 +198,7 @@ export default function WelcomeScreen() {
           <motion.span className="inline-block"
             animate={{ scale: [1, 1.3, 1] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}>
-            ?
+            ♥
           </motion.span>
         </motion.h1>
 
@@ -219,7 +219,7 @@ export default function WelcomeScreen() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.65, duration: 0.5 }}
         >
-          Because you deserve more than just a text ?
+          Because you deserve more than just a text ✦
         </motion.p>
 
         {/* Love letter card */}
@@ -235,16 +235,16 @@ export default function WelcomeScreen() {
           }} />
           <div className="p-5">
             <p className="text-[13.5px] leading-relaxed mb-3" style={{ color: 'rgba(255,230,242,0.78)' }}>
-              I built this thinking of you every single day. We finally met � and now the distance feels different. Harder and sweeter at the same time.
+              I built this thinking of you every single day. We finally met — and now the distance feels different. Harder and sweeter at the same time.
             </p>
             <p className="text-[13.5px] leading-relaxed mb-3" style={{ color: 'rgba(255,230,242,0.78)' }}>
-              70 questions. 7 chapters. Some are fun, some go deep. Let me understand you completely � because{' '}
+              70 questions. 7 chapters. Some are fun, some go deep. Let me understand you completely — because{' '}
               <span className="font-semibold" style={{ color: '#FF7AA2' }}>the distance is nothing</span> compared to what we have.
             </p>
             <div className="flex items-center justify-end gap-1.5 mt-2">
               <Heart size={9} style={{ color: 'rgba(255,184,77,0.7)' }} fill="currentColor" />
               <p className="text-[11px] italic" style={{ color: 'rgba(255,179,199,0.5)' }}>
-                From your love, with everything ??
+                From your love, with everything 🌹
               </p>
             </div>
           </div>
@@ -298,7 +298,6 @@ export default function WelcomeScreen() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.5 }}
-          
         >
           <motion.div
             className="absolute inset-0 w-1/3 h-full bg-white/20 -skew-x-12 pointer-events-none"
@@ -325,7 +324,7 @@ export default function WelcomeScreen() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
         >
-          ? A private universe made only for you ?
+          ✦ A private universe made only for you ✦
         </motion.p>
       </div>
     </motion.div>
