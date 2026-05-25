@@ -221,6 +221,20 @@ const MINI_GAMES = [
     gradient: 'from-rose-500 via-pink-600 to-purple-700',
     glow: 'shadow-pink-500/40',
   },
+  {
+    id: 'inside-his-heart' as const,
+    icon: (
+      <div className="relative">
+        <Heart size={28} className="text-white drop-shadow-md" fill="currentColor" />
+        <div className="absolute inset-0 rounded-full" style={{ boxShadow: '0 0 16px rgba(139,92,246,0.9)', borderRadius: '50%' }} />
+      </div>
+    ),
+    label: 'Inside His Heart',
+    sublabel: 'A cinematic journey',
+    unlocksAtChapter: 0,
+    gradient: 'from-indigo-600 via-violet-600 to-purple-800',
+    glow: 'shadow-violet-500/40',
+  },
 ];
 
 const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand', 'smile', 'camera'];
@@ -243,7 +257,7 @@ export default function HomeMapScreen() {
     startChapter(chapter);
   };
 
-  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'catch-my-heart' | 'dream-date' | 'love-story' | 'intimacy-hub') => {
+  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'catch-my-heart' | 'dream-date' | 'love-story' | 'intimacy-hub' | 'inside-his-heart') => {
     heartbeat();
     playSparkle();
     setPhase(id);

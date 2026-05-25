@@ -24,6 +24,7 @@ export type AppPhase =
   | 'dream-date'
   | 'love-story'
   | 'intimacy-hub'
+  | 'inside-his-heart'
   | 'admin-dashboard'
   | 'complete';
 

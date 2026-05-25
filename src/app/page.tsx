@@ -36,6 +36,7 @@ const CatchMyHeartScreen      = dynamic(() => import('@/components/CatchMyHeartS
 const DreamDateScreen         = dynamic(() => import('@/components/DreamDateScreen'), { ssr: false });
 const LoveStoryScreen         = dynamic(() => import('@/components/LoveStoryScreen'), { ssr: false });
 const IntimacyHubScreen       = dynamic(() => import('@/components/IntimacyHubScreen'), { ssr: false });
+const InsideHisHeartScreen    = dynamic(() => import('@/components/InsideHisHeartScreen'), { ssr: false });
 
 function Screen({ children }: { children: React.ReactNode }) {
   return (
@@ -151,6 +152,7 @@ export default function HomePage() {
         {currentPhase === 'dream-date'       && <Screen key="dream-date"><DreamDateScreen /></Screen>}
         {currentPhase === 'love-story'       && <Screen key="love-story"><LoveStoryScreen /></Screen>}
         {currentPhase === 'intimacy-hub'     && <Screen key="intimacy-hub"><IntimacyHubScreen /></Screen>}
+        {currentPhase === 'inside-his-heart' && <Screen key="inside-his-heart"><InsideHisHeartScreen /></Screen>}
         {currentPhase === 'complete'         && <Screen key="complete"><CompletionScreen /></Screen>}
       </AnimatePresence>
     </main>
