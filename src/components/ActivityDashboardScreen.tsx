@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -75,7 +75,7 @@ export default function ActivityDashboardScreen() {
       <div className="relative z-10 flex items-center justify-between px-5 pt-10 pb-4 shrink-0">
         <button
           onClick={() => setPhase('home')}
-          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 active:scale-95 transition-transform cursor-pointer"
+          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 transition-transform cursor-pointer"
         >
           <ArrowLeft size={16} />
           Map
@@ -133,7 +133,7 @@ export default function ActivityDashboardScreen() {
           <motion.button
             onClick={handleSendReport}
             disabled={sending}
-            className="w-full py-4 rounded-2xl font-bold text-white flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer disabled:opacity-60 relative overflow-hidden"
+            className="w-full py-4 rounded-2xl font-bold text-white flex items-center justify-center gap-2 transition-transform cursor-pointer disabled:opacity-60 relative overflow-hidden"
             style={{
               background: sent
                 ? 'linear-gradient(135deg, #10b981, #059669)'
@@ -142,7 +142,7 @@ export default function ActivityDashboardScreen() {
                 ? '0 8px 32px rgba(16,185,129,0.3)'
                 : '0 8px 32px rgba(139,92,246,0.3)',
             }}
-            whileTap={{ scale: 0.97 }}
+            
           >
             {sent ? (
               <>

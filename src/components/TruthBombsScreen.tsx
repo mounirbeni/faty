@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -77,7 +77,7 @@ export default function TruthBombsScreen() {
         </div>
       </motion.div>
       <motion.button onClick={() => setPhase('home')}
-        className="w-full py-[17px] rounded-[22px] font-black text-white text-[15px] flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer"
+        className="w-full py-[17px] rounded-[22px] font-black text-white text-[15px] flex items-center justify-center gap-2 transition-transform cursor-pointer"
         style={{ background: 'linear-gradient(135deg,#FF4D8D,#C9245F)', boxShadow: '0 8px 36px rgba(255,77,141,0.4)' }}
         initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
         <Heart size={15} fill="currentColor" /> Back to Map
@@ -96,7 +96,7 @@ export default function TruthBombsScreen() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <button onClick={() => setPhase('home')}
-            className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold active:scale-95 transition-transform cursor-pointer"
+            className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold transition-transform cursor-pointer"
             style={{ color: 'rgba(255,230,242,0.6)' }}>
             <ArrowLeft size={15} /> Back
           </button>
@@ -139,7 +139,7 @@ export default function TruthBombsScreen() {
                 style={{ perspective: 800 }}>
 
                 <motion.div
-                  className="relative w-full rounded-[18px] overflow-hidden cursor-pointer active:scale-95 transition-transform"
+                  className="relative w-full rounded-[18px] overflow-hidden cursor-pointer transition-transform"
                   style={{ height: 90, transformStyle: 'preserve-3d' }}
                   animate={{ rotateY: isFlipped ? 180 : 0 }}
                   transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
@@ -229,13 +229,13 @@ export default function TruthBombsScreen() {
                   />
                   <div className="flex gap-2 mt-3">
                     <button onClick={() => setActive(null)}
-                      className="flex-1 py-3 glass rounded-[14px] text-[13px] font-semibold cursor-pointer active:scale-95 transition-transform"
+                      className="flex-1 py-3 glass rounded-[14px] text-[13px] font-semibold cursor-pointer transition-transform"
                       style={{ color: 'rgba(255,230,242,0.5)' }}>
                       Later
                     </button>
                     <button onClick={() => handleSubmit(q)}
                       disabled={!answers[q.id]?.trim()}
-                      className="flex-[2] py-3 rounded-[14px] text-[13px] font-black text-white flex items-center justify-center gap-2 cursor-pointer active:scale-95 transition-transform disabled:opacity-40"
+                      className="flex-[2] py-3 rounded-[14px] text-[13px] font-black text-white flex items-center justify-center gap-2 cursor-pointer transition-transform disabled:opacity-40"
                       style={{ background: `linear-gradient(135deg, ${q.color}, ${q.color}99)`, boxShadow: `0 6px 24px ${q.color}55` }}>
                       <Heart size={13} fill="currentColor" /> Send Truth
                     </button>

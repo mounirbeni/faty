@@ -9,7 +9,6 @@ import { notifyOwner } from '@/lib/notify';
 import { softTap, successVibe } from '@/lib/useHaptics';
 import { playChime } from '@/lib/sounds';
 import { trackInteraction } from '@/lib/sessionTracker';
-import MoodToast from '@/components/MoodToast';
 
 const MOODS: { label: string; Icon: LucideIcon; color: string; bg: string; fillable?: boolean }[] = [
   { label: 'Loved',      Icon: Heart,         color: 'text-rose-400',    bg: 'bg-rose-500/20',    fillable: true },
@@ -40,36 +39,22 @@ const MOODS: { label: string; Icon: LucideIcon; color: string; bg: string; filla
 export default function MoodTracker() {
   const { currentMood, setCurrentMood } = useGameStore();
   const [isExpanded, setIsExpanded] = useState(false);
-  const [justSelected, setJustSelected] = useState(false);
-  const [toastMood, setToastMood] = useState<string | null>(null);
 
-  // Handles both old "🥰 Loved" format and new "Loved" format
   const activeMood = MOODS.find(m => currentMood?.includes(m.label));
 
   const handleMoodPick = (label: string) => {
     softTap(); playChime();
     setCurrentMood(label);
-    setJustSelected(true);
-    setToastMood(label);
-
     trackInteraction('mood-update', label);
     notifyOwner(`💖 <b>Your angel just updated her mood!</b>\n\n<b>${label}</b>\n\n<i>She is feeling something beautiful right now.</i>`);
-
     setTimeout(() => {
       successVibe();
       setIsExpanded(false);
-      setJustSelected(false);
-    }, 800);
+    }, 400);
   };
 
   return (
     <div className="w-full px-4">
-      {/* Mood toast popup */}
-      <AnimatePresence>
-        {toastMood && (
-          <MoodToast key={toastMood + Date.now()} mood={toastMood} onClose={() => setToastMood(null)} />
-        )}
-      </AnimatePresence>
       <motion.div
         className="rounded-[22px] overflow-hidden"
         style={{
@@ -112,7 +97,7 @@ export default function MoodTracker() {
           </div>
           <motion.div
             animate={{ rotate: isExpanded ? 180 : 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.2 }}
           >
             <ChevronDown size={16} className="text-white/30" />
           </motion.div>
@@ -125,7 +110,7 @@ export default function MoodTracker() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
               className="overflow-hidden"
             >
               <p className="text-center text-[11px] text-white/40 uppercase tracking-widest pb-3">
@@ -135,17 +120,14 @@ export default function MoodTracker() {
                 {MOODS.map(({ label, Icon, color, bg, fillable }) => {
                   const isSelected = currentMood?.includes(label);
                   return (
-                    <motion.button
+                    <button
                       key={label}
                       onClick={() => handleMoodPick(label)}
-                      className={`flex flex-col items-center gap-1.5 p-2.5 rounded-2xl cursor-pointer transition-all active:scale-90 ${
+                      className={`flex flex-col items-center gap-1.5 p-2.5 rounded-2xl cursor-pointer transition-colors ${
                         isSelected
                           ? 'border shadow-[0_0_20px_rgba(255,77,141,0.3)]'
                           : 'glass border border-white/5'
                       }`}
-                      whileTap={{ scale: 0.88 }}
-                      animate={isSelected && justSelected ? { scale: [1, 1.25, 1] } : {}}
-                      transition={{ duration: 0.4 }}
                     >
                       <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${isSelected ? 'bg-rose-500/20' : bg}`}>
                         <Icon
@@ -159,7 +141,7 @@ export default function MoodTracker() {
                       }`}>
                         {label}
                       </span>
-                    </motion.button>
+                    </button>
                   );
                 })}
               </div>

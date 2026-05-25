@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
@@ -178,7 +178,7 @@ export default function CompletionScreen() {
 
             <button
               onClick={() => setPhase('home')}
-              className="relative px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-2xl shadow-xl shadow-rose-500/30 active:scale-95 transition-transform cursor-pointer flex items-center justify-center gap-2 overflow-hidden"
+              className="relative px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-2xl shadow-xl shadow-rose-500/30 transition-transform cursor-pointer flex items-center justify-center gap-2 overflow-hidden"
             >
               <motion.div
                 className="absolute inset-0 w-1/3 h-full bg-white/15 -skew-x-12"
@@ -350,7 +350,7 @@ export default function CompletionScreen() {
         <motion.button
           onClick={handleSubmit}
           disabled={isSubmitting}
-          className="w-full relative py-4 rounded-2xl text-[15px] font-bold text-white shadow-xl active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-70 disabled:pointer-events-none overflow-hidden"
+          className="w-full relative py-4 rounded-2xl text-[15px] font-bold text-white shadow-xl transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-70 disabled:pointer-events-none overflow-hidden"
           style={{
             background: "linear-gradient(135deg, #f43f5e, #ec4899)",
             boxShadow: "0 0 0 1px rgba(244,63,94,0.35), 0 8px 32px rgba(244,63,94,0.3)",
@@ -384,7 +384,7 @@ export default function CompletionScreen() {
         {!isSubmitting && (
           <motion.button
             onClick={() => setPhase('home')}
-            className="w-full py-3 mt-3 glass-premium rounded-2xl text-[14px] font-medium text-white/60 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
+            className="w-full py-3 mt-3 glass-premium rounded-2xl text-[14px] font-medium text-white/60 transition-all cursor-pointer flex items-center justify-center gap-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.8, duration: 0.6 }}

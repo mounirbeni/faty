@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -83,7 +83,7 @@ export default function MoodRingScreen() {
       <div className="absolute top-0 inset-x-0 z-10 flex items-center justify-between px-5 pt-10 pb-4 shrink-0">
         <button
           onClick={() => { heartbeat(); setPhase('home'); }}
-          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 active:scale-95 transition-transform cursor-pointer"
+          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 transition-transform cursor-pointer"
         >
           <ArrowLeft size={16} />
           Map
@@ -127,9 +127,9 @@ export default function MoodRingScreen() {
                     <motion.button
                       key={mood}
                       onClick={() => handleMoodSelect(mood)}
-                      className={`glass-strong p-5 rounded-3xl flex flex-col items-center justify-center gap-3 border border-white/10 active:scale-95 transition-all cursor-pointer`}
+                      className={`glass-strong p-5 rounded-3xl flex flex-col items-center justify-center gap-3 border border-white/10 transition-all cursor-pointer`}
                       whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.95 }}
+                      
                     >
                       <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${data.color} flex items-center justify-center shadow-lg ${data.shadow}`}>
                         <Icon size={20} className="text-white" />
@@ -170,7 +170,7 @@ export default function MoodRingScreen() {
 
               <motion.button
                 onClick={() => setSelectedMood(null)}
-                className="mt-8 text-white/50 text-sm font-semibold hover:text-white transition-colors uppercase tracking-widest active:scale-95"
+                className="mt-8 text-white/50 text-sm font-semibold hover:text-white transition-colors uppercase tracking-widest"
               >
                 Change Mood
               </motion.button>

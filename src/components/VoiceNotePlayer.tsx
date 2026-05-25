@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+﻿import { useState, useRef, useEffect } from 'react';
 import { Play, Pause } from 'lucide-react';
 
 interface VoiceNotePlayerProps {
@@ -67,7 +67,7 @@ export default function VoiceNotePlayer({ src }: VoiceNotePlayerProps) {
       {/* Play/Pause Button */}
       <button
         onClick={togglePlay}
-        className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/40 active:scale-95 transition-transform"
+        className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/40 transition-transform"
       >
         {isPlaying ? (
           <Pause size={20} className="text-white fill-white" />

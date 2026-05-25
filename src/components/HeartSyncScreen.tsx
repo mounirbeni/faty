@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -50,7 +50,7 @@ export default function HeartSyncScreen() {
       <div className="relative z-10 flex items-center justify-between px-5 pt-10 pb-4 shrink-0">
         <button
           onClick={() => setPhase('home')}
-          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 active:scale-95 transition-transform cursor-pointer"
+          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 transition-transform cursor-pointer"
         >
           <ArrowLeft size={16} />
           Map
@@ -80,7 +80,7 @@ export default function HeartSyncScreen() {
               <motion.button
                 onClick={handleTap}
                 className="relative cursor-pointer select-none mb-16"
-                whileTap={{ scale: 0.85 }}
+                
                 animate={{
                   scale: [1, 1.05, 1],
                 }}
@@ -144,7 +144,7 @@ export default function HeartSyncScreen() {
 
               <motion.button
                 onClick={() => setPhase('home')}
-                className="mt-10 px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold rounded-2xl shadow-xl shadow-rose-500/30 active:scale-95 transition-transform cursor-pointer flex items-center gap-2"
+                className="mt-10 px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold rounded-2xl shadow-xl shadow-rose-500/30 transition-transform cursor-pointer flex items-center gap-2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}

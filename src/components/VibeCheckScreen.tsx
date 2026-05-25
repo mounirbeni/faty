@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import {
@@ -88,7 +88,7 @@ export default function VibeCheckScreen() {
         </p>
         <motion.button
           onClick={() => { heartbeat(); setPhase('home'); }}
-          className="px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-2xl shadow-xl shadow-rose-500/30 active:scale-95 transition-transform cursor-pointer"
+          className="px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-2xl shadow-xl shadow-rose-500/30 transition-transform cursor-pointer"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -110,7 +110,7 @@ export default function VibeCheckScreen() {
       <div className="relative z-10 flex items-center justify-between px-5 pt-10 pb-4 shrink-0">
         <button
           onClick={() => { swipeNope(); setPhase('home'); }}
-          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 active:scale-95 transition-transform cursor-pointer"
+          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 transition-transform cursor-pointer"
         >
           <ArrowLeft size={16} />
           Map
@@ -202,15 +202,15 @@ export default function VibeCheckScreen() {
       <div className="flex gap-4 px-8 pb-10 pt-4 shrink-0">
         <motion.button
           onClick={() => handleSwipe('nope')}
-          className="flex-1 flex items-center justify-center gap-2 py-4 rounded-2xl bg-rose-500/20 border border-rose-500/30 text-rose-400 font-bold active:scale-95 transition-transform cursor-pointer"
-          whileTap={{ scale: 0.95 }}
+          className="flex-1 flex items-center justify-center gap-2 py-4 rounded-2xl bg-rose-500/20 border border-rose-500/30 text-rose-400 font-bold transition-transform cursor-pointer"
+          
         >
           <X size={20} /> Not me
         </motion.button>
         <motion.button
           onClick={() => handleSwipe('love')}
-          className="flex-1 flex items-center justify-center gap-2 py-4 rounded-2xl bg-green-500/20 border border-green-500/30 text-green-400 font-bold active:scale-95 transition-transform cursor-pointer"
-          whileTap={{ scale: 0.95 }}
+          className="flex-1 flex items-center justify-center gap-2 py-4 rounded-2xl bg-green-500/20 border border-green-500/30 text-green-400 font-bold transition-transform cursor-pointer"
+          
         >
           <Heart size={20} fill="currentColor" /> Love it
         </motion.button>
@@ -244,7 +244,7 @@ export default function VibeCheckScreen() {
               onClick={() => {
                 setCurrentIdx(i => i - 1);
               }}
-              className="flex items-center gap-1.5 text-white/40 hover:text-white/80 transition-colors text-xs font-semibold active:scale-95 cursor-pointer uppercase tracking-widest mt-2"
+              className="flex items-center gap-1.5 text-white/40 hover:text-white/80 transition-colors text-xs font-semibold cursor-pointer uppercase tracking-widest mt-2"
             >
               <RotateCcw size={12} />
               Undo

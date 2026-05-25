@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -132,7 +132,7 @@ export default function MemoryReconstructionGame({ onBack, onComplete }: Props) 
         </p>
       </motion.div>
       <motion.button onClick={onBack}
-        className="w-full py-[17px] rounded-[22px] font-black text-white text-[15px] flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer"
+        className="w-full py-[17px] rounded-[22px] font-black text-white text-[15px] flex items-center justify-center gap-2 transition-transform cursor-pointer"
         style={{ background: 'linear-gradient(135deg,#A78BFA,#7C3AED)', boxShadow: '0 8px 36px rgba(167,139,250,0.4)' }}
         initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}>
         <Heart size={15} fill="currentColor" /> Back to Intimacy
@@ -169,7 +169,7 @@ export default function MemoryReconstructionGame({ onBack, onComplete }: Props) 
       {/* Header */}
       <div className="relative z-10 flex items-center justify-between px-4 pt-10 pb-4 shrink-0">
         <button onClick={onBack}
-          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold active:scale-95 transition-transform cursor-pointer"
+          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold transition-transform cursor-pointer"
           style={{ color: 'rgba(255,230,242,0.5)' }}>
           <ArrowLeft size={15} /> Back
         </button>
@@ -274,7 +274,7 @@ export default function MemoryReconstructionGame({ onBack, onComplete }: Props) 
                 <motion.button
                   onClick={handlePreserve}
                   disabled={!canSubmit}
-                  className="mt-3 w-full py-4 rounded-[16px] text-[13px] font-black text-white flex items-center justify-center gap-2 cursor-pointer active:scale-95 transition-all disabled:opacity-30"
+                  className="mt-3 w-full py-4 rounded-[16px] text-[13px] font-black text-white flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-30"
                   style={{
                     background: canSubmit ? 'linear-gradient(135deg, #A78BFA, #7C3AED)' : 'rgba(255,255,255,0.06)',
                     boxShadow: canSubmit ? '0 6px 28px rgba(167,139,250,0.4)' : 'none',
@@ -316,9 +316,9 @@ export default function MemoryReconstructionGame({ onBack, onComplete }: Props) 
                 </p>
               </div>
               <motion.button onClick={handleNext}
-                className="px-10 py-3.5 rounded-[20px] font-black text-white text-[13px] active:scale-95 transition-transform cursor-pointer flex items-center gap-2"
+                className="px-10 py-3.5 rounded-[20px] font-black text-white text-[13px] transition-transform cursor-pointer flex items-center gap-2"
                 style={{ background: 'linear-gradient(135deg, #A78BFA, #7C3AED)', boxShadow: '0 6px 30px rgba(167,139,250,0.45)' }}
-                whileTap={{ scale: 0.94 }}>
+                >
                 <Sparkles size={13} /> Next memory
               </motion.button>
             </motion.div>

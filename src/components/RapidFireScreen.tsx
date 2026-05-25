@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -68,7 +68,7 @@ export default function RapidFireScreen() {
         </p>
         <motion.button
           onClick={() => setPhase('home')}
-          className="px-8 py-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold rounded-2xl shadow-xl shadow-orange-500/30 active:scale-95 transition-transform cursor-pointer"
+          className="px-8 py-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold rounded-2xl shadow-xl shadow-orange-500/30 transition-transform cursor-pointer"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -95,7 +95,7 @@ export default function RapidFireScreen() {
       <div className="relative z-10 flex items-center justify-between px-5 pt-10 pb-4 shrink-0">
         <button
           onClick={() => setPhase('home')}
-          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 active:scale-95 transition-transform cursor-pointer"
+          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 transition-transform cursor-pointer"
         >
           <ArrowLeft size={16} />
           Map
@@ -141,7 +141,7 @@ export default function RapidFireScreen() {
             onClick={() => handleChoice('a')}
             className={`
               w-full max-w-sm py-7 rounded-3xl font-bold text-lg text-center
-              border transition-all active:scale-95 cursor-pointer will-change-transform
+              border transition-all cursor-pointer will-change-transform
               flex flex-col items-center gap-2
               ${selected === 'a'
                 ? 'bg-gradient-to-br from-orange-400 to-amber-500 border-transparent text-white shadow-2xl shadow-orange-500/40 scale-[1.02]'
@@ -150,7 +150,7 @@ export default function RapidFireScreen() {
                 : 'glass-strong border-white/15 text-white hover:border-orange-400/40'
               }
             `}
-            whileTap={{ scale: 0.97 }}
+            
           >
             <IconFromName name={current.iconA} size={32} />
             <span className="text-[16px]">{current.a}</span>
@@ -166,7 +166,7 @@ export default function RapidFireScreen() {
             onClick={() => handleChoice('b')}
             className={`
               w-full max-w-sm py-7 rounded-3xl font-bold text-lg text-center
-              border transition-all active:scale-95 cursor-pointer will-change-transform
+              border transition-all cursor-pointer will-change-transform
               flex flex-col items-center gap-2
               ${selected === 'b'
                 ? 'bg-gradient-to-br from-rose-500 to-pink-600 border-transparent text-white shadow-2xl shadow-rose-500/40 scale-[1.02]'
@@ -175,7 +175,7 @@ export default function RapidFireScreen() {
                 : 'glass-strong border-white/15 text-white hover:border-rose-400/40'
               }
             `}
-            whileTap={{ scale: 0.97 }}
+            
           >
             <IconFromName name={current.iconB} size={32} />
             <span className="text-[16px]">{current.b}</span>
@@ -212,7 +212,7 @@ export default function RapidFireScreen() {
                 setSelected(null);
                 setCurrentIdx(i => i - 1);
               }}
-              className="flex items-center gap-1.5 text-white/40 hover:text-white/80 transition-colors text-xs font-semibold active:scale-95 cursor-pointer uppercase tracking-widest"
+              className="flex items-center gap-1.5 text-white/40 hover:text-white/80 transition-colors text-xs font-semibold cursor-pointer uppercase tracking-widest"
             >
               <RotateCcw size={12} />
               Previous

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -73,7 +73,7 @@ export default function KissJarScreen() {
       <div className="relative z-10 flex items-center justify-between px-5 pt-10 pb-4 shrink-0">
         <button
           onClick={() => { heartbeat(); setPhase('home'); }}
-          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 active:scale-95 transition-transform cursor-pointer"
+          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 transition-transform cursor-pointer"
         >
           <ArrowLeft size={16} />
           Map
@@ -115,7 +115,7 @@ export default function KissJarScreen() {
           <motion.button
             onClick={handleTap}
             className="relative w-48 h-48 rounded-full flex flex-col items-center justify-center cursor-pointer select-none"
-            whileTap={{ scale: 0.9 }}
+            
             animate={justHitMilestone ? { scale: [1, 1.12, 1] } : {}}
             transition={{ duration: 0.4 }}
           >

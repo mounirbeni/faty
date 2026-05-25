@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -63,7 +63,7 @@ export default function FortuneTellerScreen() {
       <div className="relative z-10 flex items-center justify-between px-5 pt-10 pb-4 shrink-0">
         <button
           onClick={() => setPhase('home')}
-          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 active:scale-95 transition-transform cursor-pointer"
+          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 transition-transform cursor-pointer"
         >
           <ArrowLeft size={16} />
           Map
@@ -94,7 +94,7 @@ export default function FortuneTellerScreen() {
               <motion.button
                 onClick={handleTap}
                 className="relative cursor-pointer select-none"
-                whileTap={{ scale: 0.9 }}
+                
                 animate={{ y: [0, -10, 0] }}
                 transition={{ y: { duration: 3, repeat: Infinity, ease: "easeInOut" } }}
               >
@@ -147,7 +147,7 @@ export default function FortuneTellerScreen() {
               </div>
               <motion.button
                 onClick={() => setPhase('home')}
-                className="mt-10 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-2xl shadow-xl shadow-cyan-500/30 active:scale-95 transition-transform cursor-pointer flex items-center gap-2"
+                className="mt-10 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-2xl shadow-xl shadow-cyan-500/30 transition-transform cursor-pointer flex items-center gap-2"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}
               >
                 Back to Map <Map size={16} />

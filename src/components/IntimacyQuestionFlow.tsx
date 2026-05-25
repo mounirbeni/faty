@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -119,7 +119,7 @@ export default function IntimacyQuestionFlow({
         </div>
       </motion.div>
       <motion.button onClick={onBack}
-        className="w-full py-[17px] rounded-[22px] font-black text-white text-[15px] flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer"
+        className="w-full py-[17px] rounded-[22px] font-black text-white text-[15px] flex items-center justify-center gap-2 transition-transform cursor-pointer"
         style={{ background: `linear-gradient(135deg, ${accentColor}, ${accentColor}bb)`, boxShadow: `0 8px 36px ${glowColor}44` }}
         initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
         <Heart size={15} fill="currentColor" /> Back to Intimacy
@@ -155,7 +155,7 @@ export default function IntimacyQuestionFlow({
       {/* Header */}
       <div className="relative z-10 flex items-center justify-between px-4 pt-10 pb-4 shrink-0">
         <button onClick={onBack}
-          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold active:scale-95 transition-transform cursor-pointer"
+          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold transition-transform cursor-pointer"
           style={{ color: 'rgba(255,230,242,0.55)' }}>
           <ArrowLeft size={15} /> Back
         </button>
@@ -230,7 +230,7 @@ export default function IntimacyQuestionFlow({
                 {step > 0 && (
                   <button
                     onClick={() => { softTap(); setStep(s => s - 1); }}
-                    className="px-4 py-3 glass rounded-[14px] text-[12px] font-semibold cursor-pointer active:scale-95 transition-transform"
+                    className="px-4 py-3 glass rounded-[14px] text-[12px] font-semibold cursor-pointer transition-transform"
                     style={{ color: 'rgba(255,230,242,0.4)' }}>
                     ← Prev
                   </button>
@@ -238,7 +238,7 @@ export default function IntimacyQuestionFlow({
                 <motion.button
                   onClick={handleSubmit}
                   disabled={!canSubmit}
-                  className="flex-1 py-3.5 rounded-[16px] text-[13px] font-black text-white flex items-center justify-center gap-2 cursor-pointer active:scale-95 transition-all disabled:opacity-30"
+                  className="flex-1 py-3.5 rounded-[16px] text-[13px] font-black text-white flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-30"
                   style={{
                     background: canSubmit ? `linear-gradient(135deg, ${accentColor}, ${accentColor}bb)` : 'rgba(255,255,255,0.06)',
                     boxShadow: canSubmit ? `0 6px 28px ${glowColor}44` : 'none',

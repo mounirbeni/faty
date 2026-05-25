@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -303,7 +303,7 @@ export default function SafePlaceScreen() {
         <div className="flex items-center justify-between mb-1 -mt-2">
           <button
             onClick={() => { softTap(); setPhase('home'); }}
-            className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 active:scale-95 transition-transform cursor-pointer"
+            className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 transition-transform cursor-pointer"
           >
             <ArrowLeft size={16} /> Universe
           </button>
@@ -520,7 +520,7 @@ export default function SafePlaceScreen() {
               </div>
               <button
                 onClick={() => { softTap(); setBreathActive(v => !v); setBreathStep(0); }}
-                className="px-3 py-1.5 rounded-xl text-[11px] font-bold active:scale-95 transition-transform cursor-pointer"
+                className="px-3 py-1.5 rounded-xl text-[11px] font-bold transition-transform cursor-pointer"
                 style={{
                   background: breathActive ? 'rgba(167,139,250,0.2)' : 'rgba(255,255,255,0.06)',
                   border: '1px solid rgba(167,139,250,0.25)',

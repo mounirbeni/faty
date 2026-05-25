@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { Heart, ArrowRight, Sparkles, Star } from "lucide-react";
@@ -124,7 +124,7 @@ export default function LevelIntro({ category, onContinue }: LevelIntroProps) {
           className={`
             w-full flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-[16px] font-bold text-white
             bg-gradient-to-r ${meta.colorFrom} ${meta.colorTo} overflow-hidden relative
-            active:scale-95 transition-transform duration-200 cursor-pointer shadow-xl
+            transition-transform duration-200 cursor-pointer shadow-xl
           `}
           style={{ boxShadow: `0 10px 30px -10px ${meta.accentHex}60` }}
           initial={{ opacity: 0, y: 20 }}

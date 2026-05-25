@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -148,7 +148,7 @@ export default function DateSpinnerScreen() {
         <div className="w-full flex items-center justify-between">
           <button
             onClick={() => setPhase('home')}
-            className="flex items-center gap-2 px-3 py-2 glass-premium rounded-xl text-sm text-white/60 active:scale-95 transition-transform cursor-pointer"
+            className="flex items-center gap-2 px-3 py-2 glass-premium rounded-xl text-sm text-white/60 transition-transform cursor-pointer"
           >
             <ArrowLeft size={15} />
             Back
@@ -249,7 +249,7 @@ export default function DateSpinnerScreen() {
         <motion.button
           onClick={spin}
           disabled={isSpinning}
-          className="relative px-10 py-4 rounded-2xl font-bold text-white text-[16px] flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer disabled:opacity-60 overflow-hidden"
+          className="relative px-10 py-4 rounded-2xl font-bold text-white text-[16px] flex items-center justify-center gap-2 transition-transform cursor-pointer disabled:opacity-60 overflow-hidden"
           style={{
             background: isSpinning
               ? 'linear-gradient(135deg, #6b7280, #4b5563)'
@@ -258,7 +258,7 @@ export default function DateSpinnerScreen() {
               ? 'none'
               : '0 0 0 1px rgba(244,63,94,0.4), 0 8px 32px rgba(244,63,94,0.35)',
           }}
-          whileTap={{ scale: 0.95 }}
+          
         >
           {!isSpinning && (
             <motion.div

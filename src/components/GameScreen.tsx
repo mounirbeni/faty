@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -227,7 +227,7 @@ export default function GameScreen() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => { softTap(); setPhase('home'); }}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl glass text-xs font-semibold text-white/50 active:scale-95 transition-transform cursor-pointer"
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl glass text-xs font-semibold text-white/50 transition-transform cursor-pointer"
               >
                 <Map size={12} className="text-white/40" />
                 <span className="hidden sm:inline">Map</span>
@@ -235,7 +235,7 @@ export default function GameScreen() {
               <button
                 onClick={handleUseReverseCard}
                 disabled={reverseCardsLeft <= 0 || isReversed || isFlipping}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl glass text-xs font-semibold text-white/70 active:scale-95 transition-transform disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl glass text-xs font-semibold text-white/70 transition-transform disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
               >
                 <RotateCcw size={14} className="text-amber-400" />
                 <span>{reverseCardsLeft}</span>
@@ -378,7 +378,7 @@ export default function GameScreen() {
           <motion.button
             onClick={handlePrev}
             disabled={isFirst}
-            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl text-sm font-semibold text-white/60 glass-premium active:scale-95 transition-all disabled:opacity-20 disabled:pointer-events-none cursor-pointer"
+            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl text-sm font-semibold text-white/60 glass-premium transition-all disabled:opacity-20 disabled:pointer-events-none cursor-pointer"
           >
             <ArrowLeft size={18} />
             Back
@@ -388,7 +388,7 @@ export default function GameScreen() {
             onClick={handleNext}
             disabled={!hasAnswer}
             className={`
-              flex-1 relative flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-sm font-bold text-white shadow-xl active:scale-95 transition-all cursor-pointer overflow-hidden
+              flex-1 relative flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-sm font-bold text-white shadow-xl transition-all cursor-pointer overflow-hidden
               disabled:opacity-30 disabled:pointer-events-none
               ${theme.buttonGradient} ${theme.shadow}
             `}
@@ -490,7 +490,7 @@ function MultipleChoice({
             key={i}
             onClick={() => onSelect(option)}
             className={`
-              relative flex items-center gap-3 w-full px-4 py-3.5 rounded-2xl text-start font-medium active:scale-95 transition-all cursor-pointer
+              relative flex items-center gap-3 w-full px-4 py-3.5 rounded-2xl text-start font-medium transition-all cursor-pointer
               ${
                 isSelected
                   ? `${theme.bgGradient} text-white shadow-lg ${theme.shadow} ring-1 ${theme.ring.split(' ')[1]}`

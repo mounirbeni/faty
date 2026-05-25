@@ -50,7 +50,7 @@ export default function WouldYouRatherScreen() {
     setPicked(choice);
     setChoices(prev => ({ ...prev, [scenario.id]: choice }));
     notifyOwner(
-      `🤔 <b>Your angel answered a Would You Rather!</b>\n\nQ${currentIdx + 1} of ${total}\n\nShe chose <b>${choice.toUpperCase()}</b>:\n"${choice === 'a' ? scenario.a : scenario.b}"\n\nOver: "${choice === 'a' ? scenario.b : scenario.a}"`
+      `?? <b>Your angel answered a Would You Rather!</b>\n\nQ${currentIdx + 1} of ${total}\n\nShe chose <b>${choice.toUpperCase()}</b>:\n"${choice === 'a' ? scenario.a : scenario.b}"\n\nOver: "${choice === 'a' ? scenario.b : scenario.a}"`
     );
 
     setTimeout(() => {
@@ -113,7 +113,7 @@ export default function WouldYouRatherScreen() {
             <div className="h-[3px] w-full bg-gradient-to-r from-rose-500 via-pink-400 to-rose-500" />
             <div className="p-5">
               <p className="text-[14px] text-white/70 leading-relaxed mb-3">
-                Every choice you made tells me something about you. And I love every answer — even the ones that surprised me.
+                Every choice you made tells me something about you. And I love every answer � even the ones that surprised me.
               </p>
               <p className="text-[14px] text-white/70 leading-relaxed">
                 I want to go through every single one of these with you in person, and tell you exactly which ones I would have picked too.
@@ -128,7 +128,7 @@ export default function WouldYouRatherScreen() {
           <div className="flex w-full gap-3">
             <motion.button
               onClick={reset}
-              className="flex-1 py-3.5 glass-premium rounded-2xl text-[14px] font-semibold text-white/70 flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer"
+              className="flex-1 py-3.5 glass-premium rounded-2xl text-[14px] font-semibold text-white/70 flex items-center justify-center gap-2 transition-transform cursor-pointer"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.55 }}
@@ -138,7 +138,7 @@ export default function WouldYouRatherScreen() {
             </motion.button>
             <motion.button
               onClick={() => setPhase('home')}
-              className="flex-1 py-3.5 rounded-2xl text-[14px] font-bold text-white flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer"
+              className="flex-1 py-3.5 rounded-2xl text-[14px] font-bold text-white flex items-center justify-center gap-2 transition-transform cursor-pointer"
               style={{
                 background: 'linear-gradient(135deg, #f43f5e, #ec4899)',
                 boxShadow: '0 0 0 1px rgba(244,63,94,0.35), 0 8px 24px rgba(244,63,94,0.3)',
@@ -173,7 +173,7 @@ export default function WouldYouRatherScreen() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => setPhase('home')}
-            className="flex items-center gap-2 px-3 py-2 glass-premium rounded-xl text-sm text-white/60 active:scale-95 transition-transform cursor-pointer"
+            className="flex items-center gap-2 px-3 py-2 glass-premium rounded-xl text-sm text-white/60 transition-transform cursor-pointer"
           >
             <ArrowLeft size={15} />
             Back
@@ -223,7 +223,7 @@ export default function WouldYouRatherScreen() {
               disabled={!!picked}
               className={`
                 relative w-full p-5 rounded-2xl text-start text-[14px] font-semibold leading-snug
-                transition-all active:scale-[0.98] cursor-pointer overflow-hidden
+                transition-all cursor-pointer overflow-hidden
                 ${picked === 'a'
                   ? 'bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-xl shadow-violet-500/30 ring-2 ring-violet-400/40'
                   : picked === 'b'
@@ -231,7 +231,7 @@ export default function WouldYouRatherScreen() {
                   : 'glass-premium text-white hover:bg-white/10'
                 }
               `}
-              whileTap={{ scale: 0.98 }}
+              
             >
               {picked === 'a' && (
                 <motion.div
@@ -264,7 +264,7 @@ export default function WouldYouRatherScreen() {
               disabled={!!picked}
               className={`
                 relative w-full p-5 rounded-2xl text-start text-[14px] font-semibold leading-snug
-                transition-all active:scale-[0.98] cursor-pointer overflow-hidden
+                transition-all cursor-pointer overflow-hidden
                 ${picked === 'b'
                   ? 'bg-gradient-to-br from-rose-500 to-pink-500 text-white shadow-xl shadow-rose-500/30 ring-2 ring-rose-400/40'
                   : picked === 'a'
@@ -272,7 +272,7 @@ export default function WouldYouRatherScreen() {
                   : 'glass-premium text-white hover:bg-white/10'
                 }
               `}
-              whileTap={{ scale: 0.98 }}
+              
             >
               {picked === 'b' && (
                 <motion.div

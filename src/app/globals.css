@@ -299,6 +299,65 @@
   100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.5; }
 }
 
+@keyframes heart-portal-tunnel {
+  0% { transform: scale(0.8) rotate(0deg); opacity: 0; filter: blur(20px); }
+  30% { transform: scale(1.2) rotate(90deg); opacity: 0.8; filter: blur(5px); }
+  60% { transform: scale(0.95) rotate(180deg); opacity: 1; filter: blur(0px); }
+  100% { transform: scale(1) rotate(360deg); opacity: 1; filter: blur(0px); }
+}
+
+@keyframes heart-galaxy-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.15); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes heart-text-reveal {
+  0% { opacity: 0; transform: translateY(12px); filter: blur(8px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes heart-fog-drift {
+  0%, 100% { transform: translateX(0) scaleX(1); opacity: 0.08; }
+  25% { transform: translateX(3%) scaleX(1.02); opacity: 0.15; }
+  50% { transform: translateX(-2%) scaleX(1.04); opacity: 0.12; }
+  75% { transform: translateX(1%) scaleX(0.98); opacity: 0.1; }
+}
+
+@keyframes heart-dust-float {
+  0% { transform: translate(0, 0) scale(1); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 0.4; }
+  100% { transform: translate(var(--dx, 30px), var(--dy, -60px)) scale(0.5); opacity: 0; }
+}
+
+@keyframes heart-beam-sway {
+  0%, 100% { transform: translateX(0) rotate(0deg); opacity: 0.06; }
+  33% { transform: translateX(20px) rotate(2deg); opacity: 0.12; }
+  66% { transform: translateX(-15px) rotate(-1.5deg); opacity: 0.08; }
+}
+
+@keyframes heart-waveform {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+@keyframes heart-glow-pulse {
+  0%, 100% { box-shadow: 0 0 30px rgba(123,92,255,0.2), 0 0 60px rgba(123,92,255,0.1); }
+  50% { box-shadow: 0 0 50px rgba(123,92,255,0.4), 0 0 100px rgba(123,92,255,0.2); }
+}
+
+@keyframes heart-warmth-grow {
+  0% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.12); }
+  100% { opacity: 0.3; transform: scale(1); }
+}
+
+@keyframes heart-response-ripple {
+  0% { transform: scale(0.5); opacity: 0.8; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
 /* ─── Base Styles ───────────────────────────────────────────────────── */
 
 @layer base {
@@ -449,6 +508,16 @@
   .animate-secret-pulse    { animation: secret-pulse 3s ease-in-out infinite; }
   .animate-float-drift     { animation: float-drift 6s ease-in-out infinite; }
   .animate-aurora-slow     { animation: aurora-slow 28s ease-in-out infinite; }
+  .animate-heart-portal     { animation: heart-portal-tunnel 1.2s cubic-bezier(0.16,1,0.3,1) forwards; }
+  .animate-heart-galaxy     { animation: heart-galaxy-spin 40s linear infinite; }
+  .animate-heart-text       { animation: heart-text-reveal 0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
+  .animate-heart-fog        { animation: heart-fog-drift 20s ease-in-out infinite; }
+  .animate-heart-dust       { animation: heart-dust-float var(--dur, 8s) ease-in-out var(--delay, 0s) infinite; }
+  .animate-heart-beam       { animation: heart-beam-sway 12s ease-in-out infinite; }
+  .animate-heart-waveform   { animation: heart-waveform var(--dur, 0.6s) ease-in-out var(--delay, 0s) infinite; }
+  .animate-heart-glow       { animation: heart-glow-pulse 4s ease-in-out infinite; }
+  .animate-heart-warmth     { animation: heart-warmth-grow 6s ease-in-out infinite; }
+  .animate-heart-ripple     { animation: heart-response-ripple 1.2s ease-out forwards; }
 
   /* ── Glass System ── */
 

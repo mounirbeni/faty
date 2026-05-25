@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -150,7 +150,7 @@ export default function DreamDateScreen() {
         </div>
       </motion.div>
       <motion.button onClick={() => setPhase('home')}
-        className="w-full py-[17px] rounded-[22px] font-black text-white text-[15px] flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer"
+        className="w-full py-[17px] rounded-[22px] font-black text-white text-[15px] flex items-center justify-center gap-2 transition-transform cursor-pointer"
         style={{ background: 'linear-gradient(135deg,#FF4D8D,#C9245F)', boxShadow: '0 8px 36px rgba(255,77,141,0.4)' }}
         initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
         <Heart size={15} fill="currentColor" /> Back to Map
@@ -171,7 +171,7 @@ export default function DreamDateScreen() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <button onClick={() => setPhase('home')}
-            className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold active:scale-95 transition-transform cursor-pointer"
+            className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold transition-transform cursor-pointer"
             style={{ color: 'rgba(255,230,242,0.6)' }}>
             <ArrowLeft size={15} /> Back
           </button>
@@ -221,13 +221,13 @@ export default function DreamDateScreen() {
                     onClick={() => pick(opt.label)}
                     initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.055 }}
-                    className="relative flex flex-col items-start gap-2 p-4 rounded-[18px] text-left active:scale-95 transition-all cursor-pointer"
+                    className="relative flex flex-col items-start gap-2 p-4 rounded-[18px] text-left transition-all cursor-pointer"
                     style={{
                       background: isSelected ? `linear-gradient(135deg, ${section.color}30, ${section.color}18)` : 'rgba(255,255,255,0.05)',
                       border: isSelected ? `1px solid ${section.color}55` : '1px solid rgba(255,255,255,0.08)',
                       boxShadow: isSelected ? `0 0 24px ${section.color}33` : 'none',
                     }}
-                    whileTap={{ scale: 0.93 }}>
+                    >
                     <span className="text-2xl">{opt.emoji}</span>
                     <span className="text-[12px] font-semibold leading-tight" style={{ color: isSelected ? 'rgba(255,230,242,0.95)' : 'rgba(255,230,242,0.65)' }}>
                       {opt.label}

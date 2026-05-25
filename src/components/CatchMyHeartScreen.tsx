@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -278,7 +278,7 @@ export default function CatchMyHeartScreen() {
       {/* Header */}
       <div className="relative z-10 flex items-center justify-between px-4 pt-10 pb-3 shrink-0">
         <button onClick={() => { stopAll(); setPhase('home'); }}
-          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold active:scale-95 transition-transform cursor-pointer"
+          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold transition-transform cursor-pointer"
           style={{ color: 'rgba(255,230,242,0.6)' }}>
           <ArrowLeft size={15} /> Back
         </button>
@@ -397,9 +397,9 @@ export default function CatchMyHeartScreen() {
               </div>
 
               <motion.button onClick={startGame}
-                className="px-12 py-4 rounded-[22px] font-black text-white text-[16px] active:scale-95 transition-transform cursor-pointer flex items-center gap-2.5"
+                className="px-12 py-4 rounded-[22px] font-black text-white text-[16px] transition-transform cursor-pointer flex items-center gap-2.5"
                 style={{ background: 'linear-gradient(135deg,#FF4D8D,#C9245F)', boxShadow: '0 8px 40px rgba(255,77,141,0.5)' }}
-                whileTap={{ scale: 0.94 }}>
+                >
                 <Heart size={18} fill="currentColor" /> Let's go!
               </motion.button>
             </motion.div>
@@ -440,11 +440,11 @@ export default function CatchMyHeartScreen() {
               <motion.div className="flex gap-3 w-full"
                 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
                 <button onClick={startGame}
-                  className="flex-1 py-3.5 glass rounded-[18px] text-[13px] font-black text-white active:scale-95 transition-transform cursor-pointer flex items-center justify-center gap-2">
+                  className="flex-1 py-3.5 glass rounded-[18px] text-[13px] font-black text-white transition-transform cursor-pointer flex items-center justify-center gap-2">
                   <Sparkles size={14} /> Again
                 </button>
                 <button onClick={() => setPhase('home')}
-                  className="flex-[1.4] py-3.5 rounded-[18px] text-[13px] font-black text-white active:scale-95 transition-transform cursor-pointer flex items-center justify-center gap-2"
+                  className="flex-[1.4] py-3.5 rounded-[18px] text-[13px] font-black text-white transition-transform cursor-pointer flex items-center justify-center gap-2"
                   style={{ background: 'linear-gradient(135deg,#FF4D8D,#C9245F)', boxShadow: '0 6px 24px rgba(255,77,141,0.45)' }}>
                   <Heart size={13} fill="currentColor" /> Back to Map
                 </button>

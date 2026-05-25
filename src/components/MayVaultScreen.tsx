@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -147,7 +147,7 @@ export default function MayVaultScreen() {
         {/* Back */}
         <div className="absolute top-10 left-5 z-20">
           <button onClick={() => setPhase('home')}
-            className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 active:scale-95 transition-transform cursor-pointer">
+            className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 transition-transform cursor-pointer">
             <ArrowLeft size={16} /> Map
           </button>
         </div>
@@ -220,7 +220,7 @@ export default function MayVaultScreen() {
           {/* Enter button */}
           <motion.button
             onClick={handleEnter}
-            className="w-full py-[17px] rounded-[22px] font-black text-white text-[15px] flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer relative overflow-hidden"
+            className="w-full py-[17px] rounded-[22px] font-black text-white text-[15px] flex items-center justify-center gap-2 transition-transform cursor-pointer relative overflow-hidden"
             style={{
               background: 'linear-gradient(135deg, #5020C0 0%, #8040D8 50%, #C9245F 100%)',
               boxShadow: '0 0 0 1px rgba(167,139,250,0.3), 0 8px 40px rgba(123,92,255,0.5)',
@@ -228,7 +228,7 @@ export default function MayVaultScreen() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            whileTap={{ scale: 0.97 }}>
+            >
             <motion.div
               className="absolute inset-0 w-1/3 h-full bg-white/15 -skew-x-12 pointer-events-none"
               initial={{ x: '-150%' }}
@@ -278,7 +278,7 @@ export default function MayVaultScreen() {
       {/* Header */}
       <div className="relative z-10 flex items-center justify-between px-5 pt-10 pb-4 shrink-0">
         <button onClick={() => setPhase('home')}
-          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 active:scale-95 transition-transform cursor-pointer">
+          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 transition-transform cursor-pointer">
           <ArrowLeft size={16} /> Map
         </button>
         <div className="flex items-center gap-2">
@@ -425,7 +425,7 @@ export default function MayVaultScreen() {
                 onPointerLeave={cancelSecretPress}
                 onTouchStart={startSecretPress}
                 onTouchEnd={cancelSecretPress}
-                whileTap={{ scale: 0.98 }}>
+                >
 
                 {/* Progress fill */}
                 {secretPressing && (

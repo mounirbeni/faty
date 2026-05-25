@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -71,7 +71,7 @@ export default function DailyNoteScreen() {
       <div className="relative z-10 flex items-center justify-between px-5 pt-10 pb-4 shrink-0">
         <button
           onClick={() => { heartbeat(); setPhase('home'); }}
-          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 active:scale-95 transition-transform cursor-pointer"
+          className="glass flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-white/60 transition-transform cursor-pointer"
         >
           <ArrowLeft size={16} />
           Map
@@ -115,7 +115,7 @@ export default function DailyNoteScreen() {
           {isRevealed && (
             <motion.button
               onClick={() => setPhase('home')}
-              className="mt-10 px-8 py-[18px] w-full text-white font-black rounded-2xl active:scale-95 transition-transform cursor-pointer flex items-center justify-center gap-2"
+              className="mt-10 px-8 py-[18px] w-full text-white font-black rounded-2xl transition-transform cursor-pointer flex items-center justify-center gap-2"
               style={{
                 background: 'linear-gradient(135deg, #10b981 0%, #059669 60%, #047857 100%)',
                 boxShadow: '0 0 0 1px rgba(16,185,129,0.45), 0 8px 36px rgba(16,185,129,0.38), 0 2px 8px rgba(0,0,0,0.4)',

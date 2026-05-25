@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -567,7 +567,7 @@ export default function MoodToast({ mood, onClose }: Props) {
               </p>
               <motion.button
                 onClick={handleNext}
-                whileTap={{ scale: 0.91 }}
+                
                 className="flex items-center gap-1 px-3.5 py-1.5 rounded-[12px] text-[11px] font-black cursor-pointer shrink-0"
                 style={{
                   background: data.color + '1A',

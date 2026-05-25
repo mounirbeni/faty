@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -114,7 +114,7 @@ export default function LoveLetterScreen() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => setPhase('home')}
-            className="flex items-center gap-2 px-3 py-2 glass-premium rounded-xl text-sm text-white/60 active:scale-95 transition-transform cursor-pointer"
+            className="flex items-center gap-2 px-3 py-2 glass-premium rounded-xl text-sm text-white/60 transition-transform cursor-pointer"
           >
             <ArrowLeft size={15} />
             Back
@@ -207,7 +207,7 @@ export default function LoveLetterScreen() {
         <motion.button
           onClick={nextLetter}
           disabled={isChanging}
-          className="relative w-full py-[18px] rounded-2xl font-black text-white text-[15px] flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer disabled:opacity-60 overflow-hidden"
+          className="relative w-full py-[18px] rounded-2xl font-black text-white text-[15px] flex items-center justify-center gap-2 transition-transform cursor-pointer disabled:opacity-60 overflow-hidden"
           style={{
             background: 'linear-gradient(135deg, #f43f5e 0%, #e11d48 60%, #c2184b 100%)',
             boxShadow: '0 0 0 1px rgba(244,63,94,0.45), 0 8px 36px rgba(244,63,94,0.42), 0 2px 8px rgba(0,0,0,0.4)',
