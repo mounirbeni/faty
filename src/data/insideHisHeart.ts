@@ -88,7 +88,7 @@ export const HEART_QUESTIONS: HeartQuestion[] = [
   },
   {
     id: 7,
-    question: 'How do you feel when we're close in silence?',
+    question: `How do you feel when we're close in silence?`,
     answer:
       `Silence with you isn't empty — it's full. It's the sound of two people who don't need words to feel connected. I can hear your heartbeat, the rustle of your clothes, the soft rhythm of you just existing beside me. Those quiet moments are when I feel closest to you, like our souls are having a conversation our mouths don't need to join.`,
     atmosphere: 'starlight',
@@ -161,7 +161,7 @@ export const HEART_QUESTIONS: HeartQuestion[] = [
   // ─── Memories (5) ───────────────────────────────────────
   {
     id: 15,
-    question: 'What's a moment with me that plays like a movie in your mind?',
+    question: `What's a moment with me that plays like a movie in your mind?`,
     answer:
       `That night we walked together and the city lights were reflecting in the puddles after the rain. You stopped mid-sentence to look up at the sky, and the streetlight caught your face in this golden haze. I stood there watching you, and the whole world turned cinematic. I didn't say anything because I was too busy memorising every detail — the gloss on your lips, the wind in your hair, the way you smiled without knowing I was staring.`,
     timestamp: 'october 18, 9:32 PM',
@@ -170,7 +170,7 @@ export const HEART_QUESTIONS: HeartQuestion[] = [
   },
   {
     id: 16,
-    question: 'What's the first memory of us that makes you smile?',
+    question: `What's the first memory of us that makes you smile?`,
     answer:
       'The first time you laughed — really laughed — because of something I said. You threw your head back, your eyes crinkled shut, and this sound came out that was so pure it rewired something inside me. I remember thinking: I want to be the reason for that sound for the rest of my life. I still chase that laugh every single day.',
     atmosphere: 'golden',
@@ -195,7 +195,7 @@ export const HEART_QUESTIONS: HeartQuestion[] = [
   },
   {
     id: 19,
-    question: 'What's a small detail about us that you'll never forget?',
+    question: `What's a small detail about us that you'll never forget?`,
     answer:
       `The way you always fix my collar without thinking about it. You reach over, adjust it gently, smooth the fabric, and go right back to whatever you were saying. You probably don't even notice you do it. But I do. Every time. It's such a small, unconscious act of care, and it makes me feel like I belong to someone — like I'm yours, and you're making sure the world sees me right.`,
     timestamp: 'march 9, 7:10 PM',
@@ -206,7 +206,7 @@ export const HEART_QUESTIONS: HeartQuestion[] = [
   // ─── Confessions (5) ────────────────────────────────────
   {
     id: 20,
-    question: 'What's something you've never told me?',
+    question: `What's something you've never told me?`,
     answer:
       `I've written you letters I've never sent. Late at night, when the feelings get too big to hold in my chest, I open my notes app and write everything I can't say out loud. Pages of it — how your smile rewires my brain, how your voice is the only sound that makes silence bearable. One day maybe I'll show you. But for now, they live in the quiet, keeping me company.`,
     timestamp: 'april 22, 3:17 AM',
