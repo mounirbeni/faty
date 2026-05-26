@@ -37,6 +37,9 @@ const DreamDateScreen         = dynamic(() => import('@/components/DreamDateScre
 const LoveStoryScreen         = dynamic(() => import('@/components/LoveStoryScreen'), { ssr: false });
 const IntimacyHubScreen       = dynamic(() => import('@/components/IntimacyHubScreen'), { ssr: false });
 const InsideHisHeartScreen    = dynamic(() => import('@/components/InsideHisHeartScreen'), { ssr: false });
+const DesireDeckScreen        = dynamic(() => import('@/components/DesireDeckScreen'), { ssr: false });
+const PillowTalkScreen        = dynamic(() => import('@/components/PillowTalkScreen'), { ssr: false });
+const CoupleGoalsScreen       = dynamic(() => import('@/components/CoupleGoalsScreen'), { ssr: false });
 
 function Screen({ children }: { children: React.ReactNode }) {
   return (
@@ -153,6 +156,9 @@ export default function HomePage() {
         {currentPhase === 'love-story'       && <Screen key="love-story"><LoveStoryScreen /></Screen>}
         {currentPhase === 'intimacy-hub'     && <Screen key="intimacy-hub"><IntimacyHubScreen /></Screen>}
         {currentPhase === 'inside-his-heart' && <Screen key="inside-his-heart"><InsideHisHeartScreen /></Screen>}
+        {currentPhase === 'desire-deck'      && <Screen key="desire-deck"><DesireDeckScreen /></Screen>}
+        {currentPhase === 'pillow-talk'      && <Screen key="pillow-talk"><PillowTalkScreen /></Screen>}
+        {currentPhase === 'couple-goals'     && <Screen key="couple-goals"><CoupleGoalsScreen /></Screen>}
         {currentPhase === 'complete'         && <Screen key="complete"><CompletionScreen /></Screen>}
       </AnimatePresence>
     </main>

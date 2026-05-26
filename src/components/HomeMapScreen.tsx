@@ -29,6 +29,7 @@ import {
   Gamepad2,
   Stars,
   Flame,
+  ListChecks,
 } from 'lucide-react';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
@@ -235,6 +236,33 @@ const MINI_GAMES = [
     gradient: 'from-indigo-600 via-violet-600 to-purple-800',
     glow: 'shadow-violet-500/40',
   },
+  {
+    id: 'desire-deck' as const,
+    icon: <Flame size={28} className="text-white drop-shadow-md" />,
+    label: 'Desire Deck',
+    sublabel: 'Cards for two 🔥',
+    unlocksAtChapter: 0,
+    gradient: 'from-rose-700 via-red-800 to-pink-900',
+    glow: 'shadow-rose-700/40',
+  },
+  {
+    id: 'pillow-talk' as const,
+    icon: <Moon size={28} className="text-white drop-shadow-md" />,
+    label: 'Pillow Talk',
+    sublabel: 'Late night questions',
+    unlocksAtChapter: 0,
+    gradient: 'from-indigo-800 via-blue-900 to-slate-900',
+    glow: 'shadow-indigo-500/30',
+  },
+  {
+    id: 'couple-goals' as const,
+    icon: <ListChecks size={28} className="text-white drop-shadow-md" />,
+    label: 'Couple Goals',
+    sublabel: '40 things to do together',
+    unlocksAtChapter: 0,
+    gradient: 'from-amber-500 via-orange-500 to-yellow-600',
+    glow: 'shadow-amber-400/30',
+  },
 ];
 
 const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand', 'smile', 'camera'];
@@ -257,7 +285,7 @@ export default function HomeMapScreen() {
     startChapter(chapter);
   };
 
-  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'catch-my-heart' | 'dream-date' | 'love-story' | 'intimacy-hub' | 'inside-his-heart') => {
+  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'catch-my-heart' | 'dream-date' | 'love-story' | 'intimacy-hub' | 'inside-his-heart' | 'desire-deck' | 'pillow-talk' | 'couple-goals') => {
     heartbeat();
     playSparkle();
     setPhase(id);

@@ -25,6 +25,9 @@ export type AppPhase =
   | 'love-story'
   | 'intimacy-hub'
   | 'inside-his-heart'
+  | 'desire-deck'
+  | 'pillow-talk'
+  | 'couple-goals'
   | 'admin-dashboard'
   | 'complete';
 
@@ -45,6 +48,9 @@ interface GameState {
   // Activity Log (admin dashboard)
   activityLog: { type: string; label: string; ts: number }[];
   kissCount: number;
+
+  // Couple Goals
+  completedGoals: number[];
 
   // Dynamic Content (Smart Rotation)
   dailyWhisperId: number | null;
@@ -74,6 +80,7 @@ interface GameState {
   generateDailyWhisper: (totalMessages: number, intervalMinutes: number) => void;
   generateFortune: (totalFortunes: number) => void;
   setCurrentMood: (mood: string) => void;
+  toggleGoal: (id: number) => void;
 }
 
 const MAX_REVERSE_CARDS = 3;
@@ -95,6 +102,7 @@ export const useGameStore = create<GameState>()(
       heartSyncComplete: false,
       activityLog: [],
       kissCount: 0,
+      completedGoals: [],
       dailyWhisperId: null,
       dailyWhisperHistory: [],
       dailyWhisperLastTimestamp: 0,
@@ -138,6 +146,9 @@ export const useGameStore = create<GameState>()(
           'dream-date': 'Opened Dream Date',
           'love-story': 'Opened Love Story',
           'intimacy-hub': 'Opened Emotional Intimacy',
+          'desire-deck': 'Opened Desire Deck',
+          'pillow-talk': 'Opened Pillow Talk',
+          'couple-goals': 'Opened Couple Goals',
         };
         if (miniGameLabels[phase]) {
           logActivity('mini-game', miniGameLabels[phase]!);
@@ -268,6 +279,13 @@ export const useGameStore = create<GameState>()(
 
       setCurrentMood: (mood: string) => set({ currentMood: mood }),
 
+      toggleGoal: (id: number) =>
+        set((state) => ({
+          completedGoals: state.completedGoals.includes(id)
+            ? state.completedGoals.filter((g) => g !== id)
+            : [...state.completedGoals, id],
+        })),
+
       resetGame: () =>
         set({
           phase: 'welcome',
@@ -284,6 +302,7 @@ export const useGameStore = create<GameState>()(
           heartSyncComplete: false,
           activityLog: [],
           kissCount: 0,
+          completedGoals: [],
           dailyWhisperId: null,
           dailyWhisperHistory: [],
           dailyWhisperLastTimestamp: 0,
@@ -315,6 +334,7 @@ export const useGameStore = create<GameState>()(
         dailyWhisperIsVoiceNote: state.dailyWhisperIsVoiceNote,
         fortuneHistory: state.fortuneHistory,
         currentMood: state.currentMood,
+        completedGoals: state.completedGoals,
       }),
     }
   )
