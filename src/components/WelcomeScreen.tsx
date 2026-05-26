@@ -51,7 +51,8 @@ export default function WelcomeScreen() {
 
   return (
     <motion.div
-      className="absolute inset-0 flex flex-col items-center justify-center px-5 overflow-hidden"
+      className="absolute inset-0 flex flex-col items-center justify-center px-5 overflow-y-auto"
+      style={{ paddingTop: 'env(safe-area-inset-top, 0px)', paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 0.97 }}

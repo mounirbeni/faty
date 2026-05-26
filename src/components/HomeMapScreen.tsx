@@ -330,7 +330,7 @@ export default function HomeMapScreen() {
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[560px] h-[320px] rounded-full pointer-events-none"
         style={{ background: 'radial-gradient(ellipse, rgba(255,77,141,0.18) 0%, rgba(123,92,255,0.08) 50%, transparent 70%)', filter: 'blur(80px)', animation: 'breathe-glow 6s ease-in-out infinite' }} />
 
-      <div className="relative z-10 flex flex-col px-4 pt-8 pb-10 max-w-lg mx-auto w-full gap-5">
+      <div className="relative z-10 flex flex-col px-4 max-w-lg mx-auto w-full gap-5" style={{ paddingTop: 'max(2rem, env(safe-area-inset-top, 0px))', paddingBottom: 'max(2.5rem, env(safe-area-inset-bottom, 0px))' }}>
 
         {/* ── Mood Tracker ── */}
         <MoodTracker />
@@ -542,7 +542,7 @@ export default function HomeMapScreen() {
             <span className="text-[10px] font-black uppercase tracking-[0.18em]" style={{ color: 'rgba(167,139,250,0.6)' }}>Bonus Islands</span>
           </div>
 
-          <div className="grid grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-2 gap-3">
             {MINI_GAMES.map((game, idx) => {
               const ch1Complete = getChapterProgress(answers, reversed, 1).isComplete;
               const ch2Complete = getChapterProgress(answers, reversed, 2).isComplete;
@@ -566,7 +566,7 @@ export default function HomeMapScreen() {
                   key={game.id}
                   onClick={() => unlocked && handleMinigameTap(game.id)}
                   className={`
-                    relative flex flex-col items-center gap-2 py-4 px-2 rounded-2xl text-center
+                    relative flex flex-col items-center gap-2 py-5 px-3 rounded-2xl text-center min-h-[100px]
                     transition-all cursor-pointer overflow-hidden
                     ${unlocked
                       ? `bg-gradient-to-b ${game.gradient} shadow-lg ${game.glow} border border-white/15`
@@ -589,8 +589,8 @@ export default function HomeMapScreen() {
                   )}
                   <div>{game.icon}</div>
                   <div>
-                    <div className="text-[10px] font-bold text-white leading-tight">{game.label}</div>
-                    <div className="text-[8px] text-white/70 mt-0.5">{game.sublabel}</div>
+                    <div className="text-[12px] font-bold text-white leading-tight">{game.label}</div>
+                    <div className="text-[10px] text-white/70 mt-0.5">{game.sublabel}</div>
                   </div>
                 </motion.button>
               );

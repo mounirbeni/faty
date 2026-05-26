@@ -195,7 +195,8 @@ export default function GameScreen() {
 
   return (
     <motion.div
-      className="absolute inset-0 flex flex-col items-center px-4 pt-6 pb-6"
+      className="absolute inset-0 flex flex-col items-center px-4"
+      style={{ paddingTop: 'max(1.5rem, env(safe-area-inset-top, 0px))', paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom, 0px))' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
