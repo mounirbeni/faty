@@ -125,7 +125,7 @@ export const HEART_QUESTIONS: HeartQuestion[] = [
   },
   {
     id: 11,
-    question: 'What hidden feelings do you carry that I don't know about?',
+    question: `What hidden feelings do you carry that I don't know about?`,
     answer:
       `Sometimes the love I feel for you scares me — not because it's wrong, but because it's so deep I don't know how to hold it all. I carry this quiet fear that I'll never be able to give you everything you deserve. And underneath that fear is a promise I've never said out loud: I will spend every day trying anyway, even when I fall short.`,
     atmosphere: 'rain',
