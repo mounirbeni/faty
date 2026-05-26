@@ -34,216 +34,413 @@ export interface WhisperConfession {
 // ── Heart Questions ──────────────────────────────────────
 
 export const HEART_QUESTIONS: HeartQuestion[] = [
-  // ─── Intimacy (8) ───────────────────────────────────────
+
+  // ─── Intimacy (14) ──────────────────────────────────────
   {
     id: 1,
-    question: 'How did you feel during our first kiss?',
+    question: `What was your first impression of me?`,
     answer:
-      'Time stopped. I remember the way your breath felt against mine, and how my hands were trembling even though I was trying to look calm. Everything around us disappeared — the noise, the world, all of it. All I could feel was you, and this overwhelming thought: I never want this moment to end. My heart was beating so loud I was sure you could hear it.',
-    timestamp: 'december 14, 2:33 AM',
-    atmosphere: 'midnight',
+      `My first impression was that you were someone I shouldn't let walk away. There was something in the way you carried yourself — quiet but certain, warm but composed. I didn't say much that first time, but inside I was already paying attention to every detail. I went home that night thinking about you longer than I'd like to admit.`,
+    atmosphere: 'golden',
     category: 'intimacy',
   },
   {
     id: 2,
-    question: 'What does it feel like when you hold my hand?',
+    question: `What's something small that instantly makes your day better?`,
     answer:
-      `It feels like finding something I didn't know I'd been reaching for my whole life. Your fingers fit between mine like they were designed to be there. There's this warmth that starts at your palm and just spreads through my entire body. I squeeze a little tighter sometimes — not because I'm afraid you'll let go, but because I want you to feel how much that small touch means to me.`,
+      `Your name appearing on my screen. It doesn't matter what time it is or what kind of day I'm having — when I see it, something in me just settles. A message from you is like a small window of sunlight on a grey afternoon. It's such a tiny thing, but it rearranges my whole mood.`,
     atmosphere: 'golden',
     category: 'intimacy',
   },
   {
     id: 3,
-    question: 'What goes through your mind when you hug me?',
+    question: `What's your biggest green flag in a relationship?`,
     answer:
-      `I breathe you in. That's the first thing — your scent against my chest, the way your head rests right where my heartbeat lives. The world gets quiet when I hold you. I feel your ribs rise and fall, and everything heavy just dissolves. I always hold on a second longer than I should because letting go of you is the hardest small thing I do.`,
-    timestamp: 'january 3, 11:47 PM',
-    atmosphere: 'rain',
+      `Someone who stays. Not just physically, but emotionally — who shows up when it's inconvenient, who chooses honesty even when silence would be easier. I notice when someone makes space for me in their life without being asked. That kind of quiet consistency is the rarest and most beautiful thing a person can offer.`,
+    atmosphere: 'starlight',
     category: 'intimacy',
   },
   {
     id: 4,
-    question: 'Do you like it when I touch your face?',
+    question: `What kind of date do you secretly love?`,
     answer:
-      `More than I'll ever be able to explain. When your fingertips trace my jaw or brush my cheek, something inside me stills completely. I close my eyes not because I'm tired, but because I want to feel every millimetre of it. It's the gentlest thing anyone's ever done to me, and every single time it makes me feel like I'm worth being soft with.`,
-    atmosphere: 'starlight',
+      `Honestly? Nowhere fancy. I love sitting somewhere with good food, no agenda, and you across from me. I love when we lose track of time just talking, when neither of us is checking their phone because the conversation is too good to interrupt. Those ordinary evenings feel like the most extraordinary thing in the world to me.`,
+    atmosphere: 'golden',
     category: 'intimacy',
   },
   {
     id: 5,
-    question: 'What does it feel like when I fall asleep on you?',
+    question: `What's something you've always wanted to try with someone you like?`,
     answer:
-      `Like being trusted with something sacred. Your breathing slows and your body gets heavy against mine, and I don't dare move. I just lie there listening to you breathe, feeling your warmth sink into me. Sometimes I whisper things you'll never hear — small things, tender things. Those are the most peaceful minutes of my entire life.`,
-    timestamp: 'february 8, 1:12 AM',
-    atmosphere: 'midnight',
-    category: 'intimacy',
-  },
-  {
-    id: 6,
-    question: 'When did you feel the most vulnerable with me?',
-    answer:
-      `The first time I let you see me cry. I'd spent years building walls, and you walked right through them without even trying. I remember turning away, embarrassed, and you pulled me back. You didn't say anything — you just held my face and looked at me like I wasn't broken. That silence said more than any words ever could. I knew then that you were different.`,
-    atmosphere: 'rain',
-    category: 'intimacy',
-  },
-  {
-    id: 7,
-    question: `How do you feel when we're close in silence?`,
-    answer:
-      `Silence with you isn't empty — it's full. It's the sound of two people who don't need words to feel connected. I can hear your heartbeat, the rustle of your clothes, the soft rhythm of you just existing beside me. Those quiet moments are when I feel closest to you, like our souls are having a conversation our mouths don't need to join.`,
-    atmosphere: 'starlight',
+      `Road-tripping with no fixed destination — just a direction, a playlist, and someone beside me whose company I genuinely love. I want to share the small things: bad gas station coffee, getting slightly lost, finding some unexpected beautiful place by accident. That kind of adventure only works with the right person.`,
+    atmosphere: 'aurora',
     category: 'intimacy',
   },
   {
     id: 8,
-    question: 'What do you feel when I look into your eyes?',
+    question: `What makes you feel most appreciated in a relationship?`,
     answer:
-      `Seen. Completely, terrifyingly seen. Your eyes have this way of cutting through every mask I've ever worn. For a second I feel exposed, and then… safe. It's like you're reading a part of me I didn't know was legible. I hold your gaze because looking away from you feels like turning away from the sun — possible, but why would I ever want to?`,
-    timestamp: 'march 22, 10:15 PM',
+      `Being remembered. Not just in grand gestures — but when someone recalls something I mentioned weeks ago, when they check in during something I told them I was nervous about. That kind of attentiveness says "I was listening" and "you matter to me beyond this conversation." It means more than almost anything else.`,
+    atmosphere: 'golden',
+    category: 'intimacy',
+  },
+  {
+    id: 11,
+    question: `What's your love language?`,
+    answer:
+      `Quality time — fully and genuinely. Not sitting in the same room on different phones, but actually being present with someone, giving them the rarest thing I have: my undivided attention. Physical touch comes second — a hand on my shoulder, a hug that lingers half a second too long. I speak in proximity and presence more than in words.`,
+    atmosphere: 'golden',
+    category: 'intimacy',
+  },
+  {
+    id: 12,
+    question: `What's your ideal relationship like?`,
+    answer:
+      `Two people who make each other feel safe enough to be completely honest. Where hard conversations happen without fear of the relationship ending. Where independence is respected and togetherness is chosen, not forced. I want something that grows — that doesn't just survive hard seasons but becomes deeper because of them.`,
     atmosphere: 'aurora',
     category: 'intimacy',
   },
+  {
+    id: 13,
+    question: `What kind of moments make you feel close to someone?`,
+    answer:
+      `When the conversation shifts from surface to real — when someone stops performing and starts being honest. When we've laughed until neither of us remembers what started it. When there's a comfortable silence that doesn't need filling. And especially: when someone is vulnerable with me. That kind of trust is where closeness actually lives.`,
+    atmosphere: 'starlight',
+    category: 'intimacy',
+  },
+  {
+    id: 20,
+    question: `What's something you notice about me that I probably don't realize?`,
+    answer:
+      `The way your face changes when you're genuinely interested in something versus when you're just being polite — there's this subtle shift in your eyes. I don't think you know how expressive you are when you actually care. I also notice when you're trying to hold something in. You go quiet in a specific way. I notice it every time.`,
+    atmosphere: 'starlight',
+    category: 'intimacy',
+  },
+  {
+    id: 21,
+    question: `What kind of energy do I give you?`,
+    answer:
+      `Warmth — the kind that's grounding, not overwhelming. Being around you makes the world feel a little steadier, like the noise turns down slightly. You also make me want to be more present, more honest, more open than I usually am. That's rare. Most people don't do that. You make me want to show up as a better version of myself without even trying to.`,
+    atmosphere: 'aurora',
+    category: 'intimacy',
+  },
+  {
+    id: 24,
+    question: `What do you think we'd be like as a married couple?`,
+    answer:
+      `Loud kitchen mornings and too many inside jokes. The kind of couple that bickers about small things and then laughs about it ten minutes later. I think we'd be good at making ordinary days feel like something — finding magic in routines, traveling badly, loving each other well through the unglamorous parts. I think we'd choose each other every single day.`,
+    atmosphere: 'starlight',
+    category: 'intimacy',
+  },
+  {
+    id: 37,
+    question: `What makes you feel emotionally safe with someone?`,
+    answer:
+      `When I know they won't use my honesty against me later. When I can say something unfinished — still figuring itself out — and it won't be held as evidence in some future argument. Emotional safety is knowing that the vulnerability I offer stays between us, is handled with care, and doesn't change how they see me. That kind of trust is everything.`,
+    atmosphere: 'starlight',
+    category: 'intimacy',
+  },
+  {
+    id: 48,
+    question: `What kind of affection means the most to you?`,
+    answer:
+      `The kind that isn't performed for anyone else. A private touch — a hand on my back when no one's watching, a look across the room that's just ours. Affection that says "I see you right now, just you" without needing an audience. I can always tell the difference between affection that's genuine and affection that's for show. The real kind lands completely differently.`,
+    atmosphere: 'golden',
+    category: 'intimacy',
+  },
 
-  // ─── Late-Night (6) ─────────────────────────────────────
+  // ─── Late-Night (11) ────────────────────────────────────
   {
     id: 9,
-    question: 'What do you think about before sleeping?',
+    question: `What's your biggest fear when it comes to love?`,
     answer:
-      'You. Always you. Some nights I replay our conversations word by word, and I catch myself smiling in the dark. I think about the way you laugh, how your voice softens when you say my name. And then I wonder — are you thinking about me too right now? That thought keeps me company until sleep takes over.',
-    timestamp: 'november 27, 3:04 AM',
+      `Giving everything and still watching it slip away. I've put my whole heart into things before and it wasn't enough — and the question that stayed with me was whether I was the problem or if some connections just aren't meant to last. What I fear most is loving someone completely and still losing them, and having to build myself back up from scratch.`,
+    timestamp: 'november 3, 2:17 AM',
     atmosphere: 'midnight',
     category: 'late-night',
   },
   {
     id: 10,
-    question: 'Do you ever miss me in the middle of the night?',
+    question: `When do you feel the happiest or most at peace?`,
     answer:
-      `All the time. There are nights where I wake up at 2 AM and the first thing I feel is the absence of you. The bed is too wide, the room is too quiet, and my chest aches in a way I can't fix with anything except hearing your voice. I grab my phone and stare at our last message, and somehow just seeing your name calms the ache a little.`,
-    timestamp: 'january 19, 2:41 AM',
-    atmosphere: 'midnight',
-    category: 'late-night',
-  },
-  {
-    id: 11,
-    question: `What hidden feelings do you carry that I don't know about?`,
-    answer:
-      `Sometimes the love I feel for you scares me — not because it's wrong, but because it's so deep I don't know how to hold it all. I carry this quiet fear that I'll never be able to give you everything you deserve. And underneath that fear is a promise I've never said out loud: I will spend every day trying anyway, even when I fall short.`,
-    atmosphere: 'rain',
-    category: 'late-night',
-  },
-  {
-    id: 12,
-    question: 'Do you replay moments of us in your head?',
-    answer:
-      `Constantly. I have this mental film reel that plays on loop — the way you looked at me across the room that one night, the sound of your laugh echoing in the car, the feeling of your cold hands warming up inside mine. I replay them not because I'm stuck in the past, but because those moments remind me that love like this is real. And it's mine.`,
-    timestamp: 'april 5, 11:58 PM',
+      `In quiet moments that aren't trying to be anything. Early mornings before the world gets loud. Sitting with someone I care about and not needing to fill the silence. The happiest I've ever felt wasn't a big event — it was a small, ordinary moment that somehow held everything. Peace, I've learned, lives in the spaces between.`,
     atmosphere: 'starlight',
     category: 'late-night',
   },
   {
-    id: 13,
-    question: 'What does longing feel like to you?',
+    id: 22,
+    question: `What's one thing you want to know about me but haven't asked yet?`,
     answer:
-      `It lives right beneath my ribs — this dull, warm ache that flares up when I hear a song that reminds me of you or when I catch a scent in the air that smells like your perfume. Longing for you isn't sadness. It's proof. Proof that someone has finally become so woven into me that being apart feels like breathing with only one lung.`,
+      `What you're like when you're hurting — what you need, how you go quiet, what helps. I know your laughter and your light, but I want to know how to be there for you when things are heavy too. I haven't asked because I don't want to push into space you haven't offered. But I think about it. I want to know all the versions of you.`,
+    timestamp: 'january 14, 1:44 AM',
+    atmosphere: 'midnight',
+    category: 'late-night',
+  },
+  {
+    id: 26,
+    question: `What kind of pain changed you the most?`,
+    answer:
+      `The kind that came from someone I never expected. Not a stranger — someone I thought I knew, someone I'd made room for. That kind of betrayal doesn't just hurt once; it makes you question your own judgment, reread every memory, wonder what else you missed. I came out of it more guarded, but also, eventually, more honest with myself about what I actually need.`,
     atmosphere: 'rain',
     category: 'late-night',
   },
   {
-    id: 14,
-    question: 'What do late nights without me feel like?',
+    id: 27,
+    question: `When was the last time you genuinely felt understood by someone?`,
     answer:
-      `Empty in a way that nothing else can fill. I scroll through my phone, put on music, try to distract myself — but the apartment is too still. I end up lying in the dark, imagining what it'd be like if you were right here, your head on my chest, your fingers tracing circles on my arm. The silence would be so different then. It would be full.`,
-    timestamp: 'february 14, 12:20 AM',
+      `Not long ago — and it caught me off guard. Someone responded to something I said in a way that showed they'd really heard me, not just the surface of what I was saying. Those moments are so rare that when they happen, you feel them physically. Understanding is the deepest form of intimacy I know.`,
+    timestamp: 'february 28, 3:02 AM',
+    atmosphere: 'midnight',
+    category: 'late-night',
+  },
+  {
+    id: 28,
+    question: `What do you think you're still healing from?`,
+    answer:
+      `The habit of shrinking. Making myself smaller so other people feel more comfortable, swallowing my needs so I don't seem like too much. I'm still unlearning the reflex to apologize for taking up space. Healing from that is slow — it shows up in small moments, when I choose to say something honest instead of saying nothing. I'm getting better. Slowly.`,
+    atmosphere: 'rain',
+    category: 'late-night',
+  },
+  {
+    id: 29,
+    question: `What's your biggest fear in relationships?`,
+    answer:
+      `Becoming so comfortable that we stop choosing each other actively. I've seen love go quiet not from a single fight but from a thousand small moments of not paying attention. My biggest fear isn't dramatic — it's the slow drift, the gradual distance that builds when two people stop being curious about each other. I never want to stop being curious about you.`,
+    timestamp: 'march 7, 12:33 AM',
+    atmosphere: 'midnight',
+    category: 'late-night',
+  },
+  {
+    id: 38,
+    question: `Have you ever pushed someone away while actually wanting them closer?`,
+    answer:
+      `Yes. And I hated myself for it while it was happening. There's a fear that lives right at the edge of closeness — this instinct to create distance before someone else can. I know where it comes from. I know it's self-protection. But knowing doesn't stop it. I've gotten better at catching myself, at choosing to stay instead of retreat. It's the hardest thing I practice.`,
+    atmosphere: 'midnight',
+    category: 'late-night',
+  },
+  {
+    id: 39,
+    question: `What's the hardest goodbye you've ever experienced?`,
+    answer:
+      `The quiet ones — the ones that didn't feel like goodbyes when they were happening. No dramatic ending, no closure, just someone gradually becoming a memory. Those are harder than any argument. You don't know it's over until you look up one day and the distance has already built itself. The absence is the goodbye, and it arrives too late to say anything.`,
+    atmosphere: 'rain',
+    category: 'late-night',
+  },
+  {
+    id: 44,
+    question: `What kind of connection are you truly looking for right now?`,
+    answer:
+      `Something honest and unhurried. I'm not looking for performance or perfection — I want someone who talks to me like I'm a real person, who's curious about me and lets me be curious back. I want depth without drama, warmth without conditions. Someone who makes being known feel safe rather than scary.`,
+    atmosphere: 'aurora',
+    category: 'late-night',
+  },
+  {
+    id: 45,
+    question: `When do you feel most vulnerable?`,
+    answer:
+      `Right before I say something true that I haven't said before. That moment of holding something honest in my mouth, deciding whether to speak it or swallow it back down. That pause is where I feel most exposed — not in the saying, but in the decision to say it. Every real conversation I've ever had started right there.`,
+    timestamp: 'april 19, 2:58 AM',
     atmosphere: 'midnight',
     category: 'late-night',
   },
 
-  // ─── Memories (5) ───────────────────────────────────────
+  // ─── Memories (7) ───────────────────────────────────────
   {
     id: 15,
-    question: `What's a moment with me that plays like a movie in your mind?`,
+    question: `What's your most embarrassing story?`,
     answer:
-      `That night we walked together and the city lights were reflecting in the puddles after the rain. You stopped mid-sentence to look up at the sky, and the streetlight caught your face in this golden haze. I stood there watching you, and the whole world turned cinematic. I didn't say anything because I was too busy memorising every detail — the gloss on your lips, the wind in your hair, the way you smiled without knowing I was staring.`,
-    timestamp: 'october 18, 9:32 PM',
+      `There's one I still can't tell without going red. I'll say this much: it involved me, overconfidence, and an audience I absolutely did not ask for. The worst part isn't what happened — it's that someone I wanted to impress was right there watching. I survived. Barely. And I've thought about it probably three hundred times since.`,
     atmosphere: 'golden',
     category: 'memories',
   },
   {
     id: 16,
-    question: `What's the first memory of us that makes you smile?`,
+    question: `If you could live anywhere for one year, where would it be?`,
     answer:
-      'The first time you laughed — really laughed — because of something I said. You threw your head back, your eyes crinkled shut, and this sound came out that was so pure it rewired something inside me. I remember thinking: I want to be the reason for that sound for the rest of my life. I still chase that laugh every single day.',
-    atmosphere: 'golden',
-    category: 'memories',
-  },
-  {
-    id: 17,
-    question: 'Is there a moment you wish you could relive forever?',
-    answer:
-      `That time we stayed up talking until the sky turned from black to blue to orange. We were exhausted but neither of us wanted to stop. Your voice was getting softer, your eyes heavier, and I watched the sunrise paint your skin in shades of amber. Nothing extraordinary happened — and that's exactly why it was perfect. It was just us, raw and unfiltered, with nothing but honesty between us.`,
-    timestamp: 'december 31, 5:48 AM',
+      `Somewhere slow. A coastal town in Italy or Portugal — the kind of place where people actually sit down for lunch and stay for two hours. I want to live somewhere that teaches me to stop rushing, to enjoy an evening with nowhere to be. I think a year somewhere like that would permanently change how I move through the world.`,
     atmosphere: 'aurora',
     category: 'memories',
   },
   {
     id: 18,
-    question: 'What do you remember about the first time we met?',
+    question: `What's the weirdest thing you're obsessed with right now?`,
     answer:
-      `I remember more than you think. I noticed the way you carried yourself — quiet confidence wrapped in warmth. You said something casual, and I forgot how to respond for half a second because your eyes were so disarmingly honest. I walked away from that moment knowing something had shifted inside me, even though I couldn't name it yet. You left a mark before I even knew your full name.`,
-    atmosphere: 'starlight',
+      `I've been going down rabbit holes about things I have absolutely no practical reason to know. It changes every few weeks — a documentary about something strange, a niche hobby I'll never take up, a random historical period. My brain just picks something and wants to know everything about it until it moves on. It's chaotic and I love it.`,
+    atmosphere: 'golden',
     category: 'memories',
   },
   {
     id: 19,
-    question: `What's a small detail about us that you'll never forget?`,
+    question: `If we went on a spontaneous trip tomorrow, where would we go?`,
     answer:
-      `The way you always fix my collar without thinking about it. You reach over, adjust it gently, smooth the fabric, and go right back to whatever you were saying. You probably don't even notice you do it. But I do. Every time. It's such a small, unconscious act of care, and it makes me feel like I belong to someone — like I'm yours, and you're making sure the world sees me right.`,
-    timestamp: 'march 9, 7:10 PM',
+      `Somewhere neither of us has been. I'd want us to figure it out together, standing in front of a map and just pointing. The destination doesn't matter half as much as the feeling of deciding together — of being in motion toward something new with no real plan. That kind of adventure is when I feel most alive.`,
+    atmosphere: 'aurora',
+    category: 'memories',
+  },
+  {
+    id: 23,
+    question: `What's your favorite memory from our first date?`,
+    answer:
+      `The moment I realized I wasn't nervous anymore. I don't know exactly when it happened — somewhere between the beginning and when we forgot we were supposed to be impressive for each other. It shifted from a performance to a real conversation, and I remember thinking "this is easy" in the best possible way. That ease was the best part.`,
+    timestamp: 'december 21, 9:14 PM',
+    atmosphere: 'golden',
+    category: 'memories',
+  },
+  {
+    id: 33,
+    question: `What's one memory you wish you could relive?`,
+    answer:
+      `A specific evening where nothing special happened — and yet somehow everything felt perfect. The light, the feeling in the room, the conversation that went nowhere and everywhere at the same time. Those are the memories that don't announce themselves. You only realize afterward that you were living something you'll never stop going back to.`,
+    atmosphere: 'golden',
+    category: 'memories',
+  },
+  {
+    id: 42,
+    question: `What's something you miss from your childhood?`,
+    answer:
+      `The feeling that time was infinite. Summers that seemed to last forever, afternoons with no agenda, the sense that tomorrow was far away and today was all there was. I didn't know I was living in abundance until it ended. Now everything moves fast and I catch myself trying to slow moments down — holding them a little longer before they pass.`,
     atmosphere: 'golden',
     category: 'memories',
   },
 
-  // ─── Confessions (5) ────────────────────────────────────
+  // ─── Confessions (17) ───────────────────────────────────
   {
-    id: 20,
-    question: `What's something you've never told me?`,
+    id: 6,
+    question: `What's something people misunderstand about you?`,
     answer:
-      `I've written you letters I've never sent. Late at night, when the feelings get too big to hold in my chest, I open my notes app and write everything I can't say out loud. Pages of it — how your smile rewires my brain, how your voice is the only sound that makes silence bearable. One day maybe I'll show you. But for now, they live in the quiet, keeping me company.`,
-    timestamp: 'april 22, 3:17 AM',
-    atmosphere: 'midnight',
-    category: 'confessions',
-  },
-  {
-    id: 21,
-    question: 'When did you know you loved me?',
-    answer:
-      `It wasn't one big moment — it was a thousand tiny ones collapsing into certainty. It was the way you remembered something small I mentioned weeks before. The way you looked at me when I was talking about something I cared about, like my words actually mattered. One night I caught myself thinking "I can't imagine my life without her" and it hit me — I wasn't falling anymore. I had already landed.`,
-    atmosphere: 'aurora',
-    category: 'confessions',
-  },
-  {
-    id: 22,
-    question: 'What are you most afraid of losing?',
-    answer:
-      `This. Not just you — this feeling. The way my chest tightens when your name lights up my phone. The way the world makes more sense when you're in the room. I've lived without a lot of things, and I survived. But I don't think I could go back to the version of me that existed before you. He was fine. But he wasn't alive. Not like this.`,
+      `That my quietness is distance. I'm not cold — I'm careful. I've learned that not everything needs to be said immediately, that some feelings are worth holding until you know they're safe. People mistake my stillness for indifference, but inside I notice everything. I feel everything. I just don't broadcast it.`,
     atmosphere: 'rain',
     category: 'confessions',
   },
   {
-    id: 23,
-    question: 'What do you wish I knew about how you love me?',
+    id: 7,
+    question: `What's one thing that really shaped who you are today?`,
     answer:
-      `That it's constant. Even when I'm quiet, even when I seem distracted — underneath everything, there's this steady current of you running through me. I love you in the background of every thought, in the margins of every moment. It's not always dramatic or cinematic. Sometimes it's just me choosing your comfort over mine, your peace over my pride. That quiet choosing — that's the truest love I know how to give.`,
-    timestamp: 'may 11, 11:03 PM',
+      `Learning that love isn't always enough on its own. I watched people who loved each other deeply still hurt each other — and it taught me that love has to be paired with intention, communication, and effort. That lesson made me more careful, more thoughtful, more deliberate about the way I show up for the people I care about.`,
     atmosphere: 'starlight',
     category: 'confessions',
   },
   {
-    id: 24,
-    question: 'If you could say one thing to my heart directly, what would it be?',
+    id: 14,
+    question: `Do you believe people can feel a connection very quickly?`,
     answer:
-      `Thank you for letting me in. I know it wasn't easy — I know you've been bruised before, and trusting again took a courage I'll never fully understand. But you chose me. You opened your doors and let me walk through, and I promise you I will treat every room inside you with reverence. You are the most beautiful place I've ever been allowed to stay.`,
+      `Yes — I've felt it. There are some people you talk to and immediately something aligns, like your frequencies match before either of you has said anything important. It doesn't mean it's love, but it means something. I believe in those early sparks of recognition, the feeling that says "there's something here," even if you can't explain it yet.`,
     atmosphere: 'aurora',
+    category: 'confessions',
+  },
+  {
+    id: 17,
+    question: `What's your toxic trait?`,
+    answer:
+      `I internalize things instead of saying them. I'll carry something for days — a worry, a hurt, a question — before I let it out. By then it's either resolved itself or grown into something bigger than it needed to be. I know I should say things sooner. I'm working on it. But being truly open with someone still takes more courage than I like to admit.`,
+    atmosphere: 'rain',
+    category: 'confessions',
+  },
+  {
+    id: 25,
+    question: `What's something you've never told many people about yourself?`,
+    answer:
+      `That I've been lonely in rooms full of people more times than I can count. That some of my happiest moments have been completely alone, and some of my hardest have been surrounded by everyone. That I have a whole version of myself that almost nobody sees — quieter, softer, more afraid. I only share him with people I trust completely.`,
+    timestamp: 'may 3, 3:41 AM',
+    atmosphere: 'midnight',
+    category: 'confessions',
+  },
+  {
+    id: 30,
+    question: `Have you ever loved someone in a way that changed you forever?`,
+    answer:
+      `Yes. And I don't say that easily. It wasn't a love that worked out — but it rearranged something fundamental in me. It expanded my capacity for feeling, made me take love more seriously, made me understand that real love is a responsibility and not just a feeling. I'm grateful for what it taught me, even though it cost me.`,
+    timestamp: 'june 11, 1:08 AM',
+    atmosphere: 'midnight',
+    category: 'confessions',
+  },
+  {
+    id: 31,
+    question: `What's something you need emotionally but rarely ask for?`,
+    answer:
+      `Reassurance that I'm not too much. I can come on strong — I feel things deeply and I care loudly, and sometimes I worry I overwhelm people. What I rarely ask for is someone to say "that's not too much, that's exactly enough." I don't need it every day. But in the moments when I pull back, that's usually what I'm holding.`,
+    atmosphere: 'rain',
+    category: 'confessions',
+  },
+  {
+    id: 32,
+    question: `What kind of person brings out the best version of you?`,
+    answer:
+      `Someone who is genuinely curious about who I am — not who they think I should be. Someone who challenges me without diminishing me, who is honest even when honesty is inconvenient. Someone who makes me feel safe enough to be fully myself, because only in that kind of safety do I actually grow. I don't perform around people like that. I just am.`,
+    atmosphere: 'starlight',
+    category: 'confessions',
+  },
+  {
+    id: 34,
+    question: `What's something you learned the hard way about love?`,
+    answer:
+      `That love alone doesn't make a relationship work. I used to think feeling enough would be enough — that if the feeling was real, everything else would follow. But love without timing, without readiness, without two people who actually want the same things, isn't enough to hold something together. That was a painful lesson. It changed how I enter things now.`,
+    atmosphere: 'rain',
+    category: 'confessions',
+  },
+  {
+    id: 35,
+    question: `Do you think people meet for a reason?`,
+    answer:
+      `I go back and forth on it. But I do think some meetings arrive at exactly the moment they're supposed to — not because the universe orchestrates them, but because you become ready for someone right when they appear. I think readiness creates the conditions for meaning. And then the person you meet in that readiness feels like fate, even if it's something more beautiful than that.`,
+    atmosphere: 'aurora',
+    category: 'confessions',
+  },
+  {
+    id: 36,
+    question: `What's something you're afraid people will discover about you?`,
+    answer:
+      `That I'm less certain than I seem. I've built a reputation for having it together, for being steady, for knowing my direction — and most days I do. But there are days where I'm just guessing, just trying to hold the pieces in some reasonable shape. I'm afraid that if people saw that version of me, they'd trust me less. So I carry it quietly.`,
+    atmosphere: 'midnight',
+    category: 'confessions',
+  },
+  {
+    id: 40,
+    question: `What do you value more: peace or passion?`,
+    answer:
+      `Peace. Not the absence of feeling — but the kind of peace that coexists with depth. I want passion that doesn't destabilize, love that doesn't require chaos to feel alive. I've lived in turbulent waters long enough to understand that real warmth is steady, not explosive. I want someone I can breathe beside, not someone I'm constantly trying to survive.`,
+    atmosphere: 'starlight',
+    category: 'confessions',
+  },
+  {
+    id: 41,
+    question: `What's one thing you hope your future relationship gives you emotionally?`,
+    answer:
+      `Safety to be ordinary. To have bad days without fear of being judged, to not always be "on," to fall apart sometimes and know the other person will wait. I want a relationship where I'm loved in my quiet, in my mess, in the moments that have no highlight reel. That kind of ordinary love is the most extraordinary thing I can imagine.`,
+    atmosphere: 'aurora',
+    category: 'confessions',
+  },
+  {
+    id: 43,
+    question: `Do you think timing can ruin something beautiful?`,
+    answer:
+      `Yes. And I think it's one of the cruelest things that can happen — to find something real with someone but arrive at the wrong chapter of each other's lives. Wrong timing doesn't make the connection less true. It just means two people who might have been everything to each other become an almost. A story that deserved more chapters but didn't get them.`,
+    atmosphere: 'rain',
+    category: 'confessions',
+  },
+  {
+    id: 46,
+    question: `What's something about yourself you're still trying to figure out?`,
+    answer:
+      `What I actually need versus what I've been conditioned to settle for. I've spent years adapting to other people's rhythms and I'm still learning to hear my own. What I want in love, in life, in a quiet Tuesday afternoon — I'm getting clearer, but it's still in progress. I'm okay with that. Being a work in progress means there's still somewhere to grow.`,
+    atmosphere: 'starlight',
+    category: 'confessions',
+  },
+  {
+    id: 47,
+    question: `What's the difference between liking someone and truly loving them for you?`,
+    answer:
+      `Liking someone is easy — it lives in excitement and attraction and the thrill of newness. Loving someone is a choice you make on the days when the thrill has quieted and you choose them anyway. Love is knowing someone's weight — the difficult parts, the unfinished edges — and staying. It's much quieter than liking. And so much more.`,
+    atmosphere: 'aurora',
+    category: 'confessions',
+  },
+  {
+    id: 49,
+    question: `If someone really loved you correctly, what would that look like to you?`,
+    answer:
+      `It would look like being chosen — not just once, but daily, in small ways that don't make headlines. It would look like someone who stays curious about me, who handles my honesty like something fragile and rare, who makes space for my quiet and my chaos equally. It would feel like home — not a place, but a person. A warmth I can return to. A presence that makes me feel like I'm exactly where I'm supposed to be.`,
+    timestamp: 'july 4, 11:59 PM',
+    atmosphere: 'starlight',
     category: 'confessions',
   },
 ];
