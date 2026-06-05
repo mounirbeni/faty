@@ -11,22 +11,15 @@ import {
   Map,
   MapPin,
   Sparkles,
-  Zap,
   Vault,
   Check,
-  Globe,
-  HeartPulse,
   CalendarHeart,
-  Puzzle,
   Sun,
   Moon,
   Mail,
-  Disc3,
   HelpCircle,
-  Activity,
   Bomb,
   BookOpen,
-  Gamepad2,
   Stars,
   Flame,
   ListChecks,
@@ -55,159 +48,95 @@ const PRESENCE_MSGS = [
 ];
 
 const MINI_GAMES = [
+  // ── Emotional Memory & Turning Points ──────────────────────────────────────
   {
-    id: 'vibe-check' as const,
-    icon: <Heart size={30} className="text-white drop-shadow-md" fill="currentColor" />,
-    label: 'Vibe Check',
-    sublabel: 'Swipe cards',
+    id: 'moment-i-knew' as const,
+    icon: <Heart size={28} className="text-white drop-shadow-md" fill="currentColor" />,
+    label: 'The Moment I Knew',
+    sublabel: '6 turning points',
     unlocksAtChapter: 0,
-    gradient: 'from-pink-500 to-rose-600',
-    glow: 'shadow-pink-500/30',
+    gradient: 'from-rose-700 via-pink-700 to-rose-900',
+    glow: 'shadow-rose-700/40',
   },
   {
-    id: 'rapid-fire' as const,
-    icon: <Zap size={30} className="text-white drop-shadow-md" fill="currentColor" />,
-    label: 'Rapid Fire',
-    sublabel: 'This or That',
+    id: 'our-firsts' as const,
+    icon: <Stars size={28} className="text-white drop-shadow-md" />,
+    label: 'Our Firsts',
+    sublabel: 'Our relationship timeline',
     unlocksAtChapter: 0,
-    gradient: 'from-orange-500 to-amber-500',
-    glow: 'shadow-orange-500/30',
+    gradient: 'from-amber-600 via-orange-600 to-amber-800',
+    glow: 'shadow-amber-500/35',
   },
   {
-    id: 'vault' as const,
-    icon: <Vault size={30} className="text-white drop-shadow-md" />,
-    label: 'Memory Vault',
-    sublabel: 'Our first chapter',
+    id: 'untold-truths' as const,
+    icon: <Sparkles size={28} className="text-white drop-shadow-md" />,
+    label: 'Untold Truths',
+    sublabel: 'Things I never said',
     unlocksAtChapter: 0,
-    gradient: 'from-violet-600 to-purple-700',
-    glow: 'shadow-violet-500/30',
+    gradient: 'from-indigo-700 via-blue-800 to-indigo-900',
+    glow: 'shadow-indigo-500/35',
+  },
+
+  // ── Emotional Vulnerability & Depth ────────────────────────────────────────
+  {
+    id: 'night-confessions' as const,
+    icon: <Moon size={28} className="text-white drop-shadow-md" fill="currentColor" />,
+    label: 'Night Confessions',
+    sublabel: '8 honest questions',
+    unlocksAtChapter: 0,
+    gradient: 'from-blue-900 via-slate-800 to-blue-950',
+    glow: 'shadow-blue-500/30',
   },
   {
-    id: 'fortune-teller' as const,
-    icon: <Globe size={30} className="text-white drop-shadow-md" />,
-    label: 'Fortune Teller',
-    sublabel: 'Gaze into future',
+    id: 'words-i-hold' as const,
+    icon: <Mail size={28} className="text-white drop-shadow-md" />,
+    label: 'Words I Hold',
+    sublabel: 'Five sentences for you',
     unlocksAtChapter: 0,
-    gradient: 'from-cyan-500 to-blue-600',
-    glow: 'shadow-cyan-500/30',
+    gradient: 'from-rose-800 via-pink-800 to-rose-950',
+    glow: 'shadow-rose-600/35',
   },
   {
-    id: 'heart-sync' as const,
-    icon: <HeartPulse size={30} className="text-white drop-shadow-md" />,
-    label: 'Heart Sync',
-    sublabel: 'Feel the beat',
+    id: 'emotional-depth' as const,
+    icon: (
+      <div className="relative">
+        <Sparkles size={26} className="text-white drop-shadow-md" />
+        <div className="absolute inset-0 rounded-full" style={{ boxShadow: '0 0 14px rgba(129,140,248,0.7)', borderRadius: '50%' }} />
+      </div>
+    ),
+    label: 'Emotional Depth',
+    sublabel: '6 deep questions',
     unlocksAtChapter: 0,
-    gradient: 'from-rose-500 to-red-600',
-    glow: 'shadow-rose-500/30',
+    gradient: 'from-indigo-800 via-violet-900 to-purple-950',
+    glow: 'shadow-violet-500/35',
   },
   {
-    id: 'daily-note' as const,
-    icon: <CalendarHeart size={30} className="text-white drop-shadow-md" />,
-    label: 'Daily Whisper',
-    sublabel: 'A new note daily',
+    id: 'first-times' as const,
+    icon: (
+      <div className="relative">
+        <Heart size={26} className="text-white drop-shadow-md" fill="currentColor" />
+        <div className="absolute inset-0 rounded-full" style={{ boxShadow: '0 0 14px rgba(167,139,250,0.7)', borderRadius: '50%' }} />
+      </div>
+    ),
+    label: 'First Times',
+    sublabel: '8 emotional firsts',
     unlocksAtChapter: 0,
-    gradient: 'from-emerald-500 to-teal-600',
-    glow: 'shadow-emerald-500/30',
+    gradient: 'from-violet-700 via-purple-800 to-violet-950',
+    glow: 'shadow-purple-500/35',
   },
+
+  // ── Shared Future & Dreams ──────────────────────────────────────────────────
   {
-    id: 'perfect-match' as const,
-    icon: <Puzzle size={30} className="text-white drop-shadow-md" />,
-    label: 'Perfect Match',
-    sublabel: 'Memory game',
+    id: 'our-forever' as const,
+    icon: <Stars size={28} className="text-white drop-shadow-md" fill="currentColor" />,
+    label: 'Our Forever',
+    sublabel: 'Build our future vision',
     unlocksAtChapter: 0,
-    gradient: 'from-indigo-500 to-blue-600',
-    glow: 'shadow-indigo-500/30',
+    gradient: 'from-amber-700 via-yellow-700 to-orange-800',
+    glow: 'shadow-amber-400/35',
   },
-  {
-    id: 'mood-ring' as const,
-    icon: <Sun size={30} className="text-white drop-shadow-md" fill="currentColor" />,
-    label: 'Mood Ring',
-    sublabel: 'Daily check-in',
-    unlocksAtChapter: 0,
-    gradient: 'from-yellow-400 to-amber-500',
-    glow: 'shadow-yellow-500/30',
-  },
-  {
-    id: 'comfort-mode' as const,
-    icon: <Moon size={30} className="text-white drop-shadow-md" fill="currentColor" />,
-    label: 'Comfort Room',
-    sublabel: 'Emergency hugs',
-    unlocksAtChapter: 0,
-    gradient: 'from-rose-500 to-pink-600',
-    glow: 'shadow-rose-500/30',
-  },
-  {
-    id: 'love-letter' as const,
-    icon: <Mail size={30} className="text-white drop-shadow-md" />,
-    label: 'Love Letters',
-    sublabel: 'Written for you',
-    unlocksAtChapter: 0,
-    gradient: 'from-rose-400 to-pink-500',
-    glow: 'shadow-rose-400/30',
-  },
-  {
-    id: 'date-spinner' as const,
-    icon: <Disc3 size={30} className="text-white drop-shadow-md" />,
-    label: 'Date Spinner',
-    sublabel: 'Spin & decide',
-    unlocksAtChapter: 0,
-    gradient: 'from-fuchsia-500 to-violet-600',
-    glow: 'shadow-fuchsia-500/30',
-  },
-  {
-    id: 'would-you-rather' as const,
-    icon: <HelpCircle size={30} className="text-white drop-shadow-md" />,
-    label: 'Would You Rather',
-    sublabel: '15 scenarios',
-    unlocksAtChapter: 0,
-    gradient: 'from-violet-500 to-indigo-600',
-    glow: 'shadow-violet-500/30',
-  },
-  {
-    id: 'kiss-jar' as const,
-    icon: <Heart size={30} className="text-white drop-shadow-md" fill="currentColor" />,
-    label: 'Kiss Jar',
-    sublabel: 'Tap to send love',
-    unlocksAtChapter: 0,
-    gradient: 'from-rose-500 to-pink-600',
-    glow: 'shadow-rose-500/30',
-  },
-  {
-    id: 'truth-bombs' as const,
-    icon: <Bomb size={30} className="text-white drop-shadow-md" />,
-    label: 'Truth Bombs',
-    sublabel: '15 deep questions',
-    unlocksAtChapter: 0,
-    gradient: 'from-pink-600 to-rose-700',
-    glow: 'shadow-pink-500/30',
-  },
-  {
-    id: 'catch-my-heart' as const,
-    icon: <Gamepad2 size={30} className="text-white drop-shadow-md" />,
-    label: 'Catch My Heart',
-    sublabel: 'Tap falling hearts',
-    unlocksAtChapter: 0,
-    gradient: 'from-rose-400 to-fuchsia-600',
-    glow: 'shadow-fuchsia-500/30',
-  },
-  {
-    id: 'dream-date' as const,
-    icon: <Stars size={30} className="text-white drop-shadow-md" />,
-    label: 'Dream Date',
-    sublabel: 'Build our perfect day',
-    unlocksAtChapter: 0,
-    gradient: 'from-amber-500 to-orange-600',
-    glow: 'shadow-amber-500/30',
-  },
-  {
-    id: 'love-story' as const,
-    icon: <BookOpen size={30} className="text-white drop-shadow-md" />,
-    label: 'Love Story',
-    sublabel: 'Write our story',
-    unlocksAtChapter: 0,
-    gradient: 'from-violet-500 to-purple-700',
-    glow: 'shadow-violet-500/30',
-  },
+
+  // ── Intimacy & Physical Connection ─────────────────────────────────────────
   {
     id: 'intimacy-hub' as const,
     icon: (
@@ -217,24 +146,10 @@ const MINI_GAMES = [
       </div>
     ),
     label: 'Emotional Intimacy',
-    sublabel: '4 intimate games',
+    sublabel: '4 intimate journeys',
     unlocksAtChapter: 0,
     gradient: 'from-rose-500 via-pink-600 to-purple-700',
     glow: 'shadow-pink-500/40',
-  },
-  {
-    id: 'inside-his-heart' as const,
-    icon: (
-      <div className="relative">
-        <Heart size={28} className="text-white drop-shadow-md" fill="currentColor" />
-        <div className="absolute inset-0 rounded-full" style={{ boxShadow: '0 0 16px rgba(139,92,246,0.9)', borderRadius: '50%' }} />
-      </div>
-    ),
-    label: 'Inside His Heart',
-    sublabel: 'A cinematic journey',
-    unlocksAtChapter: 0,
-    gradient: 'from-indigo-600 via-violet-600 to-purple-800',
-    glow: 'shadow-violet-500/40',
   },
   {
     id: 'desire-deck' as const,
@@ -255,6 +170,40 @@ const MINI_GAMES = [
     glow: 'shadow-indigo-500/30',
   },
   {
+    id: 'inside-his-heart' as const,
+    icon: (
+      <div className="relative">
+        <Heart size={26} className="text-white drop-shadow-md" fill="currentColor" />
+        <div className="absolute inset-0 rounded-full" style={{ boxShadow: '0 0 16px rgba(139,92,246,0.9)', borderRadius: '50%' }} />
+      </div>
+    ),
+    label: 'Inside His Heart',
+    sublabel: 'A cinematic journey',
+    unlocksAtChapter: 0,
+    gradient: 'from-indigo-600 via-violet-600 to-purple-800',
+    glow: 'shadow-violet-500/40',
+  },
+
+  // ── Truth & Connection ──────────────────────────────────────────────────────
+  {
+    id: 'truth-bombs' as const,
+    icon: <Bomb size={28} className="text-white drop-shadow-md" />,
+    label: 'Truth Bombs',
+    sublabel: '15 deep questions',
+    unlocksAtChapter: 0,
+    gradient: 'from-pink-600 to-rose-700',
+    glow: 'shadow-pink-500/30',
+  },
+  {
+    id: 'would-you-rather' as const,
+    icon: <HelpCircle size={28} className="text-white drop-shadow-md" />,
+    label: 'Would You Rather',
+    sublabel: '15 real scenarios',
+    unlocksAtChapter: 0,
+    gradient: 'from-violet-500 to-indigo-600',
+    glow: 'shadow-violet-500/30',
+  },
+  {
     id: 'couple-goals' as const,
     icon: <ListChecks size={28} className="text-white drop-shadow-md" />,
     label: 'Couple Goals',
@@ -262,6 +211,73 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-amber-500 via-orange-500 to-yellow-600',
     glow: 'shadow-amber-400/30',
+  },
+
+  // ── Presence & Affection ───────────────────────────────────────────────────
+  {
+    id: 'kiss-jar' as const,
+    icon: <Heart size={28} className="text-white drop-shadow-md" fill="currentColor" />,
+    label: 'Kiss Jar',
+    sublabel: 'Tap to send love',
+    unlocksAtChapter: 0,
+    gradient: 'from-rose-500 to-pink-600',
+    glow: 'shadow-rose-500/30',
+  },
+  {
+    id: 'comfort-mode' as const,
+    icon: <Moon size={28} className="text-white drop-shadow-md" fill="currentColor" />,
+    label: 'Comfort Room',
+    sublabel: 'Emergency hugs',
+    unlocksAtChapter: 0,
+    gradient: 'from-rose-500 to-pink-600',
+    glow: 'shadow-rose-500/30',
+  },
+  {
+    id: 'mood-ring' as const,
+    icon: <Sun size={28} className="text-white drop-shadow-md" fill="currentColor" />,
+    label: 'Mood Ring',
+    sublabel: 'Daily check-in',
+    unlocksAtChapter: 0,
+    gradient: 'from-yellow-400 to-amber-500',
+    glow: 'shadow-yellow-500/30',
+  },
+
+  // ── Stories & Letters ──────────────────────────────────────────────────────
+  {
+    id: 'love-story' as const,
+    icon: <BookOpen size={28} className="text-white drop-shadow-md" />,
+    label: 'Love Story',
+    sublabel: 'Write our story',
+    unlocksAtChapter: 0,
+    gradient: 'from-violet-500 to-purple-700',
+    glow: 'shadow-violet-500/30',
+  },
+  {
+    id: 'love-letter' as const,
+    icon: <Mail size={28} className="text-white drop-shadow-md" />,
+    label: 'Love Letters',
+    sublabel: 'Written for you',
+    unlocksAtChapter: 0,
+    gradient: 'from-rose-400 to-pink-500',
+    glow: 'shadow-rose-400/30',
+  },
+  {
+    id: 'daily-note' as const,
+    icon: <CalendarHeart size={28} className="text-white drop-shadow-md" />,
+    label: 'Daily Whisper',
+    sublabel: 'A new note daily',
+    unlocksAtChapter: 0,
+    gradient: 'from-emerald-500 to-teal-600',
+    glow: 'shadow-emerald-500/30',
+  },
+  {
+    id: 'vault' as const,
+    icon: <Vault size={28} className="text-white drop-shadow-md" />,
+    label: 'Memory Vault',
+    sublabel: 'Our first chapter',
+    unlocksAtChapter: 0,
+    gradient: 'from-violet-600 to-purple-700',
+    glow: 'shadow-violet-500/30',
   },
 ];
 
@@ -285,7 +301,7 @@ export default function HomeMapScreen() {
     startChapter(chapter);
   };
 
-  const handleMinigameTap = (id: 'vibe-check' | 'rapid-fire' | 'fortune-teller' | 'heart-sync' | 'daily-note' | 'perfect-match' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'date-spinner' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'catch-my-heart' | 'dream-date' | 'love-story' | 'intimacy-hub' | 'inside-his-heart' | 'desire-deck' | 'pillow-talk' | 'couple-goals') => {
+  const handleMinigameTap = (id: 'daily-note' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'love-story' | 'intimacy-hub' | 'inside-his-heart' | 'desire-deck' | 'pillow-talk' | 'couple-goals' | 'moment-i-knew' | 'untold-truths' | 'our-forever' | 'night-confessions' | 'first-times' | 'words-i-hold' | 'emotional-depth' | 'our-firsts') => {
     heartbeat();
     playSparkle();
     setPhase(id);

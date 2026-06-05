@@ -6,28 +6,28 @@ export type AppPhase =
   | 'welcome'
   | 'home'
   | 'game'
-  | 'vibe-check'
-  | 'rapid-fire'
-  | 'fortune-teller'
-  | 'heart-sync'
   | 'daily-note'
-  | 'perfect-match'
   | 'mood-ring'
   | 'vault'
   | 'comfort-mode'
   | 'love-letter'
-  | 'date-spinner'
   | 'would-you-rather'
   | 'kiss-jar'
   | 'truth-bombs'
-  | 'catch-my-heart'
-  | 'dream-date'
   | 'love-story'
   | 'intimacy-hub'
   | 'inside-his-heart'
   | 'desire-deck'
   | 'pillow-talk'
   | 'couple-goals'
+  | 'moment-i-knew'
+  | 'untold-truths'
+  | 'our-forever'
+  | 'night-confessions'
+  | 'first-times'
+  | 'words-i-hold'
+  | 'emotional-depth'
+  | 'our-firsts'
   | 'admin-dashboard'
   | 'complete';
 
@@ -128,27 +128,28 @@ export const useGameStore = create<GameState>()(
         const { isReturningUser, logActivity } = get();
         // Log mini-game opens
         const miniGameLabels: Partial<Record<AppPhase, string>> = {
-          'vibe-check': 'Opened Vibe Check',
-          'rapid-fire': 'Opened Rapid Fire',
-          'fortune-teller': 'Opened Fortune Teller',
-          'heart-sync': 'Opened Heart Sync',
           'daily-note': 'Opened Daily Whisper',
-          'perfect-match': 'Opened Perfect Match',
           'mood-ring': 'Opened Mood Ring',
           'comfort-mode': 'Opened Comfort Room',
           'love-letter': 'Opened Love Letters',
-          'date-spinner': 'Opened Date Spinner',
           'would-you-rather': 'Opened Would You Rather',
           'kiss-jar': 'Opened Kiss Jar',
           'vault': 'Opened Memory Vault',
           'truth-bombs': 'Opened Truth Bombs',
-          'catch-my-heart': 'Opened Catch My Heart',
-          'dream-date': 'Opened Dream Date',
           'love-story': 'Opened Love Story',
           'intimacy-hub': 'Opened Emotional Intimacy',
+          'inside-his-heart': 'Opened Inside His Heart',
           'desire-deck': 'Opened Desire Deck',
           'pillow-talk': 'Opened Pillow Talk',
           'couple-goals': 'Opened Couple Goals',
+          'moment-i-knew': 'Opened The Moment I Knew',
+          'untold-truths': 'Opened Untold Truths',
+          'our-forever': 'Opened Our Forever',
+          'night-confessions': 'Opened Night Confessions',
+          'first-times': 'Opened First Times',
+          'words-i-hold': 'Opened Words I Hold',
+          'emotional-depth': 'Opened Emotional Depth',
+          'our-firsts': 'Opened Our Firsts',
         };
         if (miniGameLabels[phase]) {
           logActivity('mini-game', miniGameLabels[phase]!);

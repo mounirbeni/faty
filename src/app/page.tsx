@@ -17,29 +17,29 @@ import { notifyEntry, notifyBeacon } from '@/lib/notify';
 import dynamic from 'next/dynamic';
 import MidnightOverlay from '@/components/MidnightOverlay';
 
-const VibeCheckScreen         = dynamic(() => import('@/components/VibeCheckScreen'), { ssr: false });
-const RapidFireScreen         = dynamic(() => import('@/components/RapidFireScreen'), { ssr: false });
 const MayVaultScreen          = dynamic(() => import('@/components/MayVaultScreen'), { ssr: false });
-const FortuneTellerScreen     = dynamic(() => import('@/components/FortuneTellerScreen'), { ssr: false });
-const HeartSyncScreen         = dynamic(() => import('@/components/HeartSyncScreen'), { ssr: false });
 const DailyNoteScreen         = dynamic(() => import('@/components/DailyNoteScreen'), { ssr: false });
-const PerfectMatchScreen      = dynamic(() => import('@/components/PerfectMatchScreen'), { ssr: false });
 const MoodRingScreen          = dynamic(() => import('@/components/MoodRingScreen'), { ssr: false });
 const ComfortScreen           = dynamic(() => import('@/components/ComfortScreen'), { ssr: false });
 const LoveLetterScreen        = dynamic(() => import('@/components/LoveLetterScreen'), { ssr: false });
-const DateSpinnerScreen       = dynamic(() => import('@/components/DateSpinnerScreen'), { ssr: false });
 const WouldYouRatherScreen    = dynamic(() => import('@/components/WouldYouRatherScreen'), { ssr: false });
 const KissJarScreen           = dynamic(() => import('@/components/KissJarScreen'), { ssr: false });
 const ActivityDashboardScreen = dynamic(() => import('@/components/ActivityDashboardScreen'), { ssr: false });
 const TruthBombsScreen        = dynamic(() => import('@/components/TruthBombsScreen'), { ssr: false });
-const CatchMyHeartScreen      = dynamic(() => import('@/components/CatchMyHeartScreen'), { ssr: false });
-const DreamDateScreen         = dynamic(() => import('@/components/DreamDateScreen'), { ssr: false });
 const LoveStoryScreen         = dynamic(() => import('@/components/LoveStoryScreen'), { ssr: false });
 const IntimacyHubScreen       = dynamic(() => import('@/components/IntimacyHubScreen'), { ssr: false });
 const InsideHisHeartScreen    = dynamic(() => import('@/components/InsideHisHeartScreen'), { ssr: false });
 const DesireDeckScreen        = dynamic(() => import('@/components/DesireDeckScreen'), { ssr: false });
 const PillowTalkScreen        = dynamic(() => import('@/components/PillowTalkScreen'), { ssr: false });
 const CoupleGoalsScreen       = dynamic(() => import('@/components/CoupleGoalsScreen'), { ssr: false });
+const MomentIKnewScreen       = dynamic(() => import('@/components/MomentIKnewScreen'), { ssr: false });
+const UntoldTruthsScreen      = dynamic(() => import('@/components/UntoldTruthsScreen'), { ssr: false });
+const OurForeverScreen        = dynamic(() => import('@/components/OurForeverScreen'), { ssr: false });
+const NightConfessionsScreen  = dynamic(() => import('@/components/NightConfessionsScreen'), { ssr: false });
+const FirstTimesScreen        = dynamic(() => import('@/components/FirstTimesScreen'), { ssr: false });
+const WordsIHoldScreen        = dynamic(() => import('@/components/WordsIHoldScreen'), { ssr: false });
+const EmotionalDepthScreen    = dynamic(() => import('@/components/EmotionalDepthScreen'), { ssr: false });
+const OurFirstsScreen         = dynamic(() => import('@/components/OurFirstsScreen'), { ssr: false });
 
 function Screen({ children }: { children: React.ReactNode }) {
   return (
@@ -133,33 +133,33 @@ export default function HomePage() {
 
       {/* Screens */}
       <AnimatePresence mode="wait">
-        {currentPhase === 'welcome'          && <Screen key="welcome"><WelcomeScreen /></Screen>}
-        {currentPhase === 'home'             && <Screen key="home"><HomeMapScreen /></Screen>}
-        {currentPhase === 'game'             && <Screen key="game"><GameScreen /></Screen>}
-        {currentPhase === 'vibe-check'       && <Screen key="vibe-check"><VibeCheckScreen /></Screen>}
-        {currentPhase === 'rapid-fire'       && <Screen key="rapid-fire"><RapidFireScreen /></Screen>}
-        {currentPhase === 'vault'            && <Screen key="vault"><MayVaultScreen /></Screen>}
-        {currentPhase === 'fortune-teller'   && <Screen key="fortune-teller"><FortuneTellerScreen /></Screen>}
-        {currentPhase === 'heart-sync'       && <Screen key="heart-sync"><HeartSyncScreen /></Screen>}
-        {currentPhase === 'daily-note'       && <Screen key="daily-note"><DailyNoteScreen /></Screen>}
-        {currentPhase === 'perfect-match'    && <Screen key="perfect-match"><PerfectMatchScreen /></Screen>}
-        {currentPhase === 'mood-ring'        && <Screen key="mood-ring"><MoodRingScreen /></Screen>}
-        {currentPhase === 'comfort-mode'     && <Screen key="comfort-mode"><ComfortScreen /></Screen>}
-        {currentPhase === 'love-letter'      && <Screen key="love-letter"><LoveLetterScreen /></Screen>}
-        {currentPhase === 'date-spinner'     && <Screen key="date-spinner"><DateSpinnerScreen /></Screen>}
-        {currentPhase === 'would-you-rather' && <Screen key="would-you-rather"><WouldYouRatherScreen /></Screen>}
-        {currentPhase === 'kiss-jar'         && <Screen key="kiss-jar"><KissJarScreen /></Screen>}
-        {currentPhase === 'admin-dashboard'  && <Screen key="admin-dashboard"><ActivityDashboardScreen /></Screen>}
-        {currentPhase === 'truth-bombs'      && <Screen key="truth-bombs"><TruthBombsScreen /></Screen>}
-        {currentPhase === 'catch-my-heart'   && <Screen key="catch-my-heart"><CatchMyHeartScreen /></Screen>}
-        {currentPhase === 'dream-date'       && <Screen key="dream-date"><DreamDateScreen /></Screen>}
-        {currentPhase === 'love-story'       && <Screen key="love-story"><LoveStoryScreen /></Screen>}
-        {currentPhase === 'intimacy-hub'     && <Screen key="intimacy-hub"><IntimacyHubScreen /></Screen>}
-        {currentPhase === 'inside-his-heart' && <Screen key="inside-his-heart"><InsideHisHeartScreen /></Screen>}
-        {currentPhase === 'desire-deck'      && <Screen key="desire-deck"><DesireDeckScreen /></Screen>}
-        {currentPhase === 'pillow-talk'      && <Screen key="pillow-talk"><PillowTalkScreen /></Screen>}
-        {currentPhase === 'couple-goals'     && <Screen key="couple-goals"><CoupleGoalsScreen /></Screen>}
-        {currentPhase === 'complete'         && <Screen key="complete"><CompletionScreen /></Screen>}
+        {currentPhase === 'welcome'            && <Screen key="welcome"><WelcomeScreen /></Screen>}
+        {currentPhase === 'home'               && <Screen key="home"><HomeMapScreen /></Screen>}
+        {currentPhase === 'game'               && <Screen key="game"><GameScreen /></Screen>}
+        {currentPhase === 'vault'              && <Screen key="vault"><MayVaultScreen /></Screen>}
+        {currentPhase === 'daily-note'         && <Screen key="daily-note"><DailyNoteScreen /></Screen>}
+        {currentPhase === 'mood-ring'          && <Screen key="mood-ring"><MoodRingScreen /></Screen>}
+        {currentPhase === 'comfort-mode'       && <Screen key="comfort-mode"><ComfortScreen /></Screen>}
+        {currentPhase === 'love-letter'        && <Screen key="love-letter"><LoveLetterScreen /></Screen>}
+        {currentPhase === 'would-you-rather'   && <Screen key="would-you-rather"><WouldYouRatherScreen /></Screen>}
+        {currentPhase === 'kiss-jar'           && <Screen key="kiss-jar"><KissJarScreen /></Screen>}
+        {currentPhase === 'admin-dashboard'    && <Screen key="admin-dashboard"><ActivityDashboardScreen /></Screen>}
+        {currentPhase === 'truth-bombs'        && <Screen key="truth-bombs"><TruthBombsScreen /></Screen>}
+        {currentPhase === 'love-story'         && <Screen key="love-story"><LoveStoryScreen /></Screen>}
+        {currentPhase === 'intimacy-hub'       && <Screen key="intimacy-hub"><IntimacyHubScreen /></Screen>}
+        {currentPhase === 'inside-his-heart'   && <Screen key="inside-his-heart"><InsideHisHeartScreen /></Screen>}
+        {currentPhase === 'desire-deck'        && <Screen key="desire-deck"><DesireDeckScreen /></Screen>}
+        {currentPhase === 'pillow-talk'        && <Screen key="pillow-talk"><PillowTalkScreen /></Screen>}
+        {currentPhase === 'couple-goals'       && <Screen key="couple-goals"><CoupleGoalsScreen /></Screen>}
+        {currentPhase === 'moment-i-knew'      && <Screen key="moment-i-knew"><MomentIKnewScreen /></Screen>}
+        {currentPhase === 'untold-truths'      && <Screen key="untold-truths"><UntoldTruthsScreen /></Screen>}
+        {currentPhase === 'our-forever'        && <Screen key="our-forever"><OurForeverScreen /></Screen>}
+        {currentPhase === 'night-confessions'  && <Screen key="night-confessions"><NightConfessionsScreen /></Screen>}
+        {currentPhase === 'first-times'        && <Screen key="first-times"><FirstTimesScreen /></Screen>}
+        {currentPhase === 'words-i-hold'       && <Screen key="words-i-hold"><WordsIHoldScreen /></Screen>}
+        {currentPhase === 'emotional-depth'    && <Screen key="emotional-depth"><EmotionalDepthScreen /></Screen>}
+        {currentPhase === 'our-firsts'         && <Screen key="our-firsts"><OurFirstsScreen /></Screen>}
+        {currentPhase === 'complete'           && <Screen key="complete"><CompletionScreen /></Screen>}
       </AnimatePresence>
     </main>
   );
