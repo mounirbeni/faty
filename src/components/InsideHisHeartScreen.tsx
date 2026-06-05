@@ -1,7 +1,9 @@
 'use client';
 
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useGameStore } from '@/store/gameStore';
+import { notifyOwner } from '@/lib/notify';
 
 const DOTS = Array.from({ length: 18 }, (_, i) => ({
   id: i,
@@ -14,6 +16,10 @@ const DOTS = Array.from({ length: 18 }, (_, i) => ({
 
 export default function InsideHisHeartScreen() {
   const setPhase = useGameStore(s => s.setPhase);
+
+  useEffect(() => {
+    notifyOwner(`💜 <b>She opened "Inside His Heart"</b>\n\n<i>She is waiting for your words with love…</i>`);
+  }, []);
 
   return (
     <motion.div

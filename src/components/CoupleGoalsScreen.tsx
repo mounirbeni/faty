@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Check } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { COUPLE_GOALS, CoupleGoal } from '@/data/coupleGoals';
+import { notifyOwner } from '@/lib/notify';
 
 type Category = CoupleGoal['category'];
 
@@ -20,8 +21,17 @@ const CATEGORIES: Category[] = ['romance', 'adventure', 'intimate', 'dreams'];
 export default function CoupleGoalsScreen() {
   const setPhase = useGameStore((s) => s.setPhase);
   const completedGoals = useGameStore((s) => s.completedGoals);
-  const toggleGoal = useGameStore((s) => s.toggleGoal);
+  const toggleGoalStore = useGameStore((s) => s.toggleGoal);
   const [activeCategory, setActiveCategory] = useState<Category>('romance');
+
+  const toggleGoal = (id: number) => {
+    const goal = COUPLE_GOALS.find((g) => g.id === id);
+    const wasCompleted = completedGoals.includes(id);
+    toggleGoalStore(id);
+    if (!wasCompleted && goal) {
+      notifyOwner(`✨ <b>She completed a Couple Goal!</b>\n\n${CATEGORY_META[goal.category].emoji} ${goal.text}\n\n<i>${completedGoals.length + 1} goals unlocked together</i>`);
+    }
+  };
 
   const categoryGoals = COUPLE_GOALS.filter((g) => g.category === activeCategory);
   const categoryCompleted = categoryGoals.filter((g) => completedGoals.includes(g.id)).length;

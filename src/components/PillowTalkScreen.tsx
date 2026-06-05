@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Shuffle } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { PILLOW_QUESTIONS, PillowQuestion } from '@/data/pillowTalk';
+import { notifyOwner } from '@/lib/notify';
 
 type Depth = 'all' | 'soft' | 'deep' | 'raw';
 
@@ -20,6 +21,13 @@ export default function PillowTalkScreen() {
   const [seenIds, setSeenIds] = useState<number[]>([]);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [wordIndex, setWordIndex] = useState(0);
+  const notifiedRef = useRef(false);
+
+  useEffect(() => {
+    if (notifiedRef.current) return;
+    notifiedRef.current = true;
+    notifyOwner(`🌙 <b>She opened Pillow Talk</b>\n\n<i>She is reading your late-night questions…</i>`);
+  }, []);
 
   const filteredQuestions: PillowQuestion[] = useMemo(() => {
     if (filter === 'all') return PILLOW_QUESTIONS;

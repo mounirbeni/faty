@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
 import { DESIRE_CARDS, DesireCard } from '@/data/desireDeck';
+import { notifyOwner } from '@/lib/notify';
 
 type Category = 'tender' | 'bold' | 'daring';
 
@@ -38,6 +39,7 @@ export default function DesireDeckScreen() {
   const [seenIds, setSeenIds] = useState<number[]>([]);
   const [flipped, setFlipped] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
+  const notifiedRef = useRef(false);
 
   const categoryCards = useMemo(
     () => DESIRE_CARDS.filter((c) => c.category === activeCategory),
@@ -58,6 +60,10 @@ export default function DesireDeckScreen() {
   const handleFlip = () => {
     if (!topCard || flipped) return;
     setFlipped(true);
+    if (!notifiedRef.current) {
+      notifiedRef.current = true;
+      notifyOwner(`🔥 <b>She opened the Desire Deck</b>\n\nCategory: ${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} ${CATEGORY_META[activeCategory].emoji}\n\n<i>She is exploring your desire cards tonight…</i>`);
+    }
   };
 
   const handleNext = () => {

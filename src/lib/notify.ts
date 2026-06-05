@@ -6,6 +6,10 @@
 
 import type { PresenceContext } from './presenceContext';
 
+// Entry notification cooldown: 30 minutes
+const ENTRY_COOLDOWN_MS = 30 * 60 * 1000;
+const ENTRY_TS_KEY = 'lu_notify_ts';
+
 // ─── Core sender ──────────────────────────────────────────────────────────────
 
 export function notifyOwner(message: string): void {
@@ -36,9 +40,15 @@ export function notifyBeacon(message: string): void {
 
 /**
  * Sends the cinematic "She just entered your universe" message.
- * Called once per session after presence context is resolved.
+ * Rate-limited to once every 30 minutes via localStorage.
  */
 export function notifyEntry(ctx: PresenceContext, overallPercent: number, isReturning: boolean): void {
+  // Rate limit: skip if last notification was less than 30 minutes ago
+  if (typeof localStorage !== 'undefined') {
+    const lastTs = Number(localStorage.getItem(ENTRY_TS_KEY) ?? 0);
+    if (Date.now() - lastTs < ENTRY_COOLDOWN_MS) return;
+    localStorage.setItem(ENTRY_TS_KEY, String(Date.now()));
+  }
   const timeEmoji = ctx.isLateNight ? '🌙' : ctx.isNight ? '🌛' : ctx.moroccoHour < 12 ? '🌅' : '☀️';
   const entryVerb = isReturning ? 'just came back to' : 'just entered';
 
