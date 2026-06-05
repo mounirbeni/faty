@@ -7,14 +7,14 @@ import { useGameStore } from '@/store/gameStore';
 import { notifyOwner } from '@/lib/notify';
 
 const CONFESSIONS = [
-  { id: 0, prompt: 'One thing I\'m afraid to need from you too much…', hint: 'What feels risky to depend on?' },
-  { id: 1, prompt: 'The physical closeness I miss most right now…', hint: 'A touch, a presence, a warmth…' },
-  { id: 2, prompt: 'A thought about us I keep coming back to when it\'s quiet…', hint: 'It doesn\'t have to be perfect' },
-  { id: 3, prompt: 'Something I wish you already knew about how I feel…', hint: 'What would be easier if you just knew?' },
-  { id: 4, prompt: 'A fear I carry about love that you\'ve helped make smaller…', hint: 'What were you afraid of before us?' },
-  { id: 5, prompt: 'The moment I feel most loved by you…', hint: 'The specific small thing you do' },
-  { id: 6, prompt: 'Something I want us to experience together that I\'ve never said…', hint: 'Could be emotional, physical, or a dream' },
-  { id: 7, prompt: 'What I feel in the silence when we\'re just together…', hint: 'No words needed — just describe the feeling' },
+  { id: 0, prompt: 'One thing I\'m afraid to need from you too much when we\'re finally together…', hint: 'What feels risky to depend on after all this distance?' },
+  { id: 1, prompt: 'The physical closeness I miss most right now — something I can\'t get through a screen…', hint: 'A touch, a warmth, a presence…' },
+  { id: 2, prompt: 'A thought about us I keep coming back to when it\'s late and we can\'t talk…', hint: 'It doesn\'t have to make sense' },
+  { id: 3, prompt: 'Something I wish you knew about how I feel right after we hang up…', hint: 'The minute after you\'re gone' },
+  { id: 4, prompt: 'A fear I carry about this distance that you\'ve helped make smaller…', hint: 'What were you afraid of before us?' },
+  { id: 5, prompt: 'The moment I feel most loved by you — even across the miles…', hint: 'The specific small thing you do from far away' },
+  { id: 6, prompt: 'Something I want us to do together the first night we\'re finally in the same room…', hint: 'Could be emotional, physical, or just quietly being there' },
+  { id: 7, prompt: 'What I feel in the silence right after our call ends…', hint: 'No words needed — just describe the feeling' },
 ];
 
 const MOON_PARTICLES = Array.from({ length: 20 }, (_, i) => ({

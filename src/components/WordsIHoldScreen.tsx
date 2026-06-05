@@ -9,27 +9,27 @@ import { notifyOwner } from '@/lib/notify';
 const PROMPTS = [
   {
     id: 0,
-    prefix: 'If I could say one thing to you right now with no fear…',
+    prefix: 'If I could say one thing through this screen right now with no fear…',
     placeholder: 'it would be that…',
   },
   {
     id: 1,
-    prefix: 'Something I\'ve been wanting you to know…',
+    prefix: 'Something I\'ve been wanting you to know about what this distance has taught me…',
     placeholder: 'is that…',
   },
   {
     id: 2,
-    prefix: 'When I think of us, the first word that comes to me…',
+    prefix: 'When I think of the day I finally see you, the first word that comes to me…',
     placeholder: 'is…',
   },
   {
     id: 3,
-    prefix: 'The thing about you I love but have never said out loud…',
+    prefix: 'The thing about loving you from far away that I never expected…',
     placeholder: 'is…',
   },
   {
     id: 4,
-    prefix: 'What I want most from our future together…',
+    prefix: 'What I want most from the day this distance finally ends…',
     placeholder: 'is…',
   },
 ];

@@ -13,21 +13,21 @@ interface Scenario {
 }
 
 const SCENARIOS: Scenario[] = [
-  { id: 1, a: 'Always know what I\'m thinking', b: 'Have me always know what you\'re thinking' },
-  { id: 2, a: 'Go on a spontaneous road trip with no destination', b: 'Have a perfectly planned vacation together' },
-  { id: 3, a: 'Cook dinner together every night at home', b: 'Order from your favorite place whenever you want' },
-  { id: 4, a: 'I surprise you with random little gifts', b: 'We plan special experiences and adventures together' },
-  { id: 5, a: 'Stay in on a cozy night watching movies', b: 'Go out to a nice restaurant just the two of us' },
-  { id: 6, a: 'I write you love letters every week', b: 'I send you voice notes telling you how I feel' },
-  { id: 7, a: 'Live in a busy exciting city together', b: 'Live in a quiet town close to nature' },
-  { id: 8, a: 'Have a big romantic anniversary celebration every year', b: 'Have a quiet intimate dinner just the two of us' },
-  { id: 9, a: 'Have a no-phones date every week', b: 'Always be completely reachable to each other' },
-  { id: 10, a: 'I remember every small thing you ever mention to me', b: 'I always manage to make you laugh no matter what' },
-  { id: 11, a: 'We share the same travel bucket list', b: 'We have different adventures and share the stories with each other' },
-  { id: 12, a: 'Know how our story ends', b: 'Live it one beautiful page at a time' },
-  { id: 13, a: 'Be the one who loves more', b: 'Be loved more than you love' },
-  { id: 14, a: 'Have deep conversations until 3am every night', b: 'Fall asleep together in comfortable silence' },
-  { id: 15, a: 'Slow dance in the kitchen at midnight', b: 'Watch the sunrise together in silence' },
+  { id: 1, a: 'Always know what I\'m thinking at 3am', b: 'Always feel exactly what I\'m feeling in that moment' },
+  { id: 2, a: 'Receive a surprise package from me every month', b: 'Receive a handwritten letter from me every week' },
+  { id: 3, a: 'I visit your city first', b: 'You visit my city for the first time' },
+  { id: 4, a: 'Fall asleep on a call with me every night', b: 'Wake up to a voice message from me every single morning' },
+  { id: 5, a: 'Be completely reachable to each other always', b: 'Have one long sacred call a week that\'s distraction-free and just ours' },
+  { id: 6, a: 'I write you love letters every week', b: 'I send you voice notes telling you exactly how I feel' },
+  { id: 7, a: 'Close the distance tomorrow but move somewhere unfamiliar', b: 'Wait one more year and move to the city we\'ve always talked about' },
+  { id: 8, a: 'A big emotional reunion after a long time apart', b: 'I quietly show up and we\'re just suddenly in the same room — no ceremony' },
+  { id: 9, a: 'I remember every small thing you ever mention to me', b: 'I always manage to make you laugh no matter what kind of day you\'re having' },
+  { id: 10, a: 'I move to your country', b: 'You move to mine' },
+  { id: 11, a: 'Know exactly when this distance ends', b: 'Live it day by day without knowing the date' },
+  { id: 12, a: 'Be the one who misses more', b: 'Be the one who is missed more' },
+  { id: 13, a: 'Have deep calls until 3am every night', b: 'Fall asleep on call in comfortable silence every night' },
+  { id: 14, a: 'Watch every sunrise together from the same place', b: 'Fall asleep looking at each other on camera every night' },
+  { id: 15, a: 'Know how our story ends', b: 'Live it one beautiful page at a time' },
 ];
 
 type Choice = 'a' | 'b';

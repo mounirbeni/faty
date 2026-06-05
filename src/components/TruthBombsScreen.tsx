@@ -10,21 +10,21 @@ import { playReveal, playBloom, playSparkle, playPop, playSuccess } from '@/lib/
 import { trackInteraction } from '@/lib/sessionTracker';
 
 const QUESTIONS = [
-  { id: 1,  color: '#FF4D8D', q: 'What was the exact moment you knew you had real feelings for me?' },
-  { id: 2,  color: '#A78BFA', q: 'What is one thing about me that you were not expecting — something that surprised you?' },
-  { id: 3,  color: '#FFB84D', q: 'If you could change one thing about how we talk to each other, what would it be?' },
-  { id: 4,  color: '#FF4D8D', q: 'What is your biggest fear about us and what we are building together?' },
-  { id: 5,  color: '#A78BFA', q: 'What do I do that makes you feel the most loved and seen?' },
-  { id: 6,  color: '#FFB84D', q: 'If you could tell me one thing you have never said out loud, what would it be?' },
-  { id: 7,  color: '#FF4D8D', q: 'What does your ideal version of us look like in one year from now?' },
-  { id: 8,  color: '#A78BFA', q: 'In which moments do you feel closest to me — even from far away?' },
-  { id: 9,  color: '#FFB84D', q: 'What is something you hope I always do, no matter what?' },
-  { id: 10, color: '#FF4D8D', q: 'What made you decide to give us a real chance?' },
-  { id: 11, color: '#A78BFA', q: 'What part of our story so far means the most to you?' },
-  { id: 12, color: '#FFB84D', q: 'How do you feel right now, in this moment, about everything between us?' },
-  { id: 13, color: '#FF4D8D', q: 'What is a version of our future that you secretly dream about?' },
-  { id: 14, color: '#A78BFA', q: 'What is something small I do that you secretly love?' },
-  { id: 15, color: '#FFB84D', q: 'If you could live one moment of us again, which one would you choose?' },
+  { id: 1,  color: '#FF4D8D', q: 'What was the exact moment you knew you had real feelings for me — despite the distance between us?' },
+  { id: 2,  color: '#A78BFA', q: 'What is one thing about loving someone from far away that nobody warned you about?' },
+  { id: 3,  color: '#FFB84D', q: 'If you could change one thing about how we navigate this distance, what would it be?' },
+  { id: 4,  color: '#FF4D8D', q: 'What is your biggest fear about what this distance might do to what we are building together?' },
+  { id: 5,  color: '#A78BFA', q: 'What do I do — even from far away — that makes you feel the most loved and seen?' },
+  { id: 6,  color: '#FFB84D', q: 'If you could tell me one thing you have been holding back about how you feel across this distance, what would it be?' },
+  { id: 7,  color: '#FF4D8D', q: 'What does your ideal version of us look like on the day this distance finally ends?' },
+  { id: 8,  color: '#A78BFA', q: 'In which moments do you feel closest to me — even when we are thousands of kilometers apart?' },
+  { id: 9,  color: '#FFB84D', q: 'What is something you hope I always do for you, no matter how far we are from each other?' },
+  { id: 10, color: '#FF4D8D', q: 'What made you decide to keep showing up for us, even through the hard days of being apart?' },
+  { id: 11, color: '#A78BFA', q: 'What part of our long-distance story means the most to you right now?' },
+  { id: 12, color: '#FFB84D', q: 'How do you feel right now — in this moment — about everything between us across all this distance?' },
+  { id: 13, color: '#FF4D8D', q: 'What is a version of our future together — physically in the same place — that you secretly dream about?' },
+  { id: 14, color: '#A78BFA', q: 'What is something small I do on our calls that you secretly love?' },
+  { id: 15, color: '#FFB84D', q: 'If you could relive one moment of ours — even just a call — which one would you choose?' },
 ];
 
 export default function TruthBombsScreen() {

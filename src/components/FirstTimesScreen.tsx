@@ -7,14 +7,14 @@ import { useGameStore } from '@/store/gameStore';
 import { notifyOwner } from '@/lib/notify';
 
 const FIRSTS = [
-  { id: 0, text: 'First time I felt completely safe with you', emoji: '🛡️' },
-  { id: 1, text: 'First time I thought about a future with you', emoji: '🌅' },
+  { id: 0, text: 'First time I felt completely safe with you — even through a screen', emoji: '🛡️' },
+  { id: 1, text: 'First time I thought about a future where we\'re in the same city', emoji: '🌆' },
   { id: 2, text: 'First time your name made my heart do something', emoji: '💓' },
-  { id: 3, text: 'First time I wanted you to never leave', emoji: '🫂' },
-  { id: 4, text: 'First time I missed you in a physical way', emoji: '🌊' },
-  { id: 5, text: 'First time I realized I was in love', emoji: '🌹' },
-  { id: 6, text: 'First time I let myself be fully honest with you', emoji: '🔓' },
-  { id: 7, text: 'First time I imagined saying yes to forever with you', emoji: '💍' },
+  { id: 3, text: 'First time I wanted you to never hang up', emoji: '📞' },
+  { id: 4, text: 'First time I missed you in a way that was physical — not just emotional', emoji: '🌊' },
+  { id: 5, text: 'First time I realized I was in love — even across this distance', emoji: '🌹' },
+  { id: 6, text: 'First time I let myself be fully honest with you on a call', emoji: '🔓' },
+  { id: 7, text: 'First time I imagined saying yes to forever with you — despite the miles between us', emoji: '💍' },
 ];
 
 const INTENSITIES = [

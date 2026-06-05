@@ -9,32 +9,32 @@ import { notifyOwner } from '@/lib/notify';
 const QUESTIONS = [
   {
     id: 0,
-    question: 'What does love feel like for you when it\'s real — not the word, but the actual feeling in your body?',
+    question: 'What does love feel like for you when it\'s real — not the word, but the feeling in your body when you see my name light up your phone?',
     hint: 'Close your eyes and describe it…',
   },
   {
     id: 1,
-    question: 'What\'s changed inside you since you started falling for me?',
-    hint: 'Something in how you see yourself, or the world, or what you need…',
+    question: 'What\'s changed inside you since you started falling for someone you can only hold through a screen?',
+    hint: 'Something in how you see yourself, or what you\'re willing to be patient for…',
   },
   {
     id: 2,
-    question: 'What does it feel like in your body when you\'re truly at peace with someone?',
-    hint: 'Warmth, release, stillness, something else…',
+    question: 'What does it feel like in your body when we\'re finally on a call and the whole distance collapses for an hour?',
+    hint: 'Warmth, release, peace, something else…',
   },
   {
     id: 3,
-    question: 'What are you most afraid of losing between us?',
-    hint: 'Not the big things — the specific quiet things',
+    question: 'What are you most afraid of losing between us because of this distance?',
+    hint: 'Not the big fears — the specific quiet ones',
   },
   {
     id: 4,
-    question: 'What do you need from love that you\'ve never quite known how to ask for?',
+    question: 'What do you need from this love that\'s harder to give from this far away?',
     hint: 'The thing you always hoped someone would give without being asked…',
   },
   {
     id: 5,
-    question: 'If I could feel exactly what you feel when you think of us — what would I feel?',
+    question: 'If I could feel exactly what you feel when my face appears on your phone — what would I feel?',
     hint: 'Paint it for me in feeling-words, not logic-words',
   },
 ];

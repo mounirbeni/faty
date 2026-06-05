@@ -15,36 +15,36 @@ import { notifyOwner } from '@/lib/notify';
 type SubGame = 'first-kiss' | 'touch-presence' | 'inner-thoughts' | 'memory-reconstruction';
 
 const FIRST_KISS_QUESTIONS = [
-  'What was the first thing your heart felt during our first kiss?',
-  'Were you nervous before it happened, or did it just feel completely right?',
-  'What do you remember most vividly about that moment?',
-  'Did you wish it lasted longer? What would you have done differently?',
-  'What was going through your mind in the seconds just before it happened?',
-  'Did your heartbeat change? Tell me exactly how it felt.',
-  'What emotion hit you first — warmth, excitement, peace… or something else?',
-  'What would you tell me about that kiss that you have never said out loud?',
+  'When you imagine our first kiss — what does it feel like before it even happens?',
+  'Where do you picture it? What are we doing? What does that moment feel like?',
+  'Do you feel nervous thinking about it, or does it feel like something inevitable?',
+  'What emotion do you think will hit you first — relief, warmth, something else entirely?',
+  'Is there a specific way you have imagined it happening that you have never said out loud?',
+  'What do you think your heart will feel in the seconds just before it happens?',
+  'Do you think it will be exactly what you imagined, or do you think it will surprise you?',
+  'What would you want to tell me about that kiss — before it even happens — right now?',
 ] as const;
 
 const TOUCH_QUESTIONS = [
-  'How do you feel when I hold your hand? What happens inside you?',
-  'What goes through your heart when I touch your face softly?',
-  'When I hug you close, what do you feel in that exact moment?',
-  'What kind of touch from me makes you feel the most safe and loved?',
-  'What physical closeness do you miss the most right now, tonight?',
-  'Is there a moment of closeness between us that you replay in your mind?',
-  'What touch from me instantly calms you when you are feeling a lot?',
-  'Describe the most unforgettable moment of physical closeness we have shared.',
+  'What part of being held by me do you think about most when you are alone at night?',
+  'What would it feel like to have someone reach out and take your hand — and that someone being me?',
+  'What kind of hug from me do you think you need the most right now?',
+  'What physical closeness do you miss most — or imagine wanting — that a screen cannot give you?',
+  'Is there a moment of us you already replay in your mind even though it has not happened yet?',
+  'What do you think it will feel like the moment you realize you can actually reach out and touch me?',
+  'What kind of touch from me do you imagine would calm you instantly when you are feeling a lot?',
+  'Describe what you imagine our first real hug will feel like — every single detail.',
 ] as const;
 
 const INNER_THOUGHTS_QUESTIONS = [
-  'What was the very first thing about me that you truly noticed — not just saw, but felt?',
-  'Did you ever secretly imagine what it would be like to be close to me, before it happened?',
-  'Is there a moment I said or did something that made your heart emotionally melt? Tell me.',
-  'What thought about us do you keep coming back to when you are alone at night?',
-  'When do you feel the most emotionally close to me?',
-  'Is there something you have been wanting to tell me but have not found the words for yet?',
-  'What do you love most about the way we are with each other?',
-  'If you could whisper one thing to me right now with no fear, what would it be?',
+  'What was the very first thing about me that made you feel something — not just see, but actually feel?',
+  'Have you ever secretly imagined what it would be like to just be in the same room as me?',
+  'Is there a moment on a call when I said or did something that made your heart emotionally melt?',
+  'What thought about us do you return to most often when you are alone and it is late?',
+  'When do you feel the most emotionally close to me — even through the distance?',
+  'Is there something you have been wanting to tell me but have not found the right words for through a screen?',
+  'What do you love most about the specific way we love each other from this far apart?',
+  'If you could whisper one thing to me right now from wherever you are — what would it be?',
 ] as const;
 
 interface GameDef {

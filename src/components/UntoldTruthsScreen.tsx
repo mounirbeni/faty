@@ -7,16 +7,16 @@ import { useGameStore } from '@/store/gameStore';
 import { notifyOwner } from '@/lib/notify';
 
 const TRUTHS = [
-  { id: 0, text: 'I think about you when something funny happens, and you\'re the first person I want to tell.' },
-  { id: 1, text: 'The way you say my name does something to me that I can\'t fully explain.' },
-  { id: 2, text: 'I notice every little thing about the way you are when you\'re happy. I keep it all.' },
+  { id: 0, text: 'I think about you when something good happens, and you\'re the first person I want to tell — even if I have to wait hours for you to wake up.' },
+  { id: 1, text: 'The way you say my name — even through a screen — does something to me that I can\'t fully explain.' },
+  { id: 2, text: 'Sometimes I stay on the call longer than I need to. I just don\'t want to hear the sound it makes when you\'re gone.' },
   { id: 3, text: 'You\'ve changed something in me that I didn\'t even know needed changing.' },
   { id: 4, text: 'I picture the future often. You\'re already in all of it — I don\'t know how to picture it without you.' },
-  { id: 5, text: 'Some nights I can\'t sleep because I\'m still thinking about what we are and how much it means.' },
-  { id: 6, text: 'I love the way you love me. The specific way you do it. I don\'t take it for granted.' },
+  { id: 5, text: 'There are nights when the distance physically hurts. Not metaphorically. It actually hurts to not be able to reach you.' },
+  { id: 6, text: 'I love the way you love me — even through a phone screen. The specific way you do it. I don\'t take it for granted.' },
   { id: 7, text: 'I\'ve never felt this kind of quiet with anyone. The kind where I don\'t need to perform or explain myself.' },
-  { id: 8, text: 'Sometimes I look at you and just feel deeply, quietly grateful.' },
-  { id: 9, text: 'I already know I want to choose you every day. I just wanted you to know that.' },
+  { id: 8, text: 'Sometimes I look at your photos and just feel deeply, quietly grateful that you exist and that you chose me.' },
+  { id: 9, text: 'I already know I want to choose you every day — from any distance, across any time zone. I just wanted you to know that.' },
 ];
 
 const STARS = Array.from({ length: 28 }, (_, i) => ({
