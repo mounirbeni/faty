@@ -23,6 +23,7 @@ import {
   Stars,
   Flame,
   ListChecks,
+  Zap,
 } from 'lucide-react';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
