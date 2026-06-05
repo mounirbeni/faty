@@ -48,6 +48,18 @@ const PRESENCE_MSGS = [
   { text: 'safe and loved inside this world',emoji: '🌌' },
 ];
 
+type MoodKey = 'all' | 'night' | 'miss' | 'bold' | 'dream' | 'romantic' | 'deep';
+
+const MOODS: { key: MoodKey; emoji: string; label: string }[] = [
+  { key: 'all',      emoji: '⭐', label: 'All Games' },
+  { key: 'night',    emoji: '🌙', label: 'Late Night' },
+  { key: 'miss',     emoji: '💗', label: 'I Miss You' },
+  { key: 'bold',     emoji: '🔥', label: 'Bold & Daring' },
+  { key: 'dream',    emoji: '✨', label: 'Dreaming' },
+  { key: 'romantic', emoji: '💌', label: 'Romantic' },
+  { key: 'deep',     emoji: '🌊', label: 'Deep & Real' },
+];
+
 const MINI_GAMES = [
   // ── Emotional Memory & Turning Points ──────────────────────────────────────
   {
@@ -58,6 +70,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-rose-700 via-pink-700 to-rose-900',
     glow: 'shadow-rose-700/40',
+    moods: ['miss', 'deep'] as MoodKey[],
   },
   {
     id: 'our-firsts' as const,
@@ -67,6 +80,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-amber-600 via-orange-600 to-amber-800',
     glow: 'shadow-amber-500/35',
+    moods: ['miss', 'romantic'] as MoodKey[],
   },
   {
     id: 'untold-truths' as const,
@@ -76,6 +90,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-indigo-700 via-blue-800 to-indigo-900',
     glow: 'shadow-indigo-500/35',
+    moods: ['night', 'romantic'] as MoodKey[],
   },
 
   // ── Emotional Vulnerability & Depth ────────────────────────────────────────
@@ -87,6 +102,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-blue-900 via-slate-800 to-blue-950',
     glow: 'shadow-blue-500/30',
+    moods: ['night', 'deep'] as MoodKey[],
   },
   {
     id: 'words-i-hold' as const,
@@ -96,6 +112,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-rose-800 via-pink-800 to-rose-950',
     glow: 'shadow-rose-600/35',
+    moods: ['miss', 'romantic'] as MoodKey[],
   },
   {
     id: 'emotional-depth' as const,
@@ -110,6 +127,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-indigo-800 via-violet-900 to-purple-950',
     glow: 'shadow-violet-500/35',
+    moods: ['night', 'deep'] as MoodKey[],
   },
   {
     id: 'first-times' as const,
@@ -124,6 +142,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-violet-700 via-purple-800 to-violet-950',
     glow: 'shadow-purple-500/35',
+    moods: ['romantic', 'miss'] as MoodKey[],
   },
 
   // ── Shared Future & Dreams ──────────────────────────────────────────────────
@@ -135,6 +154,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-amber-700 via-yellow-700 to-orange-800',
     glow: 'shadow-amber-400/35',
+    moods: ['dream', 'deep'] as MoodKey[],
   },
 
   // ── Intimacy & Physical Connection ─────────────────────────────────────────
@@ -151,6 +171,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-rose-500 via-pink-600 to-purple-700',
     glow: 'shadow-pink-500/40',
+    moods: ['bold', 'deep'] as MoodKey[],
   },
   {
     id: 'desire-deck' as const,
@@ -160,6 +181,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-rose-700 via-red-800 to-pink-900',
     glow: 'shadow-rose-700/40',
+    moods: ['bold', 'night'] as MoodKey[],
   },
   {
     id: 'pillow-talk' as const,
@@ -169,6 +191,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-indigo-800 via-blue-900 to-slate-900',
     glow: 'shadow-indigo-500/30',
+    moods: ['night', 'deep'] as MoodKey[],
   },
   {
     id: 'inside-his-heart' as const,
@@ -183,6 +206,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-indigo-600 via-violet-600 to-purple-800',
     glow: 'shadow-violet-500/40',
+    moods: ['deep', 'romantic'] as MoodKey[],
   },
 
   // ── Truth & Connection ──────────────────────────────────────────────────────
@@ -194,6 +218,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-pink-600 to-rose-700',
     glow: 'shadow-pink-500/30',
+    moods: ['bold', 'deep'] as MoodKey[],
   },
   {
     id: 'would-you-rather' as const,
@@ -203,6 +228,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-violet-500 to-indigo-600',
     glow: 'shadow-violet-500/30',
+    moods: ['bold', 'dream'] as MoodKey[],
   },
   {
     id: 'couple-goals' as const,
@@ -212,6 +238,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-amber-500 via-orange-500 to-yellow-600',
     glow: 'shadow-amber-400/30',
+    moods: ['dream', 'romantic'] as MoodKey[],
   },
 
   // ── Presence & Affection ───────────────────────────────────────────────────
@@ -223,6 +250,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-rose-500 to-pink-600',
     glow: 'shadow-rose-500/30',
+    moods: ['romantic'] as MoodKey[],
   },
   {
     id: 'comfort-mode' as const,
@@ -232,6 +260,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-rose-500 to-pink-600',
     glow: 'shadow-rose-500/30',
+    moods: ['romantic', 'miss'] as MoodKey[],
   },
   {
     id: 'mood-ring' as const,
@@ -241,6 +270,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-yellow-400 to-amber-500',
     glow: 'shadow-yellow-500/30',
+    moods: ['romantic'] as MoodKey[],
   },
 
   // ── Stories & Letters ──────────────────────────────────────────────────────
@@ -252,6 +282,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-violet-500 to-purple-700',
     glow: 'shadow-violet-500/30',
+    moods: ['dream', 'romantic'] as MoodKey[],
   },
   {
     id: 'love-letter' as const,
@@ -261,6 +292,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-rose-400 to-pink-500',
     glow: 'shadow-rose-400/30',
+    moods: ['romantic', 'miss'] as MoodKey[],
   },
   {
     id: 'daily-note' as const,
@@ -270,6 +302,7 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-emerald-500 to-teal-600',
     glow: 'shadow-emerald-500/30',
+    moods: ['miss', 'romantic'] as MoodKey[],
   },
   {
     id: 'vault' as const,
@@ -279,6 +312,79 @@ const MINI_GAMES = [
     unlocksAtChapter: 0,
     gradient: 'from-violet-600 to-purple-700',
     glow: 'shadow-violet-500/30',
+    moods: ['deep', 'miss'] as MoodKey[],
+  },
+
+  // ── New LDR Games ──────────────────────────────────────────────────────────
+  {
+    id: 'whisper-to-me' as const,
+    icon: (
+      <div className="relative">
+        <Moon size={26} className="text-white drop-shadow-md" />
+        <div className="absolute inset-0 rounded-full" style={{ boxShadow: '0 0 14px rgba(99,102,241,0.7)', borderRadius: '50%' }} />
+      </div>
+    ),
+    label: 'Whisper to Me',
+    sublabel: 'Say whatever you feel',
+    unlocksAtChapter: 0,
+    gradient: 'from-indigo-900 via-violet-900 to-slate-900',
+    glow: 'shadow-indigo-500/30',
+    moods: ['night', 'miss'] as MoodKey[],
+  },
+  {
+    id: 'things-i-miss' as const,
+    icon: (
+      <div className="relative">
+        <Heart size={26} className="text-white drop-shadow-md" fill="currentColor" />
+        <div className="absolute inset-0 rounded-full" style={{ boxShadow: '0 0 14px rgba(251,113,133,0.7)', borderRadius: '50%' }} />
+      </div>
+    ),
+    label: 'Things I Miss',
+    sublabel: 'Show him what you miss',
+    unlocksAtChapter: 0,
+    gradient: 'from-pink-700 via-rose-700 to-pink-900',
+    glow: 'shadow-pink-500/35',
+    moods: ['miss'] as MoodKey[],
+  },
+  {
+    id: 'bold-list' as const,
+    icon: (
+      <div className="relative">
+        <Flame size={28} className="text-white drop-shadow-md" fill="currentColor" />
+        <div className="absolute inset-0 rounded-full" style={{ boxShadow: '0 0 14px rgba(220,38,38,0.8)', borderRadius: '50%' }} />
+      </div>
+    ),
+    label: 'When I See You',
+    sublabel: 'Bold desires list 🔥',
+    unlocksAtChapter: 0,
+    gradient: 'from-red-700 via-rose-700 to-red-900',
+    glow: 'shadow-red-500/35',
+    moods: ['bold'] as MoodKey[],
+  },
+  {
+    id: 'distance-diary' as const,
+    icon: <BookOpen size={28} className="text-white drop-shadow-md" />,
+    label: 'Distance Diary',
+    sublabel: 'Write today\'s entry',
+    unlocksAtChapter: 0,
+    gradient: 'from-violet-800 via-purple-900 to-violet-950',
+    glow: 'shadow-violet-400/30',
+    moods: ['dream', 'deep'] as MoodKey[],
+  },
+  {
+    id: 'how-are-we' as const,
+    icon: (
+      <div className="relative">
+        <Heart size={28} className="text-white drop-shadow-md" fill="currentColor" />
+        <div className="absolute inset-0 rounded-full" style={{ boxShadow: '0 0 14px rgba(236,72,153,0.8)', borderRadius: '50%' }} />
+      </div>
+    ),
+    label: 'How Are We?',
+    sublabel: 'Rate our bond right now',
+    unlocksAtChapter: 0,
+    gradient: 'from-fuchsia-700 via-pink-800 to-fuchsia-950',
+    glow: 'shadow-fuchsia-500/35',
+    moods: ['deep'] as MoodKey[],
   },
 ];
 
@@ -302,11 +408,17 @@ export default function HomeMapScreen() {
     startChapter(chapter);
   };
 
-  const handleMinigameTap = (id: 'daily-note' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'love-story' | 'intimacy-hub' | 'inside-his-heart' | 'desire-deck' | 'pillow-talk' | 'couple-goals' | 'moment-i-knew' | 'untold-truths' | 'our-forever' | 'night-confessions' | 'first-times' | 'words-i-hold' | 'emotional-depth' | 'our-firsts') => {
+  const [selectedMood, setSelectedMood] = useState<MoodKey>('all');
+
+  const handleMinigameTap = (id: 'daily-note' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'love-story' | 'intimacy-hub' | 'inside-his-heart' | 'desire-deck' | 'pillow-talk' | 'couple-goals' | 'moment-i-knew' | 'untold-truths' | 'our-forever' | 'night-confessions' | 'first-times' | 'words-i-hold' | 'emotional-depth' | 'our-firsts' | 'whisper-to-me' | 'things-i-miss' | 'bold-list' | 'distance-diary' | 'how-are-we') => {
     heartbeat();
     playSparkle();
     setPhase(id);
   };
+
+  const visibleGames = selectedMood === 'all'
+    ? MINI_GAMES
+    : MINI_GAMES.filter(g => g.moods.includes(selectedMood));
 
   // Rotating presence messages
   const [presenceIdx, setPresenceIdx]     = useState(0);
@@ -559,8 +671,41 @@ export default function HomeMapScreen() {
             <span className="text-[10px] font-black uppercase tracking-[0.18em]" style={{ color: 'rgba(167,139,250,0.6)' }}>Bonus Islands</span>
           </div>
 
+          {/* ── Mood Filter Chips ── */}
+          <div className="flex gap-2 mb-4 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-none"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            {MOODS.map(mood => {
+              const active = selectedMood === mood.key;
+              return (
+                <button
+                  key={mood.key}
+                  onClick={() => setSelectedMood(mood.key)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full shrink-0 text-[11px] font-bold transition-all"
+                  style={{
+                    background: active ? 'rgba(167,139,250,0.22)' : 'rgba(255,255,255,0.05)',
+                    border: active ? '1px solid rgba(167,139,250,0.5)' : '1px solid rgba(255,255,255,0.08)',
+                    color: active ? 'rgba(210,200,255,0.95)' : 'rgba(255,255,255,0.35)',
+                    boxShadow: active ? '0 2px 12px rgba(139,92,246,0.25)' : 'none',
+                  }}>
+                  <span style={{ fontSize: 12 }}>{mood.emoji}</span>
+                  {mood.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {selectedMood !== 'all' && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-[10px] text-center mb-3"
+              style={{ color: 'rgba(167,139,250,0.35)' }}>
+              {visibleGames.length} game{visibleGames.length !== 1 ? 's' : ''} match your mood
+            </motion.p>
+          )}
+
           <div className="grid grid-cols-2 gap-3">
-            {MINI_GAMES.map((game, idx) => {
+            {visibleGames.map((game, idx) => {
               const ch1Complete = getChapterProgress(answers, reversed, 1).isComplete;
               const ch2Complete = getChapterProgress(answers, reversed, 2).isComplete;
               const ch3Complete = getChapterProgress(answers, reversed, 3).isComplete;
@@ -613,9 +758,11 @@ export default function HomeMapScreen() {
               );
             })}
           </div>
-          <p className="text-[10px] text-white/20 text-center mt-3 italic">
-            Complete chapters to unlock bonus islands
-          </p>
+          {selectedMood === 'all' && (
+            <p className="text-[10px] text-white/20 text-center mt-3 italic">
+              Choose a mood above to find the perfect game for how you feel
+            </p>
+          )}
         </div>
 
       </div>

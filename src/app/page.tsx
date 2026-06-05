@@ -40,6 +40,11 @@ const FirstTimesScreen        = dynamic(() => import('@/components/FirstTimesScr
 const WordsIHoldScreen        = dynamic(() => import('@/components/WordsIHoldScreen'), { ssr: false });
 const EmotionalDepthScreen    = dynamic(() => import('@/components/EmotionalDepthScreen'), { ssr: false });
 const OurFirstsScreen         = dynamic(() => import('@/components/OurFirstsScreen'), { ssr: false });
+const WhisperToMeScreen       = dynamic(() => import('@/components/WhisperToMeScreen'), { ssr: false });
+const ThingsIMissScreen       = dynamic(() => import('@/components/ThingsIMissScreen'), { ssr: false });
+const BoldListScreen          = dynamic(() => import('@/components/BoldListScreen'), { ssr: false });
+const DistanceDiaryScreen     = dynamic(() => import('@/components/DistanceDiaryScreen'), { ssr: false });
+const HowAreWeScreen          = dynamic(() => import('@/components/HowAreWeScreen'), { ssr: false });
 
 function Screen({ children }: { children: React.ReactNode }) {
   return (
@@ -159,6 +164,11 @@ export default function HomePage() {
         {currentPhase === 'words-i-hold'       && <Screen key="words-i-hold"><WordsIHoldScreen /></Screen>}
         {currentPhase === 'emotional-depth'    && <Screen key="emotional-depth"><EmotionalDepthScreen /></Screen>}
         {currentPhase === 'our-firsts'         && <Screen key="our-firsts"><OurFirstsScreen /></Screen>}
+        {currentPhase === 'whisper-to-me'      && <Screen key="whisper-to-me"><WhisperToMeScreen /></Screen>}
+        {currentPhase === 'things-i-miss'      && <Screen key="things-i-miss"><ThingsIMissScreen /></Screen>}
+        {currentPhase === 'bold-list'          && <Screen key="bold-list"><BoldListScreen /></Screen>}
+        {currentPhase === 'distance-diary'     && <Screen key="distance-diary"><DistanceDiaryScreen /></Screen>}
+        {currentPhase === 'how-are-we'         && <Screen key="how-are-we"><HowAreWeScreen /></Screen>}
         {currentPhase === 'complete'           && <Screen key="complete"><CompletionScreen /></Screen>}
       </AnimatePresence>
     </main>

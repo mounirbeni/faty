@@ -28,6 +28,11 @@ export type AppPhase =
   | 'words-i-hold'
   | 'emotional-depth'
   | 'our-firsts'
+  | 'whisper-to-me'
+  | 'things-i-miss'
+  | 'bold-list'
+  | 'distance-diary'
+  | 'how-are-we'
   | 'admin-dashboard'
   | 'complete';
 
@@ -150,6 +155,11 @@ export const useGameStore = create<GameState>()(
           'words-i-hold': 'Opened Words I Hold',
           'emotional-depth': 'Opened Emotional Depth',
           'our-firsts': 'Opened Our Firsts',
+          'whisper-to-me': 'Opened Whisper to Me',
+          'things-i-miss': 'Opened Things I Miss',
+          'bold-list': 'Opened When I See You',
+          'distance-diary': 'Opened Distance Diary',
+          'how-are-we': 'Opened How Are We',
         };
         if (miniGameLabels[phase]) {
           logActivity('mini-game', miniGameLabels[phase]!);
