@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Heart, Lock } from 'lucide-react';
 import { useGameStore } from '@/store/gameStore';
@@ -8,6 +8,7 @@ import { softTap } from '@/lib/useHaptics';
 import { playBloom, playSparkle, playGlow } from '@/lib/sounds';
 import IntimacyQuestionFlow from './IntimacyQuestionFlow';
 import MemoryReconstructionGame from './MemoryReconstructionGame';
+import { notifyOwner } from '@/lib/notify';
 
 // ─── Game definitions ─────────────────────────────────────────────────────────
 
@@ -172,12 +173,19 @@ function ChemistryMeter({ completed }: { completed: Set<SubGame> }) {
 export default function IntimacyHubScreen() {
   const setPhase = useGameStore(s => s.setPhase);
   const [activeGame, setActiveGame] = useState<SubGame | null>(null);
+  const notifiedRef = useRef(false);
   const [completed, setCompleted] = useState<Set<SubGame>>(() => {
     if (typeof window === 'undefined') return new Set();
     try {
       return new Set(JSON.parse(localStorage.getItem('intimacy-completed') ?? '[]') as SubGame[]);
     } catch { return new Set(); }
   });
+
+  useEffect(() => {
+    if (notifiedRef.current) return;
+    notifiedRef.current = true;
+    notifyOwner(`🔥 <b>She opened Emotional Intimacy</b>\n\n<i>She is exploring your intimate games…</i>`);
+  }, []);
 
   const markComplete = (id: SubGame) => {
     setCompleted(prev => {
