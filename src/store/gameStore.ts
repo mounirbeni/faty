@@ -6,36 +6,12 @@ export type AppPhase =
   | 'welcome'
   | 'home'
   | 'game'
-  | 'daily-note'
-  | 'mood-ring'
-  | 'vault'
-  | 'comfort-mode'
-  | 'love-letter'
-  | 'would-you-rather'
-  | 'kiss-jar'
-  | 'truth-bombs'
-  | 'love-story'
-  | 'intimacy-hub'
-  | 'inside-his-heart'
-  | 'desire-deck'
-  | 'pillow-talk'
-  | 'couple-goals'
-  | 'moment-i-knew'
-  | 'untold-truths'
-  | 'our-forever'
-  | 'night-confessions'
-  | 'first-times'
-  | 'words-i-hold'
-  | 'emotional-depth'
-  | 'our-firsts'
-  | 'whisper-to-me'
-  | 'things-i-miss'
-  | 'bold-list'
-  | 'distance-diary'
-  | 'how-are-we'
-  | 'together-tonight'
-  | 'desire-questions'
-  | 'love-language'
+  | 'open-book'
+  | 'rate-us'
+  | 'finish-my-thought'
+  | 'daily-three'
+  | 'fantasy-builder'
+  | 'bold-confessions'
   | 'admin-dashboard'
   | 'complete';
 
@@ -43,34 +19,16 @@ interface GameState {
   phase: AppPhase;
   currentIndex: number;
   answers: Record<number, string>;
-  reversed: number[]; // was Set<number> — arrays are JSON-safe for persist
+  reversed: number[];
   reverseCardsLeft: number;
   isSubmitting: boolean;
   isSuccess: boolean;
   isReturningUser: boolean;
-  vibeChoices: Record<number, 'love' | 'nope'>;
-  rapidFireChoices: Record<number, string>;
-  fortuneResult: string | null;
-  heartSyncComplete: boolean;
-  
-  // Activity Log (admin dashboard)
-  activityLog: { type: string; label: string; ts: number }[];
-  kissCount: number;
-
-  // Couple Goals
-  completedGoals: number[];
-
-  // Dynamic Content (Smart Rotation)
-  dailyWhisperId: number | null;
-  dailyWhisperHistory: number[];
-  dailyWhisperLastTimestamp: number;
-  dailyWhisperIsVoiceNote: boolean;
-  fortuneHistory: number[];
   currentMood: string | null;
+  activityLog: { type: string; label: string; ts: number }[];
 
   // Actions
   logActivity: (type: string, label: string) => void;
-  addKiss: (count?: number) => void;
   setIsSubmitting: (val: boolean) => void;
   setIsSuccess: (val: boolean) => void;
   setPhase: (phase: AppPhase) => void;
@@ -81,14 +39,7 @@ interface GameState {
   undoReverse: (questionId: number) => void;
   resetGame: () => void;
   startChapter: (chapter: number) => void;
-  setVibeChoice: (id: number, choice: 'love' | 'nope') => void;
-  setRapidFireChoice: (id: number, choice: string) => void;
-  setFortuneResult: (fortune: string) => void;
-  setHeartSyncComplete: () => void;
-  generateDailyWhisper: (totalMessages: number, intervalMinutes: number) => void;
-  generateFortune: (totalFortunes: number) => void;
   setCurrentMood: (mood: string) => void;
-  toggleGoal: (id: number) => void;
 }
 
 const MAX_REVERSE_CARDS = 3;
@@ -104,82 +55,36 @@ export const useGameStore = create<GameState>()(
       isSubmitting: false,
       isSuccess: false,
       isReturningUser: false,
-      vibeChoices: {},
-      rapidFireChoices: {},
-      fortuneResult: null,
-      heartSyncComplete: false,
-      activityLog: [],
-      kissCount: 0,
-      completedGoals: [],
-      dailyWhisperId: null,
-      dailyWhisperHistory: [],
-      dailyWhisperLastTimestamp: 0,
-      dailyWhisperIsVoiceNote: false,
-      fortuneHistory: [],
       currentMood: null,
+      activityLog: [],
 
       logActivity: (type, label) =>
         set((state) => ({
           activityLog: [
             { type, label, ts: Date.now() },
             ...state.activityLog,
-          ].slice(0, 100), // keep last 100 events
+          ].slice(0, 100),
         })),
-
-      addKiss: (count = 1) =>
-        set((state) => ({ kissCount: state.kissCount + count })),
 
       setIsSubmitting: (isSubmitting) => set({ isSubmitting }),
       setIsSuccess: (isSuccess) => set({ isSuccess }),
 
       setPhase: (phase) => {
         const { isReturningUser, logActivity } = get();
-        // Log mini-game opens
-        const miniGameLabels: Partial<Record<AppPhase, string>> = {
-          'daily-note': 'Opened Daily Whisper',
-          'mood-ring': 'Opened Mood Ring',
-          'comfort-mode': 'Opened Comfort Room',
-          'love-letter': 'Opened Love Letters',
-          'would-you-rather': 'Opened Would You Rather',
-          'kiss-jar': 'Opened Kiss Jar',
-          'vault': 'Opened Memory Vault',
-          'truth-bombs': 'Opened Truth Bombs',
-          'love-story': 'Opened Love Story',
-          'intimacy-hub': 'Opened Emotional Intimacy',
-          'inside-his-heart': 'Opened Inside His Heart',
-          'desire-deck': 'Opened Desire Deck',
-          'pillow-talk': 'Opened Pillow Talk',
-          'couple-goals': 'Opened Couple Goals',
-          'moment-i-knew': 'Opened The Moment I Knew',
-          'untold-truths': 'Opened Untold Truths',
-          'our-forever': 'Opened Our Forever',
-          'night-confessions': 'Opened Night Confessions',
-          'first-times': 'Opened First Times',
-          'words-i-hold': 'Opened Words I Hold',
-          'emotional-depth': 'Opened Emotional Depth',
-          'our-firsts': 'Opened Our Firsts',
-          'whisper-to-me': 'Opened Whisper to Me',
-          'things-i-miss': 'Opened Things I Miss',
-          'bold-list': 'Opened When I See You',
-          'distance-diary': 'Opened Distance Diary',
-          'how-are-we': 'Opened How Are We',
-          'together-tonight': 'Opened Together Tonight',
-          'desire-questions': 'Opened What I Want',
-          'love-language': 'Opened Love Language Quiz',
+        const labels: Partial<Record<AppPhase, string>> = {
+          'open-book':          'Opened Open Book',
+          'rate-us':            'Opened Rate Us',
+          'finish-my-thought':  'Opened Finish My Thought',
+          'daily-three':        'Opened Daily Three',
+          'fantasy-builder':    'Opened Fantasy Builder',
+          'bold-confessions':   'Opened Bold Confessions',
         };
-        if (miniGameLabels[phase]) {
-          logActivity('mini-game', miniGameLabels[phase]!);
-        }
-        set({
-          phase,
-          isReturningUser: isReturningUser || phase === 'home',
-        });
+        if (labels[phase]) logActivity('mini-game', labels[phase]!);
+        set({ phase, isReturningUser: isReturningUser || phase === 'home' });
       },
 
       setAnswer: (questionId, value) =>
-        set((state) => ({
-          answers: { ...state.answers, [questionId]: value },
-        })),
+        set((state) => ({ answers: { ...state.answers, [questionId]: value } })),
 
       goNext: () => {
         const { currentIndex, answers, reversed, logActivity } = get();
@@ -189,7 +94,6 @@ export const useGameStore = create<GameState>()(
           reversed.includes(currentQ.id);
         if (!hasAnswer) return;
 
-        // Log every 5th answer as a milestone
         const answeredCount = Object.values(answers).filter((v) => v?.trim()).length + reversed.length;
         if ((answeredCount + 1) % 5 === 0) {
           logActivity('milestone', `Answered ${answeredCount + 1} questions`);
@@ -211,20 +115,14 @@ export const useGameStore = create<GameState>()(
       playReverseCard: (questionId) => {
         const { reverseCardsLeft, reversed } = get();
         if (reverseCardsLeft > 0 && !reversed.includes(questionId)) {
-          set({
-            reversed: [...reversed, questionId],
-            reverseCardsLeft: reverseCardsLeft - 1,
-          });
+          set({ reversed: [...reversed, questionId], reverseCardsLeft: reverseCardsLeft - 1 });
         }
       },
 
       undoReverse: (questionId) => {
         const { reverseCardsLeft, reversed } = get();
         if (reversed.includes(questionId)) {
-          set({
-            reversed: reversed.filter((id) => id !== questionId),
-            reverseCardsLeft: reverseCardsLeft + 1,
-          });
+          set({ reversed: reversed.filter((id) => id !== questionId), reverseCardsLeft: reverseCardsLeft + 1 });
         }
       },
 
@@ -239,69 +137,7 @@ export const useGameStore = create<GameState>()(
         set({ currentIndex: startIdx >= 0 ? startIdx : 0, phase: 'game' });
       },
 
-      setVibeChoice: (id, choice) =>
-        set((state) => ({ vibeChoices: { ...state.vibeChoices, [id]: choice } })),
-
-      setRapidFireChoice: (id, choice) =>
-        set((state) => ({
-          rapidFireChoices: { ...state.rapidFireChoices, [id]: choice },
-        })),
-
-      setFortuneResult: (fortune) => set({ fortuneResult: fortune }),
-
-      setHeartSyncComplete: () => set({ heartSyncComplete: true }),
-
-      generateDailyWhisper: (totalMessages: number, intervalMinutes: number) => {
-        const { dailyWhisperLastTimestamp, dailyWhisperHistory } = get();
-        const now = Date.now();
-        const intervalMs = intervalMinutes * 60 * 1000;
-
-        if (now - dailyWhisperLastTimestamp > intervalMs || get().dailyWhisperId === null) {
-          // Generate new
-          let newId = Math.floor(Math.random() * totalMessages);
-          let attempts = 0;
-          while (dailyWhisperHistory.includes(newId) && attempts < 50) {
-            newId = Math.floor(Math.random() * totalMessages);
-            attempts++;
-          }
-
-          const newHistory = [newId, ...dailyWhisperHistory].slice(0, 20); // Keep last 20
-          // 15% chance for voice note
-          const isVoice = Math.random() < 0.15;
-
-          set({
-            dailyWhisperId: newId,
-            dailyWhisperHistory: newHistory,
-            dailyWhisperLastTimestamp: now,
-            dailyWhisperIsVoiceNote: isVoice,
-          });
-        }
-      },
-
-      generateFortune: (totalFortunes: number) => {
-        const { fortuneHistory } = get();
-        let newId = Math.floor(Math.random() * totalFortunes);
-        let attempts = 0;
-        while (fortuneHistory.includes(newId) && attempts < 50) {
-          newId = Math.floor(Math.random() * totalFortunes);
-          attempts++;
-        }
-        
-        const newHistory = [newId, ...fortuneHistory].slice(0, 20);
-        set({
-          fortuneHistory: newHistory,
-          fortuneResult: newId.toString(),
-        });
-      },
-
       setCurrentMood: (mood: string) => set({ currentMood: mood }),
-
-      toggleGoal: (id: number) =>
-        set((state) => ({
-          completedGoals: state.completedGoals.includes(id)
-            ? state.completedGoals.filter((g) => g !== id)
-            : [...state.completedGoals, id],
-        })),
 
       resetGame: () =>
         set({
@@ -313,19 +149,8 @@ export const useGameStore = create<GameState>()(
           isSubmitting: false,
           isSuccess: false,
           isReturningUser: false,
-          vibeChoices: {},
-          rapidFireChoices: {},
-          fortuneResult: null,
-          heartSyncComplete: false,
-          activityLog: [],
-          kissCount: 0,
-          completedGoals: [],
-          dailyWhisperId: null,
-          dailyWhisperHistory: [],
-          dailyWhisperLastTimestamp: 0,
-          dailyWhisperIsVoiceNote: false,
-          fortuneHistory: [],
           currentMood: null,
+          activityLog: [],
         }),
     }),
     {
@@ -339,25 +164,14 @@ export const useGameStore = create<GameState>()(
         reverseCardsLeft: state.reverseCardsLeft,
         isSuccess: state.isSuccess,
         isReturningUser: state.isReturningUser,
-        vibeChoices: state.vibeChoices,
-        rapidFireChoices: state.rapidFireChoices,
-        fortuneResult: state.fortuneResult,
-        heartSyncComplete: state.heartSyncComplete,
-        activityLog: state.activityLog,
-        kissCount: state.kissCount,
-        dailyWhisperId: state.dailyWhisperId,
-        dailyWhisperHistory: state.dailyWhisperHistory,
-        dailyWhisperLastTimestamp: state.dailyWhisperLastTimestamp,
-        dailyWhisperIsVoiceNote: state.dailyWhisperIsVoiceNote,
-        fortuneHistory: state.fortuneHistory,
         currentMood: state.currentMood,
-        completedGoals: state.completedGoals,
+        activityLog: state.activityLog,
       }),
     }
   )
 );
 
-// ─── Pure utility selectors (no hooks) ───────────────────────────────
+// ─── Pure utility selectors ───────────────────────────────────────────────────
 
 export function getChapterProgress(
   answers: Record<number, string>,
