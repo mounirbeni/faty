@@ -10,7 +10,6 @@ import { playNightSwell } from '@/lib/sounds';
 export default function EmotionalProvider({ children }: { children: React.ReactNode }) {
   const phase = useGameStore((s) => s.phase);
   const currentMood = useGameStore((s) => s.currentMood);
-  const kissCount = useGameStore((s) => s.kissCount);
   const time = useTimeContext();
 
   const {
@@ -20,24 +19,14 @@ export default function EmotionalProvider({ children }: { children: React.ReactN
     setPresence,
     tickSession,
     getMidnightMessage,
-    recordInteraction,
   } = useEmotionalEngine();
 
   const midnightPlayed = useRef(false);
-  const prevKiss = useRef(kissCount);
 
   // Sync mood → weather
   useEffect(() => {
     setWeatherFromMood(currentMood);
   }, [currentMood, setWeatherFromMood]);
-
-  // Kisses evolve stars (only on new kisses)
-  useEffect(() => {
-    if (kissCount > prevKiss.current) {
-      for (let i = 0; i < kissCount - prevKiss.current; i++) recordInteraction('kiss');
-      prevKiss.current = kissCount;
-    }
-  }, [kissCount, recordInteraction]);
 
   // Presence from phase + session
   useEffect(() => {
