@@ -30,7 +30,7 @@ const typeIcons: Record<string, { icon: React.ReactNode; color: string }> = {
 
 export default function ActivityDashboardScreen() {
   const {
-    setPhase, activityLog, kissCount,
+    setPhase, activityLog,
     answers, reversed, currentMood,
   } = useGameStore();
 
@@ -51,7 +51,6 @@ export default function ActivityDashboardScreen() {
     const report =
       `📊 <b>Your Angel's Full Activity Report</b>\n\n` +
       `❤️ Questions answered: <b>${totalAnswered}/70</b>\n` +
-      `💋 Kisses sent: <b>${kissCount}</b>\n` +
       `🌙 Current mood: <b>${moodText}</b>\n` +
       `📝 Total logged events: <b>${activityLog.length}</b>\n\n` +
       `<b>Recent Activity:</b>\n${last5 || 'No activity yet.'}`;
@@ -101,15 +100,15 @@ export default function ActivityDashboardScreen() {
               sub={`${Math.round((totalAnswered / 70) * 100)}% complete`}
             />
             <StatCard
-              icon={<Heart size={18} fill="currentColor" className="text-rose-400" />}
-              bg="bg-rose-500/15 border-rose-400/20"
-              label="Kisses"
-              value={String(kissCount)}
-              sub="sent from the heart"
-            />
-            <StatCard
               icon={<Activity size={18} className="text-violet-300" />}
               bg="bg-violet-500/15 border-violet-400/20"
+              label="Mini-games"
+              value={String(activityLog.filter(e => e.type === 'mini-game').length)}
+              sub="games played"
+            />
+            <StatCard
+              icon={<Trophy size={18} className="text-amber-300" />}
+              bg="bg-amber-500/15 border-amber-400/20"
               label="Events"
               value={String(activityLog.length)}
               sub="total actions logged"
