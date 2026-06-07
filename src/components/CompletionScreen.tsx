@@ -27,8 +27,6 @@ export default function CompletionScreen() {
   const setIsSubmitting = useGameStore((s) => s.setIsSubmitting);
   const setIsSuccess = useGameStore((s) => s.setIsSuccess);
   const setPhase = useGameStore((s) => s.setPhase);
-  const fortuneResult = useGameStore((s) => s.fortuneResult);
-  const heartSyncComplete = useGameStore((s) => s.heartSyncComplete);
   const hasLaunched = useRef(false);
   const [toastMsg, setToastMsg] = useState("");
   const [toastVisible, setToastVisible] = useState(false);
@@ -37,7 +35,7 @@ export default function CompletionScreen() {
     setIsSubmitting(true);
     try {
       const reversedArray = Array.from(reversed);
-      const res = await submitGameAction(answers, reversedArray, fortuneResult, heartSyncComplete);
+      const res = await submitGameAction(answers, reversedArray);
       if (res.success) {
         setIsSuccess(true);
         notifyOwner(
