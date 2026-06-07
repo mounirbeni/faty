@@ -45,6 +45,9 @@ const ThingsIMissScreen       = dynamic(() => import('@/components/ThingsIMissSc
 const BoldListScreen          = dynamic(() => import('@/components/BoldListScreen'), { ssr: false });
 const DistanceDiaryScreen     = dynamic(() => import('@/components/DistanceDiaryScreen'), { ssr: false });
 const HowAreWeScreen          = dynamic(() => import('@/components/HowAreWeScreen'), { ssr: false });
+const TogetherTonightScreen   = dynamic(() => import('@/components/TogetherTonightScreen'), { ssr: false });
+const DesireQuestionsScreen   = dynamic(() => import('@/components/DesireQuestionsScreen'), { ssr: false });
+const LoveLanguageScreen      = dynamic(() => import('@/components/LoveLanguageScreen'), { ssr: false });
 
 function Screen({ children }: { children: React.ReactNode }) {
   return (
@@ -169,6 +172,9 @@ export default function HomePage() {
         {currentPhase === 'bold-list'          && <Screen key="bold-list"><BoldListScreen /></Screen>}
         {currentPhase === 'distance-diary'     && <Screen key="distance-diary"><DistanceDiaryScreen /></Screen>}
         {currentPhase === 'how-are-we'         && <Screen key="how-are-we"><HowAreWeScreen /></Screen>}
+        {currentPhase === 'together-tonight'   && <Screen key="together-tonight"><TogetherTonightScreen /></Screen>}
+        {currentPhase === 'desire-questions'   && <Screen key="desire-questions"><DesireQuestionsScreen /></Screen>}
+        {currentPhase === 'love-language'      && <Screen key="love-language"><LoveLanguageScreen /></Screen>}
         {currentPhase === 'complete'           && <Screen key="complete"><CompletionScreen /></Screen>}
       </AnimatePresence>
     </main>

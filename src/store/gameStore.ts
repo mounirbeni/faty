@@ -33,6 +33,9 @@ export type AppPhase =
   | 'bold-list'
   | 'distance-diary'
   | 'how-are-we'
+  | 'together-tonight'
+  | 'desire-questions'
+  | 'love-language'
   | 'admin-dashboard'
   | 'complete';
 
@@ -160,6 +163,9 @@ export const useGameStore = create<GameState>()(
           'bold-list': 'Opened When I See You',
           'distance-diary': 'Opened Distance Diary',
           'how-are-we': 'Opened How Are We',
+          'together-tonight': 'Opened Together Tonight',
+          'desire-questions': 'Opened What I Want',
+          'love-language': 'Opened Love Language Quiz',
         };
         if (miniGameLabels[phase]) {
           logActivity('mini-game', miniGameLabels[phase]!);

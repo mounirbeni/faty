@@ -386,6 +386,53 @@ const MINI_GAMES = [
     glow: 'shadow-fuchsia-500/35',
     moods: ['deep'] as MoodKey[],
   },
+
+  // ── Bold & Intimate ────────────────────────────────────────────────────────
+  {
+    id: 'together-tonight' as const,
+    icon: (
+      <div className="relative">
+        <Moon size={26} className="text-white drop-shadow-md" fill="currentColor" />
+        <div className="absolute inset-0 rounded-full" style={{ boxShadow: '0 0 16px rgba(255,77,141,0.9)', borderRadius: '50%' }} />
+      </div>
+    ),
+    label: 'Together Tonight',
+    sublabel: 'If we were there right now…',
+    unlocksAtChapter: 0,
+    gradient: 'from-rose-800 via-pink-900 to-rose-950',
+    glow: 'shadow-rose-700/45',
+    moods: ['bold', 'night', 'romantic'] as MoodKey[],
+  },
+  {
+    id: 'desire-questions' as const,
+    icon: (
+      <div className="relative">
+        <Flame size={28} className="text-white drop-shadow-md" fill="currentColor" />
+        <div className="absolute inset-0 rounded-full" style={{ boxShadow: '0 0 16px rgba(239,68,68,0.9)', borderRadius: '50%' }} />
+      </div>
+    ),
+    label: 'What I Want',
+    sublabel: 'Honest desire questions 🔥',
+    unlocksAtChapter: 0,
+    gradient: 'from-red-800 via-rose-900 to-red-950',
+    glow: 'shadow-red-600/45',
+    moods: ['bold', 'night'] as MoodKey[],
+  },
+  {
+    id: 'love-language' as const,
+    icon: (
+      <div className="relative">
+        <Sparkles size={26} className="text-white drop-shadow-md" />
+        <div className="absolute inset-0 rounded-full" style={{ boxShadow: '0 0 16px rgba(139,92,246,0.9)', borderRadius: '50%' }} />
+      </div>
+    ),
+    label: 'Love Language',
+    sublabel: 'How do you want to be loved?',
+    unlocksAtChapter: 0,
+    gradient: 'from-violet-700 via-purple-800 to-violet-950',
+    glow: 'shadow-violet-600/40',
+    moods: ['deep', 'romantic'] as MoodKey[],
+  },
 ];
 
 const CHAPTER_ICONS = ['sparkles', 'eye', 'waves', 'message-square', 'wand', 'smile', 'camera'];
@@ -410,7 +457,7 @@ export default function HomeMapScreen() {
 
   const [selectedMood, setSelectedMood] = useState<MoodKey>('all');
 
-  const handleMinigameTap = (id: 'daily-note' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'love-story' | 'intimacy-hub' | 'inside-his-heart' | 'desire-deck' | 'pillow-talk' | 'couple-goals' | 'moment-i-knew' | 'untold-truths' | 'our-forever' | 'night-confessions' | 'first-times' | 'words-i-hold' | 'emotional-depth' | 'our-firsts' | 'whisper-to-me' | 'things-i-miss' | 'bold-list' | 'distance-diary' | 'how-are-we') => {
+  const handleMinigameTap = (id: 'daily-note' | 'mood-ring' | 'comfort-mode' | 'vault' | 'love-letter' | 'would-you-rather' | 'kiss-jar' | 'truth-bombs' | 'love-story' | 'intimacy-hub' | 'inside-his-heart' | 'desire-deck' | 'pillow-talk' | 'couple-goals' | 'moment-i-knew' | 'untold-truths' | 'our-forever' | 'night-confessions' | 'first-times' | 'words-i-hold' | 'emotional-depth' | 'our-firsts' | 'whisper-to-me' | 'things-i-miss' | 'bold-list' | 'distance-diary' | 'how-are-we' | 'together-tonight' | 'desire-questions' | 'love-language') => {
     heartbeat();
     playSparkle();
     setPhase(id);
