@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
@@ -18,7 +18,6 @@ import { categoriesMeta } from "@/data/meta";
 import VibeMeter from "./ProgressBar";
 import Toast from "./Toast";
 import IconFromName from "./IconFromName";
-import LevelIntro from "./LevelIntro";
 import HeartBurst from "./HeartBurst";
 import LoveNote from "./LoveNote";
 import { useGameStore } from "@/store/gameStore";
@@ -88,8 +87,6 @@ export default function GameScreen() {
   // Hide toast is now handled directly in button clicks
   const [heartBurstTrigger, setHeartBurstTrigger] = useState(0);
   const [loveNoteTrigger, setLoveNoteTrigger] = useState(0);
-  const [showLevelIntro, setShowLevelIntro] = useState(true);
-  const seenCategoriesRef = useRef<Set<number>>(new Set([1]));
 
   const currentQuestion: Question = questions[currentIndex];
   const isFirst = currentIndex === 0;
@@ -149,23 +146,6 @@ export default function GameScreen() {
     }
 
     setDirection(1);
-    
-    if (!isLast) {
-      const nextIndex = currentIndex + 1;
-      const nextQuestion = questions[nextIndex];
-
-      if (nextQuestion.category !== currentQuestion.category) {
-        const nextCategory = nextQuestion.category;
-        if (!seenCategoriesRef.current.has(nextCategory)) {
-          seenCategoriesRef.current.add(nextCategory);
-          setTimeout(() => {
-            goNext();
-            setShowLevelIntro(true);
-          }, 400);
-          return;
-        }
-      }
-    }
     
     goNext();
   }, [hasAnswer, isTimeCapsule, isReversed, isLast, currentIndex, currentQuestion.category, currentQuestion.id, currentQuestion.type, currentQuestion.question, localAnswer, currentAnswer, goNext, setAnswer]);
@@ -422,16 +402,6 @@ export default function GameScreen() {
           </motion.button>
         </div>
       </div>
-
-      <AnimatePresence>
-        {showLevelIntro && (
-          <LevelIntro
-            key={`level-intro-${currentQuestion.category}`}
-            category={currentQuestion.category}
-            onContinue={() => setShowLevelIntro(false)}
-          />
-        )}
-      </AnimatePresence>
 
       <HeartBurst trigger={heartBurstTrigger} />
       <LoveNote trigger={loveNoteTrigger} />
