@@ -8,7 +8,9 @@
       "mcp__Claude_Preview__preview_start",
       "Bash(curl -s -X POST http://localhost:3000/api/test-notify -H \"Content-Type: application/json\" -d \"{\\\\\"message\\\\\":\\\\\"test from client path\\\\\"}\")",
       "Bash(node -e ' *)",
-      "WebFetch(domain:api.telegram.org)"
+      "WebFetch(domain:api.telegram.org)",
+      "mcp__f8682f70-86bd-43dd-9c46-d843944f0fac__list_teams",
+      "mcp__f8682f70-86bd-43dd-9c46-d843944f0fac__list_projects"
     ]
   }
 }
