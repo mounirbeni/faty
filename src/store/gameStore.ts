@@ -12,6 +12,7 @@ export type AppPhase =
   | 'daily-three'
   | 'fantasy-builder'
   | 'bold-confessions'
+  | 'constellation'
   | 'admin-dashboard'
   | 'complete';
 
@@ -78,6 +79,7 @@ export const useGameStore = create<GameState>()(
           'daily-three':        'Opened Daily Three',
           'fantasy-builder':    'Opened Fantasy Builder',
           'bold-confessions':   'Opened Bold Confessions',
+          'constellation':      'Opened Our Constellation',
         };
         if (labels[phase]) logActivity('mini-game', labels[phase]!);
         set({ phase, isReturningUser: isReturningUser || phase === 'home' });

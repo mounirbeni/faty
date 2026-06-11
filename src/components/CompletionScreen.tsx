@@ -175,18 +175,29 @@ export default function CompletionScreen() {
             </div>
 
             <button
-              onClick={() => setPhase('home')}
-              className="relative px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-2xl shadow-xl shadow-rose-500/30 transition-transform cursor-pointer flex items-center justify-center gap-2 overflow-hidden"
+              onClick={() => setPhase('constellation')}
+              className="relative px-8 py-4 text-white font-bold rounded-2xl shadow-xl transition-transform cursor-pointer flex items-center justify-center gap-2 overflow-hidden"
+              style={{
+                background: "linear-gradient(135deg, #FF4D80, #FFD36E 55%, #7B79FF)",
+                boxShadow: "0 0 0 1px rgba(255,77,141,0.35), 0 8px 32px rgba(123,121,255,0.3)",
+              }}
             >
               <motion.div
-                className="absolute inset-0 w-1/3 h-full bg-white/15 -skew-x-12"
+                className="absolute inset-0 w-1/3 h-full bg-white/20 -skew-x-12"
                 initial={{ x: "-150%" }}
                 animate={{ x: "350%" }}
                 transition={{ duration: 2, repeat: Infinity, repeatDelay: 1, ease: "easeInOut" }}
               />
               <span className="relative z-10 flex items-center gap-2">
-                Back to Map <Map size={16} />
+                See Our Finished Sky <Sparkles size={16} />
               </span>
+            </button>
+
+            <button
+              onClick={() => setPhase('home')}
+              className="text-[13px] font-medium text-white/45 transition-colors cursor-pointer flex items-center gap-1.5"
+            >
+              Back to Map <Map size={14} />
             </button>
           </motion.div>
         </div>

@@ -6,6 +6,7 @@ import {
   Heart, Sparkles, Flame, BookOpen, Star, Map, ChevronRight,
   Play, RotateCcw, CheckCircle2, Lock, Check,
 } from 'lucide-react';
+import ConstellationBanner from './ConstellationBanner';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
 import { softTap, heartbeat } from '@/lib/useHaptics';
@@ -220,6 +221,13 @@ export default function HomeMapScreen() {
           </div>
           <EmotionalStatus className="pb-3" />
         </motion.div>
+
+        {/* ── Constellation hero ── */}
+        <ConstellationBanner
+          answered={totalAnswered}
+          total={70}
+          onOpen={() => { heartbeat(); playBloom(); setPhase('constellation'); }}
+        />
 
         {/* ── Chapters ── */}
         <div>

@@ -24,6 +24,7 @@ const FinishMyThoughtScreen    = dynamic(() => import('@/components/FinishMyThou
 const DailyThreeScreen         = dynamic(() => import('@/components/DailyThreeScreen'),        { ssr: false });
 const FantasyBuilderScreen     = dynamic(() => import('@/components/FantasyBuilderScreen'),    { ssr: false });
 const BoldConfessionsScreen    = dynamic(() => import('@/components/BoldConfessionsScreen'),   { ssr: false });
+const ConstellationScreen      = dynamic(() => import('@/components/ConstellationScreen'),     { ssr: false });
 
 function Screen({ children }: { children: React.ReactNode }) {
   return (
@@ -115,6 +116,7 @@ export default function HomePage() {
         {currentPhase === 'daily-three'       && <Screen key="daily-three"><DailyThreeScreen /></Screen>}
         {currentPhase === 'fantasy-builder'   && <Screen key="fantasy-builder"><FantasyBuilderScreen /></Screen>}
         {currentPhase === 'bold-confessions'  && <Screen key="bold-confessions"><BoldConfessionsScreen /></Screen>}
+        {currentPhase === 'constellation'     && <Screen key="constellation"><ConstellationScreen /></Screen>}
         {currentPhase === 'admin-dashboard'   && <Screen key="admin-dashboard"><ActivityDashboardScreen /></Screen>}
         {currentPhase === 'complete'          && <Screen key="complete"><CompletionScreen /></Screen>}
       </AnimatePresence>
