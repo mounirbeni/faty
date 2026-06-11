@@ -7,18 +7,18 @@ import { useGameStore } from '@/store/gameStore';
 import { DAILY_QUESTIONS } from '@/data/dailyThreeQuestions';
 import { notifyOwner } from '@/lib/notify';
 
+const ACCENT = '#FF9500';
+const GLOW   = 'rgba(255,149,0,0.35)';
+
 const TYPE_META = {
-  emotional: { emoji: '💗', label: 'Emotional', color: 'rgba(244,114,182,0.9)' },
-  intimate:  { emoji: '🔥', label: 'Intimate',  color: 'rgba(248,113,113,0.9)' },
-  open:      { emoji: '✨', label: 'Open',       color: 'rgba(251,191,36,0.9)'  },
+  emotional: { emoji: '💗', label: 'Emotional' },
+  intimate:  { emoji: '🔥', label: 'Intimate'  },
+  open:      { emoji: '✨', label: 'Open'       },
 };
 
 function getDailyThree() {
   const day = Math.floor(Date.now() / 86400000);
-  const pick = (pool: typeof DAILY_QUESTIONS, offset: number) => {
-    const idx = (day + offset) % pool.length;
-    return pool[idx];
-  };
+  const pick = (pool: typeof DAILY_QUESTIONS, offset: number) => pool[(day + offset) % pool.length];
   const emotional = DAILY_QUESTIONS.filter(q => q.type === 'emotional');
   const intimate  = DAILY_QUESTIONS.filter(q => q.type === 'intimate');
   const open      = DAILY_QUESTIONS.filter(q => q.type === 'open');
@@ -44,10 +44,7 @@ export default function DailyThreeScreen() {
     const sel = currentAns.selected;
     setAnswers(prev => ({
       ...prev,
-      [step]: {
-        ...currentAns,
-        selected: sel.includes(opt) ? sel.filter(o => o !== opt) : [...sel, opt],
-      },
+      [step]: { ...currentAns, selected: sel.includes(opt) ? sel.filter(o => o !== opt) : [...sel, opt] },
     }));
   };
 
@@ -70,23 +67,20 @@ export default function DailyThreeScreen() {
   return (
     <motion.div
       className="absolute inset-0 flex flex-col overflow-hidden"
-      style={{ background: 'linear-gradient(160deg, #0d0800 0%, #1a1000 50%, #0d0800 100%)' }}
+      style={{ background: '#0A0A0A' }}
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
     >
-      <div className="fixed inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 50% 20%, rgba(251,191,36,0.08), transparent 60%)' }} />
-
       <div className="relative z-10 flex flex-col h-full max-w-lg mx-auto w-full">
         {/* Header */}
         <div className="flex items-center gap-3 px-4 pt-10 pb-6 shrink-0">
           <button onClick={() => setPhase('home')}
             className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-            style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)' }}>
+            style={{ background: '#1A1A1A', border: '1px solid rgba(255,255,255,0.09)' }}>
             <ArrowLeft size={16} className="text-white/70" />
           </button>
           <div>
-            <h1 className="text-[18px] font-black" style={{ color: 'rgba(253,230,138,0.95)' }}>Daily Three 🌅</h1>
-            <p className="text-[11px]" style={{ color: 'rgba(251,191,36,0.4)' }}>3 questions that change every day — I get all 3</p>
+            <h1 className="text-[18px] font-black text-white">Daily Three 🌅</h1>
+            <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>3 questions that change every day — I get all 3</p>
           </div>
         </div>
 
@@ -104,12 +98,14 @@ export default function DailyThreeScreen() {
                   return (
                     <div key={i} className="flex-1 py-2 rounded-[14px] text-center transition-all"
                       style={{
-                        background: active ? 'rgba(251,191,36,0.12)' : done ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.03)',
-                        border: active ? '1px solid rgba(251,191,36,0.3)' : '1px solid rgba(255,255,255,0.06)',
+                        background: active ? '#1A1A1A' : '#111111',
+                        border: active ? `1px solid ${ACCENT}` : '1px solid rgba(255,255,255,0.06)',
+                        boxShadow: active ? `0 0 14px ${GLOW}` : 'none',
+                        opacity: done ? 0.5 : 1,
                       }}>
                       <div className="text-sm">{m.emoji}</div>
                       <div className="text-[9px] mt-0.5 font-bold"
-                        style={{ color: active ? 'rgba(253,230,138,0.8)' : 'rgba(255,255,255,0.25)' }}>
+                        style={{ color: active ? '#FFFFFF' : 'rgba(255,255,255,0.3)' }}>
                         {m.label}
                       </div>
                     </div>
@@ -124,17 +120,15 @@ export default function DailyThreeScreen() {
                   {/* Question */}
                   <div className="rounded-[22px] p-6"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(251,191,36,0.1), rgba(217,119,6,0.06))',
-                      border: '1px solid rgba(251,191,36,0.2)',
-                      boxShadow: '0 8px 40px rgba(251,191,36,0.1)',
+                      background: '#161616',
+                      border: '1px solid rgba(255,255,255,0.09)',
+                      borderLeft: `3px solid ${ACCENT}`,
                     }}>
-                    <p className="text-[11px] font-bold uppercase tracking-widest mb-2"
-                      style={{ color: meta.color }}>
+                    <p className="text-[10px] font-bold uppercase tracking-widest mb-2"
+                      style={{ color: ACCENT }}>
                       {meta.emoji} {meta.label}
                     </p>
-                    <p className="text-[18px] font-bold leading-snug" style={{ color: 'rgba(253,230,138,0.96)' }}>
-                      {current.question}
-                    </p>
+                    <p className="text-[18px] font-bold leading-snug text-white">{current.question}</p>
                   </div>
 
                   {/* Options */}
@@ -146,11 +140,12 @@ export default function DailyThreeScreen() {
                           <button key={opt} onClick={() => handleOption(opt)}
                             className="w-full text-left px-4 py-3.5 rounded-[16px] transition-all"
                             style={{
-                              background: sel ? 'rgba(251,191,36,0.15)' : 'rgba(255,255,255,0.05)',
-                              border: sel ? '1px solid rgba(251,191,36,0.4)' : '1px solid rgba(255,255,255,0.07)',
+                              background: sel ? '#1E1E1E' : '#141414',
+                              border: sel ? `1px solid ${ACCENT}` : '1px solid rgba(255,255,255,0.07)',
+                              boxShadow: sel ? `0 2px 14px ${GLOW}` : 'none',
                             }}>
                             <span className="text-[14px] font-medium"
-                              style={{ color: sel ? 'rgba(253,230,138,0.96)' : 'rgba(200,180,130,0.65)' }}>
+                              style={{ color: sel ? '#FFFFFF' : 'rgba(255,255,255,0.55)' }}>
                               {opt}
                             </span>
                           </button>
@@ -168,9 +163,9 @@ export default function DailyThreeScreen() {
                       rows={3}
                       className="w-full resize-none rounded-[16px] px-4 py-3.5 text-[14px] outline-none"
                       style={{
-                        background: 'rgba(255,255,255,0.05)',
-                        border: currentAns.text.trim() ? '1px solid rgba(251,191,36,0.3)' : '1px solid rgba(255,255,255,0.07)',
-                        color: 'rgba(253,230,138,0.88)',
+                        background: '#141414',
+                        border: currentAns.text.trim() ? `1px solid ${ACCENT}` : '1px solid rgba(255,255,255,0.07)',
+                        color: '#FFFFFF',
                       }}
                     />
                   )}
@@ -179,11 +174,11 @@ export default function DailyThreeScreen() {
                     disabled={!canNext}
                     className="flex items-center justify-center gap-2 py-3.5 rounded-2xl text-[14px] font-bold text-white"
                     style={{
-                      background: canNext ? 'linear-gradient(135deg, #d97706, #fbbf24)' : 'rgba(255,255,255,0.07)',
-                      boxShadow: canNext ? '0 4px 20px rgba(217,119,6,0.4)' : 'none',
+                      background: canNext ? ACCENT : '#1A1A1A',
+                      boxShadow: canNext ? `0 4px 20px ${GLOW}` : 'none',
                       cursor: canNext ? 'pointer' : 'not-allowed',
                     }}>
-                    {isLast ? <><Send size={15} /> Send All 3</> : <>{`Next Question`} <ChevronRight size={16} /></>}
+                    {isLast ? <><Send size={15} /> Send All 3</> : <>Next Question <ChevronRight size={16} /></>}
                   </motion.button>
                 </motion.div>
               </AnimatePresence>
@@ -192,10 +187,8 @@ export default function DailyThreeScreen() {
             <motion.div key="sent" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
               className="flex-1 flex flex-col items-center justify-center gap-5 text-center px-8">
               <div className="text-6xl">🌅</div>
-              <h2 className="text-[22px] font-black" style={{ color: 'rgba(253,230,138,0.95)' }}>
-                He got all three
-              </h2>
-              <p className="text-[13px]" style={{ color: 'rgba(251,191,36,0.5)' }}>
+              <h2 className="text-[22px] font-black text-white">He got all three</h2>
+              <p className="text-[13px]" style={{ color: 'rgba(255,255,255,0.45)' }}>
                 Come back tomorrow for 3 new questions.
               </p>
             </motion.div>

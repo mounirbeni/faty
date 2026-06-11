@@ -7,10 +7,10 @@ import { useGameStore } from '@/store/gameStore';
 import { OPEN_BOOK_QUESTIONS, OBCategory } from '@/data/openBookQuestions';
 import { notifyOwner } from '@/lib/notify';
 
-const CAT_META: Record<OBCategory, { label: string; emoji: string; gradient: string; glow: string; border: string }> = {
-  feel: { label: 'How I Feel', emoji: '💗', gradient: 'from-rose-700 to-pink-800', glow: 'rgba(244,63,94,0.45)', border: 'rgba(251,113,133,0.4)' },
-  want: { label: 'What I Want', emoji: '🌙', gradient: 'from-indigo-700 to-violet-800', glow: 'rgba(139,92,246,0.45)', border: 'rgba(167,139,250,0.4)' },
-  bold: { label: 'Bold', emoji: '🔥', gradient: 'from-red-700 to-rose-900', glow: 'rgba(220,38,38,0.5)', border: 'rgba(248,113,113,0.4)' },
+const CAT_META: Record<OBCategory, { label: string; emoji: string; accent: string; glow: string }> = {
+  feel: { label: 'How I Feel',   emoji: '💗', accent: '#FF2060', glow: 'rgba(255,32,96,0.35)'  },
+  want: { label: 'What I Want',  emoji: '🌙', accent: '#5856D6', glow: 'rgba(88,86,214,0.35)'  },
+  bold: { label: 'Bold',         emoji: '🔥', accent: '#FF3B30', glow: 'rgba(255,59,48,0.35)'  },
 };
 
 export default function OpenBookScreen() {
@@ -29,7 +29,6 @@ export default function OpenBookScreen() {
   const current = remaining[idx] ?? remaining[0];
   const meta = CAT_META[category];
   const progress = ((questions.length - remaining.length) / questions.length) * 100;
-
   const canSubmit = selected.length > 0 || text.trim().length >= 2;
 
   const handleOption = (opt: string) => {
@@ -38,19 +37,12 @@ export default function OpenBookScreen() {
 
   const handleNext = () => {
     if (!current || !canSubmit) return;
-    const answerText = [
-      ...selected,
-      ...(text.trim() ? [`"${text.trim()}"`] : []),
-    ].join(' / ');
-
-    notifyOwner(
-      `📖 <b>Open Book — ${meta.label} ${meta.emoji}</b>\n\n<i>${current.question}</i>\n\n💬 <b>${answerText}</b>`
-    );
+    const answerText = [...selected, ...(text.trim() ? [`"${text.trim()}"`] : [])].join(' / ');
+    notifyOwner(`📖 <b>Open Book — ${meta.label} ${meta.emoji}</b>\n\n<i>${current.question}</i>\n\n💬 <b>${answerText}</b>`);
     logActivity('answer', `Open Book: ${current.question.slice(0, 40)}`);
     setAnswered(prev => [...prev, current.id]);
     setSelected([]);
     setText('');
-
     if (remaining.length === 1) setDone(true);
   };
 
@@ -73,23 +65,20 @@ export default function OpenBookScreen() {
   return (
     <motion.div
       className="absolute inset-0 flex flex-col overflow-hidden"
-      style={{ background: 'linear-gradient(160deg, #0e000a 0%, #1e0015 50%, #0e0008 100%)' }}
+      style={{ background: '#0A0A0A' }}
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
     >
-      <div className="fixed inset-0 pointer-events-none"
-        style={{ background: `radial-gradient(ellipse at 50% 20%, ${meta.glow.replace('0.45', '0.1')}, transparent 60%)` }} />
-
       <div className="relative z-10 flex flex-col h-full max-w-lg mx-auto w-full overflow-y-auto app-scroll">
         {/* Header */}
         <div className="flex items-center gap-3 px-4 pt-10 pb-5 shrink-0">
           <button onClick={() => setPhase('home')}
             className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-            style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)' }}>
+            style={{ background: '#1A1A1A', border: '1px solid rgba(255,255,255,0.09)' }}>
             <ArrowLeft size={16} className="text-white/70" />
           </button>
           <div>
-            <h1 className="text-[18px] font-black" style={{ color: 'rgba(255,220,235,0.95)' }}>Open Book 📖</h1>
-            <p className="text-[11px]" style={{ color: 'rgba(255,150,180,0.5)' }}>Pick an option or write it — I get every answer</p>
+            <h1 className="text-[18px] font-black text-white">Open Book 📖</h1>
+            <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>Pick an option or write it — I get every answer</p>
           </div>
         </div>
 
@@ -104,17 +93,15 @@ export default function OpenBookScreen() {
               <button key={cat} onClick={() => handleCategoryChange(cat)}
                 className="flex-1 py-2.5 rounded-2xl text-center transition-all"
                 style={{
-                  background: active ? 'rgba(255,77,141,0.15)' : 'rgba(255,255,255,0.05)',
-                  border: active ? `1px solid ${m.border}` : '1px solid rgba(255,255,255,0.07)',
-                  boxShadow: active ? `0 0 18px ${m.glow}` : 'none',
+                  background: active ? '#1A1A1A' : '#111111',
+                  border: active ? `1px solid ${m.accent}` : '1px solid rgba(255,255,255,0.07)',
+                  boxShadow: active ? `0 0 16px ${m.glow}` : 'none',
                 }}>
                 <div className="text-base">{m.emoji}</div>
-                <div className="text-[10px] font-bold mt-0.5"
-                  style={{ color: active ? 'rgba(255,220,235,0.9)' : 'rgba(255,255,255,0.4)' }}>
+                <div className="text-[10px] font-bold mt-0.5" style={{ color: active ? '#FFFFFF' : 'rgba(255,255,255,0.35)' }}>
                   {m.label}
                 </div>
-                <div className="text-[9px] mt-0.5"
-                  style={{ color: active ? 'rgba(255,150,180,0.6)' : 'rgba(255,255,255,0.22)' }}>
+                <div className="text-[9px] mt-0.5" style={{ color: active ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.2)' }}>
                   {catDone}/{catQs.length}
                 </div>
               </button>
@@ -124,8 +111,9 @@ export default function OpenBookScreen() {
 
         {/* Progress */}
         <div className="px-4 pb-5 shrink-0">
-          <div className="h-1 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.07)' }}>
-            <motion.div className={`h-full rounded-full bg-gradient-to-r ${meta.gradient}`}
+          <div className="h-[3px] rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)' }}>
+            <motion.div className="h-full rounded-full"
+              style={{ background: meta.accent }}
               animate={{ width: `${progress}%` }} transition={{ duration: 0.4 }} />
           </div>
         </div>
@@ -137,15 +125,13 @@ export default function OpenBookScreen() {
               <motion.div key="done" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
                 className="flex flex-col items-center gap-5 text-center pt-12">
                 <div className="text-6xl">{meta.emoji}</div>
-                <h2 className="text-[22px] font-black" style={{ color: 'rgba(255,220,235,0.95)' }}>
-                  All answered
-                </h2>
-                <p className="text-[13px]" style={{ color: 'rgba(255,150,180,0.55)' }}>
+                <h2 className="text-[22px] font-black text-white">All answered</h2>
+                <p className="text-[13px]" style={{ color: 'rgba(255,255,255,0.45)' }}>
                   Every word you wrote came to me. Thank you for being this open.
                 </p>
                 <button onClick={handleRestart}
                   className="flex items-center gap-2 px-6 py-3 rounded-2xl text-[13px] font-bold text-white mt-2"
-                  style={{ background: 'linear-gradient(135deg, #c9245f, #ff4d8d)', boxShadow: '0 4px 20px rgba(201,36,95,0.4)' }}>
+                  style={{ background: meta.accent, boxShadow: `0 4px 20px ${meta.glow}` }}>
                   <RefreshCw size={14} /> Answer Again
                 </button>
               </motion.div>
@@ -154,19 +140,17 @@ export default function OpenBookScreen() {
                 exit={{ opacity: 0, y: -16 }} className="flex flex-col gap-4">
 
                 {/* Question card */}
-                <div className="rounded-[24px] p-6"
+                <div className="rounded-[22px] p-6"
                   style={{
-                    background: `linear-gradient(160deg, ${meta.glow.replace('0.45', '0.14')}, rgba(0,0,0,0.3))`,
-                    border: `1px solid ${meta.border}`,
-                    boxShadow: `0 8px 40px ${meta.glow.replace('0.45', '0.18')}`,
+                    background: '#161616',
+                    border: `1px solid rgba(255,255,255,0.09)`,
+                    borderLeft: `3px solid ${meta.accent}`,
                   }}>
-                  <p className="text-[11px] uppercase tracking-widest font-bold mb-3"
-                    style={{ color: meta.glow.replace('rgba(', 'rgba(').replace('0.45', '0.5') }}>
+                  <p className="text-[10px] uppercase tracking-widest font-bold mb-3"
+                    style={{ color: meta.accent }}>
                     {meta.emoji} {meta.label}
                   </p>
-                  <p className="text-[18px] font-bold leading-snug" style={{ color: 'rgba(255,228,240,0.96)' }}>
-                    {current.question}
-                  </p>
+                  <p className="text-[18px] font-bold leading-snug text-white">{current.question}</p>
                 </div>
 
                 {/* Options */}
@@ -178,12 +162,12 @@ export default function OpenBookScreen() {
                         <motion.button key={opt} onClick={() => handleOption(opt)}
                           className="w-full text-left px-4 py-3.5 rounded-[16px] transition-all"
                           style={{
-                            background: sel ? `linear-gradient(135deg, ${meta.glow.replace('0.45', '0.22')}, rgba(0,0,0,0.2))` : 'rgba(255,255,255,0.05)',
-                            border: sel ? `1px solid ${meta.border}` : '1px solid rgba(255,255,255,0.08)',
-                            boxShadow: sel ? `0 2px 16px ${meta.glow.replace('0.45', '0.2')}` : 'none',
+                            background: sel ? '#1E1E1E' : '#141414',
+                            border: sel ? `1px solid ${meta.accent}` : '1px solid rgba(255,255,255,0.07)',
+                            boxShadow: sel ? `0 2px 14px ${meta.glow}` : 'none',
                           }}>
                           <span className="text-[14px] font-medium"
-                            style={{ color: sel ? 'rgba(255,228,240,0.96)' : 'rgba(200,180,210,0.65)' }}>
+                            style={{ color: sel ? '#FFFFFF' : 'rgba(255,255,255,0.55)' }}>
                             {opt}
                           </span>
                         </motion.button>
@@ -201,9 +185,9 @@ export default function OpenBookScreen() {
                     rows={3}
                     className="w-full resize-none rounded-[16px] px-4 py-3.5 text-[14px] outline-none"
                     style={{
-                      background: 'rgba(255,255,255,0.06)',
-                      border: text.trim() ? `1px solid ${meta.border}` : '1px solid rgba(255,255,255,0.08)',
-                      color: 'rgba(255,228,240,0.9)',
+                      background: '#141414',
+                      border: text.trim() ? `1px solid ${meta.accent}` : '1px solid rgba(255,255,255,0.07)',
+                      color: '#FFFFFF',
                     }}
                   />
                 )}
@@ -215,14 +199,14 @@ export default function OpenBookScreen() {
                   disabled={!canSubmit}
                   className="flex items-center justify-center gap-2 py-3.5 rounded-2xl text-[14px] font-bold text-white"
                   style={{
-                    background: canSubmit ? `linear-gradient(135deg, #c9245f, #ff4d8d)` : 'rgba(255,255,255,0.08)',
-                    boxShadow: canSubmit ? '0 4px 20px rgba(201,36,95,0.4)' : 'none',
+                    background: canSubmit ? meta.accent : '#1A1A1A',
+                    boxShadow: canSubmit ? `0 4px 20px ${meta.glow}` : 'none',
                     cursor: canSubmit ? 'pointer' : 'not-allowed',
                   }}>
                   Send Answer <ChevronRight size={16} />
                 </motion.button>
 
-                <p className="text-[10px] text-center" style={{ color: 'rgba(255,150,180,0.3)' }}>
+                <p className="text-[10px] text-center" style={{ color: 'rgba(255,255,255,0.25)' }}>
                   {remaining.length - 1} more in this category
                 </p>
               </motion.div>
