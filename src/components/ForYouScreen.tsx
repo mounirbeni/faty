@@ -77,7 +77,7 @@ function Hub({ onPick }: { onPick: (v: View) => void }) {
       className="flex flex-col gap-3.5 px-4 pb-10">
       <div className="rounded-[20px] p-4 mb-1" style={{ background: '#120F1C', border: '1px solid rgba(255,255,255,0.08)' }}>
         <p className="text-[13px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>
-          Everything in here is from me to you. When you’re far and I can’t hold you, come here — I left pieces of myself waiting for you. 🤍
+          Faty, everything in here is from me to you. When Meknès feels too far from Marrakech and I can’t hold you, come here — I left pieces of myself waiting for you. 🤍
         </p>
       </div>
       {cards.map((c, i) => (

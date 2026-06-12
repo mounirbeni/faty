@@ -237,7 +237,7 @@ export default function HomeMapScreen() {
             </LongPressNote>
             <div>
               <h1 className="text-[17px] font-black leading-tight text-white">
-                {isReturningUser ? time.greeting : "Hey my love, it's me"}{' '}
+                {isReturningUser ? time.greeting : "Hey Faty, it's me"}{' '}
                 <Heart size={15} className="inline ml-0.5 animate-heartbeat" style={{ color: '#FF4D80' }} fill="currentColor" />
               </h1>
               <p className="text-[12px] mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>

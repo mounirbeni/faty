@@ -195,7 +195,7 @@ export default function WelcomeScreen() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35, duration: 0.6 }}
         >
-          Hello my love{' '}
+          Hello Faty{' '}
           <motion.span className="inline-block"
             animate={{ scale: [1, 1.3, 1] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}>
