@@ -51,6 +51,10 @@ export default function RootLayout({
           {children}
         </div>
 
+        {/* ── Cinematic atmosphere — vignette + film grain, non-interactive ── */}
+        <div aria-hidden="true" className="atmosphere-vignette" />
+        <div aria-hidden="true" className="grain-layer" />
+
         <RegisterSW />
 
         {/* ── Native-app hardening ── */}

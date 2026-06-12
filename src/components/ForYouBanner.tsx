@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Mail, ChevronRight } from 'lucide-react';
+import { EASE, SPRING } from '@/lib/motion';
 
 const pr = (seed: number) => { const x = Math.sin(seed + 1) * 10000; return x - Math.floor(x); };
 
@@ -12,11 +13,12 @@ const HEARTS = Array.from({ length: 8 }, (_, i) => ({
 
 export default function ForYouBanner({ onOpen }: { onOpen: () => void }) {
   return (
-    <motion.button onClick={onOpen} whileTap={{ scale: 0.98 }}
-      className="relative w-full rounded-[22px] overflow-hidden text-left"
+    <motion.button onClick={onOpen}
+      whileHover={{ y: -4, scale: 1.012 }} whileTap={{ scale: 0.98 }} transition={SPRING.gentle}
+      className="sheen relative w-full rounded-[22px] overflow-hidden text-left"
       style={{ background: 'linear-gradient(135deg, #20060F 0%, #2A0A18 55%, #140510 100%)',
         border: '1px solid rgba(255,32,96,0.28)', boxShadow: '0 10px 44px rgba(255,32,96,0.18), 0 2px 10px rgba(0,0,0,0.5)' }}
-      initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+      initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0, transition: { delay: 0.1, duration: 0.5, ease: EASE.smooth } }}>
       <div className="h-[3px] w-full" style={{ background: 'linear-gradient(90deg, #FF2060, #FFB300, #7B79FF, #FF2060)', backgroundSize: '200% 100%', animation: 'gradient-x 5s linear infinite' }} />
 
       {/* floating hearts */}

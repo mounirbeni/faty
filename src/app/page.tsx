@@ -14,6 +14,7 @@ import { questionsData } from '@/data/questions';
 import { initPresenceContext } from '@/lib/presenceContext';
 import { startSession, trackScreen, sendSessionRecap } from '@/lib/sessionTracker';
 import { notifyEntry, notifyBeacon } from '@/lib/notify';
+import { EASE } from '@/lib/motion';
 import dynamic from 'next/dynamic';
 import MidnightOverlay from '@/components/MidnightOverlay';
 
@@ -34,10 +35,10 @@ function Screen({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
       className="absolute inset-0"
-      initial={{ opacity: 0, scale: 0.97, filter: 'blur(6px)' }}
-      animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-      exit={{ opacity: 0, scale: 1.02, filter: 'blur(4px)' }}
-      transition={{ duration: 0.45, ease: 'easeOut' }}
+      initial={{ opacity: 0, scale: 0.985, y: 10, filter: 'blur(8px)' }}
+      animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+      exit={{ opacity: 0, scale: 1.012, y: -8, filter: 'blur(6px)' }}
+      transition={{ duration: 0.55, ease: EASE.smooth }}
     >
       {children}
     </motion.div>

@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import ConstellationBanner from './ConstellationBanner';
 import ForYouBanner from './ForYouBanner';
+import { EASE, SPRING } from '@/lib/motion';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
 import { softTap, heartbeat } from '@/lib/useHaptics';
@@ -290,11 +291,12 @@ export default function HomeMapScreen() {
               <motion.button
                 key={game.id}
                 onClick={() => { heartbeat(); playSparkle(); setPhase(game.id); }}
-                className={`relative flex flex-col gap-2 py-5 px-3.5 rounded-2xl text-left min-h-[124px] overflow-hidden bg-gradient-to-br ${game.gradient} shadow-xl ${game.glow}`}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + idx * 0.08 }}
-                whileTap={{ scale: 0.96 }}
+                className={`sheen relative flex flex-col gap-2 py-5 px-3.5 rounded-2xl text-left min-h-[124px] overflow-hidden bg-gradient-to-br ${game.gradient} shadow-xl ${game.glow}`}
+                initial={{ opacity: 0, y: 16, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1, transition: { delay: 0.3 + idx * 0.07, duration: 0.5, ease: EASE.smooth } }}
+                whileHover={{ y: -5, scale: 1.03 }}
+                whileTap={{ scale: 0.95 }}
+                transition={SPRING.snappy}
               >
                 <div>{game.icon}</div>
                 <div>
@@ -351,7 +353,11 @@ function ChapterCard({ chapter, meta, icon, progress, unlocked, onTap, delay }: 
         opacity: 0.4,
         cursor: 'not-allowed',
       }}
-      initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay }}>
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0, transition: { delay, duration: 0.5, ease: EASE.smooth } }}
+      whileHover={unlocked ? { scale: 1.012, x: 2 } : undefined}
+      whileTap={unlocked ? { scale: 0.985 } : undefined}
+      transition={SPRING.gentle}>
       <div className={`w-1 self-stretch shrink-0 bg-gradient-to-b ${meta.colorFrom} ${meta.colorTo} ${!unlocked ? 'opacity-30' : ''}`} />
       <div className="flex items-center gap-3.5 p-3.5 flex-1 min-w-0">
         <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-xl shrink-0 bg-gradient-to-br ${meta.colorFrom} ${meta.colorTo} shadow-md ${!unlocked ? 'grayscale opacity-60' : ''}`}>

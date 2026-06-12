@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Sparkles, ArrowRight, Play, RotateCcw, Lock, Star } from "lucide-react";
 import { useGameStore } from "@/store/gameStore";
 import { playWhoosh, playBloom } from "@/lib/sounds";
+import { EASE, SPRING } from "@/lib/motion";
 
 const pr = (seed: number) => { const x = Math.sin(seed + 1) * 10000; return x - Math.floor(x); };
 
@@ -291,14 +292,16 @@ export default function WelcomeScreen() {
         {/* CTA */}
         <motion.button
           onClick={() => { playWhoosh(); playBloom(); setPhase('home'); }}
-          className="w-full relative px-8 py-[18px] rounded-[22px] text-white font-black text-[16px] transition-transform duration-150 cursor-pointer overflow-hidden"
+          className="w-full relative px-8 py-[18px] rounded-[22px] text-white font-black text-[16px] cursor-pointer overflow-hidden"
           style={{
             background: 'linear-gradient(135deg, #FF4D8D 0%, #D9266B 55%, #B01A55 100%)',
             boxShadow: '0 0 0 1px rgba(255,77,141,0.4), 0 8px 40px rgba(255,77,141,0.45), 0 2px 10px rgba(0,0,0,0.4)',
           }}
           initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.5 }}
+          animate={{ opacity: 1, y: 0, transition: { delay: 1.2, duration: 0.5, ease: EASE.smooth } }}
+          whileHover={{ scale: 1.025, y: -2 }}
+          whileTap={{ scale: 0.97 }}
+          transition={SPRING.snappy}
         >
           <motion.div
             className="absolute inset-0 w-1/3 h-full bg-white/20 -skew-x-12 pointer-events-none"

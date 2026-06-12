@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Heart, Sparkles, ChevronRight } from 'lucide-react';
+import { EASE, SPRING } from '@/lib/motion';
 
 const pr = (seed: number) => { const x = Math.sin(seed + 1) * 10000; return x - Math.floor(x); };
 
@@ -23,16 +24,17 @@ export default function ConstellationBanner({
   return (
     <motion.button
       onClick={onOpen}
-      className="relative w-full rounded-[22px] overflow-hidden text-left"
+      className="sheen relative w-full rounded-[22px] overflow-hidden text-left"
       style={{
         background: 'linear-gradient(135deg, #0B0820 0%, #160A24 55%, #0A0612 100%)',
         border: '1px solid rgba(123,121,255,0.22)',
         boxShadow: '0 10px 44px rgba(88,86,214,0.18), 0 2px 10px rgba(0,0,0,0.5)',
       }}
       initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.12 }}
+      animate={{ opacity: 1, y: 0, transition: { delay: 0.12, duration: 0.5, ease: EASE.smooth } }}
+      whileHover={{ y: -4, scale: 1.012 }}
       whileTap={{ scale: 0.98 }}
+      transition={SPRING.gentle}
     >
       {/* top accent line */}
       <div className="h-[3px] w-full" style={{
