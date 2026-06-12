@@ -52,7 +52,7 @@ export default function RateUsScreen() {
           </button>
           <div>
             <h1 className="text-[18px] font-black text-white">Rate Us 📊</h1>
-            <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>Slide to tell me how we're doing — I see every number</p>
+            <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>Slide to tell me how we&apos;re doing — I see every number</p>
           </div>
         </div>
 
@@ -104,8 +104,10 @@ export default function RateUsScreen() {
                       type="range" min={1} max={10} step={1}
                       value={hasVal ? val : 5}
                       onChange={e => setValues(prev => ({ ...prev, [item.id]: Number(e.target.value) }))}
-                      className="w-full h-2 rounded-full outline-none appearance-none cursor-pointer"
+                      className="heat-range w-full"
                       style={{
+                        accentColor: ACCENT,
+                        color: hasVal ? ACCENT : 'rgba(255,255,255,0.3)',
                         background: hasVal
                           ? `linear-gradient(90deg, ${ACCENT} ${(val - 1) / 9 * 100}%, rgba(255,255,255,0.08) ${(val - 1) / 9 * 100}%)`
                           : 'rgba(255,255,255,0.08)',

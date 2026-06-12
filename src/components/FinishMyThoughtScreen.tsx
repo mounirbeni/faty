@@ -57,7 +57,7 @@ export default function FinishMyThoughtScreen() {
       style={{ background: '#0A0A0A' }}
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
     >
-      <div className="relative z-10 flex flex-col h-full max-w-lg mx-auto w-full">
+      <div className="relative z-10 flex flex-col h-full max-w-lg mx-auto w-full overflow-y-auto app-scroll">
         {/* Header */}
         <div className="flex items-center gap-3 px-4 pt-10 pb-6 shrink-0">
           <button onClick={() => setPhase('home')}

@@ -19,19 +19,23 @@ export default function WouldYouRatherScreen() {
   const [note, setNote] = useState('');
   const [screen, setScreen] = useState<'play' | 'summary' | 'sent'>('play');
   const [started, setStarted] = useState(false);
+  const [advancing, setAdvancing] = useState(false);
 
   const card = WYR_CARDS[idx];
   const isLast = idx === WYR_CARDS.length - 1;
 
   const pick = (side: 'a' | 'b') => {
+    if (advancing) return;
     if (!started) {
       setStarted(true);
       notifyOwner('🔥 <b>She’s playing Would You Rather…</b>\n\n<i>Choosing exactly what she wants. The results are coming.</i>');
     }
     setPicks(prev => ({ ...prev, [card.id]: side }));
+    setAdvancing(true);
     setTimeout(() => {
       if (isLast) setScreen('summary');
       else setIdx(i => i + 1);
+      setAdvancing(false);
     }, 260);
   };
 
@@ -50,7 +54,7 @@ export default function WouldYouRatherScreen() {
     setScreen('sent');
   };
 
-  const reset = () => { setIdx(0); setPicks({}); setNote(''); setScreen('play'); setStarted(false); };
+  const reset = () => { setIdx(0); setPicks({}); setNote(''); setScreen('play'); setStarted(false); setAdvancing(false); };
 
   const answered = Object.keys(picks).length;
 
