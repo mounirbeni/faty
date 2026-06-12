@@ -7,6 +7,7 @@ import {
   Play, RotateCcw, CheckCircle2, Lock, Check, Scale, Eye, Thermometer,
 } from 'lucide-react';
 import ConstellationBanner from './ConstellationBanner';
+import ForYouBanner from './ForYouBanner';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
 import { categoriesMeta } from '@/data/meta';
 import { softTap, heartbeat } from '@/lib/useHaptics';
@@ -248,6 +249,9 @@ export default function HomeMapScreen() {
           </div>
           <EmotionalStatus className="pb-3" />
         </motion.div>
+
+        {/* ── For You (from him → her) ── */}
+        <ForYouBanner onOpen={() => { heartbeat(); playBloom(); setPhase('for-you'); }} />
 
         {/* ── Constellation hero ── */}
         <ConstellationBanner

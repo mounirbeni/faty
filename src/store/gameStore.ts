@@ -16,6 +16,7 @@ export type AppPhase =
   | 'truth-or-dare'
   | 'heat-dial'
   | 'constellation'
+  | 'for-you'
   | 'admin-dashboard'
   | 'complete';
 
@@ -86,6 +87,7 @@ export const useGameStore = create<GameState>()(
           'truth-or-dare':      'Opened Truth or Dare',
           'heat-dial':          'Opened Heat Dial',
           'constellation':      'Opened Our Constellation',
+          'for-you':            'Opened For You',
         };
         if (labels[phase]) logActivity('mini-game', labels[phase]!);
         set({ phase, isReturningUser: isReturningUser || phase === 'home' });
