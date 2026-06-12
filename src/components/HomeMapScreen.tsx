@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Heart, Sparkles, Flame, BookOpen, Star, Map, ChevronRight,
-  Play, RotateCcw, CheckCircle2, Lock, Check,
+  Play, RotateCcw, CheckCircle2, Lock, Check, Scale, Eye, Thermometer,
 } from 'lucide-react';
 import ConstellationBanner from './ConstellationBanner';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
@@ -17,7 +17,7 @@ import LongPressNote from './LongPressNote';
 import { useTimeContext } from '@/lib/timeSystem';
 import { playSparkle, playBloom } from '@/lib/sounds';
 
-type GameId = 'open-book' | 'rate-us' | 'finish-my-thought' | 'daily-three' | 'fantasy-builder' | 'bold-confessions';
+type GameId = 'open-book' | 'rate-us' | 'finish-my-thought' | 'daily-three' | 'fantasy-builder' | 'bold-confessions' | 'would-you-rather' | 'truth-or-dare' | 'heat-dial';
 
 const GAMES: {
   id: GameId;
@@ -81,6 +81,33 @@ const GAMES: {
     what: 'I get every confession you send',
     gradient: 'from-red-500 to-rose-600',
     glow: 'shadow-red-500/50',
+  },
+  {
+    id: 'would-you-rather',
+    icon: <Scale size={26} className="text-white" />,
+    label: 'Would You Rather 🔥',
+    sublabel: 'Tap the one you crave',
+    what: 'I get every choice you make',
+    gradient: 'from-pink-500 to-rose-600',
+    glow: 'shadow-pink-500/50',
+  },
+  {
+    id: 'truth-or-dare',
+    icon: <Eye size={26} className="text-white" />,
+    label: 'Truth or Dare 💋',
+    sublabel: 'Pick one — be bold',
+    what: 'I get your truth or your dare',
+    gradient: 'from-violet-500 to-fuchsia-500',
+    glow: 'shadow-violet-500/50',
+  },
+  {
+    id: 'heat-dial',
+    icon: <Thermometer size={26} className="text-white" />,
+    label: 'Heat Dial 🌡️',
+    sublabel: 'Drag from cold to burning',
+    what: 'I see exactly how hot it gets',
+    gradient: 'from-orange-500 to-red-600',
+    glow: 'shadow-orange-500/50',
   },
 ];
 

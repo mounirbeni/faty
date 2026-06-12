@@ -634,6 +634,36 @@
   }
   .app-scroll::-webkit-scrollbar { display: none; }
 
+  /* ── Heat Dial range slider ── */
+  input.heat-range {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    border-radius: 999px;
+    outline: none;
+    cursor: pointer;
+  }
+  input.heat-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid currentColor;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+  input.heat-range::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid currentColor;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+
   /* ── Stagger children ── */
   .stagger-children > * { animation: slide-up-fade 0.4s ease-out both; }
   .stagger-children > *:nth-child(1) { animation-delay: 0.05s; }

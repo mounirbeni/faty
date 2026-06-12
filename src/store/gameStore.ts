@@ -12,6 +12,9 @@ export type AppPhase =
   | 'daily-three'
   | 'fantasy-builder'
   | 'bold-confessions'
+  | 'would-you-rather'
+  | 'truth-or-dare'
+  | 'heat-dial'
   | 'constellation'
   | 'admin-dashboard'
   | 'complete';
@@ -79,6 +82,9 @@ export const useGameStore = create<GameState>()(
           'daily-three':        'Opened Daily Three',
           'fantasy-builder':    'Opened Fantasy Builder',
           'bold-confessions':   'Opened Bold Confessions',
+          'would-you-rather':   'Opened Would You Rather',
+          'truth-or-dare':      'Opened Truth or Dare',
+          'heat-dial':          'Opened Heat Dial',
           'constellation':      'Opened Our Constellation',
         };
         if (labels[phase]) logActivity('mini-game', labels[phase]!);

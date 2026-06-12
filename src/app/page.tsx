@@ -25,6 +25,9 @@ const DailyThreeScreen         = dynamic(() => import('@/components/DailyThreeSc
 const FantasyBuilderScreen     = dynamic(() => import('@/components/FantasyBuilderScreen'),    { ssr: false });
 const BoldConfessionsScreen    = dynamic(() => import('@/components/BoldConfessionsScreen'),   { ssr: false });
 const ConstellationScreen      = dynamic(() => import('@/components/ConstellationScreen'),     { ssr: false });
+const WouldYouRatherScreen     = dynamic(() => import('@/components/WouldYouRatherScreen'),    { ssr: false });
+const TruthOrDareScreen        = dynamic(() => import('@/components/TruthOrDareScreen'),       { ssr: false });
+const HeatDialScreen           = dynamic(() => import('@/components/HeatDialScreen'),          { ssr: false });
 
 function Screen({ children }: { children: React.ReactNode }) {
   return (
@@ -117,6 +120,9 @@ export default function HomePage() {
         {currentPhase === 'fantasy-builder'   && <Screen key="fantasy-builder"><FantasyBuilderScreen /></Screen>}
         {currentPhase === 'bold-confessions'  && <Screen key="bold-confessions"><BoldConfessionsScreen /></Screen>}
         {currentPhase === 'constellation'     && <Screen key="constellation"><ConstellationScreen /></Screen>}
+        {currentPhase === 'would-you-rather'  && <Screen key="would-you-rather"><WouldYouRatherScreen /></Screen>}
+        {currentPhase === 'truth-or-dare'     && <Screen key="truth-or-dare"><TruthOrDareScreen /></Screen>}
+        {currentPhase === 'heat-dial'         && <Screen key="heat-dial"><HeatDialScreen /></Screen>}
         {currentPhase === 'admin-dashboard'   && <Screen key="admin-dashboard"><ActivityDashboardScreen /></Screen>}
         {currentPhase === 'complete'          && <Screen key="complete"><CompletionScreen /></Screen>}
       </AnimatePresence>
