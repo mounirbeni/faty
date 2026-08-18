@@ -46,7 +46,7 @@ export default function TogetherBanner({ onOpen, rounds }: { onOpen: () => void;
           <span className="text-[9px] font-black uppercase tracking-[0.18em]" style={{ color: 'rgba(240,171,252,0.8)' }}>
             New ✦ Two players
           </span>
-          <h3 className="text-[16px] font-black text-white leading-tight mt-0.5">Together Tonight 😈</h3>
+          <h3 className="text-[16px] font-black text-white leading-tight mt-0.5">Together Tonight</h3>
           <p className="text-[11px] mt-0.5" style={{ color: 'rgba(255,255,255,0.5)' }}>
             {rounds > 0
               ? `Dare Duel · Never Have I Ever · Spin · Dice — ${rounds} rounds so far`

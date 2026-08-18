@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { EyeOff, Hand, Sparkles, ArrowRight } from 'lucide-react';
+import { EyeOff, Hand, Sparkles, ArrowRight, Flame, Snowflake } from 'lucide-react';
 import { EASE, SPRING } from '@/lib/motion';
 import { useGameStore } from '@/store/gameStore';
 import { useTogetherStore, type Seat } from '@/store/togetherStore';
@@ -72,7 +72,7 @@ export default function NeverHaveIEverScreen() {
     ? (card?.bothLine ?? 'Both of you. Say more about that.')
     : neither
       ? 'Neither of you. Suspicious, but fine — next card.'
-      : `Only one of you owned up. ${answers.p1 === 'have' ? p1 : p2}, explain yourself. 😏`;
+      : `Only one of you owned up. ${answers.p1 === 'have' ? p1 : p2}, explain yourself.`;
 
   return (
     <motion.div className="absolute inset-0 flex flex-col overflow-hidden" style={{ background: '#0A0A0A' }}
@@ -80,8 +80,9 @@ export default function NeverHaveIEverScreen() {
       <div className="relative z-10 flex flex-col h-full max-w-lg mx-auto w-full overflow-y-auto app-scroll">
 
         <TogetherHeader
-          title="Never Have I Ever 👀"
-          sub="Answer in secret — the phone flips you both at once"
+          title="Never Have I Ever"
+          icon="eye" accent={accent}
+          sub="Secret answers, one shared reveal"
           onBack={() => setPhase('together')}
           right={<HeatPill onClick={() => setPhase('together')} />}
         />
@@ -143,9 +144,9 @@ export default function NeverHaveIEverScreen() {
                     <p className="text-center text-[12px] mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
                       {stage === 'ask-1' ? p1 : p2} — the honest answer, nobody sees it yet
                     </p>
-                    <VerdictButton emoji="😳" label="I have" sub="Guilty. Take the point."
+                    <VerdictButton icon={<Flame size={28} />} label="I have" sub="Guilty. Take the point."
                       color={GUILTY} onClick={() => answer(stage === 'ask-1' ? 'p1' : 'p2', 'have')} />
-                    <VerdictButton emoji="😇" label="I never" sub="Clean… supposedly."
+                    <VerdictButton icon={<Snowflake size={28} />} label="I never" sub="Clean… supposedly."
                       color={INNOCENT} onClick={() => answer(stage === 'ask-1' ? 'p1' : 'p2', 'never')} />
                   </motion.div>
                 )}
@@ -180,14 +181,14 @@ export default function NeverHaveIEverScreen() {
   );
 }
 
-function VerdictButton({ emoji, label, sub, color, onClick }: {
-  emoji: string; label: string; sub: string; color: string; onClick: () => void;
+function VerdictButton({ icon, label, sub, color, onClick }: {
+  icon: React.ReactNode; label: string; sub: string; color: string; onClick: () => void;
 }) {
   return (
     <motion.button whileTap={{ scale: 0.97 }} onClick={onClick}
       className="rounded-[24px] px-6 py-7 flex flex-col items-center gap-1.5"
       style={{ background: '#141414', border: `1.5px solid ${color}77`, boxShadow: `0 8px 30px ${color}22` }}>
-      <span className="text-[30px]">{emoji}</span>
+      <span style={{ color }}>{icon}</span>
       <span className="text-[19px] font-black text-white">{label}</span>
       <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.35)' }}>{sub}</span>
     </motion.button>
@@ -202,7 +203,7 @@ function RevealCard({ name, verdict, delay }: { name: string; verdict: Verdict; 
       initial={{ rotateY: 90, opacity: 0 }} animate={{ rotateY: 0, opacity: 1 }}
       transition={{ delay, duration: 0.5, ease: EASE.smooth }}
       style={{ background: '#141414', border: `1.5px solid ${color}77`, boxShadow: `0 8px 30px ${color}22` }}>
-      <span className="text-[26px]">{guilty ? '😳' : '😇'}</span>
+      <span style={{ color }}>{guilty ? <Flame size={24} /> : <Snowflake size={24} />}</span>
       <span className="text-[11px] font-black uppercase tracking-wider truncate max-w-full" style={{ color }}>{name}</span>
       <span className="text-[14px] font-black text-white">{guilty ? 'I have' : 'I never'}</span>
       {guilty && (

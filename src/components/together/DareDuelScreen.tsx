@@ -58,8 +58,9 @@ export default function DareDuelScreen() {
       <div className="relative z-10 flex flex-col h-full max-w-lg mx-auto w-full overflow-y-auto app-scroll">
 
         <TogetherHeader
-          title="Dare Duel 🔥"
-          sub={card ? 'Do it, or hand them the point' : 'Pick your poison — then pass the phone'}
+          title="Dare Duel"
+          icon="flame" accent={accent}
+          sub={card ? 'Do it, or hand them the point' : 'Pick one, then pass the phone'}
           onBack={() => (card ? setCard(null) : setPhase('together'))}
           right={<HeatPill onClick={() => setPhase('together')} />}
         />
@@ -84,7 +85,7 @@ export default function DareDuelScreen() {
                     style={{ background: TRUTH, boxShadow: `0 4px 20px ${TRUTH}55` }}>
                     <Eye size={24} className="text-white" />
                   </div>
-                  <span className="text-[20px] font-black text-white">Truth 💋</span>
+                  <span className="text-[20px] font-black text-white">Truth</span>
                   <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
                     {truths.length} in the deck · answer honestly, out loud
                   </span>
@@ -98,7 +99,7 @@ export default function DareDuelScreen() {
                     style={{ background: DARE, boxShadow: `0 4px 20px ${DARE}55` }}>
                     <Flame size={24} className="text-white" fill="currentColor" />
                   </div>
-                  <span className="text-[20px] font-black text-white">Dare 😈</span>
+                  <span className="text-[20px] font-black text-white">Dare</span>
                   <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
                     {dares.length} in the deck · the clock will be watching
                   </span>
@@ -113,8 +114,9 @@ export default function DareDuelScreen() {
                 <div className="rounded-[24px] p-6" style={{ background: '#161616',
                   border: '1px solid rgba(255,255,255,0.09)', borderLeft: `3px solid ${accent}`,
                   boxShadow: `0 10px 40px ${accent}18` }}>
-                  <p className="text-[10px] uppercase tracking-widest font-black mb-2" style={{ color: accent }}>
-                    {card.type === 'truth' ? '💋 Truth' : '😈 Dare'} · {HEAT_META[card.level].name}
+                  <p className="text-[10px] uppercase tracking-widest font-black mb-2 flex items-center gap-1.5" style={{ color: accent }}>
+                    {card.type === 'truth' ? <Eye size={12} /> : <Flame size={12} fill="currentColor" />}
+                    {card.type === 'truth' ? 'Truth' : 'Dare'} · {HEAT_META[card.level].name}
                   </p>
                   <p className="text-[19px] font-bold leading-snug text-white">{card.text}</p>
                   {card.hint && (

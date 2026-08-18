@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Users, Trophy, Timer as TimerIcon, Pause, Play } from 'lucide-react';
+import { ArrowLeft, Users, Trophy, Timer as TimerIcon, Pause, Play, Flame } from 'lucide-react';
+import IconFromName from '../IconFromName';
 import { EASE, SPRING } from '@/lib/motion';
 import { HEAT_META, HEAT_ORDER, type HeatLevel, type PlayMode } from '@/data/together';
 import { useTogetherStore, type Seat } from '@/store/togetherStore';
@@ -13,8 +14,12 @@ import { useTogetherStore, type Seat } from '@/store/togetherStore';
 // ─── Header ───────────────────────────────────────────────────────────────────
 
 export function TogetherHeader({
-  title, sub, onBack, right,
-}: { title: string; sub: string; onBack: () => void; right?: React.ReactNode }) {
+  title, sub, onBack, right, icon, accent = '#FF2060',
+}: {
+  title: string; sub: string; onBack: () => void; right?: React.ReactNode;
+  /** lucide name shown in the badge beside the title */
+  icon?: string; accent?: string;
+}) {
   return (
     <div className="flex items-center gap-3 px-4 pt-10 pb-4 shrink-0">
       <button onClick={onBack} aria-label="Back"
@@ -22,6 +27,12 @@ export function TogetherHeader({
         style={{ background: '#1A1A1A', border: '1px solid rgba(255,255,255,0.09)' }}>
         <ArrowLeft size={16} className="text-white/70" />
       </button>
+      {icon && (
+        <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+          style={{ background: `${accent}1F`, border: `1px solid ${accent}44`, color: accent }}>
+          <IconFromName name={icon} size={16} />
+        </div>
+      )}
       <div className="min-w-0 flex-1">
         <h1 className="text-[18px] font-black text-white leading-tight truncate">{title}</h1>
         <p className="text-[11px] truncate" style={{ color: 'rgba(255,255,255,0.4)' }}>{sub}</p>
@@ -40,7 +51,9 @@ export function HeatPill({ onClick }: { onClick?: () => void }) {
     <button onClick={onClick} disabled={!onClick}
       className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl shrink-0"
       style={{ background: meta.surface, border: `1px solid ${meta.color}55` }}>
-      <span className="text-[12px]">{meta.emoji}</span>
+      <span className="flex items-center" style={{ color: meta.color }}>
+        <IconFromName name={meta.icon} size={13} />
+      </span>
       <span className="text-[10px] font-black uppercase tracking-wider" style={{ color: meta.color }}>
         {meta.name}
       </span>
@@ -64,7 +77,9 @@ export function HeatPicker() {
               border: on ? `1.5px solid ${meta.color}` : '1px solid rgba(255,255,255,0.07)',
               boxShadow: on ? `0 6px 26px ${meta.glow}` : 'none',
             }}>
-            <span className="text-[18px]">{meta.emoji}</span>
+            <span className="flex items-center" style={{ color: on ? meta.color : 'rgba(255,255,255,0.45)' }}>
+              <IconFromName name={meta.icon} size={19} />
+            </span>
             <span className="text-[12px] font-black" style={{ color: on ? meta.color : 'rgba(255,255,255,0.55)' }}>
               {meta.name}
             </span>
@@ -80,9 +95,9 @@ export function HeatPicker() {
 
 // ─── Mode toggle (same room tonight, or a country apart) ──────────────────────
 
-const MODES: { id: PlayMode; emoji: string; label: string; sub: string }[] = [
-  { id: 'same-room', emoji: '🛏️', label: 'Same room', sub: 'One phone, passed between us' },
-  { id: 'apart',     emoji: '📱', label: 'Apart tonight', sub: 'On a call — photos, voice, words' },
+const MODES: { id: PlayMode; icon: string; label: string; sub: string }[] = [
+  { id: 'same-room', icon: 'bed',        label: 'Same room',     sub: 'One phone, passed between us' },
+  { id: 'apart',     icon: 'smartphone', label: 'Apart tonight', sub: 'On a call — photos, voice, words' },
 ];
 
 export function ModeToggle() {
@@ -100,7 +115,9 @@ export function ModeToggle() {
               border: on ? '1.5px solid #5856D6' : '1px solid rgba(255,255,255,0.07)',
               boxShadow: on ? '0 6px 26px rgba(88,86,214,0.28)' : 'none',
             }}>
-            <div className="text-[15px]">{m.emoji}</div>
+            <div style={{ color: on ? '#A5A3FF' : 'rgba(255,255,255,0.4)' }}>
+              <IconFromName name={m.icon} size={17} />
+            </div>
             <div className="text-[12px] font-black mt-0.5" style={{ color: on ? '#A5A3FF' : 'rgba(255,255,255,0.55)' }}>
               {m.label}
             </div>
@@ -234,8 +251,9 @@ export function DeckNote({ show, accent }: { show: boolean; accent: string }) {
     <AnimatePresence>
       {show && (
         <motion.p initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-          className="text-[10px] text-center italic" style={{ color: accent }}>
-          Deck reshuffled — you two went through every card. 🔥
+          className="text-[10px] text-center italic flex items-center justify-center gap-1.5" style={{ color: accent }}>
+          <Flame size={11} />
+          Deck reshuffled — you two went through every card.
         </motion.p>
       )}
     </AnimatePresence>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Moon, Pencil, Check, RotateCcw, ChevronRight, Flame, Dices, Disc3, Eye } from 'lucide-react';
+import { ArrowLeft, Pencil, Check, RotateCcw, ChevronRight, Flame, Dices, Disc3, Eye } from 'lucide-react';
 import { EASE, SPRING } from '@/lib/motion';
 import { useGameStore, type AppPhase } from '@/store/gameStore';
 import { useTogetherStore } from '@/store/togetherStore';
@@ -81,14 +81,14 @@ export default function TogetherScreen() {
             <ArrowLeft size={16} className="text-white/70" />
           </button>
           <div className="flex-1 min-w-0">
-            <h1 className="text-[18px] font-black text-white leading-tight">Together Tonight 😈</h1>
+            <h1 className="text-[18px] font-black text-white leading-tight">Together Tonight</h1>
             <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
               {rounds > 0 ? `${rounds} rounds played tonight` : 'Games for the two of us — not just for me'}
             </p>
           </div>
           <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
             style={{ background: meta.surface, border: `1px solid ${meta.color}55` }}>
-            <Moon size={15} style={{ color: meta.color }} />
+            <Flame size={15} style={{ color: meta.color }} fill="currentColor" />
           </div>
         </div>
 
@@ -177,7 +177,7 @@ export default function TogetherScreen() {
 
           <p className="text-[10px] text-center px-6 leading-relaxed" style={{ color: 'rgba(255,255,255,0.25)' }}>
             Just us two — nothing from these games gets sent anywhere. Skip anything either of us
-            doesn&rsquo;t want, no points lost. 🤍
+            doesn&rsquo;t want, no points lost.
           </p>
         </div>
       </div>

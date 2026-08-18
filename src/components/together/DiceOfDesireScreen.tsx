@@ -10,6 +10,7 @@ import {
   DICE_ACTIONS, DICE_SPOTS, DICE_TIMERS, HEAT_META, atOrBelow, forMode, personalize, roundLine, type DieFace,
 } from '@/data/together';
 import { TogetherHeader, HeatPill, Scoreboard, TurnBanner, Countdown } from './TogetherUI';
+import IconFromName from '../IconFromName';
 
 const ROLL_MS = 1300;
 const TICK_MS = 80;
@@ -75,7 +76,8 @@ export default function DiceOfDesireScreen() {
       <div className="relative z-10 flex flex-col h-full max-w-lg mx-auto w-full overflow-y-auto app-scroll">
 
         <TogetherHeader
-          title="Dice of Desire 🎲"
+          title="Dice of Desire"
+          icon="dice" accent={accent}
           sub={rolling ? 'Rolling…' : roll ? 'The dice do not negotiate' : 'Three dice, one order'}
           onBack={() => setPhase('together')}
           right={<HeatPill onClick={() => setPhase('together')} />}
@@ -91,15 +93,15 @@ export default function DiceOfDesireScreen() {
           {/* The three dice */}
           <div className="flex gap-2.5">
             <Die label="Action" accent={accent} rolling={rolling}
-              emoji={rolling ? actions[tick % Math.max(actions.length, 1)]?.emoji ?? '🎲' : roll?.action.emoji ?? '🎲'}
+              icon={rolling ? actions[tick % Math.max(actions.length, 1)]?.icon ?? 'dice' : roll?.action.icon ?? 'dice'}
               text={rolling ? actions[tick % Math.max(actions.length, 1)]?.text ?? '' : roll?.action.text ?? 'Roll me'} />
             <Die label="Where" accent={accent} rolling={rolling}
-              emoji={rolling ? spots[tick % Math.max(spots.length, 1)]?.emoji ?? '🎲' : roll?.spot.emoji ?? '🎲'}
+              icon={rolling ? spots[tick % Math.max(spots.length, 1)]?.icon ?? 'dice' : roll?.spot.icon ?? 'dice'}
               text={rolling
                 ? (spots[tick % Math.max(spots.length, 1)]?.text ?? '')
                 : roll ? personalize(roll.spot.text, theirName) : '…'} />
             <Die label="How long" accent={accent} rolling={rolling}
-              emoji="⏳"
+              icon="hourglass"
               text={rolling ? timers[tick % timers.length].label : roll?.timer.label ?? '…'} />
           </div>
 
@@ -152,8 +154,8 @@ export default function DiceOfDesireScreen() {
   );
 }
 
-function Die({ label, emoji, text, accent, rolling }: {
-  label: string; emoji: string; text: string; accent: string; rolling: boolean;
+function Die({ label, icon, text, accent, rolling }: {
+  label: string; icon: string; text: string; accent: string; rolling: boolean;
 }) {
   return (
     <motion.div className="flex-1 min-w-0 rounded-2xl p-3 flex flex-col items-center gap-1 text-center"
@@ -164,7 +166,9 @@ function Die({ label, emoji, text, accent, rolling }: {
       <span className="text-[9px] font-black uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.3)' }}>
         {label}
       </span>
-      <span className="text-[22px] leading-none">{emoji}</span>
+      <span className="flex items-center" style={{ color: rolling ? accent : 'rgba(255,255,255,0.9)' }}>
+        <IconFromName name={icon} size={22} />
+      </span>
       <span className="text-[10px] font-bold leading-tight text-white/85 break-words">{text}</span>
     </motion.div>
   );

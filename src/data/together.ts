@@ -5,7 +5,8 @@
    passing one phone back and forth or burning through a late-night call.
 
    Every card carries:
-     level — 1 Warm 😌 · 2 Hot 🔥 · 3 Burning 😈 · 4 No Limits 🥵
+     level — 1 Warm · 2 Hot · 3 Burning · 4 No Limits
+     icon  — a lucide name, drawn through IconFromName (no emoji anywhere)
      mode  — 'same-room' | 'apart' | 'both'   (the app picks by your night)
 
    Rewrite any line here in your own words — the screens follow this file.
@@ -18,7 +19,8 @@ export type CardMode = PlayMode | 'both';
 
 export interface HeatMeta {
   level: HeatLevel;
-  emoji: string;
+  /** lucide name, resolved through IconFromName */
+  icon: string;
   name: string;
   blurb: string;
   color: string;
@@ -28,19 +30,19 @@ export interface HeatMeta {
 
 export const HEAT_META: Record<HeatLevel, HeatMeta> = {
   1: {
-    level: 1, emoji: '😌', name: 'Warm', blurb: 'Sweet, flirty, easy to start',
+    level: 1, icon: 'sun', name: 'Warm', blurb: 'Sweet, flirty, easy to start',
     color: '#FF9F45', glow: 'rgba(255,159,69,0.35)', surface: '#1E1509',
   },
   2: {
-    level: 2, emoji: '🔥', name: 'Hot', blurb: 'Teasing, sensual, no filter',
+    level: 2, icon: 'flame', name: 'Hot', blurb: 'Teasing, sensual, no filter',
     color: '#FF2060', glow: 'rgba(255,32,96,0.35)', surface: '#220B13',
   },
   3: {
-    level: 3, emoji: '😈', name: 'Burning', blurb: 'Bold, daring, zero rules',
+    level: 3, icon: 'zap', name: 'Burning', blurb: 'Bold, daring, zero rules',
     color: '#C026D3', glow: 'rgba(192,38,211,0.35)', surface: '#1B0A22',
   },
   4: {
-    level: 4, emoji: '🥵', name: 'No Limits', blurb: 'Say it, do it, don’t explain it',
+    level: 4, icon: 'infinity', name: 'No Limits', blurb: 'Say it, do it, don’t explain it',
     color: '#E11D48', glow: 'rgba(225,29,72,0.4)', surface: '#26060F',
   },
 };
@@ -102,13 +104,13 @@ export const DUEL_CARDS: DuelCard[] = [
 
   // ══ Level 1 · Warm — dares ══
   { id: 1121, type: 'dare', level: 1, mode: 'same-room', text: 'Look into my eyes for 30 seconds. No talking, no laughing.', hint: 'First one to laugh loses a point', seconds: 30 },
-  { id: 1122, type: 'dare', level: 1, mode: 'apart', text: 'Send a voice note saying my name the way you say it when you miss me. 🎙️', seconds: 45 },
+  { id: 1122, type: 'dare', level: 1, mode: 'apart', text: 'Send a voice note saying my name the way you say it when you miss me.', seconds: 45 },
   { id: 1123, type: 'dare', level: 1, mode: 'both', text: 'Give me a compliment you have never said out loud before.', seconds: 30 },
   { id: 1124, type: 'dare', level: 1, mode: 'same-room', text: 'Hold my hand and trace one word onto my palm. I have to guess it.', seconds: 60 },
-  { id: 1125, type: 'dare', level: 1, mode: 'apart', text: 'Take a photo of exactly what you can see right now and send it. 📸', seconds: 45 },
+  { id: 1125, type: 'dare', level: 1, mode: 'apart', text: 'Take a photo of exactly what you can see right now and send it.', seconds: 45 },
   { id: 1126, type: 'dare', level: 1, mode: 'both', text: 'Say the last thought you had about me — out loud, word for word.', seconds: 30 },
   { id: 1127, type: 'dare', level: 1, mode: 'same-room', text: 'Fix my hair, slowly, without saying anything.', seconds: 30 },
-  { id: 1128, type: 'dare', level: 1, mode: 'apart', text: 'Send me the last photo in your gallery. No editing, no excuses. 📱', seconds: 45 },
+  { id: 1128, type: 'dare', level: 1, mode: 'apart', text: 'Send me the last photo in your gallery. No editing, no excuses.', seconds: 45 },
   { id: 1129, type: 'dare', level: 1, mode: 'both', text: 'Do your best impression of me. I get to rate it out of 10.', seconds: 45 },
   { id: 1130, type: 'dare', level: 1, mode: 'both', text: 'Say one thing you want from tonight. Just say it, don’t soften it.', seconds: 30 },
 
@@ -128,15 +130,15 @@ export const DUEL_CARDS: DuelCard[] = [
 
   // ══ Level 2 · Hot — dares ══
   { id: 1221, type: 'dare', level: 2, mode: 'same-room', text: 'Kiss me somewhere that isn’t my lips. Your choice, take your time.', seconds: 30 },
-  { id: 1222, type: 'dare', level: 2, mode: 'same-room', text: 'Whisper in my ear what you want to happen after this game ends. 🌙', seconds: 45 },
-  { id: 1223, type: 'dare', level: 2, mode: 'apart', text: 'Send a photo of what you’re wearing right now — exactly as you are. 📸', seconds: 60 },
-  { id: 1224, type: 'dare', level: 2, mode: 'apart', text: 'Voice note, low voice, 15 seconds: one thing you’d do to me if I walked in. 🎙️', seconds: 60 },
+  { id: 1222, type: 'dare', level: 2, mode: 'same-room', text: 'Whisper in my ear what you want to happen after this game ends.', seconds: 45 },
+  { id: 1223, type: 'dare', level: 2, mode: 'apart', text: 'Send a photo of what you’re wearing right now — exactly as you are.', seconds: 60 },
+  { id: 1224, type: 'dare', level: 2, mode: 'apart', text: 'Voice note, low voice, 15 seconds: one thing you’d do to me if I walked in.', seconds: 60 },
   { id: 1225, type: 'dare', level: 2, mode: 'same-room', text: 'Trace one slow line down my arm and keep eye contact the whole time.', seconds: 30 },
   { id: 1226, type: 'dare', level: 2, mode: 'both', text: 'Describe the last dream you had about us. Don’t skip the good part.', seconds: 60 },
   { id: 1227, type: 'dare', level: 2, mode: 'same-room', text: 'Take my hand and put it exactly where you want it. No words allowed.', seconds: 30 },
   { id: 1228, type: 'dare', level: 2, mode: 'same-room', text: 'Kiss my neck until I tell you to stop — or until the clock does.', seconds: 30 },
-  { id: 1229, type: 'dare', level: 2, mode: 'apart', text: 'Bite your lip, take the photo, send it before the timer ends. 😏', seconds: 45 },
-  { id: 1230, type: 'dare', level: 2, mode: 'apart', text: 'Text me the spiciest thought you’ve had today. No editing it down. ⏱️', seconds: 60 },
+  { id: 1229, type: 'dare', level: 2, mode: 'apart', text: 'Bite your lip, take the photo, send it before the timer ends.', seconds: 45 },
+  { id: 1230, type: 'dare', level: 2, mode: 'apart', text: 'Text me the spiciest thought you’ve had today. No editing it down.', seconds: 60 },
   { id: 1231, type: 'dare', level: 2, mode: 'both', text: 'Say out loud the thing you were too shy to say last time we were alone.', seconds: 45 },
   { id: 1232, type: 'dare', level: 2, mode: 'same-room', text: 'Sit in my lap and tell me why you picked dare.', seconds: 45 },
 
@@ -158,13 +160,13 @@ export const DUEL_CARDS: DuelCard[] = [
   { id: 1321, type: 'dare', level: 3, mode: 'same-room', text: 'Pin my hands for 10 seconds and don’t say a single word.', seconds: 30 },
   { id: 1322, type: 'dare', level: 3, mode: 'same-room', text: 'Kiss me like it’s the first night we ever got to. No holding back.', seconds: 45 },
   { id: 1323, type: 'dare', level: 3, mode: 'both', text: 'Say out loud, looking right at me, the thing you’d normally only text.', seconds: 45 },
-  { id: 1324, type: 'dare', level: 3, mode: 'apart', text: 'Turn the lights low, send one photo, and tell me what you were thinking when you took it. 🔥', seconds: 90 },
+  { id: 1324, type: 'dare', level: 3, mode: 'apart', text: 'Turn the lights low, send one photo, and tell me what you were thinking when you took it.', seconds: 90 },
   { id: 1325, type: 'dare', level: 3, mode: 'same-room', text: 'Choose: give me 30 seconds of your hands, or lose a point. Clock is running.', seconds: 30 },
-  { id: 1326, type: 'dare', level: 3, mode: 'apart', text: 'Call me right now and whisper the plan for the first hour I’m back. ☎️', seconds: 90 },
-  { id: 1327, type: 'dare', level: 3, mode: 'same-room', text: 'Take one thing off. You choose what. 😈', seconds: 30 },
+  { id: 1326, type: 'dare', level: 3, mode: 'apart', text: 'Call me right now and whisper the plan for the first hour I’m back.', seconds: 90 },
+  { id: 1327, type: 'dare', level: 3, mode: 'same-room', text: 'Take one thing off. You choose what.', seconds: 30 },
   { id: 1328, type: 'dare', level: 3, mode: 'same-room', text: 'Blindfold me with whatever you can reach and do one thing I won’t see coming.', seconds: 60 },
   { id: 1329, type: 'dare', level: 3, mode: 'same-room', text: 'Tease me for the full timer — and stop the exact second it ends.', seconds: 45 },
-  { id: 1330, type: 'dare', level: 3, mode: 'apart', text: 'Voice note: describe what you’d be doing right now if I were there. Don’t rush it. 🎙️', seconds: 90 },
+  { id: 1330, type: 'dare', level: 3, mode: 'apart', text: 'Voice note: describe what you’d be doing right now if I were there. Don’t rush it.', seconds: 90 },
   { id: 1331, type: 'dare', level: 3, mode: 'both', text: 'Give me one order for later tonight. I have to agree to it before the timer ends.', seconds: 45 },
   { id: 1332, type: 'dare', level: 3, mode: 'same-room', text: 'Put my hand exactly where you want it and hold it there while you look at me.', seconds: 30 },
 
@@ -181,15 +183,15 @@ export const DUEL_CARDS: DuelCard[] = [
   { id: 1410, type: 'truth', level: 4, mode: 'both', text: 'Tell me exactly how you want to be woken up next time I’m next to you.' },
 
   // ══ Level 4 · No Limits — dares ══
-  { id: 1421, type: 'dare', level: 4, mode: 'same-room', text: 'Take something off — and let me pick what goes next. 🥵', seconds: 45 },
+  { id: 1421, type: 'dare', level: 4, mode: 'same-room', text: 'Take something off — and let me pick what goes next.', seconds: 45 },
   { id: 1422, type: 'dare', level: 4, mode: 'same-room', text: 'Hand me your wrists. I decide when you get them back.', seconds: 60 },
   { id: 1423, type: 'dare', level: 4, mode: 'both', text: 'Ask me for what you want. Out loud, in your own words, until I say yes.', seconds: 60 },
-  { id: 1424, type: 'dare', level: 4, mode: 'apart', text: 'Send the photo you’d never let anyone else see. Only I get it, only tonight. 🔥', seconds: 120 },
-  { id: 1425, type: 'dare', level: 4, mode: 'apart', text: 'Call me and don’t hang up until you’ve told me every single thing you want. ☎️', seconds: 120 },
+  { id: 1424, type: 'dare', level: 4, mode: 'apart', text: 'Send the photo you’d never let anyone else see. Only I get it, only tonight.', seconds: 120 },
+  { id: 1425, type: 'dare', level: 4, mode: 'apart', text: 'Call me and don’t hang up until you’ve told me every single thing you want.', seconds: 120 },
   { id: 1426, type: 'dare', level: 4, mode: 'same-room', text: 'Whisper the filthiest honest sentence you have. Right against my ear.', seconds: 45 },
   { id: 1427, type: 'dare', level: 4, mode: 'same-room', text: 'For one full minute you don’t move — whatever I do. Try to keep quiet.', seconds: 60 },
   { id: 1428, type: 'dare', level: 4, mode: 'same-room', text: 'Show me — don’t tell me — the way you want to be touched.', seconds: 45 },
-  { id: 1429, type: 'dare', level: 4, mode: 'apart', text: 'Voice note with the lights off: what you’d do to me first, second, and third. 🎙️', seconds: 120 },
+  { id: 1429, type: 'dare', level: 4, mode: 'apart', text: 'Voice note with the lights off: what you’d do to me first, second, and third.', seconds: 120 },
   { id: 1430, type: 'dare', level: 4, mode: 'both', text: 'Make me a promise for tonight that you’d be embarrassed to say twice.', seconds: 45 },
   { id: 1431, type: 'dare', level: 4, mode: 'same-room', text: 'Kiss me and don’t stop until the timer does — no matter what I do to distract you.', seconds: 60 },
   { id: 1432, type: 'dare', level: 4, mode: 'both', text: 'Name the one thing you want most right now. If I agree, it happens the second this game ends.', seconds: 45 },
@@ -273,7 +275,8 @@ export const NHIE_CARDS: NhieCard[] = [
 
 export interface WheelSlice {
   id: number;
-  emoji: string;
+  /** lucide name, resolved through IconFromName */
+  icon: string;
   /** short label on the wheel */
   label: string;
   /** the full instruction under it */
@@ -285,46 +288,46 @@ export interface WheelSlice {
 
 export const WHEEL_SLICES: WheelSlice[] = [
   // ══ Level 1 · Warm ══
-  { id: 3101, emoji: '💬', label: 'Confess', action: 'Say one thing you’ve never told them.', level: 1, mode: 'both', seconds: 30 },
-  { id: 3102, emoji: '🤗', label: 'Hold', action: 'Hold them, no phone, until the timer ends.', level: 1, mode: 'same-room', seconds: 60 },
-  { id: 3103, emoji: '🎙️', label: 'Voice', action: 'Voice note: their name plus one honest sentence.', level: 1, mode: 'apart', seconds: 45 },
-  { id: 3104, emoji: '👀', label: 'Stare', action: 'Eyes locked, no words. Whoever blinks first owes a dare.', level: 1, mode: 'both', seconds: 30 },
-  { id: 3105, emoji: '🎵', label: 'Song', action: 'Play the song that is most us and say why.', level: 1, mode: 'both', seconds: 60 },
-  { id: 3106, emoji: '😂', label: 'Roast', action: 'Roast them lovingly, then take it all back with a compliment.', level: 1, mode: 'both', seconds: 30 },
-  { id: 3107, emoji: '🧠', label: 'Guess', action: 'Guess what they’re thinking right now. Wrong answer costs the point.', level: 1, mode: 'both', seconds: 30 },
-  { id: 3108, emoji: '🌹', label: 'Praise', action: 'Three compliments in a row. None of them about their face.', level: 1, mode: 'both', seconds: 45 },
+  { id: 3101, icon: 'message-circle', label: 'Confess', action: 'Say one thing you’ve never told them.', level: 1, mode: 'both', seconds: 30 },
+  { id: 3102, icon: 'heart-handshake', label: 'Hold', action: 'Hold them, no phone, until the timer ends.', level: 1, mode: 'same-room', seconds: 60 },
+  { id: 3103, icon: 'mic', label: 'Voice', action: 'Voice note: their name plus one honest sentence.', level: 1, mode: 'apart', seconds: 45 },
+  { id: 3104, icon: 'eye', label: 'Stare', action: 'Eyes locked, no words. Whoever blinks first owes a dare.', level: 1, mode: 'both', seconds: 30 },
+  { id: 3105, icon: 'music', label: 'Song', action: 'Play the song that is most us and say why.', level: 1, mode: 'both', seconds: 60 },
+  { id: 3106, icon: 'laugh', label: 'Roast', action: 'Roast them lovingly, then take it all back with a compliment.', level: 1, mode: 'both', seconds: 30 },
+  { id: 3107, icon: 'brain', label: 'Guess', action: 'Guess what they’re thinking right now. Wrong answer costs the point.', level: 1, mode: 'both', seconds: 30 },
+  { id: 3108, icon: 'flower', label: 'Praise', action: 'Three compliments in a row. None of them about their face.', level: 1, mode: 'both', seconds: 45 },
 
   // ══ Level 2 · Hot ══
-  { id: 3201, emoji: '💋', label: 'Kiss', action: 'Kiss them wherever you want. Take the whole timer.', level: 2, mode: 'same-room', seconds: 30 },
-  { id: 3202, emoji: '🤲', label: 'Touch', action: 'Hands only. Somewhere that makes them go quiet.', level: 2, mode: 'same-room', seconds: 30 },
-  { id: 3203, emoji: '🗣️', label: 'Whisper', action: 'Whisper the thing you were thinking ten minutes ago.', level: 2, mode: 'both', seconds: 30 },
-  { id: 3204, emoji: '📸', label: 'Send', action: 'One photo, taken right now, exactly as you are.', level: 2, mode: 'apart', seconds: 60 },
-  { id: 3205, emoji: '🌡️', label: 'Rate', action: 'Rate how much you want them right now, then explain the number.', level: 2, mode: 'both', seconds: 30 },
-  { id: 3206, emoji: '🙈', label: 'Blind', action: 'Close their eyes with your hand and surprise them.', level: 2, mode: 'same-room', seconds: 30 },
-  { id: 3207, emoji: '🐍', label: 'Neck', action: 'Their neck, your mouth, the whole timer.', level: 2, mode: 'same-room', seconds: 30 },
-  { id: 3208, emoji: '📖', label: 'Read out', action: 'Read them the boldest message you ever nearly sent.', level: 2, mode: 'both', seconds: 45 },
-  { id: 3209, emoji: '👕', label: 'Borrow', action: 'Put on something of theirs — and only that — for the rest of the game.', level: 2, mode: 'same-room', seconds: 60 },
+  { id: 3201, icon: 'heart', label: 'Kiss', action: 'Kiss them wherever you want. Take the whole timer.', level: 2, mode: 'same-room', seconds: 30 },
+  { id: 3202, icon: 'hand', label: 'Touch', action: 'Hands only. Somewhere that makes them go quiet.', level: 2, mode: 'same-room', seconds: 30 },
+  { id: 3203, icon: 'ear', label: 'Whisper', action: 'Whisper the thing you were thinking ten minutes ago.', level: 2, mode: 'both', seconds: 30 },
+  { id: 3204, icon: 'camera', label: 'Send', action: 'One photo, taken right now, exactly as you are.', level: 2, mode: 'apart', seconds: 60 },
+  { id: 3205, icon: 'thermometer', label: 'Rate', action: 'Rate how much you want them right now, then explain the number.', level: 2, mode: 'both', seconds: 30 },
+  { id: 3206, icon: 'eye-off', label: 'Blind', action: 'Close their eyes with your hand and surprise them.', level: 2, mode: 'same-room', seconds: 30 },
+  { id: 3207, icon: 'feather', label: 'Neck', action: 'Their neck, your mouth, the whole timer.', level: 2, mode: 'same-room', seconds: 30 },
+  { id: 3208, icon: 'book-open', label: 'Read out', action: 'Read them the boldest message you ever nearly sent.', level: 2, mode: 'both', seconds: 45 },
+  { id: 3209, icon: 'shirt', label: 'Borrow', action: 'Put on something of theirs — and only that — for the rest of the game.', level: 2, mode: 'same-room', seconds: 60 },
 
   // ══ Level 3 · Burning ══
-  { id: 3301, emoji: '😈', label: 'Command', action: 'Give them one order. They have to follow it.', level: 3, mode: 'both', seconds: 45 },
-  { id: 3302, emoji: '⏳', label: 'Tease', action: 'Tease them for the full timer — and stop the second it ends.', level: 3, mode: 'same-room', seconds: 45 },
-  { id: 3303, emoji: '🔥', label: 'Claim', action: 'Show them exactly where you want to be kissed. No talking.', level: 3, mode: 'same-room', seconds: 30 },
-  { id: 3304, emoji: '🎬', label: 'Describe', action: 'Describe the first five minutes of the next time you’re alone.', level: 3, mode: 'both', seconds: 60 },
-  { id: 3305, emoji: '🩱', label: 'Lose one', action: 'One item off. They choose which.', level: 3, mode: 'same-room', seconds: 30 },
-  { id: 3306, emoji: '☎️', label: 'Call', action: 'Call them and say the thing you’d only ever type.', level: 3, mode: 'apart', seconds: 90 },
-  { id: 3307, emoji: '⛓️', label: 'Hold down', action: 'Hold their hands above their head and don’t explain yourself.', level: 3, mode: 'same-room', seconds: 30 },
-  { id: 3308, emoji: '🌙', label: 'Lights off', action: 'Lights off, one photo, and one sentence about what you were thinking.', level: 3, mode: 'apart', seconds: 90 },
-  { id: 3309, emoji: '🫦', label: 'Almost', action: 'Get as close to kissing them as possible without doing it. Whole timer.', level: 3, mode: 'same-room', seconds: 30 },
+  { id: 3301, icon: 'crown', label: 'Command', action: 'Give them one order. They have to follow it.', level: 3, mode: 'both', seconds: 45 },
+  { id: 3302, icon: 'hourglass', label: 'Tease', action: 'Tease them for the full timer — and stop the second it ends.', level: 3, mode: 'same-room', seconds: 45 },
+  { id: 3303, icon: 'target', label: 'Claim', action: 'Show them exactly where you want to be kissed. No talking.', level: 3, mode: 'same-room', seconds: 30 },
+  { id: 3304, icon: 'clapperboard', label: 'Describe', action: 'Describe the first five minutes of the next time you’re alone.', level: 3, mode: 'both', seconds: 60 },
+  { id: 3305, icon: 'scissors', label: 'Lose one', action: 'One item off. They choose which.', level: 3, mode: 'same-room', seconds: 30 },
+  { id: 3306, icon: 'phone', label: 'Call', action: 'Call them and say the thing you’d only ever type.', level: 3, mode: 'apart', seconds: 90 },
+  { id: 3307, icon: 'link', label: 'Hold down', action: 'Hold their hands above their head and don’t explain yourself.', level: 3, mode: 'same-room', seconds: 30 },
+  { id: 3308, icon: 'moon', label: 'Lights off', action: 'Lights off, one photo, and one sentence about what you were thinking.', level: 3, mode: 'apart', seconds: 90 },
+  { id: 3309, icon: 'magnet', label: 'Almost', action: 'Get as close to kissing them as possible without doing it. Whole timer.', level: 3, mode: 'same-room', seconds: 30 },
 
   // ══ Level 4 · No Limits ══
-  { id: 3401, emoji: '🥵', label: 'Obey', action: 'They give one order. No negotiating, no laughing your way out.', level: 4, mode: 'both', seconds: 60 },
-  { id: 3402, emoji: '🙊', label: 'Silence', action: 'One full minute without moving or making a sound — whatever they do.', level: 4, mode: 'same-room', seconds: 60 },
-  { id: 3403, emoji: '🗝️', label: 'Confess all', action: 'Tell them the fantasy you’ve never named. All of it.', level: 4, mode: 'both', seconds: 90 },
-  { id: 3404, emoji: '🙏', label: 'Ask', action: 'Ask them for what you want, in your own words, until they say yes.', level: 4, mode: 'both', seconds: 60 },
-  { id: 3405, emoji: '🫥', label: 'Blindfold', action: 'Blindfold them and do one thing they will not see coming.', level: 4, mode: 'same-room', seconds: 60 },
-  { id: 3406, emoji: '📿', label: 'Beg', action: 'Make them beg. Stop the moment they do — or don’t.', level: 4, mode: 'same-room', seconds: 60 },
-  { id: 3407, emoji: '🔞', label: 'Only me', action: 'Send the photo nobody else gets to see. Delete nothing, explain everything.', level: 4, mode: 'apart', seconds: 120 },
-  { id: 3408, emoji: '🎧', label: 'Say it', action: 'Call them and don’t hang up until you’ve said every last thing you want.', level: 4, mode: 'apart', seconds: 120 },
+  { id: 3401, icon: 'gavel', label: 'Obey', action: 'They give one order. No negotiating, no laughing your way out.', level: 4, mode: 'both', seconds: 60 },
+  { id: 3402, icon: 'volume-x', label: 'Silence', action: 'One full minute without moving or making a sound — whatever they do.', level: 4, mode: 'same-room', seconds: 60 },
+  { id: 3403, icon: 'key', label: 'Confess all', action: 'Tell them the fantasy you’ve never named. All of it.', level: 4, mode: 'both', seconds: 90 },
+  { id: 3404, icon: 'hand-helping', label: 'Ask', action: 'Ask them for what you want, in your own words, until they say yes.', level: 4, mode: 'both', seconds: 60 },
+  { id: 3405, icon: 'mask', label: 'Blindfold', action: 'Blindfold them and do one thing they will not see coming.', level: 4, mode: 'same-room', seconds: 60 },
+  { id: 3406, icon: 'flame', label: 'Beg', action: 'Make them beg. Stop the moment they do — or don’t.', level: 4, mode: 'same-room', seconds: 60 },
+  { id: 3407, icon: 'lock', label: 'Only me', action: 'Send the photo nobody else gets to see. Delete nothing, explain everything.', level: 4, mode: 'apart', seconds: 120 },
+  { id: 3408, icon: 'headphones', label: 'Say it', action: 'Call them and don’t hang up until you’ve said every last thing you want.', level: 4, mode: 'apart', seconds: 120 },
 ];
 
 // ─── 4 · DICE OF DESIRE ───────────────────────────────────────────────────────
@@ -333,54 +336,55 @@ export const WHEEL_SLICES: WheelSlice[] = [
 
 export interface DieFace {
   id: number;
-  emoji: string;
+  /** lucide name, resolved through IconFromName */
+  icon: string;
   text: string;
   level: HeatLevel;
   mode: CardMode;
 }
 
 export const DICE_ACTIONS: DieFace[] = [
-  { id: 4101, emoji: '💋', text: 'Kiss',                     level: 1, mode: 'same-room' },
-  { id: 4102, emoji: '🤗', text: 'Hold',                     level: 1, mode: 'same-room' },
-  { id: 4103, emoji: '🗣️', text: 'Whisper to',               level: 1, mode: 'both' },
-  { id: 4104, emoji: '🎙️', text: 'Voice note about',         level: 1, mode: 'apart' },
-  { id: 4105, emoji: '✍️', text: 'Write about',              level: 1, mode: 'apart' },
-  { id: 4106, emoji: '🌹', text: 'Compliment',               level: 1, mode: 'both' },
-  { id: 4107, emoji: '🤲', text: 'Trace slowly',             level: 2, mode: 'same-room' },
-  { id: 4108, emoji: '😏', text: 'Tease',                    level: 2, mode: 'both' },
-  { id: 4109, emoji: '🎬', text: 'Describe what you’d do to', level: 2, mode: 'both' },
-  { id: 4110, emoji: '🫧', text: 'Breathe against',          level: 2, mode: 'same-room' },
-  { id: 4111, emoji: '📸', text: 'Send a photo of',          level: 2, mode: 'apart' },
-  { id: 4112, emoji: '😈', text: 'Claim',                    level: 3, mode: 'same-room' },
-  { id: 4113, emoji: '⏳', text: 'Take your time with',      level: 3, mode: 'same-room' },
-  { id: 4114, emoji: '🫦', text: 'Get one breath away from', level: 3, mode: 'same-room' },
-  { id: 4115, emoji: '🔥', text: 'Confess what you want from', level: 3, mode: 'both' },
-  { id: 4116, emoji: '🥵', text: 'Worship',                  level: 4, mode: 'same-room' },
-  { id: 4117, emoji: '⛓️', text: 'Take control of',          level: 4, mode: 'same-room' },
-  { id: 4118, emoji: '🙏', text: 'Beg for',                  level: 4, mode: 'both' },
-  { id: 4119, emoji: '🎧', text: 'Say out loud, in detail, what you want from', level: 4, mode: 'apart' },
-  { id: 4120, emoji: '🖤', text: 'Do whatever you want with', level: 4, mode: 'same-room' },
+  { id: 4101, icon: 'heart', text: 'Kiss',                     level: 1, mode: 'same-room' },
+  { id: 4102, icon: 'heart-handshake', text: 'Hold',                     level: 1, mode: 'same-room' },
+  { id: 4103, icon: 'ear', text: 'Whisper to',               level: 1, mode: 'both' },
+  { id: 4104, icon: 'mic', text: 'Voice note about',         level: 1, mode: 'apart' },
+  { id: 4105, icon: 'pen', text: 'Write about',              level: 1, mode: 'apart' },
+  { id: 4106, icon: 'flower', text: 'Compliment',               level: 1, mode: 'both' },
+  { id: 4107, icon: 'hand', text: 'Trace slowly',             level: 2, mode: 'same-room' },
+  { id: 4108, icon: 'hourglass', text: 'Tease',                    level: 2, mode: 'both' },
+  { id: 4109, icon: 'clapperboard', text: 'Describe what you’d do to', level: 2, mode: 'both' },
+  { id: 4110, icon: 'wind', text: 'Breathe against',          level: 2, mode: 'same-room' },
+  { id: 4111, icon: 'camera', text: 'Send a photo of',          level: 2, mode: 'apart' },
+  { id: 4112, icon: 'target', text: 'Claim',                    level: 3, mode: 'same-room' },
+  { id: 4113, icon: 'clock', text: 'Take your time with',      level: 3, mode: 'same-room' },
+  { id: 4114, icon: 'magnet', text: 'Get one breath away from', level: 3, mode: 'same-room' },
+  { id: 4115, icon: 'message-circle', text: 'Confess what you want from', level: 3, mode: 'both' },
+  { id: 4116, icon: 'star', text: 'Worship',                  level: 4, mode: 'same-room' },
+  { id: 4117, icon: 'crown', text: 'Take control of',          level: 4, mode: 'same-room' },
+  { id: 4118, icon: 'hand-helping', text: 'Beg for',                  level: 4, mode: 'both' },
+  { id: 4119, icon: 'headphones', text: 'Say out loud, in detail, what you want from', level: 4, mode: 'apart' },
+  { id: 4120, icon: 'infinity', text: 'Do whatever you want with', level: 4, mode: 'same-room' },
 ];
 
 export const DICE_SPOTS: DieFace[] = [
-  { id: 4201, emoji: '🫦', text: 'their lips',           level: 1, mode: 'both' },
-  { id: 4202, emoji: '🤚', text: 'their hand',           level: 1, mode: 'both' },
-  { id: 4203, emoji: '🌙', text: 'their forehead',       level: 1, mode: 'both' },
-  { id: 4204, emoji: '😊', text: 'their smile',          level: 1, mode: 'both' },
-  { id: 4205, emoji: '💫', text: 'their neck',           level: 2, mode: 'both' },
-  { id: 4206, emoji: '🦋', text: 'their shoulder',       level: 2, mode: 'both' },
-  { id: 4207, emoji: '🌿', text: 'their back',           level: 2, mode: 'both' },
-  { id: 4208, emoji: '👂', text: 'their ear',            level: 2, mode: 'both' },
-  { id: 4209, emoji: '🪶', text: 'their waist',          level: 2, mode: 'both' },
-  { id: 4210, emoji: '🔥', text: 'wherever they point',  level: 3, mode: 'both' },
-  { id: 4211, emoji: '🎯', text: 'the spot they’d never say out loud', level: 3, mode: 'both' },
-  { id: 4212, emoji: '🖐️', text: 'their wrists, held still', level: 3, mode: 'same-room' },
-  { id: 4213, emoji: '🩶', text: 'their inner arm',      level: 3, mode: 'both' },
-  { id: 4214, emoji: '🌌', text: 'everywhere they’ve been thinking about all day', level: 3, mode: 'both' },
-  { id: 4215, emoji: '🥵', text: 'the place they’d only let you touch', level: 4, mode: 'same-room' },
-  { id: 4216, emoji: '🖤', text: 'whatever they ask for — no questions', level: 4, mode: 'both' },
-  { id: 4217, emoji: '⛓️', text: 'them, with their hands behind their back', level: 4, mode: 'same-room' },
-  { id: 4218, emoji: '🔞', text: 'the thing they were too shy to name last round', level: 4, mode: 'both' },
+  { id: 4201, icon: 'heart', text: 'their lips',           level: 1, mode: 'both' },
+  { id: 4202, icon: 'hand', text: 'their hand',           level: 1, mode: 'both' },
+  { id: 4203, icon: 'moon', text: 'their forehead',       level: 1, mode: 'both' },
+  { id: 4204, icon: 'smile', text: 'their smile',          level: 1, mode: 'both' },
+  { id: 4205, icon: 'feather', text: 'their neck',           level: 2, mode: 'both' },
+  { id: 4206, icon: 'bird', text: 'their shoulder',       level: 2, mode: 'both' },
+  { id: 4207, icon: 'waves', text: 'their back',           level: 2, mode: 'both' },
+  { id: 4208, icon: 'ear', text: 'their ear',            level: 2, mode: 'both' },
+  { id: 4209, icon: 'shirt', text: 'their waist',          level: 2, mode: 'both' },
+  { id: 4210, icon: 'target', text: 'wherever they point',  level: 3, mode: 'both' },
+  { id: 4211, icon: 'lock', text: 'the spot they’d never say out loud', level: 3, mode: 'both' },
+  { id: 4212, icon: 'link', text: 'their wrists, held still', level: 3, mode: 'same-room' },
+  { id: 4213, icon: 'droplets', text: 'their inner arm',      level: 3, mode: 'both' },
+  { id: 4214, icon: 'globe', text: 'everywhere they’ve been thinking about all day', level: 3, mode: 'both' },
+  { id: 4215, icon: 'flame', text: 'the place they’d only let you touch', level: 4, mode: 'same-room' },
+  { id: 4216, icon: 'infinity', text: 'whatever they ask for — no questions', level: 4, mode: 'both' },
+  { id: 4217, icon: 'mask', text: 'them, with their hands behind their back', level: 4, mode: 'same-room' },
+  { id: 4218, icon: 'key', text: 'the thing they were too shy to name last round', level: 4, mode: 'both' },
 ];
 
 export const DICE_TIMERS: { id: number; seconds: number; label: string }[] = [

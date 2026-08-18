@@ -10,6 +10,7 @@ import {
   WHEEL_SLICES, HEAT_META, atOrBelow, forMode, personalize, roundLine, type WheelSlice,
 } from '@/data/together';
 import { TogetherHeader, HeatPill, Scoreboard, TurnBanner, Countdown } from './TogetherUI';
+import IconFromName from '../IconFromName';
 
 const SLICE_COUNT = 8;
 const SPIN_MS = 4200;
@@ -72,7 +73,8 @@ export default function SpinTheHeatScreen() {
       <div className="relative z-10 flex flex-col h-full max-w-lg mx-auto w-full overflow-y-auto app-scroll">
 
         <TogetherHeader
-          title="Spin the Heat 🎡"
+          title="Spin the Heat"
+          icon="rotate-cw" accent={accent}
           sub={spinning ? 'Spinning…' : landed ? 'The wheel has decided' : 'One spin, no arguing with it'}
           onBack={() => setPhase('together')}
           right={<HeatPill onClick={() => setPhase('together')} />}
@@ -106,23 +108,40 @@ export default function SpinTheHeatScreen() {
                   const y1 = 100 + 98 * Math.sin(rad(start));
                   const x2 = 100 + 98 * Math.cos(rad(end));
                   const y2 = 100 + 98 * Math.sin(rad(end));
-                  const mid = start + sliceAngle / 2;
-                  const lx = 100 + 62 * Math.cos(rad(mid));
-                  const ly = 100 + 62 * Math.sin(rad(mid));
                   const heatColor = HEAT_META[face.level].color;
                   return (
                     <g key={face.id}>
                       <path d={`M100 100 L${x1} ${y1} A98 98 0 ${large} 1 ${x2} ${y2} Z`}
                         fill={i % 2 === 0 ? `${heatColor}2E` : `${heatColor}18`}
                         stroke="rgba(255,255,255,0.07)" strokeWidth="0.7" />
-                      <text x={lx} y={ly - 4} textAnchor="middle" fontSize="15">{face.emoji}</text>
-                      <text x={lx} y={ly + 10} textAnchor="middle" fontSize="8" fontWeight="800"
-                        fill="rgba(255,255,255,0.85)">{face.label}</text>
                     </g>
                   );
                 })}
                 <circle cx="100" cy="100" r="20" fill="#0F0F0F" stroke={accent} strokeWidth="1.5" />
               </svg>
+
+              {/* Slice labels ride the wheel as real icons, not glyphs in the SVG */}
+              {faces.map((face, i) => {
+                const mid = ((i * sliceAngle - 90 + sliceAngle / 2) * Math.PI) / 180;
+                const heatColor = HEAT_META[face.level].color;
+                return (
+                  <div key={`label-${face.id}`}
+                    className="absolute flex flex-col items-center gap-0.5 pointer-events-none"
+                    style={{
+                      left: `${50 + 31 * Math.cos(mid)}%`,
+                      top: `${50 + 31 * Math.sin(mid)}%`,
+                      transform: 'translate(-50%, -50%)',
+                    }}>
+                    <span style={{ color: heatColor }}>
+                      <IconFromName name={face.icon} size={16} />
+                    </span>
+                    <span className="text-[8px] font-black leading-none whitespace-nowrap"
+                      style={{ color: 'rgba(255,255,255,0.85)' }}>
+                      {face.label}
+                    </span>
+                  </div>
+                );
+              })}
             </motion.div>
 
             <button onClick={spin} disabled={spinning}
@@ -139,9 +158,10 @@ export default function SpinTheHeatScreen() {
 
                 <div className="rounded-[24px] p-5" style={{ background: '#161616',
                   border: '1px solid rgba(255,255,255,0.09)', borderLeft: `3px solid ${HEAT_META[landed.level].color}` }}>
-                  <p className="text-[10px] uppercase tracking-widest font-black mb-2"
+                  <p className="text-[10px] uppercase tracking-widest font-black mb-2 flex items-center gap-1.5"
                     style={{ color: HEAT_META[landed.level].color }}>
-                    {landed.emoji} {landed.label} · {HEAT_META[landed.level].name}
+                    <IconFromName name={landed.icon} size={12} />
+                    {landed.label} · {HEAT_META[landed.level].name}
                   </p>
                   <p className="text-[18px] font-bold leading-snug text-white">
                     {personalize(landed.action, turn === 'p1' ? p2 : p1)}
