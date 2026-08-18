@@ -30,6 +30,11 @@ const WouldYouRatherScreen     = dynamic(() => import('@/components/WouldYouRath
 const TruthOrDareScreen        = dynamic(() => import('@/components/TruthOrDareScreen'),       { ssr: false });
 const HeatDialScreen           = dynamic(() => import('@/components/HeatDialScreen'),          { ssr: false });
 const ForYouScreen             = dynamic(() => import('@/components/ForYouScreen'),            { ssr: false });
+const TogetherScreen           = dynamic(() => import('@/components/together/TogetherScreen'),          { ssr: false });
+const DareDuelScreen           = dynamic(() => import('@/components/together/DareDuelScreen'),          { ssr: false });
+const NeverHaveIEverScreen     = dynamic(() => import('@/components/together/NeverHaveIEverScreen'),    { ssr: false });
+const SpinTheHeatScreen        = dynamic(() => import('@/components/together/SpinTheHeatScreen'),       { ssr: false });
+const DiceOfDesireScreen       = dynamic(() => import('@/components/together/DiceOfDesireScreen'),      { ssr: false });
 
 function Screen({ children }: { children: React.ReactNode }) {
   return (
@@ -126,6 +131,11 @@ export default function HomePage() {
         {currentPhase === 'truth-or-dare'     && <Screen key="truth-or-dare"><TruthOrDareScreen /></Screen>}
         {currentPhase === 'heat-dial'         && <Screen key="heat-dial"><HeatDialScreen /></Screen>}
         {currentPhase === 'for-you'           && <Screen key="for-you"><ForYouScreen /></Screen>}
+        {currentPhase === 'together'          && <Screen key="together"><TogetherScreen /></Screen>}
+        {currentPhase === 'dare-duel'         && <Screen key="dare-duel"><DareDuelScreen /></Screen>}
+        {currentPhase === 'never-have-i-ever' && <Screen key="never-have-i-ever"><NeverHaveIEverScreen /></Screen>}
+        {currentPhase === 'spin-the-heat'     && <Screen key="spin-the-heat"><SpinTheHeatScreen /></Screen>}
+        {currentPhase === 'dice-of-desire'    && <Screen key="dice-of-desire"><DiceOfDesireScreen /></Screen>}
         {currentPhase === 'admin-dashboard'   && <Screen key="admin-dashboard"><ActivityDashboardScreen /></Screen>}
         {currentPhase === 'complete'          && <Screen key="complete"><CompletionScreen /></Screen>}
       </AnimatePresence>

@@ -17,6 +17,11 @@ export type AppPhase =
   | 'heat-dial'
   | 'constellation'
   | 'for-you'
+  | 'together'
+  | 'dare-duel'
+  | 'never-have-i-ever'
+  | 'spin-the-heat'
+  | 'dice-of-desire'
   | 'admin-dashboard'
   | 'complete';
 
@@ -88,6 +93,11 @@ export const useGameStore = create<GameState>()(
           'heat-dial':          'Opened Heat Dial',
           'constellation':      'Opened Our Constellation',
           'for-you':            'Opened For You',
+          'together':           'Opened Together Tonight',
+          'dare-duel':          'Opened Dare Duel',
+          'never-have-i-ever':  'Opened Never Have I Ever',
+          'spin-the-heat':      'Opened Spin the Heat',
+          'dice-of-desire':     'Opened Dice of Desire',
         };
         if (labels[phase]) logActivity('mini-game', labels[phase]!);
         set({ phase, isReturningUser: isReturningUser || phase === 'home' });

@@ -8,8 +8,10 @@ import {
 } from 'lucide-react';
 import ConstellationBanner from './ConstellationBanner';
 import ForYouBanner from './ForYouBanner';
+import TogetherBanner from './together/TogetherBanner';
 import { EASE, SPRING } from '@/lib/motion';
 import { useGameStore, getChapterProgress, isChapterUnlocked } from '@/store/gameStore';
+import { useTogetherStore } from '@/store/togetherStore';
 import { categoriesMeta } from '@/data/meta';
 import { softTap, heartbeat } from '@/lib/useHaptics';
 import IconFromName from './IconFromName';
@@ -130,6 +132,7 @@ export default function HomeMapScreen() {
   const isReturningUser = useGameStore(s => s.isReturningUser);
   const setPhase = useGameStore(s => s.setPhase);
   const startChapter = useGameStore(s => s.startChapter);
+  const togetherRounds = useTogetherStore(s => s.rounds);
   const time = useTimeContext();
 
   const totalAnswered = Object.values(answers).filter(v => v?.trim()).length + reversed.length;
@@ -253,6 +256,9 @@ export default function HomeMapScreen() {
 
         {/* ── For You (from him → her) ── */}
         <ForYouBanner onOpen={() => { heartbeat(); playBloom(); setPhase('for-you'); }} />
+
+        {/* ── Together Tonight (the two of us, same night) ── */}
+        <TogetherBanner rounds={togetherRounds} onOpen={() => { heartbeat(); playBloom(); setPhase('together'); }} />
 
         {/* ── Constellation hero ── */}
         <ConstellationBanner
