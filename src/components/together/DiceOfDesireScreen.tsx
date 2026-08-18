@@ -27,7 +27,8 @@ export default function DiceOfDesireScreen() {
   const accent = HEAT_META[heat].color;
   const actions = useMemo(() => forMode(atOrBelow(DICE_ACTIONS, heat), mode), [heat, mode]);
   const spots = useMemo(() => forMode(atOrBelow(DICE_SPOTS, heat), mode), [heat, mode]);
-  const timers = useMemo(() => (heat === 1 ? DICE_TIMERS.slice(0, 4) : DICE_TIMERS), [heat]);
+  // short clocks at Warm, the punishing ones only once the dial is up
+  const timers = useMemo(() => DICE_TIMERS.slice(0, 3 + heat), [heat]);
 
   const [roll, setRoll] = useState<Roll | null>(null);
   const [rolling, setRolling] = useState(false);

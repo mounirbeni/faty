@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, SkipForward, RotateCw } from 'lucide-react';
+import { Check, SkipForward, RotateCw, Shuffle } from 'lucide-react';
 import { EASE, SPRING } from '@/lib/motion';
 import { useGameStore } from '@/store/gameStore';
 import { useTogetherStore } from '@/store/togetherStore';
@@ -31,7 +31,10 @@ export default function SpinTheHeatScreen() {
 
   const accent = HEAT_META[heat].color;
   const deck = useMemo(() => forMode(atOrBelow(WHEEL_SLICES, heat), mode), [heat, mode]);
-  const faces = useMemo(() => pickFaces(deck), [deck]);
+
+  // the deck outgrew the wheel — this re-deals which eight make the cut
+  const [faceSeed, setFaceSeed] = useState(0);
+  const faces = useMemo(() => pickFaces(deck), [deck, faceSeed]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [rotation, setRotation] = useState(0);
   const [spinning, setSpinning] = useState(false);
@@ -161,14 +164,22 @@ export default function SpinTheHeatScreen() {
                 </div>
               </motion.div>
             ) : (
-              <motion.button key="spin-cta" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                whileTap={{ scale: 0.97 }} onClick={spin} disabled={spinning}
-                className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl text-[15px] font-black text-white"
-                style={{ background: spinning ? '#1A1A1A' : accent, boxShadow: spinning ? 'none' : `0 6px 28px ${accent}55`,
-                  transition: `background 0.3s cubic-bezier(${EASE.smooth.join(',')})` }}>
-                <RotateCw size={17} className={spinning ? 'animate-spin' : ''} />
-                {spinning ? 'Round and round…' : 'Spin the wheel'}
-              </motion.button>
+              <motion.div key="spin-cta" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                className="w-full flex flex-col gap-2.5">
+                <motion.button whileTap={{ scale: 0.97 }} onClick={spin} disabled={spinning}
+                  className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl text-[15px] font-black text-white"
+                  style={{ background: spinning ? '#1A1A1A' : accent, boxShadow: spinning ? 'none' : `0 6px 28px ${accent}55`,
+                    transition: `background 0.3s cubic-bezier(${EASE.smooth.join(',')})` }}>
+                  <RotateCw size={17} className={spinning ? 'animate-spin' : ''} />
+                  {spinning ? 'Round and round…' : 'Spin the wheel'}
+                </motion.button>
+                <motion.button whileTap={{ scale: 0.97 }} onClick={() => setFaceSeed(n => n + 1)} disabled={spinning}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-2xl text-[11px] font-bold"
+                  style={{ background: '#141414', border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.45)',
+                    opacity: spinning ? 0.4 : 1 }}>
+                  <Shuffle size={12} /> Deal eight new slices ({deck.length} in the deck)
+                </motion.button>
+              </motion.div>
             )}
           </AnimatePresence>
         </div>

@@ -52,13 +52,13 @@ export function HeatPicker() {
   const heat = useTogetherStore(s => s.heat);
   const setHeat = useTogetherStore(s => s.setHeat);
   return (
-    <div className="flex gap-2">
+    <div className="grid grid-cols-2 gap-2">
       {HEAT_ORDER.map((lvl: HeatLevel) => {
         const meta = HEAT_META[lvl];
         const on = heat === lvl;
         return (
           <motion.button key={lvl} onClick={() => setHeat(lvl)} whileTap={{ scale: 0.95 }}
-            className="flex-1 rounded-2xl py-3 px-2 flex flex-col items-center gap-1"
+            className="rounded-2xl py-3 px-2 flex flex-col items-center gap-1"
             style={{
               background: on ? meta.surface : '#141414',
               border: on ? `1.5px solid ${meta.color}` : '1px solid rgba(255,255,255,0.07)',
