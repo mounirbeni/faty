@@ -8,6 +8,7 @@ import { notifyOwner } from '@/lib/notify';
 import { useTimeContext } from '@/lib/timeSystem';
 import { softTap, heartbeat, successVibe } from '@/lib/useHaptics';
 import { EASE, SPRING } from '@/lib/motion';
+import InstallApp from './InstallApp';
 import { HAVEN_LINES, FEELINGS, NEEDS, COMFORT_NOTES, SELF_CARE, LET_GO_REPLIES } from '@/data/haven';
 import { loadCycle, saveCycle, cycleInfo, PHASE_INFO, PAIN_LEVELS, fmtDate, predictCycles, dayKind, addDays, type CycleData, type CalcInput } from '@/lib/cycle';
 
@@ -238,6 +239,8 @@ function Hub({ onPick, toast }: { onPick: (v: View) => void; toast: (m: string) 
           </AnimatePresence>
         </div>
       </Card>
+
+      <InstallApp />
 
       {/* Feelings */}
       <Card delay={0.08}>
