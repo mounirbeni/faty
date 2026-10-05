@@ -482,25 +482,43 @@ function Care({ toast }: { toast: (m: string) => void }) {
 
 // ─── Let it go — worry bubbles ───────────────────────────────────────────────
 
+type Worry = { id: number; text: string; x: number };
+const WORRIES_KEY = 'haven_worries';
+
+function esc(t: string) {
+  return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+function loadWorries(): Worry[] {
+  try { const w = JSON.parse(localStorage.getItem(WORRIES_KEY) || '[]'); return Array.isArray(w) ? w : []; } catch { return []; }
+}
+
 function LetGo() {
   const [text, setText] = useState('');
-  const [bubbles, setBubbles] = useState<{ id: number; text: string; x: number }[]>([]);
+  const [bubbles, setBubbles] = useState<Worry[]>(loadWorries);
   const [reply, setReply] = useState<string | null>(null);
   const [pops, setPops] = useState(0);
-  const nextId = useRef(0);
+
+  // Keep her worries saved until she pops them, even after leaving the site
+  const save = (next: Worry[]) => {
+    setBubbles(next);
+    try { localStorage.setItem(WORRIES_KEY, JSON.stringify(next)); } catch { /* ignore */ }
+  };
 
   const add = () => {
     const t = text.trim();
     if (!t) return;
     softTap();
-    setBubbles(b => [...b, { id: nextId.current++, text: t, x: 10 + Math.random() * 55 }]);
+    save([...bubbles, { id: Date.now(), text: t, x: 10 + Math.random() * 55 }]);
     setText('');
+    notifyOwner(`🎈 <b>Something is bothering her</b>\n\n<i>“${esc(t)}”</i>\n\n💗 <i>Check on her gently.</i>`);
   };
   const pop = (id: number) => {
     heartbeat();
-    setBubbles(b => b.filter(x => x.id !== id));
+    const w = bubbles.find(x => x.id === id);
+    save(bubbles.filter(x => x.id !== id));
     setReply(LET_GO_REPLIES[pops % LET_GO_REPLIES.length]);
     setPops(n => n + 1);
+    if (w) notifyOwner(`🫧 <b>She let go of:</b> <i>“${esc(w.text)}”</i>`);
   };
 
   return (
@@ -559,7 +577,7 @@ function Vent({ toast }: { toast: (m: string) => void }) {
     const t = text.trim();
     if (!t) return;
     successVibe();
-    notifyOwner(`✍️ <b>She wanted to tell you something</b>\n\n<i>${t.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</i>`);
+    notifyOwner(`✍️ <b>She wanted to tell you something</b>\n\n<i>${esc(t)}</i>`);
     setText('');
     toast('Sent to him 💌 — he’s reading it');
   };
