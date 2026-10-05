@@ -21,6 +21,17 @@ export function loadCycle(): CycleData {
 
 export function saveCycle(d: CycleData) {
   try { localStorage.setItem(KEY, JSON.stringify(d)); } catch { /* ignore */ }
+  syncCycle(d);
+}
+
+/** Send her period dates to the server so phone reminders can be scheduled. */
+export function syncCycle(d: CycleData) {
+  if (typeof fetch === 'undefined' || d.starts.length === 0) return;
+  fetch('/api/push/cycle', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ starts: d.starts }),
+  }).catch(() => { /* offline — next save will retry */ });
 }
 
 export function fmtDate(d: Date): string {

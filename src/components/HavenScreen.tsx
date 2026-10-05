@@ -9,8 +9,9 @@ import { useTimeContext } from '@/lib/timeSystem';
 import { softTap, heartbeat, successVibe } from '@/lib/useHaptics';
 import { EASE, SPRING } from '@/lib/motion';
 import InstallApp from './InstallApp';
+import NotifyToggle from './NotifyToggle';
 import { HAVEN_LINES, FEELINGS, NEEDS, COMFORT_NOTES, SELF_CARE, LET_GO_REPLIES } from '@/data/haven';
-import { loadCycle, saveCycle, cycleInfo, PHASE_INFO, PAIN_LEVELS, fmtDate, predictCycles, dayKind, addDays, type CycleData, type CalcInput } from '@/lib/cycle';
+import { loadCycle, saveCycle, syncCycle, cycleInfo, PHASE_INFO, PAIN_LEVELS, fmtDate, predictCycles, dayKind, addDays, type CycleData, type CalcInput } from '@/lib/cycle';
 
 type View = 'hub' | 'breathe' | 'jar' | 'care' | 'letgo' | 'vent' | 'cycle';
 
@@ -186,6 +187,9 @@ function Hub({ onPick, toast }: { onPick: (v: View) => void; toast: (m: string) 
   const [cycle] = useState<CycleData>(loadCycle);
   const info = cycleInfo(cycle);
 
+  // Server copy of her dates for phone reminders (covers dates saved before this existed)
+  useEffect(() => { syncCycle(cycle); }, [cycle]);
+
   // Heads-up to him once per cycle when her period is ≤ 2 days away
   useEffect(() => {
     if (!info || info.daysUntilNext > 2 || info.daysUntilNext < 0) return;
@@ -241,6 +245,7 @@ function Hub({ onPick, toast }: { onPick: (v: View) => void; toast: (m: string) 
       </Card>
 
       <InstallApp />
+      <NotifyToggle />
 
       {/* Feelings */}
       <Card delay={0.08}>
