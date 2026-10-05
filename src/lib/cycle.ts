@@ -92,3 +92,48 @@ export const PAIN_LEVELS: { emoji: string; label: string }[] = [
   { emoji: '😣', label: 'Strong' },
   { emoji: '😭', label: 'Very bad' },
 ];
+
+// ─── Calculator: predicted periods / ovulation / fertile window ──────────────
+
+export interface CalcInput { lastStart: string; cycleLen: number; periodLen: number }
+export type DayKind = 'period' | 'fertile' | 'ovulation' | null;
+
+
+export function addDays(d: Date, n: number): Date {
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+}
+
+/** The next `count` predicted cycles starting from the last period. */
+export function predictCycles({ lastStart, cycleLen, periodLen }: CalcInput, count = 3) {
+  const first = parse(lastStart);
+  const today = parse(fmtDate(new Date()));
+  // Start from the period happening now, or the next upcoming one
+  let k = Math.max(0, Math.floor((today.getTime() - first.getTime()) / DAY / cycleLen));
+  if (addDays(first, k * cycleLen + periodLen - 1) < today) k++;
+  const out: { start: Date; end: Date; ovulation: Date; fertileStart: Date; fertileEnd: Date }[] = [];
+  for (let i = 0; i < count; i++, k++) {
+    const start = addDays(first, k * cycleLen);
+    const ovulation = addDays(start, cycleLen - 14);
+    out.push({
+      start,
+      end: addDays(start, periodLen - 1),
+      ovulation,
+      fertileStart: addDays(ovulation, -5),
+      fertileEnd: addDays(ovulation, 1),
+    });
+  }
+  return out;
+}
+
+/** Classify a calendar day relative to the predicted cycles (also covers earlier ones). */
+export function dayKind(day: Date, { lastStart, cycleLen, periodLen }: CalcInput): DayKind {
+  const first = parse(lastStart);
+  const diff = Math.round((day.getTime() - first.getTime()) / DAY);
+  if (diff < 0) return null;
+  const pos = diff % cycleLen;              // 0-based day inside its cycle
+  const ov = cycleLen - 14;
+  if (pos < periodLen) return 'period';
+  if (pos === ov) return 'ovulation';
+  if (pos >= ov - 5 && pos <= ov + 1) return 'fertile';
+  return null;
+}

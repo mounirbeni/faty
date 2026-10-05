@@ -9,7 +9,7 @@ import { useTimeContext } from '@/lib/timeSystem';
 import { softTap, heartbeat, successVibe } from '@/lib/useHaptics';
 import { EASE, SPRING } from '@/lib/motion';
 import { HAVEN_LINES, FEELINGS, NEEDS, COMFORT_NOTES, SELF_CARE, LET_GO_REPLIES } from '@/data/haven';
-import { loadCycle, saveCycle, cycleInfo, PHASE_INFO, PAIN_LEVELS, fmtDate, type CycleData } from '@/lib/cycle';
+import { loadCycle, saveCycle, cycleInfo, PHASE_INFO, PAIN_LEVELS, fmtDate, predictCycles, dayKind, addDays, type CycleData, type CalcInput } from '@/lib/cycle';
 
 type View = 'hub' | 'breathe' | 'jar' | 'care' | 'letgo' | 'vent' | 'cycle';
 
@@ -680,6 +680,8 @@ function Cycle({ toast }: { toast: (m: string) => void }) {
         🩸 My period started today
       </button>
 
+      <CycleCalculator lastStart={data.starts[data.starts.length - 1]} avgLength={info?.avgLength} />
+
       <Card>
         <Label>Started another day?</Label>
         <div className="flex gap-2">
@@ -722,5 +724,126 @@ function Cycle({ toast }: { toast: (m: string) => void }) {
 
       <p className="text-[11px] text-center" style={{ color: C.faint }}>Predictions are estimates, not medical advice. Saved only on this phone.</p>
     </motion.div>
+  );
+}
+
+// ─── Cycle calculator + calendar ─────────────────────────────────────────────
+
+const CALC_KEY = 'haven_calc';
+const WEEKDAYS = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+const KIND_STYLE = {
+  period:    { bg: '#FF7A9C', fg: '#3A0E25' },
+  fertile:   { bg: 'rgba(205,180,255,0.35)', fg: '#FFF3EA' },
+  ovulation: { bg: '#CDB4FF', fg: '#2A1530' },
+} as const;
+
+function loadLens(): { cycleLen: number; periodLen: number } | null {
+  try { const v = JSON.parse(localStorage.getItem(CALC_KEY) || 'null'); return v && v.cycleLen ? v : null; } catch { return null; }
+}
+
+function niceDate(d: Date) {
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+}
+
+function Stepper({ label, value, min, max, onChange }: { label: string; value: number; min: number; max: number; onChange: (v: number) => void }) {
+  return (
+    <div className="flex-1 rounded-2xl p-3" style={{ background: 'rgba(255,255,255,0.05)', border: `1px solid ${C.cardBorder}` }}>
+      <p className="text-[10px] uppercase tracking-wider font-bold" style={{ color: C.faint }}>{label}</p>
+      <div className="flex items-center justify-between mt-1.5">
+        <button onClick={() => { softTap(); onChange(Math.max(min, value - 1)); }} className="w-8 h-8 rounded-full text-[18px] font-black" style={{ background: 'rgba(255,255,255,0.08)', color: C.cream }}>−</button>
+        <span className="text-[20px] font-black tabular-nums" style={{ color: C.cream }}>{value}<span className="text-[11px] font-semibold" style={{ color: C.faint }}> d</span></span>
+        <button onClick={() => { softTap(); onChange(Math.min(max, value + 1)); }} className="w-8 h-8 rounded-full text-[18px] font-black" style={{ background: 'rgba(255,255,255,0.08)', color: C.cream }}>+</button>
+      </div>
+    </div>
+  );
+}
+
+function CycleCalculator({ lastStart, avgLength }: { lastStart?: string; avgLength?: number }) {
+  const [start, setStart] = useState(() => lastStart ?? fmtDate(new Date()));
+  const [lens, setLens] = useState(() => loadLens() ?? { cycleLen: avgLength ?? 28, periodLen: 5 });
+  const [monthOffset, setMonthOffset] = useState(0);
+
+  // Follow the tracker when she saves a new period start
+  const [seenLast, setSeenLast] = useState(lastStart);
+  if (lastStart !== seenLast) { setSeenLast(lastStart); if (lastStart) setStart(lastStart); }
+
+  const setLen = (k: 'cycleLen' | 'periodLen', v: number) => {
+    const next = { ...lens, [k]: v };
+    setLens(next);
+    try { localStorage.setItem(CALC_KEY, JSON.stringify(next)); } catch { /* ignore */ }
+  };
+
+  const input: CalcInput = { lastStart: start, ...lens };
+  const cycles = predictCycles(input, 3);
+  const todayIso = fmtDate(new Date());
+
+  // Month grid (Monday first)
+  const now = new Date();
+  const month = new Date(now.getFullYear(), now.getMonth() + monthOffset, 1);
+  const lead = (month.getDay() + 6) % 7;
+  const daysInMonth = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+  const cells: (Date | null)[] = [
+    ...Array.from({ length: lead }, () => null),
+    ...Array.from({ length: daysInMonth }, (_, i) => addDays(month, i)),
+  ];
+
+  return (
+    <Card>
+      <Label>Cycle calculator 🧮</Label>
+
+      <p className="text-[11px] font-bold uppercase tracking-wider mb-1.5" style={{ color: C.faint }}>First day of last period</p>
+      <input type="date" value={start} max={todayIso} onChange={e => e.target.value && setStart(e.target.value)}
+        className="w-full px-3 py-2.5 rounded-xl text-[14px] outline-none select-text mb-3"
+        style={{ background: 'rgba(255,255,255,0.06)', border: `1px solid ${C.cardBorder}`, color: C.cream, colorScheme: 'dark' }} />
+
+      <div className="flex gap-2 mb-4">
+        <Stepper label="Cycle length" value={lens.cycleLen} min={21} max={45} onChange={v => setLen('cycleLen', v)} />
+        <Stepper label="Period length" value={lens.periodLen} min={2} max={10} onChange={v => setLen('periodLen', v)} />
+      </div>
+
+      {/* Results */}
+      <div className="flex flex-col gap-2 mb-4">
+        {cycles.map((c, i) => (
+          <div key={i} className="rounded-2xl p-3" style={{ background: i === 0 ? 'rgba(255,122,156,0.14)' : 'rgba(255,255,255,0.04)', border: `1px solid ${i === 0 ? 'rgba(255,122,156,0.35)' : C.cardBorder}` }}>
+            <p className="text-[13px] font-bold" style={{ color: C.cream }}>
+              🩸 {niceDate(c.start)} – {niceDate(c.end)}
+              {fmtDate(c.start) <= todayIso && fmtDate(c.end) >= todayIso && <span style={{ color: C.rose }}> · now</span>}
+            </p>
+            <p className="text-[11.5px] mt-1" style={{ color: C.muted }}>
+              ✨ Ovulation ≈ {niceDate(c.ovulation)} · 🌸 Fertile {niceDate(c.fertileStart)} – {niceDate(c.fertileEnd)}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Calendar */}
+      <div className="flex items-center justify-between mb-2">
+        <button onClick={() => setMonthOffset(m => m - 1)} className="w-8 h-8 rounded-full text-[16px]" style={{ background: 'rgba(255,255,255,0.06)', color: C.cream }}>‹</button>
+        <p className="text-[14px] font-black" style={{ color: C.cream }}>{month.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}</p>
+        <button onClick={() => setMonthOffset(m => m + 1)} className="w-8 h-8 rounded-full text-[16px]" style={{ background: 'rgba(255,255,255,0.06)', color: C.cream }}>›</button>
+      </div>
+      <div className="grid grid-cols-7 gap-1 text-center">
+        {WEEKDAYS.map((w, i) => <span key={i} className="text-[10px] font-bold py-1" style={{ color: C.faint }}>{w}</span>)}
+        {cells.map((d, i) => {
+          if (!d) return <span key={i} />;
+          const kind = dayKind(d, input);
+          const st = kind ? KIND_STYLE[kind] : null;
+          const isToday = fmtDate(d) === todayIso;
+          return (
+            <span key={i} className="aspect-square flex items-center justify-center rounded-full text-[12px] font-semibold"
+              style={{ background: st?.bg ?? 'transparent', color: st?.fg ?? C.muted, outline: isToday ? `2px solid ${C.cream}` : 'none', outlineOffset: -2 }}>
+              {d.getDate()}
+            </span>
+          );
+        })}
+      </div>
+      <div className="flex flex-wrap gap-3 mt-3 text-[10.5px]" style={{ color: C.muted }}>
+        <span className="flex items-center gap-1"><i className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: KIND_STYLE.period.bg }} /> Period</span>
+        <span className="flex items-center gap-1"><i className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: KIND_STYLE.fertile.bg }} /> Fertile</span>
+        <span className="flex items-center gap-1"><i className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: KIND_STYLE.ovulation.bg }} /> Ovulation</span>
+        <span className="flex items-center gap-1"><i className="w-2.5 h-2.5 rounded-full inline-block" style={{ outline: `2px solid ${C.cream}`, outlineOffset: -2 }} /> Today</span>
+      </div>
+      <p className="text-[10.5px] mt-3" style={{ color: C.faint }}>Estimates only — not a method of contraception.</p>
+    </Card>
   );
 }
