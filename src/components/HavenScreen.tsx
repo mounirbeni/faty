@@ -9,8 +9,9 @@ import { useTimeContext } from '@/lib/timeSystem';
 import { softTap, heartbeat, successVibe } from '@/lib/useHaptics';
 import { EASE, SPRING } from '@/lib/motion';
 import { HAVEN_LINES, FEELINGS, NEEDS, COMFORT_NOTES, SELF_CARE, LET_GO_REPLIES } from '@/data/haven';
+import { loadCycle, saveCycle, cycleInfo, PHASE_INFO, PAIN_LEVELS, fmtDate, type CycleData } from '@/lib/cycle';
 
-type View = 'hub' | 'breathe' | 'jar' | 'care' | 'letgo' | 'vent';
+type View = 'hub' | 'breathe' | 'jar' | 'care' | 'letgo' | 'vent' | 'cycle';
 
 // ── Haven palette: warm dusk — plum, rose, peach, cream ──
 const C = {
@@ -32,6 +33,7 @@ const TITLES: Record<View, [string, string]> = {
   care:    ['Take care of you 🫖', 'Little things, one at a time'],
   letgo:   ['Let it go 🎈', 'Write it, then pop it away'],
   vent:    ['Say anything ✍️', 'No filter. No judgement. Ever.'],
+  cycle:   ['My cycle 🌙', 'Know what’s coming — and so will I'],
 };
 
 function todayKey() {
@@ -84,6 +86,7 @@ export default function HavenScreen() {
           {view === 'care'    && <Care key="care" toast={showToast} />}
           {view === 'letgo'   && <LetGo key="letgo" />}
           {view === 'vent'    && <Vent key="vent" toast={showToast} />}
+          {view === 'cycle'   && <Cycle key="cycle" toast={showToast} />}
         </AnimatePresence>
       </div>
 
@@ -179,6 +182,19 @@ function Hub({ onPick, toast }: { onPick: (v: View) => void; toast: (m: string) 
   };
 
   const current = FEELINGS.find(f => f.id === feeling);
+  const [cycle] = useState<CycleData>(loadCycle);
+  const info = cycleInfo(cycle);
+
+  // Heads-up to him once per cycle when her period is ≤ 2 days away
+  useEffect(() => {
+    if (!info || info.daysUntilNext > 2 || info.daysUntilNext < 0) return;
+    const flag = `haven_heads_up_${fmtDate(info.nextStart)}`;
+    try {
+      if (localStorage.getItem(flag)) return;
+      localStorage.setItem(flag, '1');
+    } catch { return; }
+    notifyOwner(`🌙 <b>Heads-up</b>\n\nHer period is expected ${info.daysUntilNext === 0 ? '<b>today</b>' : `in <b>${info.daysUntilNext} day${info.daysUntilNext === 1 ? '' : 's'}</b>`} (${fmtDate(info.nextStart)}).\n\n<i>Be extra sweet, extra patient — maybe send chocolate 🍫</i>`);
+  }, [info]);
 
   const tiles: { id: View; icon: React.ReactNode; label: string; sub: string; grad: string }[] = [
     { id: 'breathe', icon: <Wind size={22} />,     label: 'Breathe with me', sub: 'For cramps & heavy moments', grad: 'linear-gradient(135deg, #8E7CC3, #C3A6E8)' },
@@ -275,6 +291,24 @@ function Hub({ onPick, toast }: { onPick: (v: View) => void; toast: (m: string) 
           })}
         </div>
       </Card>
+
+      {/* Cycle */}
+      <motion.button onClick={() => { softTap(); onPick('cycle'); }}
+        className="w-full flex items-center gap-3.5 p-4 rounded-[22px] text-left"
+        style={{ background: 'linear-gradient(135deg, rgba(255,157,180,0.22), rgba(205,180,255,0.18))', border: '1px solid rgba(255,157,180,0.35)', color: C.cream }}
+        initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0, transition: { delay: 0.18, duration: 0.6, ease: EASE.smooth } }}
+        whileTap={{ scale: 0.98 }}>
+        <span className="w-12 h-12 rounded-2xl flex items-center justify-center text-[22px] shrink-0" style={{ background: 'rgba(255,255,255,0.1)' }}>🌙</span>
+        <span className="flex-1 min-w-0">
+          <span className="block text-[15px] font-black">My cycle</span>
+          <span className="block text-[12px] mt-0.5" style={{ color: C.muted }}>
+            {info
+              ? `Day ${info.day} · ${PHASE_INFO[info.phase].name} · next ≈ ${info.daysUntilNext <= 0 ? 'any day now' : `in ${info.daysUntilNext} days`}`
+              : 'Track it in one tap — I’ll know when to be extra gentle'}
+          </span>
+        </span>
+        <span className="text-[20px]">›</span>
+      </motion.button>
 
       {/* Tiles */}
       <div className="grid grid-cols-2 gap-3">
@@ -547,6 +581,128 @@ function Vent({ toast }: { toast: (m: string) => void }) {
         </button>
       </div>
       <p className="text-[11px] text-center" style={{ color: C.faint }}>“Just let it out” deletes it forever — nobody sees it, not even me.</p>
+    </motion.div>
+  );
+}
+
+// ─── Cycle tracker ───────────────────────────────────────────────────────────
+
+function Cycle({ toast }: { toast: (m: string) => void }) {
+  const [data, setData] = useState<CycleData>(loadCycle);
+  const [pickDate, setPickDate] = useState('');
+  const info = cycleInfo(data);
+
+  const update = (next: CycleData) => { setData(next); saveCycle(next); };
+
+  const addStart = (iso: string) => {
+    if (data.starts.includes(iso)) { toast('Already saved 🤍'); return; }
+    successVibe();
+    const starts = [...data.starts, iso].sort().slice(-12);
+    update({ ...data, starts });
+    const isToday = iso === fmtDate(new Date());
+    notifyOwner(`🩸 <b>Her period ${isToday ? 'started today' : `started on ${iso}`}</b>\n\n<i>Time to be the softest version of you. Check on her 💗</i>`);
+    toast('Saved — and he knows 💗');
+  };
+
+  const logPain = (lvl: number) => {
+    heartbeat();
+    const today = fmtDate(new Date());
+    update({ ...data, pain: { ...data.pain, [today]: lvl } });
+    const p = PAIN_LEVELS[lvl];
+    notifyOwner(`🌡️ <b>Pain today:</b> ${p.emoji} ${p.label} (${lvl}/4)${lvl >= 3 ? '\n\n<i>She’s hurting a lot — call her 📞</i>' : ''}`);
+    toast(lvl >= 3 ? 'I’m so sorry, my love. He’s been told 🤍' : 'Noted 🤍');
+  };
+
+  const removeLast = () => {
+    softTap();
+    update({ ...data, starts: data.starts.slice(0, -1) });
+  };
+
+  const todayPain = data.pain[fmtDate(new Date())];
+  const phase = info ? PHASE_INFO[info.phase] : null;
+
+  return (
+    <motion.div {...viewMotion} className="flex flex-col px-4 pb-10 gap-4">
+      {info && phase ? (
+        <Card>
+          <div className="flex items-center gap-4">
+            <div className="relative w-20 h-20 shrink-0">
+              <svg className="w-20 h-20 -rotate-90" viewBox="0 0 44 44">
+                <circle cx="22" cy="22" r="18" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="4" />
+                <circle cx="22" cy="22" r="18" fill="none" stroke={C.rose} strokeWidth="4" strokeLinecap="round"
+                  pathLength="100" strokeDasharray={`${Math.min(100, (info.day / info.avgLength) * 100)} 100`} />
+              </svg>
+              <span className="absolute inset-0 flex flex-col items-center justify-center" style={{ color: C.cream }}>
+                <span className="text-[9px] uppercase tracking-wider" style={{ color: C.faint }}>Day</span>
+                <span className="text-[20px] font-black leading-none">{info.day}</span>
+              </span>
+            </div>
+            <div className="min-w-0">
+              <p className="text-[16px] font-black" style={{ color: C.cream }}>{phase.emoji} {phase.name}</p>
+              <p className="text-[12px] mt-0.5" style={{ color: C.muted }}>
+                Next period ≈ <b style={{ color: C.peach }}>{fmtDate(info.nextStart)}</b>
+                {' '}({info.daysUntilNext <= 0 ? 'any day now' : `in ${info.daysUntilNext} days`})
+              </p>
+              <p className="text-[11px] mt-0.5" style={{ color: C.faint }}>Average cycle: {info.avgLength} days</p>
+            </div>
+          </div>
+          <p className="text-[13px] leading-relaxed mt-4" style={{ color: C.cream }}>{phase.tip}</p>
+        </Card>
+      ) : (
+        <Card>
+          <p className="text-[14px] leading-relaxed" style={{ color: C.cream }}>
+            Tell me when your period starts, and this page will predict the next one, explain how your body feels in each phase —
+            and quietly let me know when to be extra gentle. 🤍
+          </p>
+        </Card>
+      )}
+
+      <button onClick={() => addStart(fmtDate(new Date()))}
+        className="w-full py-4 rounded-2xl text-[15px] font-black" style={{ background: C.cream, color: '#4A1D3A' }}>
+        🩸 My period started today
+      </button>
+
+      <Card>
+        <Label>Started another day?</Label>
+        <div className="flex gap-2">
+          <input type="date" value={pickDate} max={fmtDate(new Date())} onChange={e => setPickDate(e.target.value)}
+            className="flex-1 px-3 py-2.5 rounded-xl text-[14px] outline-none select-text"
+            style={{ background: 'rgba(255,255,255,0.06)', border: `1px solid ${C.cardBorder}`, color: C.cream, colorScheme: 'dark' }} />
+          <button onClick={() => { if (pickDate) { addStart(pickDate); setPickDate(''); } }}
+            className="px-4 rounded-xl text-[13px] font-black" style={{ background: C.peach, color: '#4A1D3A' }}>Save</button>
+        </div>
+      </Card>
+
+      <Card>
+        <Label>How much does it hurt today?</Label>
+        <div className="grid grid-cols-5 gap-1.5">
+          {PAIN_LEVELS.map((p, lvl) => {
+            const on = todayPain === lvl;
+            return (
+              <motion.button key={lvl} onClick={() => logPain(lvl)} whileTap={{ scale: 0.92 }}
+                className="flex flex-col items-center gap-1 py-2.5 rounded-xl"
+                style={{ background: on ? C.cream : 'rgba(255,255,255,0.05)', border: `1px solid ${on ? C.cream : C.cardBorder}`, color: on ? '#4A1D3A' : C.cream }}>
+                <span className="text-[20px]">{p.emoji}</span>
+                <span className="text-[9.5px] font-bold leading-tight text-center">{p.label}</span>
+              </motion.button>
+            );
+          })}
+        </div>
+      </Card>
+
+      {data.starts.length > 0 && (
+        <Card>
+          <Label>Past periods</Label>
+          <div className="flex flex-wrap gap-2">
+            {[...data.starts].reverse().map(d => (
+              <span key={d} className="px-3 py-1.5 rounded-full text-[12px]" style={{ background: 'rgba(255,255,255,0.06)', color: C.muted }}>{d}</span>
+            ))}
+          </div>
+          <button onClick={removeLast} className="mt-3 text-[11px] underline" style={{ color: C.faint }}>Remove the latest date</button>
+        </Card>
+      )}
+
+      <p className="text-[11px] text-center" style={{ color: C.faint }}>Predictions are estimates, not medical advice. Saved only on this phone.</p>
     </motion.div>
   );
 }
