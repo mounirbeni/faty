@@ -618,7 +618,7 @@ function Cycle({ toast }: { toast: (m: string) => void }) {
     const starts = [...data.starts, iso].sort().slice(-12);
     update({ ...data, starts });
     const isToday = iso === fmtDate(new Date());
-    notifyOwner(`🩸 <b>Her period ${isToday ? 'started today' : `started on ${iso}`}</b>\n\n<i>Time to be the softest version of you. Check on her 💗</i>`);
+    notifyOwner(`🌸 <b>Her period ${isToday ? 'started today' : `started on ${iso}`}</b>\n\n<i>Time to be the softest version of you. Check on her 💗</i>`);
     toast('Saved — and he knows 💗');
   };
 
@@ -677,7 +677,7 @@ function Cycle({ toast }: { toast: (m: string) => void }) {
 
       <button onClick={() => addStart(fmtDate(new Date()))}
         className="w-full py-4 rounded-2xl text-[15px] font-black" style={{ background: C.cream, color: '#4A1D3A' }}>
-        🩸 My period started today
+        🌷 My period started today
       </button>
 
       <CycleCalculator lastStart={data.starts[data.starts.length - 1]} avgLength={info?.avgLength} />
@@ -806,7 +806,7 @@ function CycleCalculator({ lastStart, avgLength }: { lastStart?: string; avgLeng
         {cycles.map((c, i) => (
           <div key={i} className="rounded-2xl p-3" style={{ background: i === 0 ? 'rgba(255,122,156,0.14)' : 'rgba(255,255,255,0.04)', border: `1px solid ${i === 0 ? 'rgba(255,122,156,0.35)' : C.cardBorder}` }}>
             <p className="text-[13px] font-bold" style={{ color: C.cream }}>
-              🩸 {niceDate(c.start)} – {niceDate(c.end)}
+              🌷 {niceDate(c.start)} – {niceDate(c.end)}
               {fmtDate(c.start) <= todayIso && fmtDate(c.end) >= todayIso && <span style={{ color: C.rose }}> · now</span>}
             </p>
             <p className="text-[11.5px] mt-1" style={{ color: C.muted }}>

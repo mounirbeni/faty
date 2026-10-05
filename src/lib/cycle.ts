@@ -64,7 +64,7 @@ export function cycleInfo(data: CycleData) {
 
 export const PHASE_INFO: Record<CyclePhase, { name: string; emoji: string; tip: string }> = {
   period: {
-    name: 'Period days', emoji: '🩸',
+    name: 'Period days', emoji: '🌸',
     tip: 'Your body is working hard. Heat on your tummy, warm drinks, iron-rich food (lentils, dates, spinach) and lots of rest. Nothing is required of you right now.',
   },
   follicular: {
