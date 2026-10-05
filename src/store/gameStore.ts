@@ -5,6 +5,7 @@ import { questionsData } from '@/data/questions';
 export type AppPhase =
   | 'welcome'
   | 'home'
+  | 'map'
   | 'game'
   | 'open-book'
   | 'rate-us'

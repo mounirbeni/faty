@@ -37,7 +37,8 @@ interface ScreenVisit {
 
 const CINEMATIC: Record<string, string> = {
   'welcome':           '✨ the Universe Portal',
-  'home':              '🗺️ the Universe Map',
+  'home':              '🌸 her Haven',
+  'map':               '🗺️ the Universe Map',
   'game':              '📖 the Chapter Journals',
   'vault':             '🌌 the Memory Sky',
   'comfort-mode':      '🫂 the Comfort Room',

@@ -6,6 +6,7 @@ import WelcomeScreen from '@/components/WelcomeScreen';
 import GameScreen from '@/components/GameScreen';
 import CompletionScreen from '@/components/CompletionScreen';
 import HomeMapScreen from '@/components/HomeMapScreen';
+import HavenScreen from '@/components/HavenScreen';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import TouchGlow from '@/components/TouchGlow';
 import CinematicLoader from '@/components/CinematicLoader';
@@ -113,7 +114,8 @@ export default function HomePage() {
 
       <AnimatePresence mode="wait">
         {currentPhase === 'welcome'           && <Screen key="welcome"><WelcomeScreen /></Screen>}
-        {currentPhase === 'home'              && <Screen key="home"><HomeMapScreen /></Screen>}
+        {currentPhase === 'home'              && <Screen key="home"><HavenScreen /></Screen>}
+        {currentPhase === 'map'               && <Screen key="map"><HomeMapScreen /></Screen>}
         {currentPhase === 'game'              && <Screen key="game"><GameScreen /></Screen>}
         {currentPhase === 'open-book'         && <Screen key="open-book"><OpenBookScreen /></Screen>}
         {currentPhase === 'rate-us'           && <Screen key="rate-us"><RateUsScreen /></Screen>}

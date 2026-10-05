@@ -200,6 +200,11 @@ export default function HomeMapScreen() {
               Our Map
             </span>
           </div>
+          <button onClick={() => { softTap(); setPhase('home'); }}
+            className="px-3 py-2 rounded-xl text-[11px] font-bold"
+            style={{ background: 'rgba(255,201,168,0.12)', border: '1px solid rgba(255,201,168,0.3)', color: '#FFC9A8' }}>
+            🌸 Haven
+          </button>
           <button onClick={handleProgressTap} className="flex items-center gap-2 cursor-pointer">
             <div className="relative w-11 h-11">
               <svg className="w-11 h-11 -rotate-90" viewBox="0 0 44 44">
